@@ -1,0 +1,13 @@
+# VS Code
+.vscode/
+
+# Java compiled files
+*.class
+
+# Build output
+bin/
+out/
+target/
+
+# Libraries
+lib/
