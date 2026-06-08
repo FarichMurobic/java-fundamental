@@ -1,12 +1,6 @@
 # Java Fundamental Learning
 
-Java • Beginner → Intermediate • Learning Core Java & OOP
-
-## Overview
-
-Repository ini berisi dokumentasi pembelajaran Java Fundamental yang dilakukan secara bertahap dari dasar hingga konsep Object-Oriented Programming (OOP).
-
-Tujuan utama repository ini adalah memahami konsep inti Java melalui praktik langsung, latihan, dan implementasi kode.
+This repository documents my Java learning journey starting from fundamental concepts to Object-Oriented Programming (OOP). The focus is on hands-on practice, problem solving, and building a strong understanding of core Java concepts.
 
 ---
 
@@ -24,12 +18,10 @@ Tujuan utama repository ini adalah memahami konsep inti Java melalui praktik lan
 
 ## Objective
 
-| Tujuan                 | Penjelasan                                             |
-| ---------------------- | ------------------------------------------------------ |
-| Learning Documentation | Mendokumentasikan perjalanan belajar Java              |
-| Skill Improvement      | Melatih kemampuan coding dan problem solving           |
-| Git Familiarity        | Membiasakan penggunaan Git & GitHub                    |
-| Career Preparation     | Persiapan menjadi Backend Developer (Java Spring Boot) |
+Learning Documentation
+Skill Improvement
+Git Familiarity
+Career Preparation
 
 ---
 
@@ -44,3 +36,5 @@ Setiap folder berisi implementasi konsep Java yang dipelajari secara bertahap.
 ## License
 
 This project is licensed under the MIT License.
+
+## Author Farich Murobic
