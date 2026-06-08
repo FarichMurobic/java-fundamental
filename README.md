@@ -37,4 +37,8 @@ Setiap folder berisi implementasi konsep Java yang dipelajari secara bertahap.
 
 This project is licensed under the MIT License.
 
-## Author Farich Murobic
+---
+
+## Author 
+
+Farich Murobic
