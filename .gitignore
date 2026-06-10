@@ -11,3 +11,6 @@ target/
 
 # Libraries
 lib/
+
+# Data
+data/
