@@ -2,6 +2,7 @@ package Generics;
 
 /**
  * MASALAH AWAL (KENAPA PERLU WILDCARD?)
+ * 
  * Lu punya class:
  * class Stats<T extends Number>
  *

@@ -1,0 +1,8 @@
+package PROJECTSEDERHANA.ValidasiData.ValidasiSederhana;
+
+public class WeakPasswordException extends Exception {
+    
+    WeakPasswordException(String message) {
+        super(message);
+    }
+}
