@@ -4,7 +4,7 @@ import java.util.Locale;
 
 /**
  * Additional String Methods ------------------------------------------------------------------------------------------------------------------------------------
- * Method	                                                            Deskripsi (Bahasa Indonesia)
+ * Method	                                                            Deskripsi
  * int codePointAt(int i)	                                            Mengembalikan nilai Unicode (code point) dari karakter pada index ke-i.
  *                                                                      Cocok untuk karakter Unicode (misalnya emoji, simbol).
  * int codePointBefore(int i)	                                        Mengembalikan nilai Unicode dari karakter sebelum index i.
