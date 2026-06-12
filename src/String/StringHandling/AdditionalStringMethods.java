@@ -6,7 +6,7 @@ import java.util.Locale;
  * Additional String Methods ------------------------------------------------------------------------------------------------------------------------------------
  * Method	                                                            Deskripsi (Bahasa Indonesia)
  * int codePointAt(int i)	                                            Mengembalikan nilai Unicode (code point) dari karakter pada index ke-i.
- *                                                                 Cocok untuk karakter Unicode (misalnya emoji, simbol).
+ *                                                                      Cocok untuk karakter Unicode (misalnya emoji, simbol).
  * int codePointBefore(int i)	                                        Mengembalikan nilai Unicode dari karakter sebelum index i.
  * int codePointCount(int start, int end)	                            Menghitung jumlah karakter Unicode (code point) dari index start sampai end - 1.
  * boolean contains(CharSequence str)	                                Mengecek apakah string mengandung substring tertentu. Return true jika ada.
