@@ -108,7 +108,6 @@ package EXPLOREJAVALANG.AutoClosable;
  * Insight penting:
  * Ini wajib di backend
  * Bikin code:
- *
  * aman
  * clean
  * profesional
