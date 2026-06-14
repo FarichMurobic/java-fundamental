@@ -141,12 +141,10 @@ public class ClassLoaderJava {
             Class<?> cls = Class.forName("java.lang.String");
             System.out.println("Class loaded: " + cls.getName());
             // Class loaded: java.lang.String
-            
+
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-
     }
-
 }
