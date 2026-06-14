@@ -139,6 +139,7 @@ public class ExecOtherProgram {
         try {
             // Menjalankan program Notepad
             // Jalankan Notepad
+            // Method exec() depracated since 18 
             proses = runtime.exec("notepad");
 
             // Tunggu sampai user nutup notepad
