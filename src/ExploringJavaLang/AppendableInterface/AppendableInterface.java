@@ -1,4 +1,4 @@
-package ExploreJavaLang.AppendableInterface;
+package ExploringJavaLang.AppendableInterface;
 
 /**
  * The Appendable Interface

@@ -1,4 +1,4 @@
-package ExploreJavaLang.ClassJava;
+package ExploringJavaLang.ClassJava;
 
 /**
  * Class

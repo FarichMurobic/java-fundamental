@@ -1,4 +1,4 @@
-package ExploreJavaLang.MathJava;
+package ExploringJavaLang.MathJava;
 
 /**
  * Math Class

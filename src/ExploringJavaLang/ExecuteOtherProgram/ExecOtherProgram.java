@@ -1,4 +1,4 @@
-package ExploreJavaLang.ExecuteOtherProgram;
+package ExploringJavaLang.ExecuteOtherProgram;
 
 /**
  * Executing Other Programs

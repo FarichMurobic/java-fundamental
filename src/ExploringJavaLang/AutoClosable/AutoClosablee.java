@@ -1,4 +1,4 @@
-package ExploreJavaLang.AutoClosable;
+package ExploringJavaLang.AutoClosable;
 
 /**
  * The AutoCloseable Interface

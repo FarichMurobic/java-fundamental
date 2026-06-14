@@ -1,4 +1,4 @@
-package ExploreJavaLang.IterableIInterface;
+package ExploringJavaLang.IterableIInterface;
 
 /**
  * The Iterable Interface
