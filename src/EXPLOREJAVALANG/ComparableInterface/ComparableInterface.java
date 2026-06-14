@@ -1,4 +1,4 @@
-package EXPLOREJAVALANG.ComparableInterface;
+package ExploreJavaLang.ComparableInterface;
 
 
 /**

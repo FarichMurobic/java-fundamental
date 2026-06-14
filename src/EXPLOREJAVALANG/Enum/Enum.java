@@ -1,4 +1,4 @@
-package EXPLOREJAVALANG.Enum;
+package ExploreJavaLang.Enum;
 
 /**
  * Enum

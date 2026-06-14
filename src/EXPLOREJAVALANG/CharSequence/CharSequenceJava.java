@@ -1,4 +1,4 @@
-package EXPLOREJAVALANG.CharSequence;
+package ExploreJavaLang.CharSequence;
 
 /**
  * The CharSequence Interface

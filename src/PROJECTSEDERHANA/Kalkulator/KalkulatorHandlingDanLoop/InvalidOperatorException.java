@@ -1,8 +1,0 @@
-package PROJECTSEDERHANA.Kalkulator.KalkulatorHandlingDanLoop;
-
-public class InvalidOperatorException extends Exception {
-
-    public InvalidOperatorException(String message) {
-        super(message);
-    }
-}

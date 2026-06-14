@@ -1,4 +1,4 @@
-package EXPLOREJAVALANG;
+package ExploreJavaLang;
 
 /**
  * Menjelajahi java.lang
