@@ -1,240 +1,424 @@
 package FundamentalJava.Assert;
 
-/*
-
-Assert adalah keyword di Java yang harus dipakai saat development untuk:
-memastikan suatu kondisi HARUS BENAR.
-
-Contoh:
-Misalnya:
-sebuah method harus selalu return angka positif
-
-kita bisa cek:
-assert hasil > 0;
-
-Cara kerja:
-Kalau kondisi true → program lanjut biasa 
-Kalau kondisi false → muncul error:
-AssertionError
-
-Biasanya dipakai untuk:
-testing
-debugging
-validasi internal
-
-JARANG DIPAKAI DI KODE PRODUCTION
-
-----------------------------------------------------------
-
-Bentuk assert 
-
-1. Bentuk sederhana
-assert condition;
-
-contoh:
-assert n > 0;
-
-2. Dengan pesan
-assert condition : message;
-
-contoh:
-assert n > 0 : "n is negative!";
-
-Kalau gagal:
-AssertionError: n is negative!
-
---------------------------------------------
-
-Cara menjalankan (PENTING BANGET)
-
-Secara default:
-assert itu MATI (Disabled)
-
-Aktifkan pakai:
-java -ea AssertDemo
-
--ea = enable assertion
-
-versi dengan pesan
-assert n > 0 : "n is negative!"
-
-output:
-Exception in thread "main" java.lang.AssertionError: n is negative!
-
-sebelum ada assert (cara lama)
-
-if (n < 0) {
-    System.out.println("n is negative!");
-    return;
-}
-
-Dengan assert 
-assert n > 0;
-
-Lebih singkat, bersih, dan fokus.
-
-----------------------------------------------------
-
-Analogi Biar Nempel
-assert itu kayak:
-“Cek internal developer”
-
-Misal:
-lu bikin mesin
-lu cek:
-"gear harus muter"
-
-Kalau gak:
-alarm bunyi (AssertionError)
-
---------------------------------------------
-
-Kesimpulan
-
-assert = alat buat ngecek kondisi saat development
-Kalau gagal → AssertionError
-
-Default:
-mati
-harus diaktifkan manual
-
-RULE PENTING
-Jangan taruh logic penting di assert
-Jangan andalkan assert di production
-
-Gunakan assert untuk:
-debugging
-testing internal
-validasi asumsi
-
-Insight Level Programmer
-assert bukan pengganti if atau exception
-
-BEDANYA:
-FITUR       TUJUAN
-assert      cek internal dev
-if          logic program
-exception   handle error user
-
-*/
-
 /**
- * Assertion Enabling and Disabling Options
+ * ---------------------------------------------------------------------------
+ * ASSERT (JAVA ASSERTION)
+ * ---------------------------------------------------------------------------
  *
- * Saat menjalankan program Java:
- * Lu bisa:
- * mematikan semua assertion
- * mengaktifkan assertion tertentu (per package / class)
+ * Assert adalah keyword di Java yang digunakan untuk memverifikasi
+ * bahwa suatu kondisi yang dianggap benar oleh programmer memang
+ * benar saat program dijalankan.
  *
- * 1. Disable Semua Assertion
- * java -da ClassName
- * -da = disable assertions
+ * Assert umumnya digunakan selama proses:
+ *
+ * - Development.
+ * - Testing.
+ * - Debugging.
+ * - Validasi asumsi internal program.
+ *
+ * Jika kondisi yang diperiksa bernilai:
+ *
+ * - true  -> Program berjalan normal.
+ * - false -> JVM melempar AssertionError.
+ *
+ * Flow:
+ * Assert Dijalankan
+ * -> Kondisi Diperiksa
+ * -> true  -> Program Lanjut
+ * -> false -> AssertionError
+ *
+ * ---------------------------------------------------------------------------
+ * TUJUAN ASSERT
+ * ---------------------------------------------------------------------------
+ *
+ * Assert digunakan untuk memeriksa asumsi yang seharusnya selalu
+ * benar menurut logika program.
+ *
+ * Contoh:
+ *
+ * Sebuah method seharusnya selalu menghasilkan angka positif.
+ *
+ * assert result > 0;
+ *
+ * Jika ternyata result bernilai negatif, berarti terdapat bug
+ * atau kondisi yang tidak sesuai dengan asumsi programmer.
+ *
+ * ---------------------------------------------------------------------------
+ * BENTUK ASSERT
+ * ---------------------------------------------------------------------------
+ *
+ * Java menyediakan dua bentuk assert.
+ *
+ * ---------------------------------------------------------------------------
+ * 1. ASSERT SEDERHANA
+ * ---------------------------------------------------------------------------
+ *
+ * Sintaks:
+ *
+ * assert condition;
+ *
+ * Contoh:
+ *
+ * assert n > 0;
+ *
+ * Jika kondisi bernilai false:
+ *
+ * Exception in thread "main"
+ * java.lang.AssertionError
+ *
+ * ---------------------------------------------------------------------------
+ * 2. ASSERT DENGAN PESAN
+ * ---------------------------------------------------------------------------
+ *
+ * Sintaks:
+ *
+ * assert condition : message;
+ *
+ * Contoh:
+ *
+ * assert n > 0 : "n is negative!";
+ *
+ * Jika kondisi bernilai false:
+ *
+ * Exception in thread "main"
+ * java.lang.AssertionError: n is negative!
+ *
+ * Bentuk ini lebih disukai karena memberikan informasi tambahan
+ * saat assertion gagal.
+ *
+ * ---------------------------------------------------------------------------
+ * ASSERT TIDAK AKTIF SECARA DEFAULT
+ * ---------------------------------------------------------------------------
+ *
+ * Hal yang sangat penting untuk dipahami:
+ *
+ * Assertion di Java secara default dalam keadaan NONAKTIF
+ * (disabled).
  *
  * Artinya:
- * semua assert di program tidak dijalankan
  *
- * 2. Enable / Disable per Package
- * Enable package
- * java -ea:MyPack... ClassName
+ * Seluruh pernyataan assert akan diabaikan oleh JVM kecuali
+ * diaktifkan secara eksplisit.
  *
- * Disable package
- * java -da:MyPack... ClassName
- *
- * Penjelasan:
- * MyPack...
- *
- * artinya:
- * package MyPack
- * semua subpackage di dalamnya
- *
- * Contoh struktur:
- * MyPack
- *  ├── A
- *  ├── B
- *  └── subpack
- *       └── C
- *
- * Kalau:
- * -ea:MyPack...
- * ✔ semua class di atas kena
- *
- * Enable per Class
  * Contoh:
- * java -ea:AssertDemo
  *
- * cuma class itu aja yang aktif assert-nya
- *
- * Urutan Prioritas (PENTING)
- *
- * Kalau lu campur:
- * java -ea -da:MyPack... -ea:MyPack.Test
- *
- * artinya:
- * semua aktif
- * MyPack dimatikan
- * Test dihidupkan lagi
- *
- * Java baca dari kiri ke kanan
- *
- * Contoh Nyata (Biar Kebayang)
- *
- * Misal:
- * assert x > 0;
- * Case 1:
  * java MyApp
  *
- * assert mati
+ * Hasil:
  *
- * Case 2:
+ * Semua assert diabaikan.
+ *
+ * ---------------------------------------------------------------------------
+ * MENGAKTIFKAN ASSERTION
+ * ---------------------------------------------------------------------------
+ *
+ * Untuk mengaktifkan assertion:
+ *
  * java -ea MyApp
  *
- * semua assert aktif
+ * atau:
+ *
+ * java -enableassertions MyApp
+ *
+ * Keterangan:
+ *
+ * -ea = Enable Assertions
+ *
+ * Hasil:
+ *
+ * Seluruh assert dalam program akan dijalankan.
+ *
+ * ---------------------------------------------------------------------------
+ * SEBELUM ADA ASSERT
+ * ---------------------------------------------------------------------------
+ *
+ * Sebelum menggunakan assert, programmer sering menulis:
+ *
+ * if (n < 0) {
+ *     System.out.println("n is negative!");
+ *     return;
+ * }
+ *
+ * Dengan assert:
+ *
+ * assert n > 0;
+ *
+ * Kode menjadi:
+ *
+ * - Lebih singkat.
+ * - Lebih jelas.
+ * - Fokus pada asumsi yang ingin diverifikasi.
+ *
+ * ---------------------------------------------------------------------------
+ * ASSERT BUKAN PENGGANTI IF
+ * ---------------------------------------------------------------------------
+ *
+ * Salah satu kesalahan yang sering dilakukan pemula adalah
+ * menggunakan assert sebagai pengganti logika program.
+ *
+ * Ini tidak disarankan.
+ *
+ * Assert digunakan untuk:
+ *
+ * - Memeriksa asumsi internal developer.
+ * - Menemukan bug.
+ * - Validasi saat development.
+ *
+ * Bukan untuk:
+ *
+ * - Validasi input user.
+ * - Business logic.
+ * - Penanganan error aplikasi.
+ *
+ * ---------------------------------------------------------------------------
+ * PERBEDAAN ASSERT, IF, DAN EXCEPTION
+ * ---------------------------------------------------------------------------
+ *
+ * Assert:
+ * -> Memeriksa asumsi internal programmer.
+ *
+ * If:
+ * -> Menjalankan logika program berdasarkan kondisi tertentu.
+ *
+ * Exception:
+ * -> Menangani kondisi error yang dapat terjadi saat runtime.
+ *
+ * Flow:
+ *
+ * Assert
+ * -> Cek Asumsi Internal
+ *
+ * If
+ * -> Cek Logika Program
+ *
+ * Exception
+ * -> Tangani Error Runtime
+ *
+ * ---------------------------------------------------------------------------
+ * ANALOGI SEDERHANA
+ * ---------------------------------------------------------------------------
+ *
+ * Bayangkan programmer membuat sebuah mesin.
+ *
+ * Programmer yakin bahwa:
+ *
+ * "Gear utama harus selalu berputar."
+ *
+ * Maka programmer menambahkan:
+ *
+ * assert gearIsMoving;
+ *
+ * Jika gear berhenti:
+ *
+ * -> Alarm berbunyi (AssertionError)
+ * -> Menunjukkan ada masalah pada desain atau implementasi
+ *
+ * ---------------------------------------------------------------------------
+ * ENABLE DAN DISABLE ASSERTION
+ * ---------------------------------------------------------------------------
+ *
+ * Java memberikan kontrol penuh terhadap assertion saat program
+ * dijalankan.
+ *
+ * Assertion dapat:
+ *
+ * - Diaktifkan untuk seluruh program.
+ * - Dimatikan untuk seluruh program.
+ * - Diaktifkan per package.
+ * - Dimatikan per package.
+ * - Diaktifkan per class.
+ *
+ * ---------------------------------------------------------------------------
+ * DISABLE SEMUA ASSERTION
+ * ---------------------------------------------------------------------------
+ *
+ * Sintaks:
+ *
+ * java -da ClassName
+ *
+ * atau:
+ *
+ * java -disableassertions ClassName
+ *
+ * Keterangan:
+ *
+ * -da = Disable Assertions
+ *
+ * Hasil:
+ *
+ * Semua assert tidak dijalankan.
+ *
+ * ---------------------------------------------------------------------------
+ * ENABLE ASSERTION PER PACKAGE
+ * ---------------------------------------------------------------------------
+ *
+ * Sintaks:
+ *
+ * java -ea:com.app.service... MyApp
+ *
+ * Hasil:
+ *
+ * Assertion aktif hanya untuk:
+ *
+ * com.app.service
+ * dan seluruh subpackage di bawahnya.
+ *
+ * Flow:
+ *
+ * com.app.service
+ * -> user
+ * -> product
+ * -> security
+ * -> dll
+ *
+ * Semuanya ikut aktif.
+ *
+ * ---------------------------------------------------------------------------
+ * DISABLE ASSERTION PER PACKAGE
+ * ---------------------------------------------------------------------------
+ *
+ * Sintaks:
+ *
+ * java -da:com.app.service... MyApp
+ *
+ * Hasil:
+ *
+ * Semua class dalam package tersebut tidak menjalankan assert.
+ *
+ * ---------------------------------------------------------------------------
+ * ENABLE ASSERTION PER CLASS
+ * ---------------------------------------------------------------------------
+ *
+ * Sintaks:
+ *
+ * java -ea:AssertDemo
+ *
+ * Hasil:
+ *
+ * Hanya class AssertDemo yang menjalankan assertion.
+ *
+ * ---------------------------------------------------------------------------
+ * URUTAN PRIORITAS
+ * ---------------------------------------------------------------------------
+ *
+ * JVM membaca opsi assertion dari kiri ke kanan.
+ *
+ * Contoh:
+ *
+ * java -ea -da:MyPack... -ea:MyPack.Test
+ *
+ * Artinya:
+ *
+ * - Seluruh assertion diaktifkan.
+ * - Package MyPack dimatikan.
+ * - Class MyPack.Test diaktifkan kembali.
+ *
+ * Hasil akhir:
+ *
+ * MyPack.Test -> Aktif
+ * Class lain di MyPack -> Nonaktif
+ *
+ * ---------------------------------------------------------------------------
+ * CONTOH SKENARIO
+ * ---------------------------------------------------------------------------
+ *
+ * Misal:
+ *
+ * assert x > 0;
+ *
+ * Case 1:
+ *
+ * java MyApp
+ *
+ * Hasil:
+ *
+ * Assert tidak dijalankan.
+ *
+ * ---------------------------------------------------------------------------
+ *
+ * Case 2:
+ *
+ * java -ea MyApp
+ *
+ * Hasil:
+ *
+ * Seluruh assert dijalankan.
+ *
+ * ---------------------------------------------------------------------------
  *
  * Case 3:
+ *
  * java -ea:com.app.service... MyApp
- * cuma package itu yang aktif
+ *
+ * Hasil:
+ *
+ * Hanya package tersebut yang menjalankan assertion.
+ *
+ * ---------------------------------------------------------------------------
  *
  * Case 4:
- * java -da:com.app.service... -ea:com.app.service.UserService MyApp
  *
- * hasil:
- * semua service mati
- * kecuali UserService hidup
+ * java -da:com.app.service...
+ *      -ea:com.app.service.UserService
+ *      MyApp
  *
- * Insight Penting
- * Kenapa Java bikin sistem ini?
+ * Hasil:
  *
- * Karena:
- * assert = alat debug, bukan logic utama
+ * - Seluruh service nonaktif.
+ * - UserService aktif kembali.
  *
- * Jadi:
- * Dev bisa aktifin saat testing
- * Production bisa matiin biar:
- * lebih cepat
- * lebih ringan
+ * ---------------------------------------------------------------------------
+ * INSIGHT JAVA MODERN
+ * ---------------------------------------------------------------------------
  *
- * Kesimpulan Santai
- * -ea → enable assertion
- * -da → disable assertion
+ * Dalam pengembangan aplikasi modern, assertion relatif jarang
+ * digunakan dibandingkan:
  *
- * Bisa diatur:
- * seluruh program
- * per package (...)
- * per class
+ * - Unit Test (JUnit).
+ * - Validation Framework.
+ * - Exception Handling.
  *
- * Rule penting:
+ * Namun assertion tetap berguna untuk:
  *
- * assert default = OFF
- * harus diaktifkan manual
+ * - Debugging.
+ * - Memastikan invariant object.
+ * - Memverifikasi asumsi internal program.
  *
- * Insight Level Atas
- * Di dunia kerja:
- * assert dipakai saat testing/debugging
+ * Framework seperti Spring Boot umumnya lebih mengandalkan:
  *
- * production:
- * hampir selalu dimatikan
+ * - IllegalArgumentException
+ * - IllegalStateException
+ * - Bean Validation
+ *
+ * daripada assert untuk validasi aplikasi.
+ *
+ * ---------------------------------------------------------------------------
+ * KESIMPULAN
+ * ---------------------------------------------------------------------------
+ *
+ * Assert adalah mekanisme debugging yang digunakan untuk
+ * memverifikasi bahwa suatu kondisi yang dianggap benar oleh
+ * programmer memang benar saat runtime.
+ *
+ * Jika kondisi gagal:
+ *
+ * -> JVM melempar AssertionError.
+ *
+ * Hal yang wajib diingat:
+ *
+ * - Assert default-nya OFF.
+ * - Harus diaktifkan menggunakan -ea.
+ * - Tidak boleh digunakan untuk business logic.
+ * - Tidak boleh digunakan untuk validasi input user.
+ * - Bukan pengganti if atau exception.
+ *
+ * Gunakan assert untuk:
+ *
+ * - Debugging.
+ * - Testing internal.
+ * - Memverifikasi asumsi program.
+ * - Menemukan bug lebih cepat saat development.
  */
-
 
 public class Assert {
 

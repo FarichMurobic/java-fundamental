@@ -1,77 +1,350 @@
 package FundamentalJava.ClassAndObject;
 
-    /**
-     * Konsep Intinya
-     *
-     * Biasanya konstruktor nerima:
-     * String nama, int umur
-     *
-     * Tapi kita juga bisa nerima:
-     * ObjekLain obj
-     *
-     * Artinya:
-     * Kita ngirim satu objek utuh ke dalam objek lain
-     *
-     * Hal Penting yang Sering Bikin Bingung
-     * Ini bukan copy object
-     * 
-     * Contoh:
-     * Mobil m = new Mobil(e);
-     * m.engine itu referensi ke object yang sama
-     *
-     * Jadi kalau diubah:
-     * e.tenaga = 200;
-     *
-     * otomatis:
-     * m.engine.tenaga = 200;
-     * Ini penting banget → pass by reference (lebih tepatnya reference value di Java)
-     *
-     * -----------------------------------------------------
-     * 
-     * Kesimpulan Penting
-     * Konstruktor bisa nerima object sebagai parameter
-     * Ini dipakai untuk:
-     * menghubungkan class
-     * bikin relasi antar object
-     * Ini disebut:
-     * composition (HAS-A)
-     * Yang dikirim itu:
-     * referensi, bukan copy
-     */
-
-    /**
-     * Ini Namanya Apa?
-     *
-     * Ini disebut:
-     * Object Composition (HAS-A relationship)
-     *
-     * Contoh:
-     * Mobil punya Engine
-     * Game punya Player
-     * Kasir punya Transaksi
-     *
-     * Kenapa Gak Langsung Aja Int?
-     * Misalnya:
-     * jelek:
-     *
-     * class Mobil {
-     *     int tenaga;
-     * }
-     *
-     * lebih fleksibel:
-     *
-     * class Mobil {
-     *     Engine engine;
-     * }
-     *
-     * Kenapa?
-     * Karena Engine bisa punya banyak data:
-     * int tenaga;
-     * String tipe;
-     * boolean turbo;
-     *
-     * Jadi lebih scalable bro
-     */
+/**
+ * ---------------------------------------------------------------------------
+ * OBJECT SEBAGAI PARAMETER CONSTRUCTOR
+ * ---------------------------------------------------------------------------
+ *
+ * Secara umum, constructor biasanya menerima nilai-nilai sederhana
+ * (primitive type) atau data lain yang digunakan untuk
+ * menginisialisasi object.
+ *
+ * Contoh:
+ *
+ * String nama
+ * int umur
+ * double gaji
+ *
+ * Namun, constructor juga dapat menerima object lain sebagai
+ * parameter.
+ *
+ * Contoh:
+ *
+ * class Mobil {
+ *
+ *     Engine engine;
+ *
+ *     Mobil(Engine engine) {
+ *         this.engine = engine;
+ *     }
+ *
+ * }
+ *
+ * Pada contoh tersebut, constructor Mobil menerima sebuah object
+ * Engine sebagai parameter.
+ *
+ * Flow:
+ *
+ * Object Engine
+ * -> Dikirim Ke Constructor Mobil
+ * -> Disimpan Ke Instance Variable
+ * -> Mobil Memiliki Engine
+ *
+ * ---------------------------------------------------------------------------
+ * KONSEP UTAMA
+ * ---------------------------------------------------------------------------
+ *
+ * Ketika sebuah object dikirim ke constructor, yang dikirim
+ * sebenarnya bukan object fisiknya.
+ *
+ * Java selalu menggunakan mekanisme:
+ *
+ * Call-by-Value
+ *
+ * Artinya:
+ *
+ * Yang dicopy adalah reference object.
+ *
+ * Bukan:
+ *
+ * Object itu sendiri.
+ *
+ * Misalnya:
+ *
+ * Engine e = new Engine();
+ *
+ * Mobil m = new Mobil(e);
+ *
+ * Visualisasi:
+ *
+ * e
+ * -> Engine Object
+ *
+ * Constructor Mobil(e)
+ * -> Reference Dicopy
+ *
+ * m.engine
+ * -> Menunjuk Engine Object Yang Sama
+ *
+ * ---------------------------------------------------------------------------
+ * HAL PENTING YANG SERING MEMBINGUNGKAN
+ * ---------------------------------------------------------------------------
+ *
+ * Banyak programmer pemula mengira bahwa saat object dikirim ke
+ * constructor, Java otomatis membuat salinan object tersebut.
+ *
+ * Kenyataannya:
+ *
+ * Tidak ada proses copy object yang terjadi.
+ *
+ * Yang terjadi hanyalah:
+ *
+ * Reference object dikirim ke constructor dan disimpan.
+ *
+ * Akibatnya:
+ *
+ * e dan m.engine menunjuk object yang sama.
+ *
+ * Contoh:
+ *
+ * Engine e = new Engine();
+ *
+ * Mobil m = new Mobil(e);
+ *
+ * e.tenaga = 200;
+ *
+ * Maka:
+ *
+ * m.engine.tenaga = 200;
+ *
+ * karena keduanya menunjuk object Engine yang sama.
+ *
+ * Flow:
+ *
+ * e
+ * -> Engine Object
+ *
+ * m.engine
+ * -> Engine Object Yang Sama
+ *
+ * Ubah Engine
+ * -> Perubahan Terlihat Dari Keduanya
+ *
+ * ---------------------------------------------------------------------------
+ * JAVA BUKAN PASS-BY-REFERENCE
+ * ---------------------------------------------------------------------------
+ *
+ * Ini merupakan salah satu konsep yang sering disalahpahami.
+ *
+ * Java bukan bahasa pemrograman Pass-by-Reference.
+ *
+ * Java selalu:
+ *
+ * Call-by-Value
+ *
+ * Namun untuk object:
+ *
+ * Yang dicopy adalah reference object.
+ *
+ * Karena reference hasil copy tetap menunjuk object yang sama,
+ * perubahan pada object akan terlihat dari semua reference yang
+ * mengarah ke object tersebut.
+ *
+ * Istilah yang lebih tepat:
+ *
+ * Reference Value
+ *
+ * atau
+ *
+ * Copy of Reference
+ *
+ * ---------------------------------------------------------------------------
+ * OBJECT COMPOSITION (HAS-A RELATIONSHIP)
+ * ---------------------------------------------------------------------------
+ *
+ * Penggunaan object sebagai parameter constructor sering digunakan
+ * untuk membentuk hubungan antar object.
+ *
+ * Konsep ini disebut:
+ *
+ * Object Composition
+ *
+ * atau
+ *
+ * HAS-A Relationship
+ *
+ * Artinya:
+ *
+ * Sebuah object memiliki object lain sebagai bagian dari dirinya.
+ *
+ * Contoh:
+ *
+ * Mobil HAS-A Engine
+ *
+ * Game HAS-A Player
+ *
+ * Kasir HAS-A Transaksi
+ *
+ * Universitas HAS-A Mahasiswa
+ *
+ * Flow:
+ *
+ * Object A
+ * -> Memiliki Object B
+ * -> Membentuk HAS-A Relationship
+ *
+ * ---------------------------------------------------------------------------
+ * CONTOH COMPOSITION
+ * ---------------------------------------------------------------------------
+ *
+ * class Engine {
+ *
+ *     int tenaga;
+ *     String tipe;
+ *     boolean turbo;
+ *
+ * }
+ *
+ * class Mobil {
+ *
+ *     Engine engine;
+ *
+ *     Mobil(Engine engine) {
+ *         this.engine = engine;
+ *     }
+ *
+ * }
+ *
+ * Pada contoh tersebut:
+ *
+ * Mobil tidak menyimpan detail mesin secara langsung.
+ *
+ * Mobil menyimpan object Engine.
+ *
+ * ---------------------------------------------------------------------------
+ * MENGAPA TIDAK MENYIMPAN DATA LANGSUNG?
+ * ---------------------------------------------------------------------------
+ *
+ * Pendekatan kurang fleksibel:
+ *
+ * class Mobil {
+ *
+ *     int tenaga;
+ *
+ * }
+ *
+ * Pendekatan yang lebih baik:
+ *
+ * class Mobil {
+ *
+ *     Engine engine;
+ *
+ * }
+ *
+ * Mengapa?
+ *
+ * Karena Engine dapat berkembang tanpa mengubah struktur Mobil.
+ *
+ * Contoh:
+ *
+ * class Engine {
+ *
+ *     int tenaga;
+ *     String tipe;
+ *     boolean turbo;
+ *     double kapasitasMesin;
+ *     int jumlahSilinder;
+ *
+ * }
+ *
+ * Mobil tetap menggunakan object Engine yang sama tanpa perlu
+ * menambah banyak variable baru.
+ *
+ * ---------------------------------------------------------------------------
+ * KEUNTUNGAN COMPOSITION
+ * ---------------------------------------------------------------------------
+ *
+ * - Kode lebih modular.
+ * - Lebih mudah dikembangkan.
+ * - Mengurangi duplikasi data.
+ * - Meningkatkan reusability.
+ * - Lebih sesuai dengan desain OOP.
+ *
+ * Composition merupakan salah satu teknik yang paling sering
+ * digunakan dalam aplikasi Java modern.
+ *
+ * ---------------------------------------------------------------------------
+ * COMPOSITION VS INHERITANCE
+ * ---------------------------------------------------------------------------
+ *
+ * Inheritance:
+ *
+ * IS-A Relationship
+ *
+ * Contoh:
+ *
+ * MobilListrik IS-A Kendaraan
+ *
+ * Composition:
+ *
+ * HAS-A Relationship
+ *
+ * Contoh:
+ *
+ * Mobil HAS-A Engine
+ *
+ * Flow:
+ *
+ * Inheritance
+ * -> Pewarisan
+ * -> IS-A
+ *
+ * Composition
+ * -> Kepemilikan Object
+ * -> HAS-A
+ *
+ * ---------------------------------------------------------------------------
+ * ISTILAH PENTING
+ * ---------------------------------------------------------------------------
+ *
+ * Constructor
+ * -> Method khusus untuk membuat object.
+ *
+ * Object Reference
+ * -> Referensi yang menunjuk ke object.
+ *
+ * Call-by-Value
+ * -> Mekanisme pengiriman parameter Java.
+ *
+ * Composition
+ * -> Hubungan kepemilikan object.
+ *
+ * HAS-A Relationship
+ * -> Sebuah object memiliki object lain.
+ *
+ * Engine
+ * -> Komponen yang dimiliki Mobil.
+ *
+ * ---------------------------------------------------------------------------
+ * KESIMPULAN
+ * ---------------------------------------------------------------------------
+ *
+ * Constructor dapat menerima object sebagai parameter sama
+ * seperti menerima primitive type.
+ *
+ * Ketika object dikirim ke constructor:
+ *
+ * - Java tidak membuat copy object secara otomatis.
+ * - Yang dikirim adalah copy dari reference object.
+ * - Reference tersebut tetap menunjuk object yang sama.
+ *
+ * Teknik ini sering digunakan untuk membangun hubungan antar
+ * object yang disebut:
+ *
+ * Composition (HAS-A Relationship)
+ *
+ * Composition memungkinkan suatu class memiliki object lain
+ * sebagai bagian dari dirinya sehingga desain program menjadi
+ * lebih modular, fleksibel, dan mudah dikembangkan.
+ *
+ * Flow utama:
+ *
+ * Object Dibuat
+ * -> Dikirim Ke Constructor
+ * -> Reference Disimpan
+ * -> Terbentuk HAS-A Relationship
+ * -> Object Bekerja Sama Dalam OOP
+ */
 
 class Engine {
     int tenaga;

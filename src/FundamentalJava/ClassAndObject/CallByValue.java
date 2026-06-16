@@ -1,103 +1,390 @@
 package FundamentalJava.ClassAndObject;
 
-/*
-
-Secara umum, ada dua cara bahasa pemrograman mengirim argument ke subroutine (method).
-
-1️ Call-by-Value
-Nilai dari argument disalin (copy) ke parameter method.
-Artinya:
-perubahan pada parameter tidak mempengaruhi nilai asli.
-
-2️ Call-by-Reference
-Yang dikirim bukan nilainya, tetapi referensi ke argument tersebut.
-Artinya:
-perubahan pada parameter akan mempengaruhi nilai asli.
-
-Namun di Java, semua argument sebenarnya dikirim menggunakan:
-call-by-value
-
-Tetapi efeknya berbeda tergantung tipe datanya:
-Tipe Data	    Perilaku
-Primitive	    benar-benar copy nilai
-Object	        copy reference
-
-Primitive Type → Passed by Value
-Jika method menerima primitive type, maka Java membuat salinan nilai.
-
-Sekarang: Object sebagai Parameter
-Jika yang dikirim adalah object, situasinya berbeda.
-
-Kenapa?
-
-Karena variabel object sebenarnya menyimpan reference (alamat memory).
-
-Contoh:
-Test ob = new Test(15,20)
-Variabel ob sebenarnya hanya menyimpan alamat object.
-
-Java selalu call-by-value.
-
-----------------------------------------------------------------------
-
-Tapi ada dua kasus:
-
-Primitive
-Yang dicopy:
-nilai
-
-Contoh:
-int x = 5
-
-Object
-Yang dicopy:
-reference
-
-Contoh:
-Box ref → alamat object
-
-Ketika reference object dikirim ke method, reference tersebut tetap dikirim menggunakan call-by-value.
-
-Artinya:
-reference dicopy
-Tetapi karena copy tersebut menunjuk object yang sama:
-object tetap berubah
-
-Visualisasi Memory
-Primitive
-a = 15
-b = 20
-
-method dipanggil
-i = 15
-j = 20
-
-i dan j adalah copy.
-
-Object
-ob ─────► object
-           a=15
-           b=20
-
-Method dipanggil:
-o ─────► object yang sama
-Karena menunjuk object yang sama, perubahan terjadi pada object asli.
-
-Ketika reference object dikirim ke method, reference tersebut tetap dikirim menggunakan call-by-value.
-Artinya:
-reference dicopy
-Tetapi karena copy tersebut menunjuk object yang sama:
-object tetap berubah
-
----------------------------------------------------------------
-
-Tips penting untuk programmer Java
-Kalau lu ingin object tidak berubah, biasanya digunakan:
-copy constructor
-immutable object
-clone object
-
-*/
+/**
+ * ---------------------------------------------------------------------------
+ * PASSING ARGUMENT TO METHOD (PENGIRIMAN ARGUMENT KE METHOD)
+ * ---------------------------------------------------------------------------
+ *
+ * Saat sebuah method dipanggil, nilai yang diberikan pada method
+ * tersebut disebut argument.
+ *
+ * Contoh:
+ *
+ * sum(10, 20);
+ *
+ * Nilai:
+ *
+ * 10 dan 20
+ *
+ * merupakan argument yang akan diterima oleh parameter method.
+ *
+ * Dalam dunia pemrograman secara umum, terdapat dua mekanisme
+ * utama untuk mengirim argument ke subroutine atau method.
+ *
+ * - Call-by-Value
+ * - Call-by-Reference
+ *
+ * Namun, Java hanya menggunakan satu mekanisme:
+ *
+ * Call-by-Value
+ *
+ * Ini merupakan salah satu topik yang paling sering disalahpahami
+ * oleh programmer pemula.
+ *
+ * ---------------------------------------------------------------------------
+ * CALL-BY-VALUE
+ * ---------------------------------------------------------------------------
+ *
+ * Pada Call-by-Value, nilai argument akan disalin (copy) ke
+ * parameter method.
+ *
+ * Artinya:
+ *
+ * - Method menerima salinan nilai.
+ * - Method tidak menerima variabel asli.
+ * - Perubahan parameter tidak mengubah variabel asal.
+ *
+ * Flow:
+ *
+ * Argument Asli
+ * -> Copy Nilai
+ * -> Parameter Method
+ *
+ * ---------------------------------------------------------------------------
+ * CALL-BY-REFERENCE
+ * ---------------------------------------------------------------------------
+ *
+ * Pada Call-by-Reference, yang dikirim adalah referensi langsung
+ * ke variabel asli.
+ *
+ * Artinya:
+ *
+ * - Method bekerja pada data asli.
+ * - Perubahan parameter langsung mempengaruhi data asal.
+ *
+ * Flow:
+ *
+ * Variabel Asli
+ * -> Reference Langsung
+ * -> Parameter Method
+ * -> Perubahan Mempengaruhi Data Asli
+ *
+ * ---------------------------------------------------------------------------
+ * JAVA SELALU CALL-BY-VALUE
+ * ---------------------------------------------------------------------------
+ *
+ * Hal yang wajib diingat:
+ *
+ * Java tidak mendukung Call-by-Reference.
+ *
+ * Semua argument di Java dikirim menggunakan:
+ *
+ * Call-by-Value
+ *
+ * Tidak peduli apakah tipe datanya:
+ *
+ * - Primitive.
+ * - Object.
+ *
+ * Keduanya tetap menggunakan Call-by-Value.
+ *
+ * Perbedaannya hanya terletak pada apa yang disalin.
+ *
+ * ---------------------------------------------------------------------------
+ * PERILAKU BERDASARKAN TIPE DATA
+ * ---------------------------------------------------------------------------
+ *
+ * Primitive Type:
+ *
+ * -> Yang disalin adalah nilai (value).
+ *
+ * Object Type:
+ *
+ * -> Yang disalin adalah reference.
+ *
+ * Ringkasan:
+ *
+ * Primitive
+ * -> Copy Value
+ *
+ * Object
+ * -> Copy Reference
+ *
+ * ---------------------------------------------------------------------------
+ * PRIMITIVE TYPE -> PASSED BY VALUE
+ * ---------------------------------------------------------------------------
+ *
+ * Jika parameter bertipe primitive, Java akan membuat salinan
+ * nilai dari argument yang dikirim.
+ *
+ * Contoh:
+ *
+ * int x = 10;
+ *
+ * change(x);
+ *
+ * Method:
+ *
+ * void change(int value) {
+ *     value = 100;
+ * }
+ *
+ * Hasil:
+ *
+ * x tetap bernilai 10.
+ *
+ * Mengapa?
+ *
+ * Karena:
+ *
+ * x
+ * -> Copy Nilai
+ * -> value
+ *
+ * value hanya salinan, bukan variabel asli.
+ *
+ * ---------------------------------------------------------------------------
+ * VISUALISASI MEMORY (PRIMITIVE)
+ * ---------------------------------------------------------------------------
+ *
+ * Sebelum Method Dipanggil:
+ *
+ * x = 10
+ *
+ * Setelah Dipanggil:
+ *
+ * value = 10
+ *
+ * Flow:
+ *
+ * x = 10
+ * -> Copy
+ * -> value = 10
+ *
+ * Jika:
+ *
+ * value = 100;
+ *
+ * Maka:
+ *
+ * x tetap 10.
+ *
+ * ---------------------------------------------------------------------------
+ * OBJECT SEBAGAI PARAMETER
+ * ---------------------------------------------------------------------------
+ *
+ * Ketika object dikirim ke method, banyak programmer mengira
+ * Java berubah menjadi Call-by-Reference.
+ *
+ * Ini tidak benar.
+ *
+ * Java tetap menggunakan:
+ *
+ * Call-by-Value
+ *
+ * Tetapi yang disalin bukan object-nya.
+ *
+ * Yang disalin adalah:
+ *
+ * Reference Object
+ *
+ * ---------------------------------------------------------------------------
+ * APA ITU REFERENCE?
+ * ---------------------------------------------------------------------------
+ *
+ * Variabel object sebenarnya tidak menyimpan object secara
+ * langsung.
+ *
+ * Variabel object menyimpan reference yang menunjuk ke object
+ * di memory.
+ *
+ * Contoh:
+ *
+ * Test ob = new Test(15, 20);
+ *
+ * Secara konseptual:
+ *
+ * ob
+ * -> Reference
+ * -> Object Test
+ *
+ * ---------------------------------------------------------------------------
+ * VISUALISASI MEMORY (OBJECT)
+ * ---------------------------------------------------------------------------
+ *
+ * Sebelum Method Dipanggil:
+ *
+ * ob
+ * -> Object
+ * -> a = 15
+ * -> b = 20
+ *
+ * Saat Method Dipanggil:
+ *
+ * method(ob);
+ *
+ * Java menyalin reference:
+ *
+ * ob
+ * -> Copy Reference
+ * -> o
+ *
+ * Hasil:
+ *
+ * ob dan o menunjuk object yang sama.
+ *
+ * Flow:
+ *
+ * ob
+ * -> Object
+ *
+ * o
+ * -> Object yang Sama
+ *
+ * ---------------------------------------------------------------------------
+ * MENGAPA OBJECT BISA BERUBAH?
+ * ---------------------------------------------------------------------------
+ *
+ * Karena:
+ *
+ * - Reference disalin.
+ * - Tetapi kedua reference menunjuk object yang sama.
+ *
+ * Jika method mengubah isi object:
+ *
+ * o.a = 100;
+ *
+ * Maka object yang dilihat oleh ob juga berubah.
+ *
+ * Flow:
+ *
+ * Copy Reference
+ * -> Object yang Sama
+ * -> Perubahan Object
+ * -> Terlihat Dari Semua Reference
+ *
+ * ---------------------------------------------------------------------------
+ * HAL YANG TIDAK BISA DILAKUKAN
+ * ---------------------------------------------------------------------------
+ *
+ * Banyak yang mengira kode berikut dapat mengganti object asli:
+ *
+ * void change(Test o) {
+ *     o = new Test();
+ * }
+ *
+ * Ini salah.
+ *
+ * Mengapa?
+ *
+ * Karena yang berubah hanya salinan reference milik parameter.
+ *
+ * Reference asli tetap tidak berubah.
+ *
+ * Flow:
+ *
+ * ob
+ * -> Object Lama
+ *
+ * o
+ * -> Object Baru
+ *
+ * Setelah method selesai:
+ *
+ * o hilang
+ * ob tetap menunjuk object lama
+ *
+ * ---------------------------------------------------------------------------
+ * KESALAHPAHAMAN YANG SERING TERJADI
+ * ---------------------------------------------------------------------------
+ *
+ * Pernyataan berikut salah:
+ *
+ * "Java menggunakan Call-by-Reference untuk object."
+ *
+ * Yang benar:
+ *
+ * Java selalu menggunakan Call-by-Value.
+ *
+ * Untuk object:
+ *
+ * - Yang dicopy adalah reference.
+ * - Bukan object.
+ *
+ * Karena reference hasil copy menunjuk object yang sama,
+ * perubahan isi object tetap terlihat dari luar method.
+ *
+ * ---------------------------------------------------------------------------
+ * CARA MENCEGAH OBJECT BERUBAH
+ * ---------------------------------------------------------------------------
+ *
+ * Dalam beberapa kasus, programmer tidak ingin object asli
+ * berubah ketika dikirim ke method.
+ *
+ * Solusi yang umum digunakan:
+ *
+ * - Copy Constructor.
+ * - Clone Object.
+ * - Immutable Object.
+ *
+ * Flow:
+ *
+ * Object Asli
+ * -> Salinan Baru
+ * -> Method Bekerja Pada Salinan
+ * -> Object Asli Tetap Aman
+ *
+ * ---------------------------------------------------------------------------
+ * JAVA MODERN (PRAKTIK TERBAIK)
+ * ---------------------------------------------------------------------------
+ *
+ * Pada Java modern, pendekatan yang paling disukai adalah
+ * menggunakan Immutable Object.
+ *
+ * Contohnya:
+ *
+ * - String
+ * - LocalDate
+ * - LocalDateTime
+ * - BigDecimal
+ *
+ * Karena object immutable tidak dapat diubah setelah dibuat,
+ * risiko perubahan tidak sengaja menjadi jauh lebih kecil.
+ *
+ * ---------------------------------------------------------------------------
+ * KESIMPULAN
+ * ---------------------------------------------------------------------------
+ *
+ * Java selalu menggunakan Call-by-Value.
+ *
+ * Untuk Primitive:
+ *
+ * - Yang disalin adalah nilai.
+ * - Perubahan parameter tidak mempengaruhi variabel asli.
+ *
+ * Untuk Object:
+ *
+ * - Yang disalin adalah reference.
+ * - Reference hasil copy tetap menunjuk object yang sama.
+ * - Perubahan isi object akan terlihat dari luar method.
+ *
+ * Hal yang wajib diingat:
+ *
+ * Java BUKAN Call-by-Reference.
+ *
+ * Java adalah:
+ *
+ * Call-by-Value
+ * -> Primitive = Copy Value
+ * -> Object = Copy Reference
+ *
+ * Memahami konsep ini sangat penting karena sering muncul saat:
+ *
+ * - OOP.
+ * - Collection Framework.
+ * - Spring Framework.
+ * - Technical Interview Java.
+ */
 
 // CONTOH PRIMITIVE
 class CallValuePrimitive {

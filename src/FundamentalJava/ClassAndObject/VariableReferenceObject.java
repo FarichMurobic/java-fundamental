@@ -1,91 +1,395 @@
 package FundamentalJava.ClassAndObject;
 
-        /**
-         * Assigning Object Reference Variables
-         *
-         * Variable reference object berperilaku berbeda dari yang biasanya kita bayangkan ketika dilakukan assignment.
-         * Contoh:
-         * Box b1 = new Box();
-         * Box b2 = b1;
-         *
-         * Banyak orang berpikir bahwa:
-         * b2 mendapatkan salinan object dari b1
-         * 
-         * Sehingga:
-         * b1 → object A
-         * b2 → object B (copy) 
-         *
-         * Tetapi itu salah.
-         *
-         * Yang sebenarnya terjadi adalah:
-         * b1 → object A
-         * b2 → object A
-         *
-         * Artinya:
-         * b1 dan b2 menunjuk object yang sama
-         *
-         * Assignment tersebut:
-         * -tidak membuat object baru
-         * -tidak menyalin object
-         * -hanya menyalin reference
-         *
-         * Misalnya kita buat object:
-         * Box b1 = new Box();
-         *
-         * Memory kira-kira seperti ini:
-         * b1 ───► [ Box Object ]
-         *
-         * Sekarang kita lakukan:
-         * Box b2 = b1;
-         *
-         * Memory berubah menjadi:
-         * b1 ──►
-         *        [ Box Object ]
-         * b2 ──►
-         *
-         * Jadi:
-         * b1 dan b2 menunjuk object yang sama
-         *
-         * Ini disebut:
-         * reference sharing atau aliasing
-         *
-         * ----------------------------------------------
-         * 
-         * Buku menekankan:
-         * ketika reference object di-assign,
-         * yang disalin adalah reference,
-         * bukan object
-         *
-         * atau dengan kata lain:
-         * copy reference
-         * bukan copy object
-         *
-         * Kesimpulan Penting
-         *
-         * Kalau object:
-         * b2 = b1
-         * yang dicopy adalah:
-         * reference
-         * bukan object.
-         *
-         * Sedangkan primitive:
-         * b = a
-         *
-         * yang dicopy adalah:
-         * value
-         *
-         * object hanya hilang jika tidak ada reference yang menunjuknya.
-         * Nanti Java garbage collector yang membersihkan.
-         *
-         * --------------------------------------------------------------
-         * 
-         * Inti Penting Bagian Ini :
-         * 1️ Object variable adalah reference
-         * 2️ Assignment object menyalin reference
-         * 3️ Tidak ada copy object
-         * 4️ Dua reference bisa menunjuk object yang sama
-         * 5️ null berarti tidak menunjuk object
-         */
+/**
+ * ------------------------------------------------------------
+ * ASSIGNING OBJECT REFERENCE VARIABLES
+ * ------------------------------------------------------------
+ *
+ * Salah satu konsep yang paling penting untuk dipahami dalam Java
+ * adalah bagaimana assignment bekerja pada variable object.
+ *
+ * Banyak programmer pemula mengira bahwa ketika sebuah variable
+ * object di-assign ke variable lain, Java akan membuat salinan
+ * (copy) object tersebut.
+ *
+ * Padahal yang sebenarnya terjadi tidak demikian.
+ *
+ * Java tidak menyalin object.
+ * Java hanya menyalin reference yang menunjuk ke object tersebut.
+ *
+ * ------------------------------------------------------------
+ * CONTOH DASAR
+ * ------------------------------------------------------------
+ *
+ * Misalkan:
+ *
+ * Box b1 = new Box();
+ * Box b2 = b1;
+ *
+ * Banyak orang membayangkan hasilnya seperti ini:
+ *
+ * b1 -> Object A
+ *
+ * b2 -> Object B (Copy)
+ *
+ * Namun anggapan tersebut salah.
+ *
+ * Yang sebenarnya terjadi:
+ *
+ * b1 -> Object A
+ * b2 -> Object A
+ *
+ * Kedua variable menunjuk ke object yang sama.
+ *
+ * ------------------------------------------------------------
+ * APA YANG SEBENARNYA DICOPY?
+ * ------------------------------------------------------------
+ *
+ * Saat assignment dilakukan:
+ *
+ * Box b2 = b1;
+ *
+ * Java tidak membuat object baru.
+ *
+ * Java tidak menyalin isi object.
+ *
+ * Java hanya menyalin nilai reference yang dimiliki b1
+ * ke dalam b2.
+ *
+ * Flow:
+ *
+ * b1 Menyimpan Reference
+ * -> Reference Disalin
+ * -> Disimpan Ke b2
+ *
+ * Hasil:
+ *
+ * b1 Dan b2
+ * -> Menunjuk Object Yang Sama
+ *
+ * ------------------------------------------------------------
+ * VISUALISASI MEMORY
+ * ------------------------------------------------------------
+ *
+ * Sebelum assignment:
+ *
+ * Box b1 = new Box();
+ *
+ * Memory:
+ *
+ * b1
+ *  |
+ *  v
+ * [ Box Object ]
+ *
+ * Setelah:
+ *
+ * Box b2 = b1;
+ *
+ * Memory:
+ *
+ * b1 ----+
+ *         |
+ *         v
+ *      [ Box Object ]
+ *         ^
+ *         |
+ * b2 -----+
+ *
+ * Sekarang:
+ *
+ * - b1 menunjuk object yang sama.
+ * - b2 menunjuk object yang sama.
+ *
+ * Tidak ada object baru yang dibuat.
+ *
+ * ------------------------------------------------------------
+ * DAMPAKNYA TERHADAP PERUBAHAN DATA
+ * ------------------------------------------------------------
+ *
+ * Karena kedua reference menunjuk object yang sama,
+ * perubahan yang dilakukan melalui salah satu reference
+ * akan terlihat oleh reference lainnya.
+ *
+ * Contoh:
+ *
+ * Box b1 = new Box();
+ *
+ * b1.width = 100;
+ *
+ * Box b2 = b1;
+ *
+ * b2.width = 200;
+ *
+ * Maka:
+ *
+ * b1.width = 200
+ *
+ * Kenapa?
+ *
+ * Karena:
+ *
+ * b1 dan b2 menunjuk object yang sama.
+ *
+ * Flow:
+ *
+ * b2 Mengubah Object
+ * -> Object Berubah
+ * -> b1 Melihat Perubahan Yang Sama
+ *
+ * ------------------------------------------------------------
+ * REFERENCE SHARING (ALIASING)
+ * ------------------------------------------------------------
+ *
+ * Kondisi ketika beberapa reference menunjuk ke object yang sama
+ * disebut:
+ *
+ * - Reference Sharing
+ *
+ * atau
+ *
+ * - Aliasing
+ *
+ * Contoh:
+ *
+ * b1 ----+
+ *         |
+ *         v
+ *      [ Box Object ]
+ *         ^
+ *         |
+ * b2 -----+
+ *
+ * Kedua variable menjadi alias untuk object yang sama.
+ *
+ * ------------------------------------------------------------
+ * PERBEDAAN DENGAN PRIMITIVE TYPE
+ * ------------------------------------------------------------
+ *
+ * Primitive type berperilaku berbeda.
+ *
+ * Contoh:
+ *
+ * int a = 10;
+ * int b = a;
+ *
+ * Yang dicopy adalah nilai:
+ *
+ * a = 10
+ * b = 10
+ *
+ * Setelah:
+ *
+ * b = 20;
+ *
+ * Hasil:
+ *
+ * a = 10
+ * b = 20
+ *
+ * Karena:
+ *
+ * Primitive menyimpan value secara langsung.
+ *
+ * Sedangkan object:
+ *
+ * Menyimpan reference.
+ *
+ * ------------------------------------------------------------
+ * PRIMITIVE VS OBJECT
+ * ------------------------------------------------------------
+ *
+ * Primitive:
+ *
+ * int a = 10;
+ * int b = a;
+ *
+ * Flow:
+ *
+ * Value
+ * -> Disalin
+ * -> Menjadi Independent
+ *
+ * Object:
+ *
+ * Box b1 = new Box();
+ * Box b2 = b1;
+ *
+ * Flow:
+ *
+ * Reference
+ * -> Disalin
+ * -> Menunjuk Object Yang Sama
+ *
+ * ------------------------------------------------------------
+ * MENGUBAH REFERENCE KE OBJECT LAIN
+ * ------------------------------------------------------------
+ *
+ * Misalkan:
+ *
+ * Box b1 = new Box();
+ * Box b2 = b1;
+ *
+ * Kemudian:
+ *
+ * b2 = new Box();
+ *
+ * Sekarang:
+ *
+ * b1 -> Object Lama
+ *
+ * b2 -> Object Baru
+ *
+ * Visualisasi:
+ *
+ * Sebelum:
+ *
+ * b1 ----+
+ *         |
+ *         v
+ *      [ Object A ]
+ *         ^
+ *         |
+ * b2 -----+
+ *
+ * Sesudah:
+ *
+ * b1 ------> [ Object A ]
+ *
+ * b2 ------> [ Object B ]
+ *
+ * Kedua reference sekarang menunjuk object yang berbeda.
+ *
+ * ------------------------------------------------------------
+ * null DAN OBJECT REFERENCE
+ * ------------------------------------------------------------
+ *
+ * Sebuah reference dapat bernilai:
+ *
+ * null
+ *
+ * Artinya:
+ *
+ * Reference tersebut tidak menunjuk object apa pun.
+ *
+ * Contoh:
+ *
+ * Box b1 = null;
+ *
+ * Visualisasi:
+ *
+ * b1
+ *  |
+ *  v
+ * null
+ *
+ * Jika mencoba mengakses member object:
+ *
+ * b1.width;
+ *
+ * Maka JVM akan menghasilkan:
+ *
+ * NullPointerException
+ *
+ * Karena tidak ada object yang dapat diakses.
+ *
+ * ------------------------------------------------------------
+ * HUBUNGAN DENGAN GARBAGE COLLECTOR
+ * ------------------------------------------------------------
+ *
+ * Object akan tetap hidup selama masih ada minimal satu
+ * reference yang menunjuk kepadanya.
+ *
+ * Contoh:
+ *
+ * b1 ----+
+ *         |
+ *         v
+ *      [ Box Object ]
+ *         ^
+ *         |
+ * b2 -----+
+ *
+ * Object belum bisa dibersihkan karena masih memiliki
+ * reference aktif.
+ *
+ * Namun jika:
+ *
+ * b1 = null;
+ * b2 = null;
+ *
+ * Maka:
+ *
+ * Tidak ada reference yang tersisa.
+ *
+ * Object tersebut menjadi:
+ *
+ * Eligible For Garbage Collection
+ *
+ * dan dapat dibersihkan oleh JVM ketika diperlukan.
+ *
+ * ------------------------------------------------------------
+ * ISTILAH PENTING
+ * ------------------------------------------------------------
+ *
+ * Reference Variable
+ * -> Variable yang menyimpan reference object.
+ *
+ * Assignment
+ * -> Proses menyalin nilai dari satu variable ke variable lain.
+ *
+ * Reference Sharing
+ * -> Beberapa reference menunjuk object yang sama.
+ *
+ * Aliasing
+ * -> Nama lain untuk reference sharing.
+ *
+ * null
+ * -> Tidak menunjuk object apa pun.
+ *
+ * Garbage Collection
+ * -> Mekanisme JVM untuk membersihkan object yang
+ *    sudah tidak digunakan.
+ *
+ * ------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------
+ *
+ * Variable object di Java sebenarnya menyimpan reference,
+ * bukan object secara langsung.
+ *
+ * Ketika assignment dilakukan:
+ *
+ * b2 = b1;
+ *
+ * yang disalin adalah:
+ *
+ * - Reference
+ *
+ * bukan:
+ *
+ * - Object
+ *
+ * Akibatnya:
+ *
+ * b1 dan b2 dapat menunjuk object yang sama.
+ *
+ * Flow utama:
+ *
+ * Object Dibuat
+ * -> Reference Disimpan Di b1
+ * -> Reference Disalin Ke b2
+ * -> b1 Dan b2 Menunjuk Object Yang Sama
+ *
+ * Konsep ini merupakan fondasi penting untuk memahami:
+ *
+ * - Method Parameter
+ * - Returning Objects
+ * - Composition
+ * - Collections Framework
+ * - Spring Dependency Injection
+ * - Hibernate Entity Management
+ */
 
 class ReferenceObject {
     String nama;
@@ -109,7 +413,7 @@ public class VariableReferenceObject {
     public static void main(String[] args) {
 
         // Membuat reference object1
-        ReferenceObject object1 = new ReferenceObject("Farich Murobic", "27", "California");
+        ReferenceObject object1 = new ReferenceObject("Farich Murobic", "24", "California");
         object1.biodata();
 
         // Membaut reference object2

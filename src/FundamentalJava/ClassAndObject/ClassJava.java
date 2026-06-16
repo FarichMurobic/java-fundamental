@@ -1,166 +1,410 @@
 package FundamentalJava.ClassAndObject;
 
-/*
-
-Class adalah inti dari Java.
-
-Class merupakan struktur logis yang menjadi dasar dari seluruh bahasa Java,
-karena class menentukan bentuk dan sifat dari sebuah object.
-
-Karena itu, class menjadi dasar dari Object-Oriented Programming (OOP) di Java.
-Setiap konsep yang ingin kamu buat di program Java harus dibungkus (encapsulated) di dalam sebuah class.
-
-Class = Blueprint / Cetakan
-Object = Barang yang dibuat dari cetakan itu 
-
-Contoh di dunia nyata:
-Class  : Cetakan Mobil
-Object : Mobil Avanza
-Object : Mobil BMW
-Object : Mobil Tesla
-
-Semua mobil dibuat dari cetakan mobil.
-
-Di Java:
-Class  : Car
-Object : car1
-Object : car2
-Object : car3
-
-Jadi:
-Class adalah template untuk membuat object
-Dan
-Object adalah instance dari class
-
-Class Mendefinisikan Tipe Data Baru
-Contoh:
-Java punya tipe data bawaan:
-int
-double
-char
-boolean
-
-Tapi kalau kita bikin class:
-class Car {}
-
-Sekarang Car juga menjadi tipe data baru.
-
-Contoh penggunaan:
-Car mobil1;
-Car mobil2;
-
-Jadi sekarang Car sama seperti int atau double.
-
--------------------------------------------------------
-
-Struktur Umum Class
-Buku memberi bentuk umum class:
-
-class classname {
-
-    type instance-variable1;
-    type instance-variable2;
-
-    type methodname1(parameter-list) {
-        // isi method
-    }
-
-    type methodname2(parameter-list) {
-        // isi method
-    }
-}
-
-Mari kita pecah.
-Bagian 1 — Instance Variable
-int speed;
-int gear;
-
-Ini disebut:
-instance variable
-
-Artinya:
-variable yang dimiliki oleh object.
-
-Contoh class:
-
-class Car {
-
-    int speed; // instance variabel
-    int gear;  // instance variabel
-}
-
-Bagian 2 — Method
-Method adalah fungsi di dalam class.
-
-Contoh:
-
-void accelerate() {
-    speed = speed + 10;
-}
-
-Jadi class bisa punya:
-data  → variable
-aksi  → method
-
-Member Class
-
-Buku bilang:
-variable dan method disebut members of the class
-Jadi:
-
-Class member =
-variabel
-method
-
-class Car {
-
-    int speed; // member class
-    int gear;  // member class
-
-    void accelerate() { // member class
-        speed++;
-    }
-}
-
-Kenapa Disebut Instance Variable?
-Karena setiap object punya salinan sendiri.
-
----------------------------------------------------
-
-A Simple Class
-Mari mulai mempelajari class dengan contoh sederhana.
-
-Berikut adalah class bernama Box yang memiliki tiga instance variable:
-width
-height
-depth
-
-Untuk saat ini, class Box belum memiliki method.
-
-class Box {
-   double width;
-   double height;
-   double depth;
-}
-
-Seperti yang sudah dijelaskan sebelumnya, class mendefinisikan tipe data baru.
-Dalam contoh ini tipe data barunya adalah Box.
-
-Nama ini nantinya akan digunakan untuk membuat object bertipe Box.
-
-Hal penting yang harus diingat:
-deklarasi class hanya membuat template, bukan object.
-Jadi kode di atas belum membuat object apa pun.
-Untuk membuat object dari class Box, kita gunakan:
-
-Box mybox = new Box();
-
-Setelah perintah ini dijalankan, mybox menjadi instance dari Box.
-
-Kita bisa membuat kelas dalam satu file.
-namun setelah di compile akan ada beberapa file berdasarkan kelasnya.
-
-*/
+/**
+ * ---------------------------------------------------------------------------
+ * CLASS (DASAR OBJECT-ORIENTED PROGRAMMING DI JAVA)
+ * ---------------------------------------------------------------------------
+ *
+ * Class merupakan konsep paling fundamental dalam Java.
+ *
+ * Seluruh program Java dibangun menggunakan class karena class
+ * menjadi dasar dari paradigma Object-Oriented Programming (OOP).
+ *
+ * Secara sederhana:
+ *
+ * - Class mendefinisikan bentuk dan perilaku object.
+ * - Object merupakan instance (wujud nyata) dari class.
+ *
+ * Karena itu, hampir semua konsep yang dibuat dalam Java akan
+ * dibungkus (encapsulated) ke dalam sebuah class.
+ *
+ * ---------------------------------------------------------------------------
+ * CLASS DAN OBJECT
+ * ---------------------------------------------------------------------------
+ *
+ * Hubungan antara class dan object sering dijelaskan sebagai:
+ *
+ * Class  -> Blueprint / Cetakan
+ * Object -> Hasil yang dibuat dari blueprint tersebut
+ *
+ * Analogi dunia nyata:
+ *
+ * Class  -> Cetakan Mobil
+ * Object -> Mobil Avanza
+ * Object -> Mobil BMW
+ * Object -> Mobil Tesla
+ *
+ * Semua mobil memiliki karakteristik dasar yang sama karena
+ * dibuat dari cetakan yang sama, tetapi setiap mobil tetap
+ * merupakan object yang berbeda.
+ *
+ * Analogi dalam Java:
+ *
+ * Class  -> Car
+ * Object -> car1
+ * Object -> car2
+ * Object -> car3
+ *
+ * Flow:
+ *
+ * Class
+ * -> Membuat Object
+ * -> Object Menjadi Instance Dari Class
+ *
+ * ---------------------------------------------------------------------------
+ * CLASS ADALAH TIPE DATA BARU
+ * ---------------------------------------------------------------------------
+ *
+ * Java memiliki tipe data bawaan (primitive type), seperti:
+ *
+ * - byte
+ * - short
+ * - int
+ * - long
+ * - float
+ * - double
+ * - char
+ * - boolean
+ *
+ * Selain tipe bawaan tersebut, programmer dapat membuat tipe data
+ * baru menggunakan class.
+ *
+ * Contoh:
+ *
+ * class Car {
+ * }
+ *
+ * Setelah class dibuat, Car menjadi tipe data baru yang dapat
+ * digunakan seperti tipe data lainnya.
+ *
+ * Contoh:
+ *
+ * Car mobil1;
+ * Car mobil2;
+ *
+ * Pada contoh di atas:
+ *
+ * - mobil1 bertipe Car.
+ * - mobil2 bertipe Car.
+ *
+ * Dengan demikian:
+ *
+ * Class mendefinisikan tipe data baru yang dapat digunakan untuk
+ * membuat object.
+ *
+ * ---------------------------------------------------------------------------
+ * STRUKTUR UMUM CLASS
+ * ---------------------------------------------------------------------------
+ *
+ * Bentuk umum sebuah class:
+ *
+ * class ClassName {
+ *
+ *     type instanceVariable1;
+ *     type instanceVariable2;
+ *
+ *     returnType method1(parameterList) {
+ *         // isi method
+ *     }
+ *
+ *     returnType method2(parameterList) {
+ *         // isi method
+ *     }
+ * }
+ *
+ * Sebuah class umumnya terdiri dari:
+ *
+ * - Instance Variable (data).
+ * - Method (perilaku/aksi).
+ *
+ * ---------------------------------------------------------------------------
+ * INSTANCE VARIABLE
+ * ---------------------------------------------------------------------------
+ *
+ * Instance Variable adalah variabel yang dimiliki oleh object.
+ *
+ * Contoh:
+ *
+ * class Car {
+ *     int speed;
+ *     int gear;
+ * }
+ *
+ * Pada contoh di atas:
+ *
+ * - speed adalah instance variable.
+ * - gear adalah instance variable.
+ *
+ * Instance variable digunakan untuk menyimpan state atau kondisi
+ * object.
+ *
+ * ---------------------------------------------------------------------------
+ * METHOD
+ * ---------------------------------------------------------------------------
+ *
+ * Method adalah fungsi yang berada di dalam class.
+ *
+ * Method digunakan untuk mendefinisikan perilaku (behavior)
+ * object.
+ *
+ * Contoh:
+ *
+ * void accelerate() {
+ *     speed = speed + 10;
+ * }
+ *
+ * Method di atas bertugas menambah kecepatan object.
+ *
+ * Dengan demikian:
+ *
+ * Data
+ * -> Instance Variable
+ *
+ * Perilaku
+ * -> Method
+ *
+ * ---------------------------------------------------------------------------
+ * CLASS MEMBER
+ * ---------------------------------------------------------------------------
+ *
+ * Instance variable dan method secara umum disebut:
+ *
+ * Class Member
+ *
+ * atau:
+ *
+ * Members of the Class
+ *
+ * Contoh:
+ *
+ * class Car {
+ *
+ *     int speed;     // Class Member
+ *     int gear;      // Class Member
+ *
+ *     void accelerate() {   // Class Member
+ *         speed++;
+ *     }
+ * }
+ *
+ * Jadi:
+ *
+ * Class Member
+ * -> Variable
+ * -> Method
+ *
+ * ---------------------------------------------------------------------------
+ * MENGAPA DISEBUT INSTANCE VARIABLE?
+ * ---------------------------------------------------------------------------
+ *
+ * Disebut Instance Variable karena setiap object memiliki salinan
+ * (copy) variabelnya sendiri.
+ *
+ * Contoh:
+ *
+ * Car car1 = new Car();
+ * Car car2 = new Car();
+ *
+ * Flow:
+ *
+ * car1
+ * -> speed milik car1
+ * -> gear milik car1
+ *
+ * car2
+ * -> speed milik car2
+ * -> gear milik car2
+ *
+ * Perubahan pada car1 tidak otomatis mempengaruhi car2.
+ *
+ * Setiap object memiliki state yang terpisah.
+ *
+ * ---------------------------------------------------------------------------
+ * SIMPLE CLASS (CLASS SEDERHANA)
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh class sederhana:
+ *
+ * class Box {
+ *     double width;
+ *     double height;
+ *     double depth;
+ * }
+ *
+ * Class Box memiliki tiga instance variable:
+ *
+ * - width
+ * - height
+ * - depth
+ *
+ * Pada tahap ini, Box belum memiliki method.
+ *
+ * Class tersebut hanya mendefinisikan struktur data.
+ *
+ * ---------------------------------------------------------------------------
+ * DEKLARASI CLASS BUKAN MEMBUAT OBJECT
+ * ---------------------------------------------------------------------------
+ *
+ * Salah satu hal yang sangat penting untuk dipahami:
+ *
+ * Deklarasi class tidak membuat object.
+ *
+ * Contoh:
+ *
+ * class Box {
+ *     double width;
+ *     double height;
+ *     double depth;
+ * }
+ *
+ * Kode di atas hanya membuat blueprint atau template.
+ *
+ * Belum ada object yang dibuat.
+ *
+ * ---------------------------------------------------------------------------
+ * MEMBUAT OBJECT DARI CLASS
+ * ---------------------------------------------------------------------------
+ *
+ * Untuk membuat object digunakan operator:
+ *
+ * new
+ *
+ * Contoh:
+ *
+ * Box myBox = new Box();
+ *
+ * Flow:
+ *
+ * Class Box
+ * -> Operator new
+ * -> Object Dibuat
+ * -> Reference Disimpan Ke myBox
+ *
+ * Setelah perintah tersebut dijalankan:
+ *
+ * - Object Box dibuat di memory.
+ * - myBox menyimpan reference ke object tersebut.
+ * - myBox menjadi instance dari Box.
+ *
+ * ---------------------------------------------------------------------------
+ * CLASS DAN OBJECT DI MEMORY
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * Box myBox = new Box();
+ *
+ * Secara konseptual:
+ *
+ * myBox
+ * -> Reference
+ * -> Object Box
+ *
+ * Object Box:
+ *
+ * width  = 0.0
+ * height = 0.0
+ * depth  = 0.0
+ *
+ * Nilai default diberikan secara otomatis oleh Java.
+ *
+ * ---------------------------------------------------------------------------
+ * SATU FILE DAN HASIL COMPILATION
+ * ---------------------------------------------------------------------------
+ *
+ * Dalam Java, kita dapat menulis beberapa class dalam satu file
+ * source code.
+ *
+ * Contoh:
+ *
+ * class A {
+ * }
+ *
+ * class B {
+ * }
+ *
+ * class C {
+ * }
+ *
+ * Setelah proses compile:
+ *
+ * javac Main.java
+ *
+ * Java akan menghasilkan file:
+ *
+ * A.class
+ * B.class
+ * C.class
+ *
+ * Setiap class akan dikompilasi menjadi bytecode tersendiri.
+ *
+ * ---------------------------------------------------------------------------
+ * CATATAN JAVA MODERN
+ * ---------------------------------------------------------------------------
+ *
+ * Pada Java modern, sebuah class biasanya berisi:
+ *
+ * - Field (instance variable).
+ * - Constructor.
+ * - Method.
+ *
+ * Contoh sederhana:
+ *
+ * class Car {
+ *
+ *     private String brand;
+ *
+ *     public Car(String brand) {
+ *         this.brand = brand;
+ *     }
+ *
+ *     public void start() {
+ *         System.out.println("Car started");
+ *     }
+ * }
+ *
+ * Namun konsep dasarnya tetap sama:
+ *
+ * Class
+ * -> Mendefinisikan Data dan Perilaku Object
+ *
+ * ---------------------------------------------------------------------------
+ * KESIMPULAN
+ * ---------------------------------------------------------------------------
+ *
+ * Class adalah blueprint atau cetakan yang digunakan untuk
+ * membuat object.
+ *
+ * Object adalah instance dari sebuah class.
+ *
+ * Class mendefinisikan:
+ *
+ * - Data (Instance Variable).
+ * - Perilaku (Method).
+ *
+ * Instance variable dan method disebut:
+ *
+ * Class Member.
+ *
+ * Deklarasi class hanya membuat template dan tidak membuat object.
+ *
+ * Untuk membuat object digunakan operator:
+ *
+ * new
+ *
+ * Flow utama:
+ *
+ * Class
+ * -> Blueprint
+ * -> new
+ * -> Object
+ * -> Instance Dari Class
+ *
+ * Karena seluruh konsep OOP dibangun di atas class, memahami
+ * class dengan baik merupakan fondasi penting untuk mempelajari
+ * Java, OOP, Collection Framework, Spring Framework, dan berbagai
+ * teknologi Java lainnya.
+ */
 
 class Car {    // Deklarasi class
     int speed; // instance variabel

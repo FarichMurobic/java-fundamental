@@ -1,117 +1,314 @@
 package FundamentalJava.Annotasi;
 
 /**
- * Konsep utama
- * Sebelum JDK 8 → annotation cuma bisa di declaration (class, method, field)
- * Setelah JDK 8 → annotation bisa dipakai di TYPE (tipe data)
+ * ---------------------------------------------------------------------------
+ * TYPE ANNOTATION (JAVA 8+)
+ * ---------------------------------------------------------------------------
  *
- * Ini disebut:
+ * Sebelum Java 8, annotation umumnya hanya dapat digunakan pada
+ * declaration (deklarasi) seperti:
+ *
+ * - Class
+ * - Method
+ * - Field
+ * - Constructor
+ * - Parameter
+ *
+ * Setelah Java 8, Java memperkenalkan fitur:
+ *
  * Type Annotation
  *
- * Bedanya:
- * Dulu:
+ * Fitur ini memungkinkan annotation ditempelkan langsung pada
+ * penggunaan tipe data (type usage), bukan hanya pada deklarasi.
+ *
+ * ---------------------------------------------------------------------------
+ * PERBEDAAN SEBELUM DAN SESUDAH JAVA 8
+ * ---------------------------------------------------------------------------
+ *
+ * Sebelum Java 8:
+ *
  * @Anno
  * public void method() {}
  *
- * cuma nempel ke method
+ * Annotation menempel pada method.
  *
- * Sekarang:
+ * Setelah Java 8:
+ *
  * public @Anno String method() {}
  *
- * nempel ke:
- * String (TIPE)
+ * Annotation menempel pada:
  *
- * SYARAT WAJIB
- * Annotation harus punya:
+ * String -> Tipe Return (Return Type)
+ *
+ * Dengan kata lain, annotation tidak lagi terbatas pada deklarasi,
+ * tetapi juga dapat digunakan pada berbagai penggunaan tipe data.
+ *
+ * ---------------------------------------------------------------------------
+ * SYARAT MENGGUNAKAN TYPE ANNOTATION
+ * ---------------------------------------------------------------------------
+ *
+ * Agar annotation dapat digunakan sebagai Type Annotation,
+ * annotation tersebut harus memiliki target:
+ *
  * @Target(ElementType.TYPE_USE)
  *
- * artinya:
- * boleh dipakai di semua penggunaan tipe
+ * Artinya:
  *
- * TEMPAT-TEMPAT TYPE ANNOTATION
- * Ini penting banget bro
+ * Annotation boleh digunakan pada seluruh penggunaan tipe data.
  *
- * 1. Return Type
+ * Contoh:
+ *
+ * @Target(ElementType.TYPE_USE)
+ * @interface TypeAnno {
+ * }
+ *
+ * ---------------------------------------------------------------------------
+ * TEMPAT PENGGUNAAN TYPE ANNOTATION
+ * ---------------------------------------------------------------------------
+ *
+ * Type Annotation dapat digunakan pada berbagai lokasi yang
+ * melibatkan tipe data.
+ *
+ * ---------------------------------------------------------------------------
+ * 1. RETURN TYPE
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * public @TypeAnno Integer f2(int a, int b)
  *
- * annotation ke:
- * Integer (tipe return)
+ * Annotation menempel pada:
  *
- * 2. Throws
+ * Integer -> Tipe Return
+ *
+ * ---------------------------------------------------------------------------
+ * 2. THROWS CLAUSE
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * void test() throws @TypeAnno NullPointerException
  *
- * 3. Cast
+ * Annotation menempel pada:
+ *
+ * NullPointerException -> Tipe Exception
+ *
+ * ---------------------------------------------------------------------------
+ * 3. CAST EXPRESSION
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * y = (@TypeAnno Integer) x;
  *
- * 4. Generic
+ * Annotation menempel pada:
+ *
+ * Integer -> Tipe Hasil Cast
+ *
+ * ---------------------------------------------------------------------------
+ * 4. GENERIC TYPE ARGUMENT
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * TypeAnnoDemo<@TypeAnno Integer> ob;
  *
- * 5. Object creation
- * new @TypeAnno TypeAnnoDemo<Integer>()
+ * Annotation menempel pada:
  *
- * 6. Array
+ * Integer -> Generic Type Argument
+ *
+ * ---------------------------------------------------------------------------
+ * 5. OBJECT CREATION
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * new @TypeAnno TypeAnnoDemo<Integer>();
+ *
+ * Annotation menempel pada:
+ *
+ * TypeAnnoDemo<Integer> -> Tipe Object Yang Dibuat
+ *
+ * ---------------------------------------------------------------------------
+ * 6. ARRAY TYPE
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * String @MaxLen(10) [] @NotZeroLen [] w;
- * level array bisa beda annotation
  *
- * 7. Inheritance
+ * Annotation dapat ditempelkan pada level array yang berbeda.
+ *
+ * Hal ini memungkinkan setiap dimensi array memiliki annotation
+ * yang berbeda.
+ *
+ * ---------------------------------------------------------------------------
+ * 7. INHERITANCE
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * class A extends @TypeAnno B {}
  *
- * 8. THIS (receiver)
+ * Annotation menempel pada:
+ *
+ * B -> Tipe Superclass
+ *
+ * ---------------------------------------------------------------------------
+ * 8. RECEIVER PARAMETER (this)
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * public int f(@TypeAnno MyClass this, int x)
- * advanced banget ini
  *
- * -----------------------------------------------------------------
- * 
- * HAL PENTING BANGET
- * 1. Target menentukan arti
- * Ini:
+ * Annotation menempel pada:
+ *
+ * MyClass -> Receiver Parameter (this)
+ *
+ * Fitur ini termasuk penggunaan yang lebih lanjut (advanced) dan
+ * jarang digunakan dalam pemrograman sehari-hari.
+ *
+ * ---------------------------------------------------------------------------
+ * HAL PENTING YANG HARUS DIPAHAMI
+ * ---------------------------------------------------------------------------
+ *
+ * Arti sebuah annotation sangat dipengaruhi oleh @Target yang
+ * dimilikinya.
+ *
+ * Contoh:
+ *
  * @TypeAnno String str;
- * annotasi ke:
- * String (tipe)
  *
- * Ini:
+ * Jika:
+ *
+ * @Target(ElementType.TYPE_USE)
+ *
+ * Maka annotation diterapkan pada:
+ *
+ * String -> Tipe Data
+ *
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh lain:
+ *
  * @EmptyOK String test;
- * annotasi ke:
- * field test
  *
- * beda karena:
- * @Target(TYPE_USE)
- * @Target(FIELD)
+ * Jika:
  *
- * PERBEDAAN KRUSIAL (SERING BANGET SALAH)
- * Case penting:
+ * @Target(ElementType.FIELD)
+ *
+ * Maka annotation diterapkan pada:
+ *
+ * test -> Field
+ *
+ * Bukan pada tipe String.
+ *
+ * ---------------------------------------------------------------------------
+ * PERBEDAAN KRUSIAL YANG SERING MEMBINGUNGKAN
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * public @TypeAnno Integer f2()
- * annotate:
- * RETURN TYPE
  *
- * public @Recommended Integer f3()
- * annotate:
- * METHOD
+ * Annotation diterapkan pada:
  *
- * walaupun posisinya sama 
+ * Integer -> Return Type
  *
- * BATASAN
- * Tidak bisa:
+ * Karena menggunakan:
+ *
+ * @Target(ElementType.TYPE_USE)
+ *
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * @Recommended
+ * public Integer f3()
+ *
+ * Annotation diterapkan pada:
+ *
+ * Method f3()
+ *
+ * Karena menggunakan target deklarasi method.
+ *
+ * Meskipun posisi annotation terlihat mirip, target yang
+ * sebenarnya berbeda sehingga maknanya juga berbeda.
+ *
+ * ---------------------------------------------------------------------------
+ * BATASAN TYPE ANNOTATION
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * public @TypeAnno void test()
  *
- * karena:
- * void bukan tipe yang bisa dianotasi
+ * Tidak valid.
  *
- * ------------------------------------------------------------
- * 
+ * Alasannya:
+ *
+ * void bukan tipe data yang dapat digunakan sebagai TYPE_USE
+ * dalam konteks ini.
+ *
+ * Catatan:
+ *
+ * Pada praktiknya, Type Annotation digunakan pada tipe data
+ * yang benar-benar merepresentasikan sebuah type.
+ *
+ * ---------------------------------------------------------------------------
+ * ALUR KERJA TYPE ANNOTATION
+ * ---------------------------------------------------------------------------
+ *
+ * Annotation Dengan TYPE_USE
+ * -> Ditempel Pada Penggunaan Tipe
+ * -> Compiler Menyimpan Metadata
+ * -> Tools / Framework / Static Analyzer Membaca Metadata
+ * -> Digunakan Untuk Validasi Atau Analisis Tambahan
+ *
+ * ---------------------------------------------------------------------------
+ * KEGUNAAN TYPE ANNOTATION
+ * ---------------------------------------------------------------------------
+ *
+ * Type Annotation banyak digunakan untuk:
+ *
+ * - Static Analysis.
+ * - Validasi tambahan pada tipe data.
+ * - Nullability Checking.
+ * - Framework khusus yang memproses metadata tipe.
+ * - Meningkatkan keamanan dan ketepatan kode.
+ *
+ * Contoh framework yang memanfaatkan konsep serupa:
+ *
+ * - Checker Framework
+ * - Error Prone
+ * - Berbagai static analysis tools
+ *
+ * ---------------------------------------------------------------------------
  * KESIMPULAN
- * Type annotation = annotation di tipe
+ * ---------------------------------------------------------------------------
  *
- * Butuh:
- * @Target(TYPE_USE)
- * Bisa dipakai di:
- * return type
- * cast
- * generic
- * array
- * throws
- * inheritance
- * Arti tergantung @Target
+ * Type Annotation adalah annotation yang diterapkan langsung pada
+ * penggunaan tipe data (type usage).
+ *
+ * Fitur ini diperkenalkan sejak Java 8 melalui:
+ *
+ * @Target(ElementType.TYPE_USE)
+ *
+ * Type Annotation dapat digunakan pada:
+ *
+ * - Return Type
+ * - Throws Clause
+ * - Cast Expression
+ * - Generic Type
+ * - Object Creation
+ * - Array Type
+ * - Inheritance
+ * - Receiver Parameter (this)
+ *
+ * Makna sebuah annotation ditentukan oleh target yang digunakan,
+ * sehingga penting memahami perbedaan antara annotation pada
+ * deklarasi dan annotation pada tipe data.
  */
 
 import java.lang.annotation.*;
@@ -263,6 +460,7 @@ public class TypeAnnotations<@InGeneric(description = "Generic data type") T> {
      * ---------------------------------
      *
      * INSIGHT LEVEL LANJUT
+     * 
      * Kenapa ini ada?
      *
      * buat:

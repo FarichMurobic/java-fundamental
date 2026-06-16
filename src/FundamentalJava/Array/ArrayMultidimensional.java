@@ -1,29 +1,240 @@
 package FundamentalJava.Array;
 
-/*
-
-Array multidimensi 
-
-Array multidimensi di Java sebenarnya adalah array dari array .
-Setiap dimensi ditambahkan dengan sepasang tanda kurung siku [].
-
-Lo bisa mendeklarasikannya seperti ini:
-int twoD[][] = new int[4][5];
-membuat tabel dengan 4 baris dan 5 kolom.
-
-Array Tidak Beraturan (Irregular Arrays)
-Karena ini adalah "array di dalam array", lo bisa menentukan panjang baris secara manual.
-Tidak semua baris harus punya jumlah kolom yang sama. Ini berguna banget buat menghemat
-memori kalau datanya nggak penuh (sparse).
-
-Inisialisasi
-Lo bisa langsung isi datanya pakai kurung kurawal bersarang {{...}, {...}}. Lo bahkan bisa
-pakai ekspresi matematika (seperti 1*1) di dalamnya.
-
-Kode ini membuat sebuah array 4x5, yang secara konseptual terlihat seperti matriks.
-Array Multidimensi ini kuncinya antara baris dan kolom broo.
-
-*/
+/**
+ * ---------------------------------------------------------------------------
+ * ARRAY MULTIDIMENSI (MULTIDIMENSIONAL ARRAY)
+ * ---------------------------------------------------------------------------
+ *
+ * Array multidimensi adalah array yang elemen-elemennya juga
+ * berupa array.
+ *
+ * Dengan kata lain:
+ *
+ * Array Multidimensi
+ * -> Array yang berisi Array
+ *
+ * Oleh karena itu, secara teknis array multidimensi di Java
+ * sebenarnya adalah "array of arrays".
+ *
+ * Setiap dimensi tambahan ditandai dengan pasangan tanda
+ * kurung siku ([]).
+ *
+ * ---------------------------------------------------------------------------
+ * DEKLARASI ARRAY DUA DIMENSI
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * int[][] twoD = new int[4][5];
+ *
+ * atau:
+ *
+ * int twoD[][] = new int[4][5];
+ *
+ * Kedua bentuk tersebut memiliki arti yang sama.
+ *
+ * Pada contoh di atas:
+ *
+ * - 4 menunjukkan jumlah baris (row).
+ * - 5 menunjukkan jumlah kolom (column).
+ *
+ * Visualisasi:
+ *
+ * [ ][ ][ ][ ][ ]
+ * [ ][ ][ ][ ][ ]
+ * [ ][ ][ ][ ][ ]
+ * [ ][ ][ ][ ][ ]
+ *
+ * Flow:
+ * Array 2 Dimensi
+ * -> 4 Baris
+ * -> Setiap Baris Memiliki 5 Kolom
+ *
+ * ---------------------------------------------------------------------------
+ * KONSEP BARIS DAN KOLOM
+ * ---------------------------------------------------------------------------
+ *
+ * Saat bekerja dengan array dua dimensi, konsep terpenting yang
+ * harus dipahami adalah:
+ *
+ * Baris (Row) dan Kolom (Column).
+ *
+ * Contoh:
+ *
+ * int[][] data = new int[3][4];
+ *
+ * Artinya:
+ *
+ * - 3 Baris
+ * - 4 Kolom
+ *
+ * Indeks:
+ *
+ * data[0][0] -> Baris 0, Kolom 0
+ * data[0][1] -> Baris 0, Kolom 1
+ * data[1][2] -> Baris 1, Kolom 2
+ * data[2][3] -> Baris 2, Kolom 3
+ *
+ * Flow:
+ * data[baris][kolom]
+ *
+ * ---------------------------------------------------------------------------
+ * ARRAY TIDAK BERATURAN (IRREGULAR ARRAY)
+ * ---------------------------------------------------------------------------
+ *
+ * Karena array multidimensi di Java sebenarnya merupakan
+ * array yang berisi array lainnya, setiap baris dapat memiliki
+ * panjang yang berbeda.
+ *
+ * Kondisi ini disebut:
+ *
+ * Irregular Array
+ *
+ * atau sering juga disebut:
+ *
+ * Jagged Array
+ *
+ * Contoh:
+ *
+ * int[][] data = new int[3][];
+ *
+ * data[0] = new int[2];
+ * data[1] = new int[5];
+ * data[2] = new int[3];
+ *
+ * Hasil:
+ *
+ * Baris 0 -> 2 Kolom
+ * Baris 1 -> 5 Kolom
+ * Baris 2 -> 3 Kolom
+ *
+ * Flow:
+ * Array Utama
+ * -> Baris 0 (2 Kolom)
+ * -> Baris 1 (5 Kolom)
+ * -> Baris 2 (3 Kolom)
+ *
+ * ---------------------------------------------------------------------------
+ * KEUNTUNGAN IRREGULAR ARRAY
+ * ---------------------------------------------------------------------------
+ *
+ * Irregular Array dapat membantu menghemat memori ketika setiap
+ * baris tidak membutuhkan jumlah kolom yang sama.
+ *
+ * Sangat berguna untuk:
+ *
+ * - Data yang tidak simetris.
+ * - Struktur data bertingkat.
+ * - Data sparse (banyak ruang kosong).
+ *
+ * Karena memori hanya dialokasikan sesuai kebutuhan masing-masing
+ * baris.
+ *
+ * ---------------------------------------------------------------------------
+ * INISIALISASI LANGSUNG ARRAY MULTIDIMENSI
+ * ---------------------------------------------------------------------------
+ *
+ * Array multidimensi dapat langsung diisi menggunakan kurung
+ * kurawal bersarang.
+ *
+ * Contoh:
+ *
+ * int[][] matrix = {
+ *     {1, 2, 3, 4, 5},
+ *     {6, 7, 8, 9, 10},
+ *     {11, 12, 13, 14, 15},
+ *     {16, 17, 18, 19, 20}
+ * };
+ *
+ * Java akan secara otomatis:
+ *
+ * - Menentukan jumlah baris.
+ * - Menentukan jumlah kolom setiap baris.
+ * - Mengalokasikan seluruh memori yang dibutuhkan.
+ *
+ * ---------------------------------------------------------------------------
+ * EKSPRESI DALAM INISIALISASI
+ * ---------------------------------------------------------------------------
+ *
+ * Java juga mengizinkan penggunaan ekspresi saat inisialisasi.
+ *
+ * Contoh:
+ *
+ * int[][] table = {
+ *     {1 * 1, 1 * 2, 1 * 3},
+ *     {2 * 1, 2 * 2, 2 * 3},
+ *     {3 * 1, 3 * 2, 3 * 3}
+ * };
+ *
+ * Sebelum program dijalankan, hasil ekspresi akan dihitung dan
+ * nilainya disimpan ke dalam array.
+ *
+ * ---------------------------------------------------------------------------
+ * ARRAY MULTIDIMENSI SEBAGAI MATRIKS
+ * ---------------------------------------------------------------------------
+ *
+ * Secara konseptual, array dua dimensi sering dibayangkan sebagai
+ * sebuah matriks atau tabel.
+ *
+ * Contoh:
+ *
+ * int[][] matrix = new int[4][5];
+ *
+ * Visualisasi:
+ *
+ * Baris 0 -> [ ][ ][ ][ ][ ]
+ * Baris 1 -> [ ][ ][ ][ ][ ]
+ * Baris 2 -> [ ][ ][ ][ ][ ]
+ * Baris 3 -> [ ][ ][ ][ ][ ]
+ *
+ * Namun perlu diingat:
+ *
+ * Secara teknis Java tidak menyimpan array multidimensi sebagai
+ * matriks sungguhan.
+ *
+ * Java menyimpannya sebagai:
+ *
+ * Array
+ * -> Array
+ * -> Array
+ * -> Array
+ *
+ * Inilah alasan mengapa setiap baris dapat memiliki panjang yang
+ * berbeda.
+ *
+ * ---------------------------------------------------------------------------
+ * KESIMPULAN
+ * ---------------------------------------------------------------------------
+ *
+ * Array multidimensi adalah array yang berisi array lainnya.
+ *
+ * Konsep paling penting yang harus dipahami:
+ *
+ * - Baris (Row)
+ * - Kolom (Column)
+ *
+ * Deklarasi umum:
+ *
+ * int[][] data = new int[baris][kolom];
+ *
+ * Array multidimensi di Java sebenarnya adalah:
+ *
+ * Array
+ * -> Berisi Array
+ * -> Berisi Data
+ *
+ * Karena itu Java mendukung Irregular Array (Jagged Array),
+ * yaitu kondisi ketika setiap baris memiliki jumlah kolom yang
+ * berbeda.
+ *
+ * Array multidimensi sangat sering digunakan untuk merepresentasikan:
+ *
+ * - Matriks.
+ * - Tabel data.
+ * - Peta (Map).
+ * - Grid permainan.
+ * - Struktur data bertingkat.
+ */
 
 public class ArrayMultidimensional {
     public static void main(String[] args) {

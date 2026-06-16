@@ -1,82 +1,226 @@
 package FundamentalJava.AksesModifier;
 
-/*
-
-Introducing Access Control
-Seperti yang sudah kita ketahui, encapsulation menghubungkan data dengan kode yang memanipulasinya.
-Namun, encapsulation juga memberikan atribut penting lainnya yaitu access control (pengendalian akses).
-Melalui encapsulation, kamu dapat mengontrol bagian mana dari program yang boleh mengakses member dari sebuah class.
-
-Dengan mengontrol akses ini, kamu dapat mencegah penyalahgunaan.
-Sebagai contoh, jika data hanya boleh diakses melalui sekumpulan method tertentu yang sudah ditentukan, 
-maka penyalahgunaan data bisa dicegah.
-Dengan demikian, jika diimplementasikan dengan benar, sebuah class akan menjadi seperti “black box”.
-
-Artinya:
-Class tersebut bisa digunakan dari luar
-Tetapi cara kerja internalnya tidak bisa diutak-atik sembarangan
-
-Apa itu Access Control?
-Access Control adalah aturan siapa yang boleh mengakses variabel atau method di dalam class.
-
-Access Modifier
-Bagaimana suatu member dapat diakses ditentukan oleh access modifier yang ditempatkan pada deklarasinya.
-Java menyediakan beberapa access modifier yang cukup lengkap.
-Beberapa bagian dari access control berkaitan dengan:
-Inheritance (pewarisan)
-Package (pengelompokan class)
-
-Package pada dasarnya adalah kumpulan class yang dikelompokkan bersama.
-
-Access Modifier di Java
-Java memiliki beberapa access modifier:
-public
-private
-protected
-
-Selain itu, Java juga memiliki default access level.
-Modifier protected biasanya digunakan ketika inheritance terlibat.
-
-*/
-
 /**
- * Cara Menulis Access Modifier
- * Access modifier ditulis di depan tipe data pada deklarasi member.
- * 
- * Contoh:
- * public int i;
- * private double j;
- * private int myMethod(int a, char b) { ... }
- * 
- * Kesimpulan Penting
- * Access modifier mengontrol siapa yang boleh mengakses member class.
- * 
- * Modifier utama:
- * Modifier	        Akses
- * public	        bisa diakses semua
- * private	        hanya dalam class
- * protected	    untuk inheritance
- * default	        dalam package
- * 
- * Praktik OOP yang baik:
- * variable -> private
- * method -> public
- */
-
-/*
-
-Penjelasan public dan private
-
-Jika member class menggunakan modifier public, maka member tersebut dapat diakses oleh kode apa pun.
-Jika member menggunakan modifier private, maka member tersebut hanya dapat diakses oleh member dalam class yang sama.
-
-Sekarang kita bisa mengerti kenapa method main() selalu diawali dengan public.
-Karena main() dipanggil oleh Java runtime system, yaitu kode yang berada di luar program kita.
-
-Jika sebuah member tidak memiliki access modifier, maka secara default:
-Member tersebut bisa diakses dalam package yang sama
-Tetapi tidak bisa diakses dari package lain.
-
+* ============================================================
+* INTRODUCING ACCESS CONTROL
+* ============================================================
+*
+* Salah satu manfaat utama dari encapsulation adalah kemampuan
+* untuk mengontrol akses terhadap data dan method yang dimiliki
+* oleh sebuah class.
+*
+* Encapsulation tidak hanya menghubungkan data dengan kode yang
+* memanipulasinya, tetapi juga menyediakan mekanisme access
+* control (pengendalian akses).
+*
+* Melalui access control, kita dapat menentukan bagian mana dari
+* program yang diperbolehkan untuk mengakses member tertentu dari
+* sebuah class.
+*
+* Dengan membatasi akses secara tepat, kita dapat mencegah
+* penyalahgunaan data dan menjaga integritas object.
+*
+* Sebagai contoh, jika sebuah atribut hanya boleh diakses melalui
+* method tertentu yang telah ditentukan, maka perubahan data dapat
+* dikontrol dan divalidasi dengan lebih baik.
+*
+* Jika diterapkan dengan benar, sebuah class dapat berperan
+* sebagai "black box".
+*
+* Artinya:
+* Class dapat digunakan dari luar -> Implementasi internal tetap
+* tersembunyi dan tidak dapat dimanipulasi secara sembarangan.
+*
+* ============================================================
+* APA ITU ACCESS CONTROL?
+* ============================================================
+*
+* Access Control adalah mekanisme yang menentukan siapa yang
+* diperbolehkan mengakses field, method, constructor, atau nested
+* class yang berada di dalam sebuah class.
+*
+* Tujuannya:
+*
+* * Melindungi data dari akses yang tidak semestinya.
+* * Menjaga konsistensi object.
+* * Mendukung prinsip encapsulation.
+* * Mengurangi ketergantungan antar class.
+*
+* ============================================================
+* ACCESS MODIFIER
+* ============================================================
+*
+* Tingkat akses suatu member ditentukan oleh access modifier yang
+* diletakkan pada deklarasinya.
+*
+* Access control di Java sangat erat kaitannya dengan:
+*
+* * Inheritance (Pewarisan)
+* * Package (Pengelompokan Class)
+*
+* Package merupakan mekanisme untuk mengelompokkan class yang
+* saling berhubungan ke dalam satu namespace.
+*
+* Flow:
+* Package -> Class -> Member (Field / Method / Constructor)
+* -> Access Modifier -> Hak Akses
+*
+* ============================================================
+* JENIS ACCESS MODIFIER DI JAVA
+* ============================================================
+*
+* Java menyediakan empat tingkat akses:
+*
+* 1. public
+* 2. protected
+* 3. default (package-private)
+* 4. private
+*
+* Catatan:
+* Default bukan keyword khusus. Access level ini digunakan ketika
+* tidak ada access modifier yang dituliskan.
+*
+* Modifier protected biasanya digunakan ketika konsep inheritance
+* mulai diterapkan.
+*
+* ============================================================
+* CARA MENULIS ACCESS MODIFIER
+* ============================================================
+*
+* Access modifier ditulis sebelum tipe data atau deklarasi member.
+*
+* Contoh:
+*
+* public int i;
+*
+* private double j;
+*
+* private int myMethod(int a, char b) {
+* ```
+  return a;
+  ```
+* }
+*
+* Access modifier dapat diterapkan pada:
+*
+* * Field
+* * Method
+* * Constructor
+* * Nested Class
+*
+* ============================================================
+* PUBLIC DAN PRIVATE
+* ============================================================
+*
+* public:
+*
+* Member yang menggunakan modifier public dapat diakses dari
+* mana saja selama class tersebut dapat dijangkau oleh program.
+*
+* Flow:
+* Package A -> Package B -> Public Member -> Dapat Diakses
+*
+* private:
+*
+* Member yang menggunakan modifier private hanya dapat diakses
+* oleh kode yang berada di dalam class yang sama.
+*
+* Flow:
+* Class Sendiri -> Private Member -> Dapat Diakses
+*
+* Class Lain -> Private Member -> Tidak Dapat Diakses
+*
+* ============================================================
+* MENGAPA METHOD main() BERSIFAT PUBLIC?
+* ============================================================
+*
+* Method main() biasanya dideklarasikan sebagai:
+*
+* public static void main(String[] args)
+*
+* Hal ini karena method main() dipanggil oleh Java Virtual Machine
+* (JVM), yaitu komponen yang berada di luar class yang kita buat.
+*
+* Jika main() tidak dapat diakses oleh JVM, maka program tidak
+* dapat dijalankan sebagai entry point aplikasi.
+*
+* ============================================================
+* DEFAULT ACCESS (PACKAGE-PRIVATE)
+* ============================================================
+*
+* Jika sebuah member tidak memiliki access modifier, maka Java
+* akan memberikan access level default yang disebut
+* package-private.
+*
+* Contoh:
+*
+* int age;
+*
+* Artinya:
+*
+* * Dapat diakses oleh class lain dalam package yang sama.
+* * Tidak dapat diakses oleh class yang berada pada package
+* berbeda.
+*
+* Flow:
+* Package Sama -> Dapat Diakses
+*
+* Package Berbeda -> Tidak Dapat Diakses
+*
+* ============================================================
+* RINGKASAN ACCESS MODIFIER
+* ============================================================
+*
+* Modifier        -> Hak Akses
+*
+* public          -> Dapat diakses dari mana saja
+* protected       -> Package yang sama dan subclass
+* default         -> Hanya package yang sama
+* private         -> Hanya class yang sama
+*
+* ============================================================
+* PRAKTIK OOP YANG UMUM DIGUNAKAN
+* ============================================================
+*
+* Dalam penerapan encapsulation, pola yang paling sering
+* digunakan adalah:
+*
+* Field (Variable) -> private
+* Method Akses     -> public
+*
+* Contoh:
+*
+* private String name;
+*
+* public String getName() {
+* ```
+  return name;
+  ```
+* }
+*
+* public void setName(String name) {
+* ```
+  this.name = name;
+  ```
+* }
+*
+* Pendekatan ini memungkinkan class untuk mengontrol bagaimana
+* data dibaca dan diubah oleh kode dari luar class.
+*
+* ============================================================
+* KESIMPULAN
+* ============================================================
+*
+* Access Control merupakan mekanisme yang digunakan untuk
+* mengatur tingkat akses terhadap member sebuah class.
+*
+* Melalui access modifier, Java memungkinkan pengembang untuk
+* melindungi data, menerapkan encapsulation, dan membangun desain
+* program yang lebih aman serta mudah dipelihara.
+*
+* Praktik yang paling umum dalam OOP modern adalah menyembunyikan
+* field menggunakan private dan menyediakan akses yang terkontrol
+* melalui method public.
 */
 
 @Anotasi("Anotasi")
@@ -95,13 +239,13 @@ class AksesKontrol {
 
     @Anotasi("Setter untuk set c (private)")
     // Method untuk mengubah nilai c
-    void setC(int i) {
+    public void setC(int i) {
         c = i;
     }
 
     @Anotasi("Getter untuk ambil nilai c (private)")
     // Method untuk mengambil nilai c
-    int getC() {
+    public int getC() {
         return c;
     }
 }
@@ -124,7 +268,7 @@ public class AksesModifier {
     
         /**
          * OUTPUT
-         * a: 100 b: 500 c: 20
+         * a: 100 b: 500 c: 20 
          */
     }
 }

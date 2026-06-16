@@ -1,174 +1,335 @@
 package FundamentalJava.Annotasi;
 
-/*
-
-Sebelum membahas annotation lebih jauh, penting untuk memahami retention policy.
-Retention policy menentukan kapan sebuah annotation akan dibuang.
-Java punya 3 jenis retention policy, yang ada di enum RetentionPolicy:
-
-SOURCE
-CLASS
-RUNTIME
-
-SOURCE
-Annotation dengan retention SOURCE hanya ada di source code (.java)
-dan akan hilang saat proses compile.
-
-CLASS
-Annotation dengan retention CLASS disimpan di file .class
-tapi tidak bisa diakses saat program dijalankan (runtime).
-
-RUNTIME
-Annotation dengan retention RUNTIME:
-disimpan di .class
-DAN bisa diakses saat program berjalan (oleh JVM)
-
-Ini retention paling "kuat"
-
-NOTE
-Annotation pada variabel lokal tidak disimpan di .class
-
-Untuk menentukan retention policy, digunakan annotation bawaan Java:
-@Retention(retention-policy)
-
-Kalau tidak ditentukan, default-nya adalah:
-CLASS
-
-(Contoh)
-@Retention(RetentionPolicy.RUNTIME)
-@interface MyAnno {
-String str();
-int val();
-}
-
-Ini berarti annotation bisa dibaca saat runtime
-
-----------------------------------------------------------------
-
-PENJELASAN SEDERHANA
-Intinya:
-Retention policy = berapa lama annotation “hidup”
-
-Bayangin annotation itu kayak sticky note di buku:
-Tipe	        Analogi
-SOURCE	    Catatan yang dihapus sebelum buku dicetak
-CLASS	    Dicetak di buku, tapi gak bisa dibaca saat dibaca orang
-RUNTIME	    Dicetak dan bisa dibaca kapan saja
-
-SOURCE
-@Retention(RetentionPolicy.SOURCE)
-Cuma buat compiler / tools
-Contoh: @Override
-
-Dipakai untuk:
-validasi compile
-bantu developer
-
-CLASS (DEFAULT)
-@Retention(RetentionPolicy.CLASS)
-Disimpan di .class
-Tapi JVM gak bisa akses
-
-Jarang dipakai langsung oleh kita
-
-RUNTIME (PALING PENTING)
-@Retention(RetentionPolicy.RUNTIME)
-Bisa dibaca saat program jalan
-
-Ini yang dipakai di:
-Spring Framework
-Hibernate
-dll
-
-*/
-
 /**
- * ALUR KERJA
- * Saat program jalan:
- * Compiler baca annotation
- * Karena RUNTIME → disimpan ke .class
- * JVM bisa baca annotation saat program berjalan
- * Program bisa ambil info annotation pakai reflection
+ * ---------------------------------------------------------------------------
+ * RETENTION POLICY
+ * ---------------------------------------------------------------------------
  *
- * Contoh real:
- * Framework kayak Spring baca annotation:
- * @Controller
- * @Service
- * @Autowired
+ * Sebelum membahas annotation lebih jauh, penting untuk memahami
+ * Retention Policy.
  *
- * Semua ini pakai RUNTIME retention
- * Annotation ini bisa dibaca saat program jalan
+ * Retention Policy menentukan sampai kapan sebuah annotation
+ * "hidup" dan dapat digunakan oleh compiler, JVM, atau program.
  *
- * INSIGHT PENTING (LEVEL NAIK)
- * Retention ini yang nentuin:
- * annotation cuma buat compile?
- * atau bisa dipakai program?
+ * Java menyediakan tiga jenis Retention Policy yang didefinisikan
+ * dalam enum RetentionPolicy:
  *
- * Kalau lu nanti belajar:
- * Reflection
- * Spring Boot
+ * - SOURCE
+ * - CLASS
+ * - RUNTIME
  *
- * 90% pakai:
+ * ---------------------------------------------------------------------------
+ * RETENTIONPOLICY.SOURCE
+ * ---------------------------------------------------------------------------
+ *
+ * Annotation dengan retention SOURCE hanya tersedia pada source
+ * code (.java).
+ *
+ * Annotation akan dibuang saat proses kompilasi sehingga tidak
+ * disimpan ke dalam file .class.
+ *
+ * Flow:
+ * Source Code -> Compiler -> Annotation Dibuang
+ *
+ * Umumnya digunakan untuk:
+ *
+ * - Validasi saat compile-time.
+ * - Membantu developer.
+ * - Dukungan tool tertentu.
+ *
+ * Contoh:
+ *
+ * @Override
+ *
+ * ---------------------------------------------------------------------------
+ * RETENTIONPOLICY.CLASS
+ * ---------------------------------------------------------------------------
+ *
+ * Annotation dengan retention CLASS disimpan ke dalam file .class.
+ *
+ * Namun annotation tersebut tidak tersedia saat program berjalan
+ * sehingga tidak dapat dibaca menggunakan Reflection API.
+ *
+ * Flow:
+ * Source Code -> Compiler -> File .class
+ * -> Annotation Disimpan -> Runtime Tidak Bisa Membaca
+ *
+ * Jika Retention Policy tidak ditentukan secara eksplisit,
+ * Java menggunakan:
+ *
+ * RetentionPolicy.CLASS
+ *
+ * sebagai default.
+ *
+ * ---------------------------------------------------------------------------
+ * RETENTIONPOLICY.RUNTIME
+ * ---------------------------------------------------------------------------
+ *
+ * Annotation dengan retention RUNTIME:
+ *
+ * - Disimpan ke dalam file .class.
+ * - Tetap tersedia saat program berjalan.
+ * - Dapat dibaca menggunakan Reflection API.
+ *
+ * Flow:
+ * Source Code -> Compiler -> File .class
+ * -> JVM -> Reflection API -> Annotation Dapat Dibaca
+ *
+ * Retention Policy ini merupakan yang paling penting dalam
+ * pengembangan Java modern.
+ *
+ * Digunakan oleh:
+ *
+ * - Spring Framework
+ * - Spring Boot
+ * - Hibernate
+ * - Jakarta EE
+ * - Berbagai framework modern lainnya
+ *
+ * ---------------------------------------------------------------------------
+ * MENENTUKAN RETENTION POLICY
+ * ---------------------------------------------------------------------------
+ *
+ * Untuk menentukan Retention Policy digunakan annotation bawaan:
+ *
+ * @Retention(...)
+ *
+ * Contoh:
+ *
+ * @Retention(RetentionPolicy.RUNTIME)
+ * @interface MyAnno {
+ *     String str();
+ *     int val();
+ * }
+ *
+ * Artinya:
+ *
+ * Annotation MyAnno akan tetap tersedia saat runtime dan dapat
+ * dibaca menggunakan Reflection API.
+ *
+ * ---------------------------------------------------------------------------
+ * ANALOGI RETENTION POLICY
+ * ---------------------------------------------------------------------------
+ *
+ * Bayangkan annotation adalah sticky note yang ditempel pada buku.
+ *
+ * SOURCE
+ * -> Catatan dihapus sebelum buku dicetak.
+ *
+ * CLASS
+ * -> Catatan ikut dicetak tetapi pembaca tidak bisa melihatnya.
+ *
+ * RUNTIME
+ * -> Catatan ikut dicetak dan dapat dibaca kapan saja.
+ *
+ * ---------------------------------------------------------------------------
+ * ALUR KERJA RETENTIONPOLICY.RUNTIME
+ * ---------------------------------------------------------------------------
+ *
+ * Saat program dijalankan:
+ *
+ * Compiler Membaca Annotation
+ * -> Annotation Disimpan Ke File .class
+ * -> JVM Memuat Class
+ * -> Reflection Membaca Annotation
+ * -> Program Menggunakan Metadata Annotation
+ *
+ * Karena menggunakan RetentionPolicy.RUNTIME, annotation dapat
+ * diakses saat aplikasi sedang berjalan.
+ *
+ * ---------------------------------------------------------------------------
+ * CONTOH DI DUNIA NYATA
+ * ---------------------------------------------------------------------------
+ *
+ * Framework seperti Spring menggunakan annotation:
+ *
+ * - @Controller
+ * - @Service
+ * - @Autowired
+ *
+ * Annotation tersebut menggunakan:
+ *
  * RetentionPolicy.RUNTIME
- */
-
-/**
- * Walaupun annotation biasanya dipakai oleh tools (bukan program utama), kalau retention-nya RUNTIME,
- * maka annotation bisa dibaca saat program berjalan menggunakan reflection.
- * Reflection adalah fitur Java untuk mendapatkan informasi tentang class saat runtime. API-nya ada di java.lang.reflect.
  *
- * Langkah pertama pakai reflection adalah mendapatkan object Class yang merepresentasikan sebuah class.
- * Salah satu cara paling gampang:
+ * sehingga Spring dapat membaca dan memproses annotation saat
+ * aplikasi berjalan.
+ *
+ * ---------------------------------------------------------------------------
+ * INSIGHT PENTING
+ * ---------------------------------------------------------------------------
+ *
+ * Retention Policy menentukan apakah annotation:
+ *
+ * - Hanya digunakan saat compile-time.
+ * - Disimpan ke bytecode (.class).
+ * - Dapat digunakan oleh program saat runtime.
+ *
+ * Jika mempelajari:
+ *
+ * - Reflection
+ * - Spring Framework
+ * - Spring Boot
+ * - Hibernate
+ *
+ * Maka sebagian besar annotation yang digunakan memakai:
+ *
+ * RetentionPolicy.RUNTIME
+ *
+ * ---------------------------------------------------------------------------
+ * REFLECTION DAN ANNOTATION
+ * ---------------------------------------------------------------------------
+ *
+ * Walaupun annotation sering digunakan oleh framework atau tools,
+ * annotation dengan RetentionPolicy.RUNTIME dapat dibaca langsung
+ * oleh program menggunakan Reflection API.
+ *
+ * Reflection adalah fitur Java yang memungkinkan program
+ * memperoleh informasi mengenai class saat runtime.
+ *
+ * Package utama Reflection:
+ *
+ * java.lang.reflect
+ *
+ * ---------------------------------------------------------------------------
+ * MENDAPATKAN OBJECT CLASS
+ * ---------------------------------------------------------------------------
+ *
+ * Langkah pertama dalam Reflection biasanya adalah memperoleh
+ * object Class yang merepresentasikan sebuah class.
+ *
+ * Salah satu cara paling mudah:
+ *
  * getClass()
  *
- * Method:
+ * Signature:
+ *
  * final Class<?> getClass()
- * mengembalikan object Class dari object yang memanggilnya.
  *
- * <?> itu generics 
+ * Return:
  *
- * Setelah dapat Class, kita bisa ambil info dari class itu:
- * method
- * field
- * constructor
- * annotation
+ * Object Class yang merepresentasikan object tersebut.
  *
- * Untuk ambil method:
- * getMethod(String methName, Class<?> ... paramTypes)
+ * Catatan:
  *
- * paramTypes = tipe parameter method (bisa kosong)
+ * <?> merupakan wildcard pada Java Generics.
  *
- * Method ini mengembalikan object Method.
- * Kalau method gak ditemukan → error:
+ * ---------------------------------------------------------------------------
+ * INFORMASI YANG DAPAT DIAMBIL MELALUI CLASS
+ * ---------------------------------------------------------------------------
+ *
+ * Setelah mendapatkan object Class, kita dapat memperoleh
+ * berbagai informasi:
+ *
+ * - Method
+ * - Field
+ * - Constructor
+ * - Annotation
+ *
+ * Flow:
+ * Object -> Class -> Reflection
+ * -> Method / Field / Constructor / Annotation
+ *
+ * ---------------------------------------------------------------------------
+ * MENGAMBIL METHOD
+ * ---------------------------------------------------------------------------
+ *
+ * Method yang sering digunakan:
+ *
+ * getMethod(String methName, Class<?>... paramTypes)
+ *
+ * Parameter:
+ *
+ * - methName -> Nama method.
+ * - paramTypes -> Tipe parameter method.
+ *
+ * Return:
+ *
+ * Object Method.
+ *
+ * Jika method tidak ditemukan:
+ *
  * NoSuchMethodException
  *
- * Untuk ambil annotation:
+ * akan dilempar.
+ *
+ * ---------------------------------------------------------------------------
+ * MENGAMBIL ANNOTATION
+ * ---------------------------------------------------------------------------
+ *
+ * Method yang sering digunakan:
+ *
  * getAnnotation(Class<A> annoType)
  *
  * Return:
- * object annotation (kalau ada)
- * null (kalau gak ada / bukan RUNTIME)
  *
- * Ini yang sebenarnya terjadi:
- * Annotation = data
- * Reflection = cara baca data itu saat runtime
+ * - Object Annotation jika ditemukan.
+ * - null jika tidak ditemukan.
+ * - null jika annotation bukan RUNTIME retention.
  *
+ * Flow:
+ * Class -> Method -> Annotation
+ * -> getAnnotation() -> Metadata Annotation
+ *
+ * ---------------------------------------------------------------------------
+ * HUBUNGAN ANNOTATION DAN REFLECTION
+ * ---------------------------------------------------------------------------
+ *
+ * Annotation menyimpan metadata.
+ *
+ * Reflection menyediakan mekanisme untuk membaca metadata tersebut
+ * saat runtime.
+ *
+ * Flow:
+ * Annotation -> Metadata
+ * Reflection -> Membaca Metadata
+ * Program -> Menggunakan Metadata
+ *
+ * ---------------------------------------------------------------------------
  * ISTILAH PENTING
- * Istilah	            Arti
- * Reflection	        Ngintip isi class saat runtime
- * Class object	        Representasi class di memori
- * Method object	    Representasi method
- * getAnnotation()	    Ambil annotation
- * class literal	    MyAnno.class
+ * ---------------------------------------------------------------------------
  *
- * KESIMPULAN FINAL
- * Annotation bisa dibaca saat runtime kalau pakai RUNTIME
- * Reflection = alat buat baca annotation
- * Step utama:
+ * - Reflection
+ *   -> Mekanisme untuk memperoleh informasi class saat runtime.
+ *
+ * - Class Object
+ *   -> Representasi sebuah class di dalam JVM.
+ *
+ * - Method Object
+ *   -> Representasi method yang diperoleh melalui Reflection.
+ *
+ * - getAnnotation()
+ *   -> Mengambil annotation tertentu.
+ *
+ * - Class Literal
+ *   -> Bentuk seperti MyAnno.class.
+ *
+ * ---------------------------------------------------------------------------
+ * KESIMPULAN
+ * ---------------------------------------------------------------------------
+ *
+ * Retention Policy menentukan sampai kapan annotation tersedia
+ * dan dapat digunakan.
+ *
+ * Java menyediakan tiga Retention Policy:
+ *
+ * - SOURCE
+ * - CLASS
+ * - RUNTIME
+ *
+ * RetentionPolicy.RUNTIME merupakan yang paling penting karena
+ * memungkinkan annotation dibaca saat program berjalan.
+ *
+ * Untuk membaca annotation saat runtime digunakan Reflection API.
+ *
+ * Langkah umumnya:
+ *
  * Ambil Class
- * Ambil Method
- * Ambil Annotation
- * Ambil nilainya
+ * -> Ambil Method
+ * -> Ambil Annotation
+ * -> Ambil Nilai Annotation
+ *
+ * Konsep ini menjadi fondasi bagi berbagai framework modern
+ * seperti Spring Framework, Spring Boot, dan Hibernate.
  */
 
 import java.lang.annotation.*;

@@ -1,336 +1,545 @@
 package FundamentalJava.ClassAndObject;
 
-        /**
-         * Object
-         *
-         * object adalah sesuatu nyata yang dihasilkan dari cetakan class.
-         * 
-         * Declaring Objects
-         * Seperti yang sudah dijelaskan sebelumnya, ketika kamu membuat class, kamu sebenarnya membuat tipe data baru.
-         * Tipe data ini bisa digunakan untuk mendeklarasikan object.
-         * 
-         * Namun, untuk mendapatkan object dari sebuah class ada dua langkah:
-         * Langkah 1
-         * Deklarasikan variable bertipe class tersebut.
-         *
-         * Tapi variable ini belum membuat object.
-         * Variable ini hanya bisa menunjuk ke object.
-         *
-         * Langkah 2
-         * Buat object sebenarnya menggunakan operator new.
-         *
-         * Operator new akan:
-         * -membuat object di memory
-         * -mengalokasikan memory saat program berjalan (runtime)
-         * -mengembalikan reference ke object tersebut.
-         *
-         * Reference ini kira-kira seperti alamat memory object.
-         * Reference ini kemudian disimpan di variable.
-         *
-         * Karena itu di Java:
-         * semua object class dibuat secara dynamic allocation menggunakan new.
-         *
-         * --------------------------------------------------------------------
-         * 
-         * Contoh sebelumnya:
-         * Box mybox = new Box();
-         *
-         * Ini sebenarnya menggabungkan dua langkah sekaligus.
-         * Kalau dipisah menjadi:
-         * Box mybox;         // deklarasi reference
-         * mybox = new Box(); // membuat object
-         *
-         * --------------------------------------------------------------------
-         * 
-         * Ada 3 komponen penting.
-         * 1 variable reference
-         * 2 object
-         * 3 memory
-         *
-         * Misalnya:
-         * Box mybox;
-         * 
-         * Saat ini:
-         * mybox → belum menunjuk apa pun
-         * Belum ada object.
-         * 
-         * Ketika kita jalankan
-         * mybox = new Box();
-         *
-         * Java melakukan:
-         * 1️ membuat object Box di memory
-         * 2️ mengambil alamat memory object
-         * 3️ menyimpannya di mybox
-         *
-         * Diagram sederhana:
-         * mybox ----------> [ Box object ]
-         *                      panjang
-         *                      lebar
-         *                      tinggi
-         *
-         * Jadi sebenarnya:
-         * mybox bukan object
-         * mybox hanya reference ke object
-         *
-         * Ini konsep fundamental Java.
-         *
-         * Apa Itu Reference
-         * Buku bilang:
-         * reference kira-kira adalah alamat memory object
-         *
-         * Misalnya secara ilustrasi:
-         * Object Box ada di memory address 0x105A
-         *
-         * maka:
-         * mybox = 0x105A
-         *
-         * Jadi:
-         * mybox → menunjuk ke object
-         *
-         * Makanya disebut:
-         * object reference
-         *
-         * Kenapa Java Pakai Reference
-         * Supaya memory lebih aman.
-         *
-         * Di Java kita tidak boleh mengutak-atik alamat memory langsung.
-         * Ini beda dengan bahasa seperti:
-         * C
-         * C++
-         */
-
-        /**
-         * Diagram Memory (Konsep Penting)
-         * Ketika program jalan:
-         *
-         * Stack Memory
-         * ----------------
-         * mybox
-         *   │
-         *   │ reference
-         *   ▼
-         *
-         * Heap Memory
-         * ----------------
-         * Box Object
-         * panjang = 10
-         *
-         * Jadi:
-         * mybox → menunjuk ke object di heap
-         */
-
-        /**
-         * A Closer Look at new
-         *
-         * Operator new digunakan untuk mengalokasikan memory secara dinamis untuk sebuah object.
-         * Bentuk umumnya:
-         * classVar = new ClassName();
-         *
-         * Penjelasan:
-         * classVar → variable bertipe class
-         * ClassName → nama class yang ingin dibuat objectnya
-         * () → memanggil constructor
-         *
-         * Constructor adalah bagian dari class yang menentukan apa yang terjadi saat object dibuat.
-         * Sebagian besar class di dunia nyata memiliki constructor sendiri.
-         * Namun jika kita tidak membuat constructor, maka Java akan otomatis membuatkan default constructor.
-         * Contoh pada class Box sebelumnya.
-         *
-         * Kemudian muncul pertanyaan:
-         * Kenapa kita tidak memakai new untuk int, char, dll?
-         *
-         * Jawabannya:
-         * Karena primitive type bukan object.
-         * Primitive type adalah variable biasa yang dibuat langsung di memory tanpa fitur object.
-         * Ini dilakukan agar Java lebih efisien dan cepat.
-         *
-         * Java juga menyediakan versi object dari primitive type 
-         * (misalnya Integer, Double, dll) jika kita membutuhkan fitur object.
-         *
-         * Hal penting lainnya:
-         * new mengalokasikan memory saat program berjalan (runtime).
-         * 
-         * Artinya program bisa membuat:
-         * -sedikit object
-         * -atau banyak object
-         * sesuai kebutuhan program.
-         * 
-         * Namun karena memory komputer terbatas, bisa saja new gagal membuat object jika memory habis.
-         * Jika ini terjadi, Java akan menghasilkan runtime exception.
-         *
-         * Terakhir buku mengingatkan lagi:
-         * Class vs Object
-         * Class
-         * hanya konsep logis
-         * template atau blueprint
-         *
-         * Object
-         * instance dari class
-         * memiliki keberadaan fisik di memory
-         *
-         * Struktur new
-         * Bentuk dasar:
-         * variable = new ClassName();
-         *
-         * Contoh:
-         * Box mybox = new Box();
-         *
-         * Langkah yang terjadi:
-         * 1️ Java melihat class Box
-         * 2️ Java membuat object Box di heap memory
-         * 3️ Constructor dijalankan
-         * 4️ Reference ke object diberikan ke mybox
-         *
-         * Diagram:
-         * mybox ─────► [Box Object]
-         *               panjang
-         *               lebar
-         *               tinggi
-         *
-         * new Mengalokasikan Memory Saat Runtime
-         * Artinya object dibuat ketika program berjalan, bukan saat compile.
-         * Contoh:
-         *
-         * for(int i = 0; i < 100; i++){
-         *     Box b = new Box();
-         * }
-         *
-         * Program membuat 100 object Box saat runtime.
-         *
-         * Risiko Memory Habis
-         * Karena object dibuat di memory, bisa saja memory habis.
-         */
-   
-        /**
-         * PENTING!
-         *
-         * Object bisa dibuat di method apa saja.
-         * Baik itu:
-         * -void method
-         * -method dengan return value
-         * -bahkan constructor
-         * -atau main()
-         *
-         * Yang penting: Java boleh membuat object di dalam method apa pun.
-         * 
-         * 1. Contoh Object Dibuat di Method void
-         * Ini contoh paling sederhana.
-         *
-         * class Mobil {
-         *
-         *     void buatMobil() {
-         * 
-         *         // membuat object
-         *         Mesin m = new Mesin();
-         *         System.out.println("Object mesin dibuat");
-         *     }
-         * }
-         *
-         * class Mesin {}
-         *
-         * Di sini:
-         * Mesin m = new Mesin();
-         * Object dibuat di method void.
-         * Jadi tidak perlu return object.
-         *
-         * 2. Object Dibuat di Method yang Mengembalikan Object
-         * Ini contoh seperti di buku.
-         *
-         * class Test {
-         *
-         *     int a;
-         *
-         *     Test(int a) {
-         *         this.a = a;
-         *     }
-         *
-         *     Test tambahSepuluh() {
-         *
-         *         Test temp = new Test(a + 10);
-         *         return temp;
-         *     }
-         * }
-         *
-         * Di sini:
-         * object dibuat
-         * lalu dikembalikan (return).
-         * Ini sering dipakai jika kita ingin method menghasilkan object baru.
-         *
-         * 3. Object Dibuat di main()
-         * Ini juga sangat umum.
-         *
-         * class Demo {
-         *
-         *     public static void main(String[] args) {
-         *
-         *         Test t = new Test(5);
-         *
-         *     }
-         * }
-         *
-         * Object dibuat langsung di main().
-         *
-         * 4. Object Dibuat di Constructor
-         * Bahkan constructor juga bisa membuat object lain.
-         *
-         * class A {
-         *
-         *     B b;
-         *
-         *     A() {
-         *         b = new B();
-         *     }
-         * }
-         *
-         * class B {}
-         *
-         * Saat object A dibuat:
-         * A obj = new A();
-         *
-         * Constructor A akan membuat object B.
-         *
-         * ----------------------------------------------------------
-         * 
-         * Ringkasan Cara Membuat Object
-         * Object bisa dibuat di mana saja di dalam method.
-         *
-         * Tempat	                Bisa buat object
-         * main()	                ya
-         * method void	            ya
-         * method return value	    ya
-         * constructor	            ya
-         * static method	        ya
-         *
-         * Yang penting hanya satu:
-         * new ClassName()
-         *
-         * Hal Penting yang Perlu Lu Pahami
-         * Membuat object = dua langkah
-         * 1️ Deklarasi reference
-         * Test ob;
-         * 
-         * 2️ Membuat object
-         * ob = new Test();
-         *
-         * Biasanya digabung:
-         * Test ob = new Test();
-         *
-         * -----------------------------------------------------
-         * 
-         * Insight Penting (Programmer Java Senior Tahu Ini)
-         *
-         * Sebenarnya saat lu menulis:
-         * Test ob = new Test();
-         * Yang terjadi:
-         *
-         * ob (stack)
-         *    ↓
-         * object Test (heap memory)
-         *
-         * Jadi:
-         * ob = reference
-         * object sebenarnya ada di heap
-         */
+/**
+ * ---------------------------------------------------------------------------
+ * OBJECT (INSTANCE DARI CLASS)
+ * ---------------------------------------------------------------------------
+ *
+ * Object adalah wujud nyata (instance) yang dibuat berdasarkan
+ * sebuah class.
+ *
+ * Jika class diibaratkan sebagai blueprint atau cetakan,
+ * maka object adalah hasil nyata yang dibuat dari blueprint
+ * tersebut.
+ *
+ * Analogi:
+ *
+ * Class
+ * -> Cetakan Mobil
+ *
+ * Object
+ * -> Mobil Avanza
+ * -> Mobil BMW
+ * -> Mobil Tesla
+ *
+ * Flow:
+ *
+ * Class (Blueprint)
+ * -> Pembuatan Object
+ * -> Object (Instance)
+ *
+ * ---------------------------------------------------------------------------
+ * DECLARING OBJECTS
+ * ---------------------------------------------------------------------------
+ *
+ * Seperti yang telah dipelajari sebelumnya, ketika kita membuat
+ * sebuah class, kita sebenarnya sedang membuat tipe data baru.
+ *
+ * Contoh:
+ *
+ * class Box {
+ * }
+ *
+ * Setelah class Box dibuat, Box dapat digunakan seperti tipe data
+ * lainnya untuk mendeklarasikan variable.
+ *
+ * Contoh:
+ *
+ * Box mybox;
+ *
+ * Namun perlu dipahami:
+ *
+ * Deklarasi variable object tidak membuat object.
+ *
+ * Variable tersebut hanya mampu menyimpan reference yang nantinya
+ * akan menunjuk ke object.
+ *
+ * ---------------------------------------------------------------------------
+ * DUA LANGKAH MEMBUAT OBJECT
+ * ---------------------------------------------------------------------------
+ *
+ * Untuk mendapatkan object dari sebuah class, terdapat dua langkah:
+ *
+ * Langkah 1:
+ *
+ * Deklarasikan reference variable.
+ *
+ * Contoh:
+ *
+ * Box mybox;
+ *
+ * Pada tahap ini:
+ *
+ * - Belum ada object yang dibuat.
+ * - mybox hanya sebuah reference variable.
+ *
+ * Langkah 2:
+ *
+ * Buat object menggunakan operator new.
+ *
+ * Contoh:
+ *
+ * mybox = new Box();
+ *
+ * Setelah baris tersebut dijalankan:
+ *
+ * - Object dibuat di memory.
+ * - Constructor dijalankan.
+ * - Reference object disimpan ke mybox.
+ *
+ * Flow:
+ *
+ * Deklarasi Reference
+ * -> Membuat Object Dengan new
+ * -> Constructor Dijalankan
+ * -> Reference Disimpan
+ *
+ * ---------------------------------------------------------------------------
+ * OPERATOR new
+ * ---------------------------------------------------------------------------
+ *
+ * Operator new digunakan untuk membuat object secara dinamis
+ * saat program berjalan (runtime).
+ *
+ * Bentuk umum:
+ *
+ * variable = new ClassName();
+ *
+ * Contoh:
+ *
+ * Box mybox = new Box();
+ *
+ * Ketika perintah tersebut dijalankan, Java akan:
+ *
+ * - Mengalokasikan memory untuk object.
+ * - Menjalankan constructor.
+ * - Mengembalikan reference ke object.
+ * - Menyimpan reference ke dalam variable.
+ *
+ * Flow:
+ *
+ * new
+ * -> Alokasi Memory
+ * -> Menjalankan Constructor
+ * -> Mengembalikan Reference
+ * -> Disimpan Ke Variable
+ *
+ * ---------------------------------------------------------------------------
+ * TIGA KOMPONEN PENTING
+ * ---------------------------------------------------------------------------
+ *
+ * Dalam proses pembuatan object terdapat tiga komponen utama:
+ *
+ * - Reference Variable
+ * - Object
+ * - Memory
+ *
+ * Contoh:
+ *
+ * Box mybox;
+ *
+ * Pada tahap ini:
+ *
+ * mybox
+ * -> Belum menunjuk object apa pun.
+ *
+ * Ketika:
+ *
+ * mybox = new Box();
+ *
+ * Java melakukan:
+ *
+ * - Membuat object Box di memory.
+ * - Menghasilkan reference object.
+ * - Menyimpan reference ke mybox.
+ *
+ * Diagram:
+ *
+ * mybox
+ *    |
+ *    v
+ * [ Box Object ]
+ *    width
+ *    height
+ *    depth
+ *
+ * ---------------------------------------------------------------------------
+ * APA ITU OBJECT REFERENCE?
+ * ---------------------------------------------------------------------------
+ *
+ * Reference adalah nilai yang digunakan untuk menunjuk ke object
+ * yang berada di memory.
+ *
+ * Secara konseptual, reference dapat dianggap sebagai alamat
+ * object di memory.
+ *
+ * Namun Java tidak memperbolehkan programmer mengakses atau
+ * memanipulasi alamat memory secara langsung seperti pada
+ * bahasa C atau C++.
+ *
+ * Karena itu:
+ *
+ * mybox bukan object.
+ *
+ * mybox adalah reference yang menunjuk ke object.
+ *
+ * Flow:
+ *
+ * Reference Variable
+ * -> Menunjuk Object
+ * -> Mengakses Data Dan Method Object
+ *
+ * ---------------------------------------------------------------------------
+ * DIAGRAM MEMORY (KONSEP PENTING)
+ * ---------------------------------------------------------------------------
+ *
+ * Saat program berjalan:
+ *
+ * Stack Memory
+ * -------------------------
+ * mybox
+ *    |
+ *    | reference
+ *    v
+ *
+ * Heap Memory
+ * -------------------------
+ * Box Object
+ * width  = 10
+ * height = 20
+ * depth  = 30
+ *
+ * Kesimpulan:
+ *
+ * - Reference biasanya berada di Stack.
+ * - Object berada di Heap.
+ *
+ * Catatan:
+ *
+ * Ini adalah model konseptual untuk memahami cara kerja Java.
+ * Implementasi JVM sebenarnya dapat berbeda tergantung vendor
+ * dan optimisasi yang digunakan.
+ *
+ * ---------------------------------------------------------------------------
+ * CLASS VS OBJECT
+ * ---------------------------------------------------------------------------
+ *
+ * Salah satu konsep paling penting dalam OOP adalah membedakan
+ * antara class dan object.
+ *
+ * Class:
+ *
+ * - Template.
+ * - Blueprint.
+ * - Konsep logis.
+ *
+ * Object:
+ *
+ * - Instance dari class.
+ * - Memiliki data nyata.
+ * - Menempati memory saat runtime.
+ *
+ * Flow:
+ *
+ * Class
+ * -> Blueprint
+ *
+ * Object
+ * -> Hasil Dari Blueprint
+ *
+ * ---------------------------------------------------------------------------
+ * MENGAPA PRIMITIVE TYPE TIDAK MEMAKAI new?
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * int x = 10;
+ * double y = 20.5;
+ *
+ * Primitive type tidak menggunakan operator new karena
+ * primitive bukan object.
+ *
+ * Primitive dibuat untuk:
+ *
+ * - Lebih sederhana.
+ * - Lebih cepat.
+ * - Lebih efisien.
+ *
+ * Jika dibutuhkan versi object, Java menyediakan Wrapper Class.
+ *
+ * Contoh:
+ *
+ * int      -> Integer
+ * double   -> Double
+ * char     -> Character
+ * boolean  -> Boolean
+ *
+ * ---------------------------------------------------------------------------
+ * MEMORY DAN RUNTIME
+ * ---------------------------------------------------------------------------
+ *
+ * Operator new bekerja saat runtime.
+ *
+ * Artinya jumlah object yang dibuat dapat berubah sesuai
+ * kebutuhan program.
+ *
+ * Contoh:
+ *
+ * for (int i = 0; i < 100; i++) {
+ *     Box b = new Box();
+ * }
+ *
+ * Saat program berjalan:
+ *
+ * - 100 object Box dibuat.
+ *
+ * Flow:
+ *
+ * Runtime
+ * -> Menjalankan Loop
+ * -> Membuat Object
+ * -> Mengalokasikan Memory
+ *
+ * ---------------------------------------------------------------------------
+ * RISIKO MEMORY HABIS
+ * ---------------------------------------------------------------------------
+ *
+ * Karena setiap object membutuhkan memory,
+ * pembuatan object dalam jumlah besar dapat menyebabkan
+ * kehabisan memory.
+ *
+ * Jika JVM tidak dapat menyediakan memory yang cukup,
+ * maka Java dapat menghasilkan:
+ *
+ * OutOfMemoryError
+ *
+ * Catatan:
+ *
+ * Ini bukan Exception.
+ *
+ * OutOfMemoryError termasuk kategori Error yang menunjukkan
+ * masalah serius pada JVM.
+ *
+ * ---------------------------------------------------------------------------
+ * OBJECT BISA DIBUAT DI MANA SAJA
+ * ---------------------------------------------------------------------------
+ *
+ * Object dapat dibuat di berbagai tempat dalam program.
+ *
+ * Contohnya:
+ *
+ * - main()
+ * - Method biasa
+ * - Method yang mengembalikan nilai
+ * - Constructor
+ * - Static Method
+ *
+ * Selama menggunakan operator new, object dapat dibuat
+ * di mana pun sesuai kebutuhan.
+ *
+ * ---------------------------------------------------------------------------
+ * OBJECT DI DALAM METHOD void
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * class Mobil {
+ *
+ *     void buatMesin() {
+ *
+ *         Mesin m = new Mesin();
+ *
+ *         System.out.println("Object Mesin Dibuat");
+ *     }
+ *
+ * }
+ *
+ * class Mesin {
+ * }
+ *
+ * Pada contoh tersebut:
+ *
+ * Object Mesin dibuat di dalam method void.
+ *
+ * ---------------------------------------------------------------------------
+ * OBJECT DI DALAM METHOD YANG MENGEMBALIKAN OBJECT
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * class Test {
+ *
+ *     int a;
+ *
+ *     Test(int a) {
+ *         this.a = a;
+ *     }
+ *
+ *     Test tambahSepuluh() {
+ *
+ *         Test temp = new Test(a + 10);
+ *
+ *         return temp;
+ *     }
+ *
+ * }
+ *
+ * Pada contoh ini:
+ *
+ * - Object baru dibuat.
+ * - Object dikembalikan menggunakan return.
+ *
+ * Teknik ini sangat umum dalam OOP modern.
+ *
+ * ---------------------------------------------------------------------------
+ * OBJECT DI DALAM main()
+ * ---------------------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * public static void main(String[] args) {
+ *
+ *     Test t = new Test(5);
+ *
+ * }
+ *
+ * Ini adalah tempat paling umum untuk membuat object
+ * saat pertama kali belajar Java.
+ *
+ * ---------------------------------------------------------------------------
+ * OBJECT DI DALAM CONSTRUCTOR
+ * ---------------------------------------------------------------------------
+ *
+ * Constructor juga dapat membuat object lain.
+ *
+ * Contoh:
+ *
+ * class A {
+ *
+ *     B b;
+ *
+ *     A() {
+ *         b = new B();
+ *     }
+ *
+ * }
+ *
+ * class B {
+ * }
+ *
+ * Saat object A dibuat:
+ *
+ * A obj = new A();
+ *
+ * Constructor A otomatis membuat object B.
+ *
+ * ---------------------------------------------------------------------------
+ * RINGKASAN TEMPAT MEMBUAT OBJECT
+ * ---------------------------------------------------------------------------
+ *
+ * Tempat                     Bisa Membuat Object
+ *
+ * main()                     Ya
+ * Method void                Ya
+ * Method return value        Ya
+ * Constructor                Ya
+ * Static Method              Ya
+ *
+ * Syarat utamanya:
+ *
+ * new ClassName()
+ *
+ * ---------------------------------------------------------------------------
+ * INSIGHT PENTING
+ * ---------------------------------------------------------------------------
+ *
+ * Saat menulis:
+ *
+ * Test ob = new Test();
+ *
+ * Banyak pemula mengira ob adalah object.
+ *
+ * Padahal:
+ *
+ * ob hanyalah reference.
+ *
+ * Visualisasi:
+ *
+ * ob (Reference)
+ *        |
+ *        v
+ * Test Object (Heap)
+ *
+ * Yang benar:
+ *
+ * ob
+ * -> Reference Variable
+ *
+ * Test Object
+ * -> Object Sebenarnya
+ *
+ * Ini merupakan salah satu konsep paling fundamental
+ * dalam Java dan Object-Oriented Programming.
+ *
+ * ---------------------------------------------------------------------------
+ * ISTILAH PENTING
+ * ---------------------------------------------------------------------------
+ *
+ * Class
+ * -> Blueprint untuk membuat object.
+ *
+ * Object
+ * -> Instance dari class.
+ *
+ * Reference
+ * -> Penunjuk ke object.
+ *
+ * Heap Memory
+ * -> Area memory tempat object disimpan.
+ *
+ * Stack Memory
+ * -> Area memory tempat reference lokal biasanya disimpan.
+ *
+ * Constructor
+ * -> Method khusus yang dijalankan saat object dibuat.
+ *
+ * Dynamic Allocation
+ * -> Alokasi memory saat runtime menggunakan new.
+ *
+ * ---------------------------------------------------------------------------
+ * KESIMPULAN
+ * ---------------------------------------------------------------------------
+ *
+ * Object adalah instance nyata dari sebuah class yang dibuat
+ * menggunakan operator new.
+ *
+ * Untuk membuat object terdapat dua langkah:
+ *
+ * - Mendeklarasikan reference variable.
+ * - Membuat object menggunakan new.
+ *
+ * Java menggunakan reference untuk mengakses object sehingga
+ * variable object sebenarnya tidak menyimpan object secara
+ * langsung.
+ *
+ * Flow utama:
+ *
+ * Class
+ * -> Deklarasi Reference
+ * -> new
+ * -> Object Dibuat Di Memory
+ * -> Reference Menunjuk Ke Object
+ *
+ * Memahami hubungan antara:
+ *
+ * - Class
+ * - Object
+ * - Reference
+ * - Memory
+ *
+ * merupakan fondasi paling penting dalam pemrograman Java
+ * berbasis Object-Oriented Programming (OOP).
+ */
 
 // class Boxx
 class Boxx {

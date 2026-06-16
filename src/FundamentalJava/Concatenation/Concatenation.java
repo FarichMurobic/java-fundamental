@@ -1,15 +1,246 @@
 package FundamentalJava.Concatenation;
 
-    /**
-     * Concatenation (Penyambungan) dan Panjang String
-     * Concatenation adalah operasi biner (melibatkan dua operan) yang menyambungkan String kedua setelah String pertama.
-     *
-     * Java menggunakan operator + sebagai operator concatenation.
-     * Operator concatenation (+) juga bisa digunakan untuk menggabungkan sebuah String dengan
-     * nilai numerik atau karakter. Dalam kasus tersebut, Java pertama-tama akan mengkonversi nilai
-     * numerik atau karakter tersebut menjadi sebuah String, lalu barulah menggunakan operator
-     * concatenation (+) untuk menyambungkannya.
-     */
+/**
+ * CONCATENATION (PENYAMBUNGAN STRING)
+ * ------------------------------------------------------------
+ *
+ * Concatenation adalah proses menggabungkan dua atau lebih String
+ * menjadi satu String baru.
+ *
+ * Di Java, operasi concatenation menggunakan operator:
+ *
+ * +
+ *
+ * Operator ini akan menyambungkan String yang berada di sebelah
+ * kiri dengan String yang berada di sebelah kanan.
+ *
+ * ------------------------------------------------------------
+ * CONTOH DASAR CONCATENATION
+ * ------------------------------------------------------------
+ *
+ * String s1 = "Hello";
+ * String s2 = " World";
+ *
+ * String hasil = s1 + s2;
+ *
+ * Hasil:
+ *
+ * Hello World
+ *
+ * Flow:
+ *
+ * "Hello"
+ * + " World"
+ * -> "Hello World"
+ *
+ * ------------------------------------------------------------
+ * CONCATENATION DENGAN TIPE DATA LAIN
+ * ------------------------------------------------------------
+ *
+ * Operator concatenation (+) tidak hanya dapat digunakan
+ * untuk menggabungkan String dengan String.
+ *
+ * Java juga mengizinkan penggabungan String dengan:
+ *
+ * - int
+ * - long
+ * - float
+ * - double
+ * - char
+ * - boolean
+ * - Object
+ *
+ * Sebelum proses penggabungan dilakukan, Java akan mengubah
+ * nilai tersebut menjadi String secara otomatis.
+ *
+ * Contoh:
+ *
+ * int umur = 20;
+ *
+ * String info = "Umur: " + umur;
+ *
+ * Hasil:
+ *
+ * Umur: 20
+ *
+ * Flow:
+ *
+ * int 20
+ * -> dikonversi menjadi String "20"
+ * -> digabung dengan "Umur: "
+ * -> "Umur: 20"
+ *
+ * ------------------------------------------------------------
+ * CONCATENATION DENGAN CHARACTER
+ * ------------------------------------------------------------
+ *
+ * Character juga akan dikonversi menjadi String sebelum
+ * proses concatenation dilakukan.
+ *
+ * Contoh:
+ *
+ * char grade = 'A';
+ *
+ * String hasil = "Nilai: " + grade;
+ *
+ * Hasil:
+ *
+ * Nilai: A
+ *
+ * Flow:
+ *
+ * char 'A'
+ * -> String "A"
+ * -> Concatenation
+ * -> "Nilai: A"
+ *
+ * ------------------------------------------------------------
+ * URUTAN EVALUASI OPERATOR +
+ * ------------------------------------------------------------
+ *
+ * Ketika operator + digunakan bersama angka dan String,
+ * urutan evaluasi menjadi sangat penting.
+ *
+ * Contoh:
+ *
+ * System.out.println(10 + 20 + " Java");
+ *
+ * Hasil:
+ *
+ * 30 Java
+ *
+ * Flow:
+ *
+ * 10 + 20
+ * -> 30
+ *
+ * 30 + " Java"
+ * -> "30 Java"
+ *
+ * Contoh lain:
+ *
+ * System.out.println("Java " + 10 + 20);
+ *
+ * Hasil:
+ *
+ * Java 1020
+ *
+ * Flow:
+ *
+ * "Java " + 10
+ * -> "Java 10"
+ *
+ * "Java 10" + 20
+ * -> "Java 1020"
+ *
+ * Karena setelah String muncul, operator + akan dianggap
+ * sebagai operator concatenation.
+ *
+ * ------------------------------------------------------------
+ * PANJANG STRING (STRING LENGTH)
+ * ------------------------------------------------------------
+ *
+ * Untuk mengetahui jumlah karakter yang dimiliki sebuah String,
+ * digunakan method:
+ *
+ * length()
+ *
+ * Bentuk umum:
+ *
+ * stringObject.length()
+ *
+ * Method ini mengembalikan jumlah karakter yang terdapat
+ * di dalam String.
+ *
+ * Contoh:
+ *
+ * String str = "Java";
+ *
+ * int panjang = str.length();
+ *
+ * Hasil:
+ *
+ * 4
+ *
+ * Karena String "Java" memiliki:
+ *
+ * J -> 1 karakter
+ * a -> 1 karakter
+ * v -> 1 karakter
+ * a -> 1 karakter
+ *
+ * Total:
+ *
+ * 4 karakter
+ *
+ * ------------------------------------------------------------
+ * KARAKTER SPASI JUGA DIHITUNG
+ * ------------------------------------------------------------
+ *
+ * Method length() menghitung seluruh karakter yang ada
+ * di dalam String, termasuk spasi.
+ *
+ * Contoh:
+ *
+ * String str = "Hello World";
+ *
+ * System.out.println(str.length());
+ *
+ * Hasil:
+ *
+ * 11
+ *
+ * Karena:
+ *
+ * H e l l o _ W o r l d
+ *
+ * Spasi (_) juga dihitung sebagai karakter.
+ *
+ * ------------------------------------------------------------
+ * ISTILAH PENTING
+ * ------------------------------------------------------------
+ *
+ * String
+ * -> Kumpulan karakter yang merepresentasikan teks.
+ *
+ * Concatenation
+ * -> Proses menggabungkan dua atau lebih String.
+ *
+ * Operator +
+ * -> Operator yang digunakan untuk concatenation String.
+ *
+ * Automatic Type Conversion
+ * -> Konversi otomatis tipe data menjadi String saat
+ *    proses concatenation.
+ *
+ * length()
+ * -> Method untuk mendapatkan jumlah karakter dalam String.
+ *
+ * ------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------
+ *
+ * Concatenation adalah proses menyambungkan String menggunakan
+ * operator (+).
+ *
+ * Java dapat melakukan concatenation antara String dan tipe data
+ * lain dengan cara mengonversi nilai tersebut menjadi String
+ * secara otomatis.
+ *
+ * Flow:
+ *
+ * Data Lain
+ * -> Konversi ke String
+ * -> Concatenation
+ * -> String Baru
+ *
+ * Untuk mengetahui jumlah karakter dalam String digunakan:
+ *
+ * length()
+ *
+ * Method ini menghitung seluruh karakter yang ada di dalam
+ * String, termasuk spasi.
+ */
 
 public class Concatenation {
     public static void main(String[] args) {
