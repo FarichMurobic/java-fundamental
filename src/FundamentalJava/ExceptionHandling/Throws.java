@@ -1,166 +1,391 @@
 package FundamentalJava.ExceptionHandling;
 
-    /**
-     * throws
-     *
-     * Kalau sebuah method bisa menyebabkan exception tapi tidak menanganinya,
-     * maka method itu harus memberi tahu ke pemanggilnya.
-     *
-     * Caranya:
-     * pakai throws di deklarasi method
-     *
-     * Bentuk umum:
-     * type namaMethod(parameter) throws Exception1, Exception2 {
-     *     // isi method
-     * }
-     *
-     * artinya:
-     * “Method ini mungkin melempar exception ini, siap-siap ya”
-     *
-     * Aturan penting
-     * Wajib untuk:
-     * Exception selain RuntimeException dan Error
-     * Tidak wajib untuk:
-     * RuntimeException
-     * Error
-     * 
-     * -----------------------------------------------------
-     *
-     * Kalau gak ditulis:
-     * compile error
-     *
-     * Perbedaan    inti
-     * Keyword	    Fungsi
-     * throw	    Melempar exception
-     * throws	    Mendeklarasikan kemungkinan exception
-     *
-     * Intinya
-     *
-     * throwOne() tidak handle error
-     * dia “lempar tanggung jawab” ke main()
-     *
-     * Ini inti kerasnya:
-     *
-     * throw → aksi lempar error
-     * throws → deklarasi method
-     *
-     * Rule penting:
-     * Checked exception → WAJIB pakai throws atau try-catch
-     * RuntimeException → tidak wajib
-     * 
-     * Pola umum:
-     * method() throws Exception {
-     *     throw new Exception();
-     * }
-     *
-     * ----------------------------------------------
-     * 
-     * Real world
-     *
-     * Misalnya:
-     * readFile() throws IOException
-     *
-     * method ini bilang:
-     * “Kalau file gagal dibaca, itu urusan yang manggil gua”
-     *
-     * Cara pro
-     * spesifik:
-     * throws IOException
-     *
-     * bukan:
-     * throws Exception
-     *
-     * Ringkasan SUPER SINGKAT
-     * throw  → lempar error
-     * throws → kasih tahu method bisa error
-     * 
-     * -------------------------------------------------------------
-     *
-     * throws itu digunakan di deklarasi method (atau constructor)
-     * Bukan di dalam body kode biasa
-     *
-     * Di mana throws dipakai?
-     * 1. Method
-     * void method() throws Exception {
-     *     // isi method
-     * }
-     * 
-     * 2. Constructor (INI SERING GAK DISADARIN)
-     * class Contoh {
-     *
-     *     Contoh() throws Exception {
-     *         // constructor juga bisa lempar exception
-     *     }
-     * }
-     *
-     * constructor itu sebenarnya “method khusus”
-     * jadi bisa pakai throws
-     *
-     * Kenapa cuma di method?
-     *
-     * Karena fungsi throws itu:
-     * memberi tahu pemanggil method
-     *
-     * Contoh:
-     * void bacaFile() throws IOException
-     *
-     * Artinya:
-     * “Kalau lu manggil gua, siap-siap error ya”
-     *
-     * Jadi alurnya:
-     * Method A (throws) → Method B (yang manggil) harus siap handle
-     *
-     * Contoh Alur Nyata
-     * public class ContohThrows {
-     *
-     *     static void methodA() throws Exception {
-     *         throw new Exception("Error dari A");
-     *     }
-     *
-     *     public static void main(String[] args) {
-     *
-     *         try {
-     *             methodA(); // harus siap handle
-     *
-     *         } catch (Exception e) {
-     *             System.out.println("Ditangkap di main");
-     *         }
-     *     }
-     * }
-     *
-     * Perbedaan PENTING
-     * Keyword	        Letak	            Fungsi
-     * throw	        dalam method	    lempar error
-     * throws	        deklarasi method	kasih tahu bisa error
-     *
-     * -----------------------------------------------------
-     * 
-     * Insight (LEVEL UP)
-     * Cara mikir yang benar
-     * throws itu bukan buat jalanin program
-     * tapi buat kontrak antar method
-     *
-     * Kesimpulan (WAJIB INGAT)
-     *
-     * Intinya:
-     * throws hanya di:
-     * method
-     * constructor
-     * Tidak bisa di dalam body kode
-     * Fungsinya: kasih tahu caller tentang kemungkinan error
-     *
-     * HANDLE throws
-     * TIDAK SELALU wajib pakai try-catch
-     * Tapi WAJIB di-handle (dengan 2 cara)
-     *
-     * Kalau lu manggil method yang pakai throws:
-     * Lu punya 2 pilihan:
-     * 1. Handle di situ (try-catch) 
-     * 2. Lempar lagi ke atas (throws lagi) 
-     *
-     * Ini yang paling umum
-     * Error selesai di sini
-     */
+/**
+ * ------------------------------------------------------------
+ * THROWS
+ * ------------------------------------------------------------
+ *
+ * Dalam Java, tidak semua method menangani exception yang terjadi
+ * di dalam dirinya sendiri.
+ *
+ * Kadang sebuah method hanya mengetahui bahwa exception dapat terjadi,
+ * tetapi tidak memiliki informasi atau konteks yang cukup untuk
+ * menanganinya.
+ *
+ * Dalam kondisi seperti ini, method dapat meneruskan tanggung jawab
+ * penanganan exception kepada pemanggilnya menggunakan keyword:
+ *
+ * throws
+ *
+ * ------------------------------------------------------------
+ * DEFINISI
+ * ------------------------------------------------------------
+ *
+ * throws digunakan pada deklarasi method atau constructor
+ * untuk menyatakan bahwa method tersebut dapat menghasilkan
+ * satu atau lebih exception.
+ *
+ * Bentuk umum:
+ *
+ * returnType methodName(parameters)
+ * throws ExceptionType1, ExceptionType2 {
+ *
+ * // kode
+ * }
+ *
+ * Contoh:
+ *
+ * void readFile() throws IOException {
+ * // baca file
+ * }
+ *
+ * Artinya:
+ *
+ * "Method ini dapat menghasilkan IOException,
+ * sehingga pemanggil harus siap menanganinya."
+ *
+ * ------------------------------------------------------------
+ * TUJUAN THROWS
+ * ------------------------------------------------------------
+ *
+ * throws tidak menangani exception.
+ *
+ * throws hanya:
+ *
+ * - Mendeklarasikan kemungkinan exception.
+ * - Memberi informasi kepada pemanggil method.
+ * - Meneruskan tanggung jawab penanganan exception.
+ *
+ * Dengan kata lain:
+ *
+ * throws adalah kontrak antar method.
+ *
+ * Method berkata:
+ *
+ * "Saya mungkin gagal dengan exception berikut.
+ * Jika kamu memanggil saya,
+ * maka kamu harus siap menghadapinya."
+ *
+ * ------------------------------------------------------------
+ * THROWS HANYA DIGUNAKAN DI DEKLARASI
+ * ------------------------------------------------------------
+ *
+ * throws hanya boleh ditulis pada:
+ *
+ * - Method
+ * - Constructor
+ *
+ * Contoh method:
+ *
+ * void methodA() throws IOException {
+ * }
+ *
+ * ------------------------------------------------------------
+ *
+ * Contoh constructor:
+ *
+ * class DatabaseConnection {
+ *
+ * DatabaseConnection() throws SQLException {
+ * }
+ *
+ * }
+ *
+ * Constructor juga dapat menghasilkan exception,
+ * sehingga constructor juga boleh menggunakan throws.
+ *
+ * ------------------------------------------------------------
+ * TIDAK BOLEH DIGUNAKAN DI DALAM BODY METHOD
+ * ------------------------------------------------------------
+ *
+ * Salah:
+ *
+ * void methodA() {
+ *
+ * throws IOException; // ERROR
+ *
+ * }
+ *
+ * Karena:
+ *
+ * throws bukan perintah eksekusi.
+ *
+ * throws hanya bagian dari deklarasi method
+ * atau constructor.
+ *
+ * ------------------------------------------------------------
+ * CHECKED EXCEPTION DAN THROWS
+ * ------------------------------------------------------------
+ *
+ * Ini adalah aturan terpenting.
+ *
+ * Untuk Checked Exception:
+ *
+ * Programmer WAJIB melakukan salah satu:
+ *
+ * 1. Menangani dengan try-catch
+ * atau
+ * 2. Mendeklarasikan dengan throws
+ *
+ * Jika tidak:
+ *
+ * Compile Error
+ *
+ * Contoh:
+ *
+ * void readFile() throws IOException {
+ * }
+ *
+ * atau:
+ *
+ * void readFile() {
+ *
+ * try {
+ * }
+ * catch(IOException e) {
+ * }
+ *
+ * }
+ *
+ * Salah satu harus dilakukan.
+ *
+ * ------------------------------------------------------------
+ * RUNTIME EXCEPTION DAN THROWS
+ * ------------------------------------------------------------
+ *
+ * RuntimeException dan turunannya
+ * tidak wajib dideklarasikan.
+ *
+ * Contoh:
+ *
+ * ArithmeticException
+ * NullPointerException
+ * NumberFormatException
+ * IndexOutOfBoundsException
+ *
+ * Method berikut legal:
+ *
+ * void test() {
+ * int x = 10 / 0;
+ * }
+ *
+ * tanpa:
+ *
+ * throws ArithmeticException
+ *
+ * Alasannya:
+ *
+ * RuntimeException dianggap sebagai
+ * kesalahan logika program (programming error),
+ * bukan kondisi yang harus dipaksa ditangani.
+ *
+ * ------------------------------------------------------------
+ * THROW VS THROWS
+ * ------------------------------------------------------------
+ *
+ * Ini adalah salah satu perbedaan
+ * yang paling sering membingungkan pemula.
+ *
+ * THROW
+ *
+ * Digunakan untuk:
+ *
+ * Melempar exception.
+ *
+ * Contoh:
+ *
+ * throw new IOException();
+ *
+ * ------------------------------------------------------------
+ *
+ * THROWS
+ *
+ * Digunakan untuk:
+ *
+ * Mendeklarasikan kemungkinan exception.
+ *
+ * Contoh:
+ *
+ * void methodA() throws IOException {
+ * }
+ *
+ * ------------------------------------------------------------
+ *
+ * Ringkasan:
+ *
+ * throw
+ * =
+ * aksi melempar exception
+ *
+ * throws
+ * =
+ * deklarasi bahwa exception mungkin terjadi
+ *
+ * ------------------------------------------------------------
+ * ALUR PROPAGASI EXCEPTION
+ * ------------------------------------------------------------
+ *
+ * Misalnya:
+ *
+ * methodA()
+ * throws IOException
+ *
+ * dipanggil oleh:
+ *
+ * methodB()
+ *
+ * Maka methodB harus memilih:
+ *
+ * 1. Menangani exception
+ *
+ * try {
+ * methodA();
+ * }
+ * catch(IOException e) {
+ * }
+ *
+ * ------------------------------------------------------------
+ *
+ * 2. Meneruskan exception lagi
+ *
+ * void methodB() throws IOException {
+ * methodA();
+ * }
+ *
+ * ------------------------------------------------------------
+ *
+ * Jika diteruskan lagi:
+ *
+ * methodB()
+ * ↓
+ * methodC()
+ * ↓
+ * main()
+ *
+ * maka exception akan terus naik
+ * sampai ada yang menangani.
+ *
+ * Proses ini disebut:
+ *
+ * Exception Propagation
+ *
+ * ------------------------------------------------------------
+ * CONTOH POLA UMUM
+ * ------------------------------------------------------------
+ *
+ * static void methodA() throws IOException {
+ * throw new IOException("Gagal membaca file");
+ * }
+ *
+ * static void methodB() throws IOException {
+ * methodA();
+ * }
+ *
+ * public static void main(String[] args) {
+ *
+ * try {
+ * methodB();
+ * }
+ * catch(IOException e) {
+ * System.out.println(e.getMessage());
+ * }
+ *
+ * }
+ *
+ * Alur:
+ *
+ * methodA()
+ * ↓
+ * throws IOException
+ * ↓
+ * methodB()
+ * ↓
+ * throws IOException
+ * ↓
+ * main()
+ * ↓
+ * catch(IOException)
+ *
+ * ------------------------------------------------------------
+ * PRAKTIK MODERN JAVA
+ * ------------------------------------------------------------
+ *
+ * Sebisa mungkin deklarasikan exception
+ * yang paling spesifik.
+ *
+ * Kurang baik:
+ *
+ * void readFile() throws Exception {
+ * }
+ *
+ * Lebih baik:
+ *
+ * void readFile() throws IOException {
+ * }
+ *
+ * Karena:
+ *
+ * - Lebih jelas
+ * - Lebih mudah dipahami
+ * - Lebih mudah di-maintain
+ *
+ * Prinsip:
+ *
+ * "Be as specific as possible."
+ *
+ * ------------------------------------------------------------
+ * INSIGHT PENTING
+ * ------------------------------------------------------------
+ *
+ * throws bukan mekanisme penanganan error.
+ *
+ * throws adalah mekanisme komunikasi.
+ *
+ * Method memberitahu caller:
+ *
+ * "Operasi ini bisa gagal.
+ * Jika kamu memanggil saya,
+ * maka kamu harus siap menangani kegagalannya."
+ *
+ * Oleh karena itu,
+ * throws sering dianggap sebagai bagian dari
+ * kontrak (contract) sebuah method.
+ *
+ * Dalam API Java modern,
+ * deklarasi throws membantu programmer memahami:
+ *
+ * - Risiko operasi
+ * - Jenis kegagalan yang mungkin terjadi
+ * - Tanggung jawab penanganan error
+ *
+ * ------------------------------------------------------------
+ * RINGKASAN
+ * ------------------------------------------------------------
+ *
+ * - throws digunakan pada deklarasi method
+ * atau constructor.
+ * - throws mendeklarasikan kemungkinan exception.
+ * - throws tidak menangani exception.
+ * - Checked Exception wajib:
+ * -> try-catch
+ * atau
+ * -> throws
+ * - RuntimeException tidak wajib dideklarasikan.
+ * - throw dan throws memiliki fungsi berbeda.
+ * - Exception dapat diteruskan dari satu method
+ * ke method lain melalui throws.
+ *
+ * Mindset OOP:
+ *
+ * throws adalah kontrak antara method dan caller.
+ *
+ * Method memberi tahu:
+ *
+ * "Saya mungkin gagal.
+ * Jika kamu menggunakan saya,
+ * maka kamu juga bertanggung jawab
+ * untuk menangani kemungkinan kegagalan tersebut."
+ */
 
 public class Throws {
 
@@ -180,7 +405,7 @@ public class Throws {
 
     // Contoh benar menggunakan throws
     static void throwsDeklarasi() throws IllegalAccessException { // Using throws
-        System.out.println("Inside Throws Deklarasi"); 
+        System.out.println("Inside Throws Deklarasi");
         // Membuat error checked Exception
         throw new IllegalAccessException("Demo");
     }
@@ -216,147 +441,274 @@ public class Throws {
         methodB();
 
         /**
+         * ------------------------------------------------------------
+         * THROWS DAN PROPAGASI EXCEPTION
+         * ------------------------------------------------------------
+         *
+         * Jika sebuah method dapat menghasilkan exception tetapi tidak
+         * menanganinya sendiri, maka method tersebut harus memberi tahu
+         * pemanggilnya mengenai kemungkinan exception tersebut.
+         *
+         * Hal ini dilakukan menggunakan keyword:
+         *
+         * throws
+         *
+         * Contoh:
+         *
+         * static void methodA() throws Exception {
+         * throw new Exception("Error dari methodA");
+         * }
+         *
+         * Artinya:
+         *
+         * "Method ini mungkin melempar Exception.
+         * Pemanggil method harus siap menanganinya."
+         *
+         * ------------------------------------------------------------
+         * THROWS PADA METHOD MAIN
+         * ------------------------------------------------------------
+         *
+         * Method main() juga dapat mendeklarasikan throws:
+         *
          * public static void main(String[] args) throws Exception
-         * berarti:
-         * Lu lempar error ke JVM → JVM yang handle
          *
-         * Apa yang terjadi kalau JVM yang handle?
-         * Kalau exception sampai ke JVM (tidak ditangani sama sekali):
-         * JVM pakai default exception handler
-         * 
-         * Yang dilakukan JVM:
-         * Print error message
-         * Print stack trace
-         * Program langsung berhenti
+         * Artinya:
          *
-         * Contoh
+         * main() tidak menangani exception tersebut.
+         * Exception diteruskan ke caller berikutnya.
+         *
+         * Karena main() merupakan entry point aplikasi,
+         * caller berikutnya adalah JVM.
+         *
+         * Dengan kata lain:
+         *
+         * throws pada main()
+         * =
+         * menyerahkan penanganan exception kepada JVM.
+         *
+         * ------------------------------------------------------------
+         * APA YANG TERJADI JIKA JVM MENANGANI EXCEPTION?
+         * ------------------------------------------------------------
+         *
+         * Jika exception berhasil mencapai JVM tanpa pernah ditangani,
+         * maka JVM akan menjalankan:
+         *
+         * Default Exception Handler
+         *
+         * Handler bawaan JVM akan:
+         *
+         * - Menampilkan tipe exception
+         * - Menampilkan pesan exception
+         * - Menampilkan stack trace
+         * - Menghentikan program
+         *
+         * Contoh:
+         *
          * public class Main {
          *
-         *     static void methodA() throws Exception {
-         *         throw new Exception("Error dari methodA");
-         *     }
+         * static void methodA() throws Exception {
+         * throw new Exception("Error dari methodA");
+         * }
          *
-         *     public static void main(String[] args) throws Exception {
-         *         methodA();
-         *     }
+         * public static void main(String[] args) throws Exception {
+         * methodA();
+         * }
          * }
          *
          * Output:
-         * Exception in thread "main" java.lang.Exception: Error dari methodA
-         *     at Main.methodA(Main.java:4)
-         *     at Main.main(Main.java:8)
          *
-         * Artinya apa?
-         * throws di main itu sama dengan:
-         * "Gua nyerah, JVM yang urus"
+         * Exception in thread "main"
+         * java.lang.Exception: Error dari methodA
+         * at Main.methodA(Main.java:4)
+         * at Main.main(Main.java:8)
          *
-         * -------------------------------------
-         * 
-         * Kasus lu:
-         * karyawan: "Ada masalah!"
-         * manager: "Gua gak urus (throws)"
-         * bos: "YA UDAH STOP SEMUA!"
+         * ------------------------------------------------------------
+         * MEMAHAMI STACK TRACE
+         * ------------------------------------------------------------
          *
-         * Kapan boleh pakai throws di main?
-         * Boleh kalau:
-         * lagi belajar
-         * debugging
-         * program kecil
+         * Stack trace menunjukkan urutan pemanggilan method
+         * sebelum exception terjadi.
          *
-         * Jangan di real app
-         * Kenapa?
-         * user bakal lihat:
-         * stack trace aneh
-         * bukan pengalaman yang bagus
-         * 
-         * ------------------------------------------------
+         * Contoh:
          *
-         * Rule penting:
-         * Exception HARUS berhenti di suatu tempat
+         * main()
+         * ↓
+         * methodB()
+         * ↓
+         * methodA()
+         * ↓
+         * Exception
          *
-         * Pilihan:
-         * ditangani programmer (try-catch)
-         * ditangani JVM (default handler) (last resort)
+         * Informasi ini sangat penting saat debugging karena
+         * membantu menemukan lokasi sebenarnya dari masalah.
          *
-         * Kesimpulan (WAJIB INGAT)
+         * ------------------------------------------------------------
+         * KAPAN THROWS DI MAIN BOLEH DIGUNAKAN?
+         * ------------------------------------------------------------
          *
-         * Intinya:
-         * throws di main → JVM yang handle
-         * JVM:
-         * print error
-         * print stack trace
-         * matikan program
-         */
-
-        /**
-         * EFEKTIVITAS
+         * Umumnya boleh digunakan pada:
          *
-         * Method bawah → boleh lempar (throws)
-         * Method atas  → WAJIB handle (try-catch)
+         * - Program latihan
+         * - Contoh pembelajaran
+         * - Utility sederhana
+         * - Eksperimen atau debugging
          *
-         * Jadi:
-         * lempar-lempar = OK
-         * tapi harus ada titik akhir yang handle
+         * Namun pada aplikasi produksi (production application),
+         * membiarkan exception sampai ke JVM biasanya tidak disarankan.
          *
-         * Pola yang BENAR (Best Practice)
-         * Arsitektur umum:
-         * methodA() → throws
-         * methodB() → throws
-         * main()    → try-catch 
+         * Alasannya:
          *
-         * Contoh ideal
+         * - Program langsung berhenti
+         * - Pengguna melihat error yang tidak ramah
+         * - Sulit memberikan recovery atau fallback
+         *
+         * Pada aplikasi nyata, exception biasanya ditangani
+         * sebelum mencapai JVM.
+         *
+         * ------------------------------------------------------------
+         * PROPAGASI EXCEPTION
+         * ------------------------------------------------------------
+         *
+         * Exception dapat bergerak naik melalui rantai pemanggilan
+         * method (call stack).
+         *
+         * Contoh:
+         *
+         * methodA() throws Exception
+         * ↓
+         * methodB() throws Exception
+         * ↓
+         * main()
+         *
+         * Setiap method dapat memilih:
+         *
+         * - Menangani exception (try-catch)
+         * - Meneruskan exception (throws)
+         *
+         * Proses ini disebut:
+         *
+         * Exception Propagation
+         *
+         * ------------------------------------------------------------
+         * BEST PRACTICE
+         * ------------------------------------------------------------
+         *
+         * Pada aplikasi modern, biasanya digunakan pola:
+         *
+         * Layer bawah:
+         * - Repository
+         * - DAO
+         * - Service
+         *
+         * Fokus:
+         * - Menjalankan logika bisnis
+         * - Melempar exception jika terjadi masalah
+         *
+         * Layer atas:
+         * - Controller
+         * - UI
+         * - Main Program
+         *
+         * Fokus:
+         * - Menangani exception
+         * - Menampilkan pesan yang sesuai
+         * - Melakukan logging
+         *
+         * Contoh:
+         *
+         * Repository
+         * ↓ throws
+         * Service
+         * ↓ throws
+         * Controller
+         * ↓ catch
+         * User
+         *
+         * Pendekatan ini menghasilkan kode yang:
+         *
+         * - Lebih bersih
+         * - Lebih mudah dipelihara
+         * - Lebih fleksibel
+         * - Lebih mudah diuji (testable)
+         *
+         * ------------------------------------------------------------
+         * CONTOH POLA YANG DIREKOMENDASIKAN
+         * ------------------------------------------------------------
+         *
          * public class Main {
          *
-         *     static void methodA() throws Exception {
-         *         throw new Exception("Error dari A");
-         *     }
-         *
-         *     static void methodB() throws Exception {
-         *         methodA(); // lempar lagi
-         *     }
-         *
-         *     public static void main(String[] args) {
-         *
-         *         try {
-         *             methodB(); // titik akhir
-         *
-         *         } catch (Exception e) {
-         *             System.out.println("Error ditangani di main: " + e.getMessage());
-         *         }
-         *     }
+         * static void methodA() throws Exception {
+         * throw new Exception("Error dari A");
          * }
          *
-         * Kenapa ini bagus?
-         * 1. Separation of Responsibility
-         * method kecil → fokus logika
-         * method atas → handle error
+         * static void methodB() throws Exception {
+         * methodA();
+         * }
          *
-         * 2. Kode lebih bersih
-         * Bayangin kalau semua method pakai try-catch:
-         * jadi berantakan
-         * susah dibaca
+         * public static void main(String[] args) {
          *
-         * 3. Lebih fleksibel
-         * Lu bisa:
-         * ganti cara handle di atas
-         * tanpa ubah method bawah
+         * try {
+         * methodB();
          *
-         * Insight Level Pro
-         * Dalam project besar:
-         * Layer bawah (repository, service):
-         * sering pakai throws
-         * 
-         * Layer atas (controller / main):
-         * pakai try-catch
+         * } catch (Exception e) {
+         * System.out.println(
+         * "Error ditangani: " + e.getMessage()
+         * );
+         * }
+         * }
+         * }
          *
-         * Ringkasan Super Singkat
-         * throws → lempar tanggung jawab
-         * try-catch → ambil tanggung jawab
+         * Pada contoh ini:
          *
-         * best practice:
-         * lempar di bawah, tangkap di atas
+         * methodA() -> menghasilkan exception
+         * methodB() -> meneruskan exception
+         * main() -> menangani exception
+         *
+         * Tanggung jawab setiap method menjadi jelas.
+         *
+         * ------------------------------------------------------------
+         * PERBEDAAN THROW DAN THROWS
+         * ------------------------------------------------------------
+         *
+         * throw
+         * - Digunakan di dalam body method
+         * - Untuk melempar exception
+         *
+         * Contoh:
+         *
+         * throw new IllegalArgumentException("Data tidak valid");
+         *
+         * throws
+         * - Digunakan pada deklarasi method/constructor
+         * - Untuk mendeklarasikan kemungkinan exception
+         *
+         * Contoh:
+         *
+         * void readFile() throws IOException
+         *
+         * ------------------------------------------------------------
+         * KESIMPULAN
+         * ------------------------------------------------------------
+         *
+         * - throws digunakan untuk mendeklarasikan kemungkinan exception
+         * - Exception dapat diteruskan ke caller melalui propagasi
+         * - Jika exception mencapai main() dan tidak ditangani,
+         * JVM akan menggunakan default exception handler
+         * - Stack trace membantu proses debugging
+         * - Layer bawah biasanya melempar exception
+         * - Layer atas biasanya menangani exception
+         * - Best practice:
+         *
+         * throw di tempat error terjadi
+         * throws untuk meneruskan
+         * try-catch pada titik yang benar-benar dapat menangani error
+         *
+         * Prinsip penting:
+         *
+         * "Tangani exception hanya jika Anda benar-benar dapat
+         * melakukan sesuatu terhadap exception tersebut."
          */
-        
+
     }
 
 }

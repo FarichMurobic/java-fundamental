@@ -1,184 +1,334 @@
 package FundamentalJava.ExceptionHandling;
 
-/*
-
-EXCEPTION HANDLING
-
-Bab ini membahas mekanisme penanganan exception di Java.
-Exception adalah kondisi abnormal (tidak normal) yang terjadi 
-dalam urutan kode saat program berjalan (runtime).
-Dengan kata lain, exception adalah error yang terjadi saat program sedang dijalankan.
-
-Dalam bahasa pemrograman yang tidak mendukung exception handling,
-error harus dicek dan ditangani secara manual—biasanya menggunakan kode error, dan sebagainya.
-Pendekatan ini rumit dan merepotkan.
-
-Java menyediakan exception handling untuk menghindari masalah tersebut,
-dan sekaligus membawa penanganan error ke dalam dunia object-oriented.
-
----------------------------------------------------------------------------------
-
-Dasar Exception Handling
-Exception di Java adalah sebuah objek yang menggambarkan kondisi error yang terjadi dalam kode.
-
-Ketika error terjadi:
-Sebuah objek exception dibuat
-Lalu "dilempar" (throw) oleh method yang menyebabkan error
-
-Method tersebut bisa:
-Menangani sendiri error itu, atau
-Meneruskannya ke method lain
-
-Bagaimanapun juga, pada akhirnya exception akan "ditangkap" (caught) dan diproses.
-
-----------------------------------------------------------------------------------
-
-Exception bisa:
--Dibuat otomatis oleh Java (system-generated)
--Dibuat manual oleh programmer
-
-Exception dari Java biasanya karena:
--Melanggar aturan bahasa Java
--Atau batasan environment (misalnya akses array di luar batas)
-
-Exception buatan programmer biasanya untuk:
--Memberi tahu ada error ke pemanggil method
-
--------------------------------------------------------------
-
-Keyword Penting Exception
-Java punya 5 keyword utama:
-try
-catch
-throw
-throws
-finally
-
-Cara kerjanya:
-try → tempat kode yang mau diawasi
-catch → menangkap dan menangani error
-throw → melempar exception secara manual
-throws → deklarasi bahwa method bisa menghasilkan exception
-finally → kode yang pasti dijalankan (apapun yang terjadi)
-
-Bentuk Umum
-
-try {
-    // kode yang dipantau error
-}
-catch (ExceptionType1 exOb) {
-    // handler untuk error tipe 1
-}
-catch (ExceptionType2 exOb) {
-    // handler untuk error tipe 2
-}
-finally {
-    // kode yang pasti dijalankan
-}
-
-*/
-
-    /**
-     * Exception Types
-     *
-     * Semua jenis exception adalah turunan (subclass) dari class bawaan bernama Throwable.
-     * Jadi, Throwable adalah paling atas dalam hierarki exception.
-     *
-     * Di bawah Throwable, ada dua subclass utama yang membagi exception jadi dua cabang:
-     * 
-     * Cabang 1: Exception
-     * Class ini digunakan untuk kondisi error yang seharusnya ditangani oleh program.
-     * Class ini juga bisa:
-     * diwariskan (inheritance)
-     * untuk membuat custom exception sendiri
-     *
-     * Ada subclass penting dari Exception, yaitu RuntimeException.
-     * Exception jenis ini:
-     * otomatis ada di program Java
-     * contoh:
-     * pembagian dengan nol
-     * akses array di luar index
-     *
-     * Cabang 2: Error
-     * Class ini digunakan untuk error yang tidak diharapkan untuk ditangani oleh program.
-     * Biasanya digunakan oleh Java runtime untuk menunjukkan error serius pada sistem.
-     * Contoh:
-     * stack overflow
-     * memory full
-     *
-     * ----------------------------------------------------------------------
-     * 
-     * Bab ini tidak membahas Error, karena:
-     * biasanya terjadi karena kegagalan fatal
-     * tidak bisa ditangani oleh program biasa
-     *
-     * Bayangin struktur ini kayak pohon
-     *
-     * Throwable (ROOT)
-     * │
-     * ├── Exception (bisa ditangani)
-     * │   └── RuntimeException (error umum saat coding)
-     * │
-     * └── Error (fatal, jangan diurus program)
-     *
-     * Bedanya yang HARUS LU PAHAM
-     * Exception → Lu HANDLE
-     *
-     * Ini error yang:
-     * masih masuk akal
-     * masih bisa lu kontrol
-     *
-     * Contoh:
-     * file gak ketemu
-     * input salah
-     * database gagal
-     * Ini tugas lu sebagai programmer
-     *
-     * Error → Jangan lu sentuh
-     * Ini error:
-     * dari sistem
-     * bukan salah logika program biasa
-     * susah / gak mungkin di-handle
-     *
-     * Contoh:
-     * memory habis
-     * stack overflow
-     * Ini bukan urusan lu, ini urusan JVM
-     * 
-     * -------------------------------------------------------------
-     *
-     * RuntimeException (Ini penting banget)
-     * Ini anak dari Exception, tapi spesial:
-     *
-     * Gak wajib ditangkap (tidak dipaksa pakai try-catch)
-     * Contoh:
-     * int a = 10 / 0; // ArithmeticException
-     * Kenapa?
-     * Karena ini biasanya:
-     * kesalahan logika programmer
-     * harusnya diperbaiki, bukan ditangani
-     *
-     * Perbedaan penting:
-     * Jenis	                Handle?	                Contoh
-     * Exception	            Ya	                    File not found
-     * RuntimeException	        Opsional	            /0, array index
-     * Error	                Tidak	                Stack overflow
-     *
-     * ---------------------------------------------------------------
-     * 
-     * Insight Tambahan (Level Up)
-     * Bro ini yang bikin lu beda:
-     * Jangan asal bungkus semua dengan try-catch
-     *
-     * Karena:
-     * RuntimeException → harusnya diperbaiki logika
-     * bukan ditutupin pakai catch
-     *
-     * Pola pikir yang benar:
-     * Error karena user → HANDLE 
-     * Error karena logic lu → FIX 
-     * Error sistem → BIARIN 
-     */
+/**
+ * ------------------------------------------------------------
+ * EXCEPTION HANDLING
+ * ------------------------------------------------------------
+ *
+ * Exception Handling adalah mekanisme Java untuk mendeteksi,
+ * melaporkan, dan menangani kondisi abnormal (exception)
+ * yang terjadi saat program berjalan (runtime).
+ *
+ * Exception bukan selalu berarti program rusak total.
+ * Banyak exception masih bisa ditangani sehingga program
+ * tetap dapat berjalan atau memberikan respons yang tepat.
+ *
+ * Sebelum adanya mekanisme exception handling,
+ * penanganan error biasanya dilakukan menggunakan:
+ *
+ * - kode error (error code)
+ * - nilai khusus sebagai penanda kegagalan
+ * - pengecekan manual setelah setiap operasi
+ *
+ * Pendekatan tersebut membuat kode:
+ *
+ * - sulit dibaca
+ * - sulit dipelihara
+ * - rentan kesalahan
+ *
+ * Java mengatasi masalah tersebut dengan menjadikan
+ * error sebagai object yang dapat dilempar (throw)
+ * dan ditangani (catch).
+ *
+ * ------------------------------------------------------------
+ * DASAR EXCEPTION HANDLING
+ * ------------------------------------------------------------
+ *
+ * Di Java, exception adalah object yang merepresentasikan
+ * suatu kondisi error atau kondisi tidak normal.
+ *
+ * Ketika sebuah masalah terjadi:
+ *
+ * 1. Object exception dibuat.
+ * 2. Exception dilempar (throw).
+ * 3. JVM mencari handler yang sesuai.
+ * 4. Jika ditemukan, exception ditangani.
+ * 5. Jika tidak ditemukan, program berhenti dan
+ *    stack trace ditampilkan.
+ *
+ * Secara sederhana:
+ *
+ * Error terjadi
+ *      ↓
+ * Exception dibuat
+ *      ↓
+ * Exception dilempar (throw)
+ *      ↓
+ * Exception ditangkap (catch)
+ *      ↓
+ * Error ditangani
+ *
+ * ------------------------------------------------------------
+ * SUMBER EXCEPTION
+ * ------------------------------------------------------------
+ *
+ * Exception dapat berasal dari:
+ *
+ * 1. JVM / Java Runtime
+ *    (System-Generated Exceptions)
+ *
+ * Contoh:
+ * - ArithmeticException
+ * - NullPointerException
+ * - ArrayIndexOutOfBoundsException
+ *
+ * 2. Programmer
+ *    (Custom Exceptions)
+ *
+ * Contoh:
+ * - InvalidEmailException
+ * - PaymentFailedException
+ * - UserNotFoundException
+ *
+ * Custom exception biasanya digunakan untuk
+ * merepresentasikan aturan bisnis (business rules)
+ * dalam aplikasi.
+ *
+ * ------------------------------------------------------------
+ * KEYWORD PENTING DALAM EXCEPTION HANDLING
+ * ------------------------------------------------------------
+ *
+ * Java menyediakan lima keyword utama:
+ *
+ * try
+ * catch
+ * throw
+ * throws
+ * finally
+ *
+ * Penjelasan:
+ *
+ * try
+ * Tempat kode yang berpotensi menghasilkan exception.
+ *
+ * catch
+ * Menangkap dan menangani exception.
+ *
+ * throw
+ * Melempar exception secara manual.
+ *
+ * throws
+ * Mendeklarasikan bahwa method dapat menghasilkan exception.
+ *
+ * finally
+ * Blok yang akan dijalankan setelah try/catch selesai,
+ * baik terjadi exception maupun tidak.
+ *
+ * ------------------------------------------------------------
+ * BENTUK UMUM
+ * ------------------------------------------------------------
+ *
+ * try {
+ *     // kode yang dipantau
+ * }
+ * catch (ExceptionType ex) {
+ *     // penanganan error
+ * }
+ * finally {
+ *     // selalu dieksekusi
+ * }
+ *
+ * ------------------------------------------------------------
+ * HIERARKI EXCEPTION
+ * ------------------------------------------------------------
+ *
+ * Semua exception dan error di Java berasal dari:
+ *
+ * Throwable
+ *
+ * Throwable merupakan root class untuk seluruh
+ * mekanisme error handling Java.
+ *
+ * Hierarkinya:
+ *
+ * Throwable
+ * ├── Exception
+ * │   └── RuntimeException
+ * └── Error
+ *
+ * ------------------------------------------------------------
+ * CABANG EXCEPTION
+ * ------------------------------------------------------------
+ *
+ * Exception digunakan untuk kondisi yang masih mungkin
+ * ditangani oleh aplikasi.
+ *
+ * Contoh:
+ *
+ * - file tidak ditemukan
+ * - koneksi database gagal
+ * - input tidak valid
+ * - jaringan terputus
+ *
+ * Exception sering dibagi menjadi dua kelompok:
+ *
+ * 1. Checked Exception
+ * 2. Unchecked Exception
+ *
+ * ------------------------------------------------------------
+ * CHECKED EXCEPTION
+ * ------------------------------------------------------------
+ *
+ * Checked Exception adalah exception yang
+ * WAJIB ditangani atau dideklarasikan dengan throws.
+ *
+ * Compiler akan memaksa programmer untuk
+ * memikirkan cara menanganinya.
+ *
+ * Contoh:
+ *
+ * - IOException
+ * - SQLException
+ * - ClassNotFoundException
+ *
+ * Biasanya mewakili kondisi eksternal
+ * yang tidak sepenuhnya dapat dikontrol program.
+ *
+ * ------------------------------------------------------------
+ * RUNTIME EXCEPTION (UNCHECKED EXCEPTION)
+ * ------------------------------------------------------------
+ *
+ * RuntimeException adalah subclass khusus dari Exception.
+ *
+ * Exception jenis ini TIDAK wajib ditangani.
+ *
+ * Contoh:
+ *
+ * - NullPointerException
+ * - ArithmeticException
+ * - IllegalArgumentException
+ * - ArrayIndexOutOfBoundsException
+ *
+ * Umumnya menunjukkan:
+ *
+ * - bug
+ * - kesalahan logika program
+ * - penggunaan API yang salah
+ *
+ * Contoh:
+ *
+ * int result = 10 / 0;
+ *
+ * menghasilkan:
+ *
+ * ArithmeticException
+ *
+ * Biasanya solusi terbaik bukan menangkap exception,
+ * melainkan memperbaiki logika program.
+ *
+ * ------------------------------------------------------------
+ * CABANG ERROR
+ * ------------------------------------------------------------
+ *
+ * Error digunakan untuk kondisi kegagalan serius
+ * pada JVM atau lingkungan runtime.
+ *
+ * Contoh:
+ *
+ * - OutOfMemoryError
+ * - StackOverflowError
+ * - VirtualMachineError
+ *
+ * Error umumnya:
+ *
+ * - tidak diharapkan untuk ditangani aplikasi
+ * - menunjukkan masalah serius pada sistem
+ * - sering membuat aplikasi tidak dapat melanjutkan proses
+ *
+ * Karena itu Error biasanya tidak di-catch.
+ *
+ * ------------------------------------------------------------
+ * PERBEDAAN PENTING
+ * ------------------------------------------------------------
+ *
+ * Checked Exception
+ * -> kondisi yang diperkirakan dapat terjadi
+ * -> wajib dipikirkan cara menanganinya
+ *
+ * RuntimeException
+ * -> biasanya bug atau kesalahan logika
+ * -> sebaiknya diperbaiki, bukan disembunyikan
+ *
+ * Error
+ * -> kegagalan serius pada JVM atau sistem
+ * -> umumnya tidak ditangani aplikasi
+ *
+ * ------------------------------------------------------------
+ * BEST PRACTICE MODERN JAVA
+ * ------------------------------------------------------------
+ *
+ * 1. Tangani exception jika memang bisa dipulihkan.
+ *
+ * 2. Jangan menangkap Exception secara berlebihan.
+ *
+ * Hindari:
+ *
+ * catch (Exception e) {
+ * }
+ *
+ * karena dapat menyembunyikan bug.
+ *
+ * 3. Tangkap exception yang spesifik.
+ *
+ * Lebih baik:
+ *
+ * catch (IOException e)
+ *
+ * daripada:
+ *
+ * catch (Exception e)
+ *
+ * 4. Jangan menggunakan try-catch untuk
+ *    menyembunyikan kesalahan logika.
+ *
+ * RuntimeException biasanya harus diperbaiki,
+ * bukan ditutup dengan catch.
+ *
+ * ------------------------------------------------------------
+ * POLA PIKIR YANG BENAR
+ * ------------------------------------------------------------
+ *
+ * Error karena input, file, jaringan,
+ * atau sistem eksternal:
+ *
+ * -> HANDLE
+ *
+ * Error karena bug atau logika program:
+ *
+ * -> FIX
+ *
+ * Error fatal dari JVM:
+ *
+ * -> biasanya biarkan JVM menanganinya
+ *
+ * ------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------
+ *
+ * Exception Handling adalah mekanisme Java untuk
+ * mengelola kondisi error secara terstruktur.
+ *
+ * Root hierarchy:
+ *
+ * Throwable
+ * ├── Exception
+ * │   ├── Checked Exception
+ * │   └── RuntimeException
+ * └── Error
+ *
+ * Keyword utama:
+ *
+ * - try
+ * - catch
+ * - throw
+ * - throws
+ * - finally
+ *
+ * Tujuan utama exception handling bukan hanya
+ * mencegah program crash, tetapi juga membuat
+ * aplikasi lebih aman, lebih mudah dipelihara,
+ * dan lebih mudah di-debug.
+ */
 
 public class ExceptionHandling {
 

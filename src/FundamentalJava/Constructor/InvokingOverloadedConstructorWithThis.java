@@ -1,142 +1,320 @@
 package FundamentalJava.Constructor;
 
 /**
- * Invoking Overloaded Constructors with this()
+ * ------------------------------------------------------------------------
+ * INVOKING OVERLOADED CONSTRUCTORS WITH this()
+ * ------------------------------------------------------------------------
  *
- * Kalau kita punya beberapa constructor (overloading),
- * kita bisa bikin satu constructor memanggil constructor lain.
+ * Ketika sebuah class memiliki beberapa constructor
+ * (Constructor Overloading), Java menyediakan mekanisme
+ * untuk memanggil constructor lain yang berada dalam
+ * class yang sama.
  *
- * Caranya:
- * this(arg-list);
+ * Mekanisme tersebut menggunakan:
  *
- * Aturan penting:
- * this() HARUS jadi baris pertama di constructor
+ * this(argument-list);
  *
- * ----------------------------
- * 
- * Konsep Inti
+ * Penggunaan this() memungkinkan sebuah constructor
+ * mendelegasikan proses inisialisasi kepada constructor
+ * lain sehingga kode menjadi lebih ringkas dan mudah
+ * dikelola.
  *
- * Daripada:
- * ulang-ulang kode di banyak constructor
+ * ------------------------------------------------------------------------
+ * KONSEP DASAR this()
+ * ------------------------------------------------------------------------
  *
- * kita bisa:
- * pusatkan logic di satu constructor utama
+ * this() digunakan untuk memanggil constructor lain
+ * yang berada dalam class yang sama.
  *
- * Versi TANPA this()
- * 
+ * Flow:
+ *
+ * Constructor A
+ * -> Memanggil Constructor B dengan this(...)
+ * -> Constructor B Melakukan Inisialisasi
+ * -> Kembali ke Constructor A
+ * -> Object Selesai Dibuat
+ *
+ * Dengan kata lain:
+ *
+ * this() = Memanggil Constructor Dalam Class Yang Sama
+ *
+ * Berbeda dengan:
+ *
+ * super() = Memanggil Constructor Milik Parent Class
+ *
+ * ------------------------------------------------------------------------
+ * MENGAPA this() DIPERLUKAN?
+ * ------------------------------------------------------------------------
+ *
+ * Tanpa this(), sering terjadi duplikasi kode pada
+ * beberapa constructor yang memiliki proses inisialisasi
+ * yang mirip.
+ *
+ * Contoh masalah:
+ *
  * class MyClass {
- *   int a;
- *   int b;
  *
- *   // isi manual
- *   MyClass(int i, int j) {
- *     a = i;
- *     b = j;
- *   }
+ *     int a;
+ *     int b;
  *
- *   // isi sama
- *   MyClass(int i) {
- *     a = i;
- *     b = i;
- *   }
+ *     MyClass(int i, int j) {
+ *         a = i;
+ *         b = j;
+ *     }
  *
- *   // default
- *   MyClass() {
- *     a = 0;
- *     b = 0;
- *   }
+ *     MyClass(int i) {
+ *         a = i;
+ *         b = i;
+ *     }
+ *
+ *     MyClass() {
+ *         a = 0;
+ *         b = 0;
+ *     }
  * }
  *
- * Masalah:
- * kode duplikat
- * susah maintain
+ * Pada contoh di atas:
  *
- * ------------------------------------
- * 
- * Analogi Biar Kebayang
+ * - Logic inisialisasi tersebar di beberapa constructor.
+ * - Kode menjadi lebih panjang.
+ * - Maintenance menjadi lebih sulit.
+ * - Perubahan harus dilakukan di banyak tempat.
  *
- * Bayangin:
- * Tanpa this()
- * lu isi form 3 kali dari awal
+ * ------------------------------------------------------------------------
+ * SOLUSI MENGGUNAKAN this()
+ * ------------------------------------------------------------------------
  *
- * Dengan this()
- * ada 1 form utama
+ * Dengan this(), seluruh proses inisialisasi dapat
+ * dipusatkan pada satu constructor utama.
  *
- * form lain tinggal:
- * “copy & kirim ke form utama”
+ * Contoh:
  *
- * Kenapa this() Berguna?
- * 1. Hindari duplikasi kode
- * lebih rapi
- * lebih mudah maintenance
- * 2. Centralized logic
- * semua init ada di satu tempat
+ * class MyClass {
  *
- * ------------------------------------
- * 
- * Kekurangan
- * Ada sedikit overhead
- * karena ada pemanggilan constructor lain
+ *     int a;
+ *     int b;
  *
- * tapi:
- * biasanya gak terlalu berasa kecuali object banyak banget
+ *     MyClass(int i, int j) {
+ *         a = i;
+ *         b = j;
+ *     }
  *
- * Rule Penting (WAJIB TAU)
- * 1. Harus di baris pertama
+ *     MyClass(int i) {
+ *         this(i, i);
+ *     }
+ *
+ *     MyClass() {
+ *         this(0, 0);
+ *     }
+ * }
+ *
+ * Flow:
+ *
+ * new MyClass()
+ * -> this(0, 0)
+ * -> MyClass(int i, int j)
+ * -> Inisialisasi Object
+ *
+ * new MyClass(5)
+ * -> this(5, 5)
+ * -> MyClass(int i, int j)
+ * -> Inisialisasi Object
+ *
+ * Dengan pendekatan ini:
+ *
+ * - Seluruh logic inisialisasi berada di satu tempat.
+ * - Mengurangi duplikasi kode.
+ * - Mempermudah maintenance.
+ * - Mengurangi risiko bug.
+ *
+ * ------------------------------------------------------------------------
+ * ANALOGI DUNIA NYATA
+ * ------------------------------------------------------------------------
+ *
+ * Bayangkan sebuah formulir pendaftaran.
+ *
+ * Tanpa this():
+ *
+ * - Mengisi formulir lengkap berkali-kali.
+ *
+ * Dengan this():
+ *
+ * - Ada satu formulir utama.
+ * - Formulir lain cukup meneruskan data ke formulir utama.
+ *
+ * Flow:
+ *
+ * Form Sederhana
+ * -> Kirim Data Ke Form Utama
+ * -> Proses Dilakukan Sekali
+ * -> Hasil Digunakan Bersama
+ *
+ * ------------------------------------------------------------------------
+ * KEUNTUNGAN MENGGUNAKAN this()
+ * ------------------------------------------------------------------------
+ *
+ * - Mengurangi duplikasi kode (Code Duplication).
+ *
+ * - Memusatkan logic inisialisasi (Centralized Initialization).
+ *
+ * - Meningkatkan keterbacaan kode.
+ *
+ * - Mempermudah maintenance.
+ *
+ * - Mengurangi kemungkinan inkonsistensi antar constructor.
+ *
+ * ------------------------------------------------------------------------
+ * RULE PENTING this() (WAJIB PAHAM)
+ * ------------------------------------------------------------------------
+ *
+ * 1. this() HARUS menjadi statement pertama
+ *    di dalam constructor.
+ *
+ * Benar:
+ *
  * MyClass(int i) {
- *     this(i, i); // WAJIB di atas
+ *     this(i, i);
  * }
  *
- * salah:
+ * Salah:
+ *
  * MyClass(int i) {
  *     a = 5;
- *     this(i, i); // ERROR
+ *     this(i, i); // Compile-Time Error
  * }
  *
- * 2. Tidak boleh pakai this variable dulu
- * salah:
- * MyClass(int i) {
- *     this(a, i); // ERROR
+ * ------------------------------------------------------------------------
+ *
+ * 2. Tidak boleh ada statement sebelum this().
+ *
+ * Karena constructor tujuan harus dijalankan terlebih dahulu
+ * sebelum constructor saat ini melanjutkan eksekusi.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * 3. Constructor tidak boleh memanggil dirinya sendiri.
+ *
+ * Salah:
+ *
+ * MyClass() {
+ *     this();
  * }
  *
- * 3. Tidak bisa bareng super()
- * salah:
+ * Hal ini menyebabkan:
+ *
+ * Recursive Constructor Invocation
+ *
+ * yang menghasilkan Compile-Time Error.
+ *
+ * ------------------------------------------------------------------------
+ *
+ * 4. this() dan super() tidak dapat digunakan
+ *    secara bersamaan dalam constructor yang sama.
+ *
+ * Salah:
+ *
  * MyClass() {
  *     super();
- *     this(0); // ERROR
+ *     this(0);
  * }
  *
- * karena:
- * dua-duanya harus di baris pertama
+ * Karena:
  *
- * Insight Penting
- * this() = panggil constructor di class yang sama
- * super() = panggil constructor parent
+ * - super() harus menjadi statement pertama.
+ * - this() juga harus menjadi statement pertama.
  *
- * ----------------------------------------------
- * 
- * Kesimpulan Santai
- * 
- * this() dipakai buat:
- * panggil constructor lain dalam class yang sama
+ * Akibatnya keduanya tidak bisa digunakan bersama.
  *
- * Manfaat:
- * kode lebih rapi
- * gak duplikat
- * lebih maintainable
+ * ------------------------------------------------------------------------
  *
- * Tapi:
- * ada sedikit overhead
- * harus dipakai dengan aturan ketat
+ * 5. this() hanya dapat digunakan di constructor.
  *
- * Insight Level Pro
+ * Tidak dapat digunakan di method biasa.
  *
- * Gunakan this() kalau:
- * constructor banyak
- * ada logic yang sama
+ * ------------------------------------------------------------------------
+ * HUBUNGAN DENGAN super()
+ * ------------------------------------------------------------------------
  *
- * Hindari kalau:
- * constructor sangat simpel
+ * this()
+ * -> Memanggil Constructor Dalam Class Yang Sama
+ *
+ * super()
+ * -> Memanggil Constructor Parent Class
+ *
+ * Flow:
+ *
+ * Child Constructor
+ * -> super(...)
+ * -> Parent Constructor
+ *
+ * atau
+ *
+ * Child Constructor
+ * -> this(...)
+ * -> Constructor Lain Dalam Child
+ *
+ * ------------------------------------------------------------------------
+ * PERFORMA DAN OVERHEAD
+ * ------------------------------------------------------------------------
+ *
+ * Secara teknis, penggunaan this() menambahkan satu
+ * pemanggilan constructor tambahan.
+ *
+ * Namun pada JVM modern, overhead ini sangat kecil
+ * dan hampir tidak pernah menjadi masalah nyata.
+ *
+ * Dalam praktik pengembangan profesional:
+ *
+ * - Keterbacaan kode jauh lebih penting.
+ * - Maintainability jauh lebih penting.
+ *
+ * Karena itu penggunaan this() sangat dianjurkan
+ * ketika terdapat logic inisialisasi yang berulang.
+ *
+ * ------------------------------------------------------------------------
+ * PRAKTIK MODERN JAVA
+ * ------------------------------------------------------------------------
+ *
+ * Dalam Java modern, penggunaan this() merupakan
+ * praktik yang umum dan direkomendasikan ketika:
+ *
+ * - Class memiliki banyak constructor.
+ *
+ * - Terdapat logic inisialisasi yang sama.
+ *
+ * - Ingin menghindari code duplication.
+ *
+ * - Ingin menerapkan prinsip DRY
+ *   (Don't Repeat Yourself).
+ *
+ * ------------------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------------------
+ *
+ * this() digunakan untuk memanggil constructor lain
+ * dalam class yang sama.
+ *
+ * Tujuan utamanya adalah:
+ *
+ * - Mengurangi duplikasi kode.
+ * - Memusatkan logic inisialisasi.
+ * - Mempermudah maintenance.
+ * - Membuat constructor lebih konsisten.
+ *
+ * Rule paling penting:
+ *
+ * - this() harus menjadi statement pertama
+ *   di dalam constructor.
+ *
+ * - Tidak dapat digunakan bersama super().
+ *
+ * - Tidak boleh menyebabkan pemanggilan constructor
+ *   secara rekursif.
+ *
+ * Dalam praktik OOP modern, this() merupakan teknik
+ * yang sangat umum digunakan untuk membuat desain
+ * constructor yang lebih bersih, fleksibel, dan
+ * mudah dipelihara.
  */
 
 class Myclass {
@@ -256,6 +434,7 @@ public class InvokingOverloadedConstructorWithThis {
          * ----------------------------------------------
          * 
          * Insight Penting
+         * 
          * Semua constructor akhirnya ngumpul ke satu constructor utama
          *
          * Ini bikin:

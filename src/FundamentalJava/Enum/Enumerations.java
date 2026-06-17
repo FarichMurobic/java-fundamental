@@ -1,151 +1,356 @@
 package FundamentalJava.Enum;
 
-    /**
-     * Enumerations
-     *
-     * Sebelum Java versi JDK 5, Java tidak punya fitur enumeration.
-     * Padahal banyak programmer merasa fitur ini penting.
-     *
-     * Enumeration = daftar konstanta yang punya nama.
-     *
-     * Walaupun Java punya alternatif seperti final, tapi:
-     * enum lebih “bersih secara konsep”
-     * dan sudah umum di bahasa lain
-     *
-     * Mulai JDK 5, enum ditambahkan dan sekarang jadi bagian penting Java.
-     *
-     * Hal penting tentang enum di Java
-     * Di Java, enum itu bukan cuma daftar biasa
-     * Tapi sebuah class (tipe kelas)
-     *
-     * Artinya:
-     * Bisa punya constructor
-     * Bisa punya method
-     * Bisa punya variabel
-     *
-     * Ini yang bikin enum Java powerful banget.
-     * 
-     * -------------------------------------------------------
-     * 
-     * ENUM FUNDAMENTALS
-     * Cara bikin enum
-     * CONTOH:
-     *
-     * enum Apple {
-     *     Jonathan, GoldenDel, RedDel, Winesap, Cortland
-     * }
-     *
-     * Penjelasan:
-     * Jonathan, GoldenDel, dll → disebut enum constants
-     * otomatis:
-     * public
-     * static
-     * final
-     *
-     * Artinya:
-     * bisa diakses
-     * nilainya tetap (konstan)
-     *
-     * Tipe enum
-     * Semua constant itu bertipe:
-     * Apple
-     *
-     * disebut self-typed
-     *
-     * ----------------------------------------
-     * 
-     * CARA PAKAI ENUM
-     * Deklarasi variabel
-     * Apple ap;
-     *
-     * Kasih nilai
-     * ap = Apple.RedDel;
-     *
-     * HARUS pakai:
-     * NamaEnum.Nilai
-     *
-     * Perbandingan
-     * if(ap == Apple.GoldenDel)
-     *
-     * enum bisa dibandingin pakai ==
-     * (ini aman, beda sama object biasa)
-     *
-     * Dipakai di switch
-     * switch(ap) {
-     *     case Jonathan:
-     *     case Winesap:
-     * }
-     *
-     * Penting:
-     * di dalam case → TIDAK perlu Apple.
-     *
-     * cukup:
-     * case Winesap:
-     *
-     * Kalau lu tulis:
-     * case Apple.Winesap:
-     *
-     * ERROR 
-     *
-     * OUTPUT ENUM
-     * System.out.println(Apple.Winesap);
-     *
-     * Output:
-     * Winesap
-     *
-     * enum gak bisa dibuat pakai new
-     * 
-     * --------------------------------------
-     *
-     * INTI YANG HARUS LU PAHAM
-     * enum = daftar pilihan tetap
-     * di Java = class
-     * lebih aman daripada pakai angka/string
-     * bisa dipakai:
-     * variable
-     * if
-     * switch
-     */
-
-    /**
-     * values() dan valueOf()
-     *
-     * Semua enum di Java otomatis punya 2 method bawaan:
-     * public static enum-type[] values()
-     * public static enum-type valueOf(String str)
-     *
-     * Penjelasan:
-     * values() → mengembalikan array berisi semua konstanta enum
-     * valueOf(String str) → mengembalikan konstanta enum yang sesuai dengan string
-     *
-     * enum-type = tipe enum itu sendiri
-     *
-     * Contoh:
-     * Apple.valueOf("Winesap")
-     *
-     * hasilnya:
-     * Winesap
-     *
-     * ---------------------------------------------------------------
-     * 
-     * Intinya:
-     * values() = “ambil semua isi enum”
-     * Kayak:
-     * "Kasih gua semua jenis apel yang ada"
-     *
-     * valueOf() = “cari enum dari nama (String)”
-     * Kayak:
-     * "Gua punya tulisan 'Winesap', ubah jadi enum"
-     *
-     * ---------------------------------------------------------------
-     * 
-     * INTI YANG HARUS NANCEP
-     * values() → ambil semua enum
-     * valueOf() → ubah String jadi enum
-     * enum itu:
-     * punya method bawaan
-     * bukan cuma konstanta biasa
-     */
+/**
+ * ENUMERATIONS (ENUM)
+ * ------------------------------------------------------------
+ *
+ * Sebelum JDK 5, Java belum memiliki fitur Enumeration (enum).
+ * Untuk merepresentasikan sekumpulan nilai konstan, programmer
+ * biasanya menggunakan:
+ *
+ * - final variable
+ * - static final constant
+ *
+ * Namun pendekatan tersebut kurang aman dan kurang ekspresif.
+ *
+ * Mulai JDK 5, Java memperkenalkan enum sebagai tipe data khusus
+ * untuk merepresentasikan sekumpulan konstanta yang saling
+ * berhubungan.
+ *
+ * Enumeration (enum) adalah kumpulan nilai konstan yang memiliki
+ * nama (named constants).
+ *
+ * Contoh:
+ *
+ * enum Apple {
+ *     Jonathan,
+ *     GoldenDel,
+ *     RedDel,
+ *     Winesap,
+ *     Cortland
+ * }
+ *
+ * ------------------------------------------------------------
+ * KARAKTERISTIK ENUM
+ * ------------------------------------------------------------
+ *
+ * Berbeda dengan bahasa lain, enum di Java bukan sekadar daftar
+ * konstanta.
+ *
+ * Enum di Java sebenarnya adalah class khusus.
+ *
+ * Karena merupakan class, enum dapat memiliki:
+ *
+ * - Constructor
+ * - Method
+ * - Instance Variable
+ * - Static Member
+ *
+ * Namun enum memiliki beberapa aturan khusus:
+ *
+ * - Tidak dapat dibuat menggunakan operator new
+ * - Semua konstanta dibuat otomatis saat enum dimuat
+ * - Constructor enum selalu private secara implisit
+ *
+ * Flow:
+ *
+ * Enum Declaration
+ *      ↓
+ * Enum Constants Dibuat Otomatis
+ *      ↓
+ * Program Menggunakan Constant Tersebut
+ *
+ * ------------------------------------------------------------
+ * ENUM CONSTANTS
+ * ------------------------------------------------------------
+ *
+ * Pada contoh:
+ *
+ * enum Apple {
+ *     Jonathan,
+ *     GoldenDel,
+ *     RedDel,
+ *     Winesap,
+ *     Cortland
+ * }
+ *
+ * Semua nilai berikut:
+ *
+ * - Jonathan
+ * - GoldenDel
+ * - RedDel
+ * - Winesap
+ * - Cortland
+ *
+ * disebut:
+ *
+ * Enum Constants
+ *
+ * Setiap constant secara otomatis bersifat:
+ *
+ * - public
+ * - static
+ * - final
+ *
+ * Artinya:
+ *
+ * - Bisa diakses dari mana saja
+ * - Hanya ada satu instance
+ * - Tidak bisa diubah nilainya
+ *
+ * ------------------------------------------------------------
+ * ENUM SEBAGAI TIPE DATA
+ * ------------------------------------------------------------
+ *
+ * Enum mendefinisikan tipe data baru.
+ *
+ * Contoh:
+ *
+ * Apple ap;
+ *
+ * Variabel ap hanya dapat menyimpan nilai dari enum Apple.
+ *
+ * Contoh:
+ *
+ * ap = Apple.RedDel;
+ *
+ * Bukan:
+ *
+ * ap = 10;          // ERROR
+ * ap = "RedDel";    // ERROR
+ *
+ * Karena tipe data variabel tersebut adalah Apple.
+ *
+ * ------------------------------------------------------------
+ * MENGGUNAKAN ENUM
+ * ------------------------------------------------------------
+ *
+ * Deklarasi:
+ *
+ * Apple ap;
+ *
+ * Memberikan nilai:
+ *
+ * ap = Apple.Winesap;
+ *
+ * Penulisan wajib menggunakan:
+ *
+ * NamaEnum.NamaConstant
+ *
+ * Contoh:
+ *
+ * Apple.GoldenDel
+ * Apple.RedDel
+ *
+ * ------------------------------------------------------------
+ * MEMBANDINGKAN ENUM
+ * ------------------------------------------------------------
+ *
+ * Enum dapat dibandingkan menggunakan operator:
+ *
+ * ==
+ *
+ * Contoh:
+ *
+ * if(ap == Apple.GoldenDel) {
+ *     ...
+ * }
+ *
+ * Ini aman karena setiap constant enum hanya memiliki satu
+ * instance.
+ *
+ * Berbeda dengan String yang biasanya dibandingkan menggunakan:
+ *
+ * equals()
+ *
+ * ------------------------------------------------------------
+ * ENUM DALAM SWITCH
+ * ------------------------------------------------------------
+ *
+ * Enum sangat sering digunakan pada switch.
+ *
+ * Contoh:
+ *
+ * switch(ap) {
+ *     case Jonathan:
+ *         break;
+ *
+ *     case Winesap:
+ *         break;
+ * }
+ *
+ * Perhatikan:
+ *
+ * Di dalam case TIDAK perlu menulis:
+ *
+ * Apple.Winesap
+ *
+ * Cukup:
+ *
+ * Winesap
+ *
+ * Karena compiler sudah mengetahui tipe enum yang digunakan.
+ *
+ * ------------------------------------------------------------
+ * MENAMPILKAN ENUM
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * System.out.println(Apple.Winesap);
+ *
+ * Output:
+ *
+ * Winesap
+ *
+ * Secara otomatis Java akan menampilkan nama constant enum.
+ *
+ * ------------------------------------------------------------
+ * BUILT-IN METHOD ENUM
+ * ------------------------------------------------------------
+ *
+ * Setiap enum otomatis memiliki beberapa method bawaan.
+ *
+ * Dua yang paling sering digunakan:
+ *
+ * - values()
+ * - valueOf()
+ *
+ * ------------------------------------------------------------
+ * values()
+ * ------------------------------------------------------------
+ *
+ * Signature:
+ *
+ * public static EnumType[] values()
+ *
+ * Fungsi:
+ *
+ * Mengembalikan seluruh constant enum dalam bentuk array.
+ *
+ * Contoh:
+ *
+ * for (Apple a : Apple.values()) {
+ *     System.out.println(a);
+ * }
+ *
+ * Output:
+ *
+ * Jonathan
+ * GoldenDel
+ * RedDel
+ * Winesap
+ * Cortland
+ *
+ * Cocok digunakan untuk:
+ *
+ * - Looping seluruh enum
+ * - Menampilkan pilihan menu
+ * - Validasi data
+ *
+ * ------------------------------------------------------------
+ * valueOf()
+ * ------------------------------------------------------------
+ *
+ * Signature:
+ *
+ * public static EnumType valueOf(String name)
+ *
+ * Fungsi:
+ *
+ * Mengubah String menjadi enum constant.
+ *
+ * Contoh:
+ *
+ * Apple ap = Apple.valueOf("Winesap");
+ *
+ * Hasil:
+ *
+ * ap = Apple.Winesap
+ *
+ * Jika nama tidak ditemukan:
+ *
+ * IllegalArgumentException
+ *
+ * akan dilempar oleh JVM.
+ *
+ * ------------------------------------------------------------
+ * PERBEDAAN values() DAN valueOf()
+ * ------------------------------------------------------------
+ *
+ * values()
+ *
+ * - Mengambil semua constant enum
+ * - Return berupa array enum
+ *
+ * valueOf()
+ *
+ * - Mengubah String menjadi enum
+ * - Return satu constant enum
+ *
+ * Analogi:
+ *
+ * values()
+ * = "Kasih semua pilihan yang tersedia"
+ *
+ * valueOf()
+ * = "Cari pilihan berdasarkan nama"
+ *
+ * ------------------------------------------------------------
+ * KEUNGGULAN ENUM
+ * ------------------------------------------------------------
+ *
+ * Dibandingkan menggunakan angka atau String biasa:
+ *
+ * - Lebih aman (type-safe)
+ * - Lebih mudah dibaca
+ * - Mengurangi bug
+ * - Mudah digunakan pada switch
+ * - Mendukung method dan constructor
+ *
+ * Contoh buruk:
+ *
+ * int status = 1;
+ *
+ * Sulit dipahami arti angka 1.
+ *
+ * Contoh lebih baik:
+ *
+ * Status status = Status.ACTIVE;
+ *
+ * Langsung jelas maksudnya.
+ *
+ * ------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------
+ *
+ * Enumeration (enum) adalah tipe data khusus yang berisi
+ * sekumpulan konstanta bernama.
+ *
+ * Di Java, enum sebenarnya adalah class khusus sehingga dapat
+ * memiliki:
+ *
+ * - Constructor
+ * - Method
+ * - Variable
+ *
+ * Method bawaan yang paling penting:
+ *
+ * - values()
+ * - valueOf()
+ *
+ * Enum sangat sering digunakan untuk:
+ *
+ * - Status
+ * - Role
+ * - Kategori
+ * - Tipe data tetap
+ * - Switch expression
+ *
+ * Enum merupakan salah satu fitur Java yang membuat kode lebih
+ * aman, lebih jelas, dan lebih mudah dipelihara dibandingkan
+ * penggunaan angka atau String sebagai representasi nilai tetap.
+ */
 
 public enum Enumerations {
     Jonathan, Goldendel, RedDel, Winesap, Cortland

@@ -1,189 +1,439 @@
 package FundamentalJava.Enum;
 
 /**
- * Enum adalah Class
- * Seperti yang dijelaskan sebelumnya, enum di Java adalah tipe class.
+ * ENUM SEBAGAI CLASS
+ * ------------------------------------------------------------
  *
- * Walaupun:
- * tidak bisa dibuat dengan new
+ * Seperti yang telah dijelaskan sebelumnya, enum di Java bukan
+ * sekadar kumpulan konstanta biasa.
  *
- * Tapi:
- * bisa punya constructor
- * bisa punya variabel (instance variable)
- * bisa punya method
- * bisa implement interface
+ * Enum sebenarnya adalah sebuah class khusus yang disediakan oleh
+ * Java untuk merepresentasikan sekumpulan nilai tetap yang saling
+ * berhubungan.
  *
- * Setiap konstanta enum adalah object
+ * Karena enum merupakan class, enum dapat memiliki:
  *
- * ----------------------------------------------------
- * 
- * Ini bagian paling penting:
- * Setiap nilai enum (misalnya Winesap) itu sebenarnya:
+ * - Constructor
+ * - Instance Variable
+ * - Method
+ * - Static Member
+ * - Implementasi Interface
  *
- * object dari class enum itu
+ * Namun enum memiliki beberapa aturan khusus yang membedakannya
+ * dari class biasa.
  *
- * Constructor di enum
- * Kalau lu bikin constructor di enum:
+ * ------------------------------------------------------------
+ * ENUM CONSTANT ADALAH OBJECT
+ * ------------------------------------------------------------
  *
- * constructor akan dipanggil untuk setiap konstanta
+ * Konsep paling penting yang harus dipahami adalah:
  *
- * Setiap konstanta punya data sendiri
+ * Setiap konstanta enum sebenarnya merupakan object yang dibuat
+ * dari class enum tersebut.
  *
- * Setiap enum punya:
- * copy variabel sendiri
- * data masing-masing
+ * Contoh:
  *
- * Bayangin gini bro:
- * 
  * enum Apple {
- *     Jonathan, GoldenDel
+ *     Jonathan,
+ *     GoldenDel,
+ *     RedDel,
+ *     Winesap,
+ *     Cortland
  * }
  *
- * itu basic
+ * Maka:
  *
- * Sekarang kita upgrade:
+ * - Apple.Jonathan adalah object
+ * - Apple.GoldenDel adalah object
+ * - Apple.RedDel adalah object
+ * - Apple.Winesap adalah object
+ * - Apple.Cortland adalah object
+ *
+ * Flow:
+ *
+ * Enum Declaration
+ *      ↓
+ * Java Membuat Object Untuk Setiap Constant
+ *      ↓
+ * Program Menggunakan Object Tersebut
+ *
+ * Karena setiap constant adalah object, maka setiap constant dapat
+ * memiliki data dan perilakunya sendiri.
+ *
+ * ------------------------------------------------------------
+ * CONSTRUCTOR PADA ENUM
+ * ------------------------------------------------------------
+ *
+ * Enum dapat memiliki constructor.
+ *
+ * Contoh:
  *
  * enum Apple {
  *     Jonathan(10),
- *     GoldenDel(9)
+ *     GoldenDel(9),
+ *     RedDel(12);
+ *
+ *     private int price;
+ *
+ *     Apple(int p) {
+ *         price = p;
+ *     }
  * }
  *
- * ini artinya:
+ * Pada contoh di atas:
  *
- * Jonathan punya data = 10
- * GoldenDel punya data = 9
+ * - Jonathan memanggil constructor dengan nilai 10
+ * - GoldenDel memanggil constructor dengan nilai 9
+ * - RedDel memanggil constructor dengan nilai 12
  *
- * Jadi:
- * enum sekarang kayak object yang punya property
+ * Constructor akan dipanggil otomatis saat enum dimuat oleh JVM.
  *
- * --------------------------------------------------
- * 
- * KONSEP PENTING BANGET 
+ * Berbeda dengan class biasa:
  *
- * 1. Enum = class
- * Apple.Winesap
- * itu object
+ * Apple a = new Apple(); // ERROR
  *
- * 2. Constructor dipanggil otomatis
- * Lu gak pernah nulis:
- * new Apple()
- * Tapi Java yang bikinin otomatis
+ * Enum tidak bisa dibuat menggunakan operator new.
  *
- * 3. Setiap enum punya data sendiri
- * Jonathan.price ≠ Winesap.price
+ * Java secara otomatis membuat seluruh object enum ketika enum
+ * pertama kali dimuat ke dalam memori.
  *
- * beda-beda, gak share
+ * ------------------------------------------------------------
+ * SETIAP ENUM MEMILIKI DATA SENDIRI
+ * ------------------------------------------------------------
  *
- * ------------------------------------------
- * 
- * BATASAN ENUM
- * 
- * Tidak bisa:
- * 
- * 1. Inherit class lain
- * enum A extends B // ERROR 
- * 
- * 2. Jadi superclass
- * class B extends Apple // ERROR 
- * Tapi bisa:
- * implement interface 
- *
- * INTI YANG HARUS LU “KLIK”
- * enum di Java = class
- * setiap nilai enum = object
- * 
- * bisa punya:
- * constructor
- * variabel
- * method
- * data tiap enum bisa beda-beda
- */
-
-/**
- * Enum mewarisi class Enum
- * 
- * Walaupun enum tidak bisa mewarisi class lain, semua enum di Java otomatis mewarisi:
- * java.lang.Enum
- * Class ini menyediakan beberapa method bawaan untuk enum.
- *
- * Method penting di Enum
- * 
- * 1. ordinal()
- * final int ordinal()
- * Mengembalikan posisi enum dalam daftar
+ * Karena setiap constant adalah object, maka setiap constant dapat
+ * menyimpan data yang berbeda.
  *
  * Contoh:
- * Jonathan → 0
- * GoldenDel → 1
- * RedDel → 2
- *
- * 2. compareTo()
- * final int compareTo(enum-type e)
- * Membandingkan posisi (ordinal)
- *
- * Hasil:
- * negatif → sebelum
- * 0 → sama
- * positif → sesudah
- *
- * 3. equals()
- * Membandingkan apakah dua enum itu object yang sama
- *
- * 4. ==
- * Cara paling umum & direkomendasikan buat compare enum
- *
- * Intinya gini bro:
- * Enum itu punya “urutan”
  *
  * enum Apple {
- *     Jonathan, GoldenDel, RedDel
+ *     Jonathan(10),
+ *     GoldenDel(9),
+ *     Winesap(15);
  * }
  *
- * otomatis:
- * Jonathan = 0
- * GoldenDel = 1
- * RedDel = 2
+ * Maka:
  *
- * KONSEP PENTING 
- * 1. ordinal = posisi
- * otomatis dari urutan penulisan enum
+ * - Jonathan memiliki nilai 10
+ * - GoldenDel memiliki nilai 9
+ * - Winesap memiliki nilai 15
  *
- * 2. compareTo = bandingkan posisi
- * RedDel.compareTo(GoldenDel) → positif
+ * Data tersebut tidak saling berbagi (share).
  *
- * 3. equals vs ==
- * Cara	                Fungsi
- * ==	                bandingkan referensi (rekomendasi)
- * equals()	            bandingkan object
+ * Setiap object enum memiliki salinan variabelnya sendiri.
  *
- * di enum:
- * == sudah cukup dan aman
+ * Analogi:
  *
- * CONTOH SIMPEL
+ * enum Apple
+ *      ↓
+ * Object Jonathan → price = 10
+ * Object GoldenDel → price = 9
+ * Object Winesap → price = 15
+ *
+ * Masing-masing object menyimpan datanya sendiri.
+ *
+ * ------------------------------------------------------------
+ * ENUM DAPAT MEMILIKI METHOD
+ * ------------------------------------------------------------
+ *
+ * Karena enum adalah class, enum juga dapat memiliki method.
+ *
+ * Contoh:
+ *
+ * enum Apple {
+ *     Jonathan(10),
+ *     GoldenDel(9);
+ *
+ *     private int price;
+ *
+ *     Apple(int p) {
+ *         price = p;
+ *     }
+ *
+ *     int getPrice() {
+ *         return price;
+ *     }
+ * }
+ *
+ * Pemakaian:
+ *
+ * System.out.println(Apple.Jonathan.getPrice());
+ *
+ * Output:
+ *
+ * 10
+ *
+ * Dengan demikian enum dapat menyimpan data sekaligus menyediakan
+ * perilaku (behavior).
+ *
+ * ------------------------------------------------------------
+ * ENUM DAPAT IMPLEMENT INTERFACE
+ * ------------------------------------------------------------
+ *
+ * Enum tidak bisa mewarisi class lain.
+ *
+ * Tetapi enum dapat mengimplementasikan interface.
+ *
+ * Contoh:
+ *
+ * interface Printable {
+ *     void print();
+ * }
+ *
+ * enum Apple implements Printable {
+ *     Jonathan;
+ *
+ *     public void print() {
+ *         System.out.println("Apple");
+ *     }
+ * }
+ *
+ * Hal ini memungkinkan enum digunakan dalam berbagai desain OOP.
+ *
+ * ------------------------------------------------------------
+ * BATASAN ENUM
+ * ------------------------------------------------------------
+ *
+ * Enum memiliki beberapa batasan penting:
+ *
+ * - Tidak bisa menggunakan extends ke class lain
+ * - Tidak bisa menjadi superclass
+ * - Tidak bisa dibuat menggunakan operator new
+ *
+ * Contoh:
+ *
+ * enum A extends B { }     // ERROR
+ *
+ * class B extends Apple { } // ERROR
+ *
+ * Tetapi:
+ *
+ * enum Apple implements Serializable {
+ * }
+ *
+ * Valid.
+ *
+ * ------------------------------------------------------------
+ * ENUM SECARA OTOMATIS MEWARISI java.lang.Enum
+ * ------------------------------------------------------------
+ *
+ * Walaupun enum tidak bisa melakukan inheritance terhadap class
+ * lain, semua enum secara otomatis mewarisi:
+ *
+ * java.lang.Enum
+ *
+ * Hierarki sederhananya:
+ *
+ * Apple
+ *      ↓
+ * Enum<Apple>
+ *      ↓
+ * Object
+ *
+ * Karena itulah semua enum memiliki beberapa method bawaan.
+ *
+ * ------------------------------------------------------------
+ * METHOD ordinal()
+ * ------------------------------------------------------------
+ *
+ * Signature:
+ *
+ * final int ordinal()
+ *
+ * Fungsi:
+ *
+ * Mengembalikan posisi enum berdasarkan urutan deklarasi.
+ *
+ * Contoh:
+ *
+ * enum Apple {
+ *     Jonathan,
+ *     GoldenDel,
+ *     RedDel
+ * }
+ *
+ * Nilai ordinal:
+ *
+ * - Jonathan = 0
+ * - GoldenDel = 1
+ * - RedDel = 2
+ *
+ * Contoh:
+ *
+ * System.out.println(Apple.RedDel.ordinal());
+ *
+ * Output:
+ *
+ * 2
+ *
+ * ------------------------------------------------------------
+ * METHOD compareTo()
+ * ------------------------------------------------------------
+ *
+ * Signature:
+ *
+ * final int compareTo(E obj)
+ *
+ * Fungsi:
+ *
+ * Membandingkan posisi ordinal antar enum.
+ *
+ * Return:
+ *
+ * - Negatif  → sebelum
+ * - Nol      → sama
+ * - Positif  → sesudah
+ *
+ * Contoh:
+ *
+ * Apple.RedDel.compareTo(Apple.GoldenDel)
+ *
+ * Hasil:
+ *
+ * positif
+ *
+ * Karena:
+ *
+ * RedDel berada setelah GoldenDel.
+ *
+ * Flow:
+ *
+ * ordinal(RedDel) = 2
+ * ordinal(GoldenDel) = 1
+ *
+ * 2 - 1 = 1
+ *
+ * ------------------------------------------------------------
+ * METHOD equals()
+ * ------------------------------------------------------------
+ *
+ * Signature:
+ *
+ * boolean equals(Object obj)
+ *
+ * Fungsi:
+ *
+ * Membandingkan apakah dua reference menunjuk object enum yang
+ * sama.
+ *
+ * Contoh:
+ *
+ * Apple.Jonathan.equals(Apple.Jonathan)
+ *
+ * Hasil:
+ *
+ * true
+ *
+ * ------------------------------------------------------------
+ * OPERATOR ==
+ * ------------------------------------------------------------
+ *
+ * Cara yang paling umum dan direkomendasikan untuk membandingkan
+ * enum adalah menggunakan operator:
+ *
+ * ==
+ *
+ * Contoh:
+ *
+ * if (ap == Apple.Winesap) {
+ *     ...
+ * }
+ *
+ * Ini aman karena:
+ *
+ * - Setiap constant enum hanya memiliki satu instance
+ * - Enum bersifat singleton per constant
+ *
+ * Oleh karena itu:
+ *
+ * == lebih sederhana
+ * == lebih cepat
+ * == lebih sering digunakan
+ *
+ * dibanding:
+ *
+ * equals()
+ *
+ * ------------------------------------------------------------
+ * PERBEDAAN ordinal(), compareTo(), DAN ==
+ * ------------------------------------------------------------
+ *
+ * Method / Operator    Fungsi
+ * ------------------------------------------------------------
+ * ordinal()            Mengambil posisi enum
+ * compareTo()          Membandingkan posisi enum
+ * equals()             Membandingkan object enum
+ * ==                   Membandingkan reference enum
+ *
+ * Pada enum:
+ *
+ * - equals() aman
+ * - == juga aman
+ * - == lebih direkomendasikan
+ *
+ * ------------------------------------------------------------
+ * CONTOH SEDERHANA
+ * ------------------------------------------------------------
  *
  * enum Level {
- *     LOW, MEDIUM, HIGH
+ *     LOW,
+ *     MEDIUM,
+ *     HIGH
  * }
  *
- * class Test {
+ * public class Demo {
+ *
  *     public static void main(String[] args) {
  *
- *         System.out.println(Level.LOW.ordinal()); // 0
+ *         System.out.println(Level.LOW.ordinal());
  *
- *         if(Level.HIGH.compareTo(Level.LOW) > 0) {
+ *         if (Level.HIGH.compareTo(Level.LOW) > 0) {
  *             System.out.println("HIGH lebih tinggi dari LOW");
+ *         }
+ *
+ *         if (Level.HIGH == Level.HIGH) {
+ *             System.out.println("Sama");
  *         }
  *     }
  * }
  *
- * --------------------------------------------------------
- * 
- * INTI YANG HARUS LU PAHAM
- * enum otomatis punya method dari Enum
- * ordinal() = posisi
- * compareTo() = banding posisi
- * equals() & == = banding object
- * enum itu object → bukan sekadar konstanta
+ * Output:
+ *
+ * 0
+ * HIGH lebih tinggi dari LOW
+ * Sama
+ *
+ * ------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------
+ *
+ * Enum di Java adalah class khusus yang digunakan untuk
+ * merepresentasikan sekumpulan konstanta tetap.
+ *
+ * Konsep penting yang harus dipahami:
+ *
+ * - Enum adalah class
+ * - Setiap constant enum adalah object
+ * - Enum dapat memiliki constructor
+ * - Enum dapat memiliki variable
+ * - Enum dapat memiliki method
+ * - Enum dapat mengimplementasikan interface
+ *
+ * Semua enum secara otomatis mewarisi:
+ *
+ * java.lang.Enum
+ *
+ * Method bawaan yang paling penting:
+ *
+ * - ordinal()
+ * - compareTo()
+ * - equals()
+ * - values()
+ * - valueOf()
+ *
+ * Karena setiap constant enum sebenarnya adalah object,
+ * enum di Java jauh lebih powerful dibandingkan sekadar
+ * kumpulan konstanta biasa.
  */
 
 // Enum dengan constructor, variabel dan methode

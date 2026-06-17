@@ -1,54 +1,310 @@
 package FundamentalJava.Constructor;
 
 /**
-     * This
-     *
-     * this adalah reference ke object yang sedang aktif.
-     * Kadang-kadang sebuah method perlu merujuk pada objek yang memanggil method tersebut.
-     * Untuk memungkinkan hal ini, Java menyediakan keyword this.
-     * this dapat digunakan di dalam method mana pun untuk merujuk pada objek saat ini (current object).
-     * Artinya, this selalu merupakan reference ke object yang memanggil method tersebut.
-     * Kamu bisa menggunakan this di mana saja reference terhadap objek dari class yang sama diperbolehkan.
-     *
-     * Kapan this Menjadi Penting?
-     * this sangat penting jika nama parameter sama dengan nama variabel instance.
-     *
-     * Kenapa harus pakai this?
-     * Karena tanpa this, Java bingung.
-     * Contoh salah:
-     * width = width;
-     *
-     * Ini artinya:
-     * width(parameter) = width(parameter)
-     * Variabel instance tidak pernah diisi.
-     *
-     * Dengan this
-     * this.width = width;
-     * Artinya:
-     * width(instance) = width(parameter)
-     *
-     * this Selalu Mengacu ke Object yang Memanggil Method
-     *
-     * Contoh:
-     * Mahasiswa m1 = new Mahasiswa("Farich");
-     * Mahasiswa m2 = new Mahasiswa("Budi");
-     *
-     * Saat method dipanggil:
-     * m1.tampilkan()
-     * this → m1
-     * m2.tampilkan()
-     * this → m2
-     *
-     * Ringkasan Konsep this
-     * this adalah:
-     * reference ke object saat ini
-     *
-     * Digunakan untuk:
-     * mengakses instance variable
-     * membedakan parameter dengan variabel class
-     * memanggil constructor lain
-     * mengirim object ke method lain
-     */
+ * ------------------------------------------------------------------------
+ * KEYWORD this
+ * ------------------------------------------------------------------------
+ *
+ * this adalah reference yang menunjuk ke object yang sedang aktif
+ * (current object).
+ *
+ * Setiap object memiliki reference this sendiri yang secara otomatis
+ * disediakan oleh Java.
+ *
+ * Ketika sebuah method dipanggil melalui object, keyword this akan
+ * mengacu pada object yang memanggil method tersebut.
+ *
+ * Dengan kata lain:
+ *
+ * this
+ * -> Reference Ke Current Object
+ *
+ * Karena this merupakan reference object, maka this dapat digunakan
+ * di mana saja reference terhadap object dari class yang sama
+ * diperbolehkan.
+ *
+ * ------------------------------------------------------------------------
+ * BAGAIMANA this BEKERJA?
+ * ------------------------------------------------------------------------
+ *
+ * Misalkan terdapat object:
+ *
+ * Mahasiswa m1 = new Mahasiswa("Farich");
+ * Mahasiswa m2 = new Mahasiswa("Budi");
+ *
+ * Ketika method dipanggil:
+ *
+ * m1.tampilkan();
+ *
+ * maka:
+ *
+ * this
+ * -> m1
+ *
+ * Ketika method dipanggil:
+ *
+ * m2.tampilkan();
+ *
+ * maka:
+ *
+ * this
+ * -> m2
+ *
+ * Flow:
+ *
+ * m1.tampilkan()
+ * -> this mengacu ke m1
+ *
+ * m2.tampilkan()
+ * -> this mengacu ke m2
+ *
+ * Oleh karena itu, nilai this selalu bergantung pada object yang
+ * sedang memanggil method.
+ *
+ * ------------------------------------------------------------------------
+ * PENGGUNAAN PALING UMUM this
+ * ------------------------------------------------------------------------
+ *
+ * Salah satu penggunaan this yang paling sering ditemukan adalah
+ * untuk membedakan instance variable dengan parameter yang memiliki
+ * nama yang sama.
+ *
+ * Contoh:
+ *
+ * class Box {
+ *
+ *     double width;
+ *
+ *     Box(double width) {
+ *         this.width = width;
+ *     }
+ * }
+ *
+ * Pada contoh di atas:
+ *
+ * - this.width mengacu pada instance variable.
+ * - width mengacu pada parameter constructor.
+ *
+ * Flow:
+ *
+ * Argument
+ * -> Parameter width
+ * -> this.width (Instance Variable)
+ *
+ * ------------------------------------------------------------------------
+ * MENGAPA this DIPERLUKAN?
+ * ------------------------------------------------------------------------
+ *
+ * Perhatikan contoh berikut:
+ *
+ * class Box {
+ *
+ *     double width;
+ *
+ *     Box(double width) {
+ *         width = width;
+ *     }
+ * }
+ *
+ * Sekilas terlihat benar, tetapi sebenarnya salah.
+ *
+ * Yang terjadi:
+ *
+ * width (Parameter)
+ * = width (Parameter)
+ *
+ * Instance variable tidak pernah mendapatkan nilai.
+ *
+ * Akibatnya:
+ *
+ * this.width
+ * tetap memiliki nilai default.
+ *
+ * Solusi:
+ *
+ * this.width = width;
+ *
+ * Artinya:
+ *
+ * this.width (Instance Variable)
+ * = width (Parameter)
+ *
+ * ------------------------------------------------------------------------
+ * this UNTUK MENGAKSES MEMBER OBJECT
+ * ------------------------------------------------------------------------
+ *
+ * this juga dapat digunakan untuk mengakses instance variable
+ * maupun method milik object saat ini.
+ *
+ * Contoh:
+ *
+ * class Test {
+ *
+ *     int a;
+ *
+ *     void setA(int a) {
+ *         this.a = a;
+ *     }
+ *
+ *     void tampilkan() {
+ *         System.out.println(this.a);
+ *     }
+ * }
+ *
+ * Pada praktiknya, penulisan this.a di dalam method sering kali
+ * bersifat opsional selama tidak terjadi konflik nama.
+ *
+ * Contoh:
+ *
+ * System.out.println(a);
+ *
+ * dan
+ *
+ * System.out.println(this.a);
+ *
+ * menghasilkan perilaku yang sama.
+ *
+ * ------------------------------------------------------------------------
+ * this UNTUK MEMANGGIL CONSTRUCTOR LAIN
+ * ------------------------------------------------------------------------
+ *
+ * this juga dapat digunakan untuk memanggil constructor lain
+ * dalam class yang sama.
+ *
+ * Contoh:
+ *
+ * class Box {
+ *
+ *     double width;
+ *     double height;
+ *     double depth;
+ *
+ *     Box() {
+ *         this(0, 0, 0);
+ *     }
+ *
+ *     Box(double w, double h, double d) {
+ *         width = w;
+ *         height = h;
+ *         depth = d;
+ *     }
+ * }
+ *
+ * Flow:
+ *
+ * Box()
+ * -> this(0, 0, 0)
+ * -> Box(double w, double h, double d)
+ * -> Object Diinisialisasi
+ *
+ * Catatan:
+ *
+ * Jika digunakan untuk memanggil constructor lain,
+ * this(...) harus menjadi statement pertama dalam constructor.
+ *
+ * ------------------------------------------------------------------------
+ * this SEBAGAI ARGUMENT METHOD
+ * ------------------------------------------------------------------------
+ *
+ * Current object juga dapat dikirim ke method lain menggunakan
+ * keyword this.
+ *
+ * Contoh:
+ *
+ * class Test {
+ *
+ *     void show() {
+ *         display(this);
+ *     }
+ *
+ *     void display(Test obj) {
+ *         // proses object
+ *     }
+ * }
+ *
+ * Flow:
+ *
+ * Current Object
+ * -> this
+ * -> Dikirim Ke Method
+ *
+ * ------------------------------------------------------------------------
+ * this SEBAGAI RETURN VALUE
+ * ------------------------------------------------------------------------
+ *
+ * Sebuah method juga dapat mengembalikan current object menggunakan
+ * keyword this.
+ *
+ * Contoh:
+ *
+ * class Test {
+ *
+ *     Test getObject() {
+ *         return this;
+ *     }
+ * }
+ *
+ * Teknik ini banyak digunakan dalam:
+ *
+ * - Method Chaining
+ * - Builder Pattern
+ * - Fluent API
+ *
+ * Contoh modern:
+ *
+ * builder
+ *     .setName("Farich")
+ *     .setAge(20)
+ *     .build();
+ *
+ * ------------------------------------------------------------------------
+ * ISTILAH PENTING
+ * ------------------------------------------------------------------------
+ *
+ * - Current Object
+ *   Object yang sedang menjalankan method.
+ *
+ * - Instance Variable
+ *   Variabel yang dimiliki oleh setiap object.
+ *
+ * - Parameter
+ *   Variabel penerima nilai pada method atau constructor.
+ *
+ * - Argument
+ *   Nilai yang dikirim saat method atau constructor dipanggil.
+ *
+ * ------------------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------------------
+ *
+ * this adalah reference yang menunjuk ke current object
+ * (object yang sedang aktif).
+ *
+ * Penggunaan utama this:
+ *
+ * - Mengakses instance variable milik object saat ini.
+ *
+ * - Membedakan instance variable dengan parameter yang memiliki
+ *   nama yang sama.
+ *
+ * - Memanggil constructor lain dalam class yang sama melalui
+ *   this(...).
+ *
+ * - Mengirim current object sebagai argument method.
+ *
+ * - Mengembalikan current object dari method.
+ *
+ * Flow utama:
+ *
+ * Method Dipanggil
+ * -> this Mengacu Ke Current Object
+ * -> Akses Data / Method Object
+ * -> Eksekusi Selesai
+ *
+ * Keyword this merupakan salah satu fitur dasar OOP di Java yang
+ * sangat penting karena membantu object mengenali dirinya sendiri
+ * selama program berjalan.
+ */
 
 public class ThisJava {
 

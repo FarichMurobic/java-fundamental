@@ -1,86 +1,206 @@
 package FundamentalJava.ExceptionHandling;
 
-    /**
-     * Kenapa Java punya banyak method ini?
-     *
-     * Karena:
-     * error handling di Java itu bukan cuma nangkep error, tapi ANALISA error
-     *
-     * Konsepnya
-     *
-     * Misalnya:
-     * method lempar ArithmeticException (bagi 0)
-     * tapi penyebab aslinya: error I/O
-     *
-     * Jadi:
-     * error utama: ArithmeticException
-     * penyebab: IOException
-     *
-     * Ini yang disebut chain
-     *
-     * Constructor baru
-     * Throwable(Throwable causeExc)
-     * Throwable(String msg, Throwable causeExc)
-     *
-     * bisa langsung set:
-     * pesan
-     * penyebab
-     *
-     * Method penting
-     * getCause()
-     * initCause(Throwable causeExc)
-     * getCause() → ambil penyebab
-     * initCause() → set penyebab (setelah object dibuat)
-     *
-     * Aturan:
-     * cause cuma bisa di-set 1 kali
-     * kalau sudah di constructor → gak bisa pakai initCause() lagi
-     *
-     * ------------------------------------------------------------------
-     * 
-     * INTI BESAR
-     * Chained exception itu:
-     * menyimpan “akar masalah” dari sebuah error
-     *
-     * Bayangin:
-     * Program error → ArithmeticException
-     *         ↓
-     * Kenapa? → karena input salah
-     *         ↓
-     * Kenapa? → karena file gagal dibaca
-     *
-     * itu chain 
-     *
-     * Struktur Chain
-     * Exception utama
-     *     ↓
-     * Cause
-     *     ↓
-     * Cause lagi (opsional)
-     *
-     * Kenapa ini penting?
-     * Tanpa chain:
-     * lu cuma tau “error terjadi”
-     *
-     * Dengan chain:
-     * lu tau:
-     * error apa
-     * kenapa terjadi
-     * asal masalah
-     *
-     * “Chain terlalu panjang = desain jelek”
-     *
-     * kenapa?
-     * terlalu banyak layer
-     * susah dipahami
-     * indikasi code berantakan
-     *
-     * KESIMPULAN
-     * Chained exception = hubungan antar error
-     * membantu debugging
-     * bikin error lebih informatif
-     * jangan overuse
-     */
+/**
+ * ------------------------------------------------------------
+ * CHAINED EXCEPTIONS (EXCEPTION CHAINING)
+ * ------------------------------------------------------------
+ *
+ * Java menyediakan mekanisme Chained Exceptions untuk
+ * menyimpan hubungan antara sebuah exception dengan
+ * penyebab sebenarnya (root cause) yang memicu exception tersebut.
+ *
+ * Tujuannya:
+ * agar informasi error tidak hilang saat exception
+ * diteruskan ke layer lain dalam aplikasi.
+ *
+ * ------------------------------------------------------------
+ * KENAPA CHAINED EXCEPTION DIBUTUHKAN?
+ * ------------------------------------------------------------
+ *
+ * Bayangkan ada alur seperti ini:
+ *
+ * File dibaca
+ *      ↓
+ * IOException
+ *      ↓
+ * Service Layer
+ *      ↓
+ * DataProcessingException
+ *
+ * Jika IOException langsung diganti dengan
+ * DataProcessingException tanpa menyimpan penyebabnya,
+ * maka informasi sumber masalah akan hilang.
+ *
+ * Dengan Chained Exception:
+ *
+ * DataProcessingException
+ *      ↓
+ * cause = IOException
+ *
+ * sehingga root cause tetap bisa ditelusuri.
+ *
+ * ------------------------------------------------------------
+ * CONSTRUCTOR PENTING PADA THROWABLE
+ * ------------------------------------------------------------
+ *
+ * Sejak Java 1.4, Throwable menyediakan constructor
+ * untuk mendukung exception chaining:
+ *
+ * Throwable(Throwable cause)
+ *
+ * Throwable(String message, Throwable cause)
+ *
+ * Contoh:
+ *
+ * throw new RuntimeException(
+ *         "Gagal memproses data",
+ *         ioException
+ * );
+ *
+ * Di sini:
+ *
+ * message = "Gagal memproses data"
+ * cause   = ioException
+ *
+ * ------------------------------------------------------------
+ * METHOD PENTING
+ * ------------------------------------------------------------
+ *
+ * Throwable getCause()
+ *
+ * Mengembalikan penyebab (cause) dari exception.
+ *
+ * Contoh:
+ *
+ * Exception e = ...
+ *
+ * Throwable cause = e.getCause();
+ *
+ *
+ * Throwable initCause(Throwable cause)
+ *
+ * Menetapkan penyebab exception setelah object dibuat.
+ *
+ * Contoh:
+ *
+ * Exception e = new Exception("Wrapper");
+ * e.initCause(originalException);
+ *
+ * ------------------------------------------------------------
+ * ATURAN PENTING
+ * ------------------------------------------------------------
+ *
+ * Cause hanya boleh ditetapkan SATU KALI.
+ *
+ * Jika cause sudah diberikan melalui constructor:
+ *
+ * new Exception("msg", cause)
+ *
+ * maka pemanggilan:
+ *
+ * initCause(...)
+ *
+ * akan menghasilkan IllegalStateException.
+ *
+ * ------------------------------------------------------------
+ * STRUKTUR EXCEPTION CHAIN
+ * ------------------------------------------------------------
+ *
+ * Exception Utama
+ *        ↓
+ * Cause
+ *        ↓
+ * Cause Berikutnya
+ *        ↓
+ * Root Cause
+ *
+ * Contoh:
+ *
+ * ServiceException
+ *        ↓
+ * RepositoryException
+ *        ↓
+ * SQLException
+ *
+ * Root cause:
+ * SQLException
+ *
+ * ------------------------------------------------------------
+ * KEUNTUNGAN CHAINED EXCEPTIONS
+ * ------------------------------------------------------------
+ *
+ * - Menjaga informasi penyebab error.
+ * - Mempermudah debugging.
+ * - Cocok untuk aplikasi berlapis (layered architecture).
+ * - Error dapat dibungkus (wrapped) tanpa kehilangan root cause.
+ * - Sangat umum digunakan di framework modern:
+ *   Spring Framework
+ *   Spring Boot
+ *   Hibernate
+ *   Jakarta EE
+ *
+ * ------------------------------------------------------------
+ * BEST PRACTICE MODERN JAVA
+ * ------------------------------------------------------------
+ *
+ * Saat membuat exception baru,
+ * lebih disarankan menggunakan constructor:
+ *
+ * public MyException(String message, Throwable cause) {
+ *     super(message, cause);
+ * }
+ *
+ * daripada menggunakan initCause().
+ *
+ * Karena:
+ *
+ * - lebih jelas
+ * - immutable setelah dibuat
+ * - menjadi standar pada Java modern
+ *
+ * ------------------------------------------------------------
+ * HAL YANG PERLU DIHINDARI
+ * ------------------------------------------------------------
+ *
+ * Jangan membungkus exception tanpa menyimpan cause:
+ *
+ * SALAH:
+ *
+ * catch(IOException e) {
+ *     throw new RuntimeException("Gagal");
+ * }
+ *
+ * Karena root cause hilang.
+ *
+ * BENAR:
+ *
+ * catch(IOException e) {
+ *     throw new RuntimeException("Gagal", e);
+ * }
+ *
+ * ------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------
+ *
+ * Chained Exception adalah mekanisme untuk
+ * menghubungkan exception dengan penyebab aslinya.
+ *
+ * Method utama:
+ * - getCause()
+ * - initCause()
+ *
+ * Constructor utama:
+ * - Throwable(Throwable cause)
+ * - Throwable(String message, Throwable cause)
+ *
+ * Dalam Java modern, penyebab error biasanya
+ * diteruskan melalui constructor dan diambil
+ * menggunakan getCause().
+ *
+ * Tujuan utamanya:
+ * mempertahankan root cause agar proses
+ * debugging dan maintenance menjadi lebih mudah.
+ */
     
 class ChainException {
     static void demoProc() {

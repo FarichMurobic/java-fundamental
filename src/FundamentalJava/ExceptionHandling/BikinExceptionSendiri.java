@@ -1,321 +1,409 @@
 package FundamentalJava.ExceptionHandling;
 
-    /**
-     * Creating Your Own Exception Subclasses
-     *
-     * Walaupun Java sudah punya banyak exception bawaan, 
-     * kadang lu butuh bikin exception sendiri untuk kasus spesifik di aplikasi lu.
-     * 
-     * Ini gampang:
-     * cukup bikin class yang extends Exception (yang sebenarnya turunan dari Throwable).
-     * Subclass exception ini gak wajib punya isi khusus—cukup keberadaannya aja udah bisa dipakai sebagai exception.
-     *
-     * Tentang Class Exception
-     * Class Exception sendiri gak punya method tambahan.
-     * Dia mewarisi method dari Throwable
-     *
-     * Jadi:
-     * semua exception (termasuk buatan lu)
-     * punya method seperti:
-     * getMessage()
-     * printStackTrace()
-     * toString()
-     * dll
-     *
-     * --------------------------------------
-     * 
-     * Constructor Exception
-     * Ada 2 constructor utama:
-     * Exception()
-     * Exception(String msg)
-     * 
-     * tanpa parameter → tanpa deskripsi
-     * dengan String → bisa kasih pesan error
-     *
-     * Override toString()
-     * Biasanya output exception:
-     * NamaException: pesan
-     *
-     * Kalau lu override toString():
-     * lu bisa kontrol output sendiri
-     * bikin lebih clean
-     * 
-     * -------------------------------------------------------
-     *
-     * INTI BESARNYA:
-     * Exception itu bukan cuma error
-     * tapi cara komunikasi error
-     *
-     * Kenapa bikin exception sendiri?
-     *
-     * Bayangin:
-     * if (saldo < 0) throw new Exception("Error");
-     *
-     * jelek
-     * gak jelas konteks
-     *
-     * Lebih bagus:
-     * throw new SaldoTidakCukupException();
-     *
-     * langsung jelas:
-     * ini error apa
-     * terjadi di domain apa
-     *
-     * Analogi
-     * Exception = alarm
-     * Exception bawaan = alarm umum (kebakaran, gempa)
-     * Custom Exception = alarm khusus (server down, saldo minus)
-     *
-     * ---------------------------------------------------------
-     * 
-     * Hal Penting
-     * Custom Exception:
-     * hanya perlu extends Exception
-     * gak wajib override apa-apa
-     * tapi lebih powerful kalau lu customize
-     *
-     * POIN PENTING
-     * Exception bisa dibuat sendiri
-     * cukup extends Exception
-     * bisa simpan data tambahan (kayak detail)
-     * bisa override toString() untuk output custom
-     * tetap mewarisi method dari Throwable
-     *
-     * Custom Exception = bahasa error lu sendiri
-     *
-     * Lu gak lagi pakai bahasa Java
-     * Lu bikin bahasa error sesuai domain aplikasi lu
-     *
-     * Contoh:
-     * LoginFailedException
-     * InvalidEmailException
-     * SaldoTidakCukupException
-     *
-     * Ini yang bikin code lu “professional level”
-     * 
-     * ----------------------------------------------------
-     *
-     * KESIMPULAN
-     * Java kasih exception umum
-     * tapi aplikasi real butuh exception spesifik
-     * custom exception bikin code:
-     * lebih jelas
-     * lebih readable
-     * lebih scalable
-     *
-     * Inti utama = bikin class baru turunan Exception
-     * class MyException extends Exception
-     * Itu aja udah cukup bikin:
-     * “jenis error baru”
-     *
-     * Custom Exception itu:
-     * cara bikin error jadi bagian dari desain program lu
-     *
-     * Bukan sekadar:
-     * nampilin pesan error
-     *
-     * Tapi:
-     * mendefinisikan jenis kegagalan dalam sistem
-     *
-     * Tanpa custom exception:
-     * semua error = "error umum"
-     *
-     * Dengan custom exception:
-     * error punya identitas
-     *
-     * Kayak:
-     * DatabaseConnectionException
-     * InvalidPasswordException
-     * PaymentFailedException
-     *
-     * ini bikin code lu:
-     *
-     * lebih readable
-     * lebih maintainable
-     * lebih profesional
-     *
-     * Logika jadi terpisah rapi
-     *
-     * Lu bisa:
-     * handle error login beda
-     * handle error database beda
-     * handle error saldo beda
-     *
-     * bukan satu “catch semua”
-     *
-     * catch (Exception e)
-     * ini bahaya bro
-     *
-     * Karena:
-     * semua error masuk sini
-     * debugging jadi neraka
-     *
-     * Exception jadi bagian dari sistem
-     * Ini yang paling dalam:
-     * Lu gak cuma “lempar error”
-     * Lu lagi mendefinisikan aturan dunia program lu
-     * 
-     * --------------------------------------------------
-     *
-     * INTI PALING DALAM (NAIK LEVEL BANGET)
-     *
-     * extends Exception itu artinya:
-     * “Gua bikin kategori kegagalan baru di sistem gua”
-     *
-     * Bukan sekadar:
-     * biar readable
-     *
-     * Tapi:
-     * biar program lu ngerti jenis kegagalannya
-     *
-     * KESIMPULAN
-     * Exception = general (superclass)
-     * Custom exception = spesifik
-     * Tangkap spesifik = clean design
-     * Tangkap umum = hanya sebagai 
-     * 
-     * ---------------------------------------------------------
-     *
-     * KESIMPULAN
-     * extends Exception
-     * error yang harus dipikirin & ditangani
-     *
-     * extends RuntimeException
-     * error yang biasanya bug & tidak wajib ditangani
-     *
-     * Kenapa harus extends dari class (khususnya Exception)?
-     * JAWABAN INTI (langsung nancep)
-     *
-     * Karena Java pakai inheritance buat:
-     * “ngasih identitas + behavior ke object”
-     *
-     * Java butuh “TANDA” bahwa itu Exception
-     * Kalau lu bikin:
-     * class MyError {
-     * }
-     *
-     * Ini BUKAN exception
-     * gak bisa:
-     * throw new MyError(); // ERROR
-     *
-     * Harus:
-     * class MyException extends Exception {
-     * }
-     * 
-     * Sekarang:
-     * bisa di-throw
-     * bisa di-catch
-     *
-     * KENAPA?
-     * Karena Java cuma nganggap:
-     * object yang turunan dari Throwable = exception
-     *
-     * Struktur Java:
-     *
-     * Throwable
-     *  ├── Exception
-     *  │    └── MyException
-     *  └── Error
-     *
-     * Jadi:
-     * extends = masuk ke “keluarga error”
-     *
-     * DAPET “KEKUATAN” DARI PARENT
-     * Dengan extends Exception, lu otomatis dapet:
-     * getMessage()
-     * printStackTrace()
-     * toString()
-     *
-     * Tanpa nulis ulang
-     *
-     * Tanpa extends:
-     * Lu harus bikin semua sendiri (ribet + gak standar)
-     *
-     * POLYMORPHISM (INI LEVEL LANJUT)
-     * Karena inheritance:
-     * catch (Exception e)
-     *
-     * bisa nangkep:
-     * MyException
-     * IOException
-     * dll
-     *
-     * Ini karena:
-     * semua itu “IS-A Exception”
-     *
-     * DESIGN SYSTEM JAVA
-     *
-     * Java itu strict banget:
-     * semua error HARUS:
-     *
-     * punya struktur
-     * punya behavior standar
-     *
-     * Makanya:
-     * gak boleh bikin exception sembarangan
-     * harus ikut sistem Throwable
-     *
-     * INTI PALING DALAM
-     * extends itu bukan cuma “warisan”
-     *
-     * Tapi:
-     * cara Java mengenali dan mengatur object dalam sistemnya
-     *
-     * KHUSUS DI EXCEPTION
-     * Kenapa extends Exception?
-     *
-     * supaya:
-     * bisa di-throw
-     * bisa di-catch
-     * punya behavior standar
-     * masuk ke ekosistem error Java
-     */
+/**
+ * ------------------------------------------------------------
+ * Creating Your Own Exception Subclasses
+ * ------------------------------------------------------------
+ *
+ * Java menyediakan banyak exception bawaan seperti:
+ * - IOException
+ * - SQLException
+ * - NullPointerException
+ * - IllegalArgumentException
+ *
+ * Namun pada aplikasi nyata sering kali dibutuhkan jenis exception
+ * yang lebih spesifik sesuai kebutuhan domain aplikasi.
+ *
+ * Untuk itu Java memungkinkan kita membuat custom exception,
+ * yaitu exception yang didefinisikan sendiri oleh programmer.
+ *
+ * Contoh:
+ *
+ * class InvalidEmailException extends Exception {
+ * }
+ *
+ * Setelah sebuah class mewarisi Exception (atau RuntimeException),
+ * class tersebut dapat digunakan dengan mekanisme exception Java,
+ * seperti:
+ *
+ * - throw
+ * - try-catch
+ * - throws
+ *
+ * ------------------------------------------------------------
+ * Mengapa Harus extends Exception?
+ * ------------------------------------------------------------
+ *
+ * Java hanya mengizinkan object yang merupakan turunan dari:
+ *
+ * Throwable
+ *
+ * untuk digunakan sebagai exception.
+ *
+ * Hirarki sederhananya:
+ *
+ * Throwable
+ * ├── Exception
+ * │    ├── IOException
+ * │    ├── SQLException
+ * │    └── CustomException
+ * │
+ * └── Error
+ *
+ * Karena itu:
+ *
+ * class MyException extends Exception { }
+ *
+ * valid digunakan sebagai exception.
+ *
+ * Sedangkan:
+ *
+ * class MyError { }
+ *
+ * bukan exception dan tidak dapat dilempar (throw).
+ *
+ * ------------------------------------------------------------
+ * Constructor Exception
+ * ------------------------------------------------------------
+ *
+ * Class Exception menyediakan beberapa constructor bawaan,
+ * yang paling sering digunakan adalah:
+ *
+ * Exception()
+ * Exception(String message)
+ *
+ * Constructor dengan parameter message digunakan untuk
+ * memberikan informasi tambahan mengenai penyebab kegagalan.
+ *
+ * Contoh:
+ *
+ * throw new InvalidEmailException(
+ *     "Format email tidak valid"
+ * );
+ *
+ * Informasi tersebut nantinya dapat diambil melalui:
+ *
+ * getMessage()
+ *
+ * ------------------------------------------------------------
+ * Method Penting yang Diwarisi dari Throwable
+ * ------------------------------------------------------------
+ *
+ * Semua custom exception otomatis mewarisi method-method penting
+ * dari class Throwable, antara lain:
+ *
+ * - getMessage()
+ * - printStackTrace()
+ * - toString()
+ * - getCause()
+ *
+ * Karena itu biasanya custom exception tidak memerlukan
+ * implementasi tambahan kecuali memang dibutuhkan.
+ *
+ * ------------------------------------------------------------
+ * Override toString()
+ * ------------------------------------------------------------
+ *
+ * Jika diperlukan, custom exception dapat mengubah format output
+ * dengan melakukan override terhadap method toString().
+ *
+ * Contoh:
+ *
+ * @Override
+ * public String toString() {
+ *     return "InvalidEmailException";
+ * }
+ *
+ * Namun dalam praktik modern, penggunaan message melalui
+ * constructor biasanya lebih umum dibanding override toString().
+ *
+ * ------------------------------------------------------------
+ * Checked Exception vs Unchecked Exception
+ * ------------------------------------------------------------
+ *
+ * Secara umum custom exception dapat dibuat melalui dua cara:
+ *
+ * 1. extends Exception
+ *
+ * Disebut Checked Exception.
+ * Compiler memaksa programmer untuk menangani exception
+ * menggunakan try-catch atau throws.
+ *
+ * Contoh:
+ *
+ * class DatabaseException extends Exception {
+ * }
+ *
+ * 2. extends RuntimeException
+ *
+ * Disebut Unchecked Exception.
+ * Tidak wajib ditangani oleh compiler.
+ *
+ * Contoh:
+ *
+ * class InvalidEmailException
+ *         extends RuntimeException {
+ * }
+ *
+ * Pada aplikasi Java modern, termasuk Spring Boot,
+ * custom exception lebih sering dibuat dengan
+ * mewarisi RuntimeException.
+ *
+ * ------------------------------------------------------------
+ * Best Practice
+ * ------------------------------------------------------------
+ *
+ * Berikan nama exception yang spesifik sesuai domain aplikasi.
+ *
+ * Contoh:
+ *
+ * - UserNotFoundException
+ * - InvalidPasswordException
+ * - PaymentFailedException
+ * - ProductNotFoundException
+ *
+ * Hindari nama yang terlalu umum seperti:
+ *
+ * - DataException
+ * - ErrorException
+ * - MyException
+ *
+ * karena kurang menjelaskan jenis kegagalan yang terjadi.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * - Custom Exception adalah exception yang dibuat sendiri.
+ * - Dibuat dengan mewarisi Exception atau RuntimeException.
+ * - Semua exception harus merupakan turunan dari Throwable.
+ * - Custom exception membantu mendefinisikan jenis kegagalan
+ *   yang spesifik dalam aplikasi.
+ * - Checked Exception menggunakan extends Exception.
+ * - Unchecked Exception menggunakan extends RuntimeException.
+ * - Pada Java modern dan Spring Boot, RuntimeException
+ *   lebih sering digunakan untuk custom exception.
+ */
 
-    /**
-     * TABEL METHOD DI Throwable (CORE EXCEPTION JAVA)
-     * Method	                                Deskripsi                                                   Penjelasan 
-     * addSuppressed(Throwable exc)	            Menambahkan exception ke daftar suppressed exception	    Dipakai buat nyimpen error tambahan (biasanya dari try-with-resources)
-     * fillInStackTrace()	                    Mengembalikan object Throwable dengan stack trace lengkap	“Ngerekam ulang” jejak error (jarang dipakai langsung)
-     * getCause()	                            Mengembalikan penyebab utama exception	                    Buat tau akar masalah dari error
-     * getLocalizedMessage()	                Mengembalikan pesan error sesuai locale	                    Versi “multibahasa” dari error message
-     * getMessage()	                            Mengembalikan deskripsi error	                            Ini yang paling sering dipakai (isi pesan error)
-     * getStackTrace()	                        Mengembalikan array stack trace	                            Ngasih detail urutan method sebelum error terjadi
-     * getSuppressed()	                        Mengembalikan daftar suppressed exception	                Ambil error tambahan yang “disembunyikan”
-     * initCause(Throwable causeExc)	        Mengaitkan penyebab ke exception	                        Set manual “penyebab error”
-     * printStackTrace()	                    Menampilkan stack trace	                                    Print detail error ke console
-     * printStackTrace(PrintStream stream)	    Kirim stack trace ke stream tertentu	                    Print error ke tempat lain (misal file/log)
-     * printStackTrace(PrintWriter stream)	    Kirim stack trace ke writer	                                Sama, tapi pakai writer
-     * setStackTrace(StackTraceElement[])	    Mengatur stack trace secara manual	                        Custom stack trace (jarang banget dipakai)
-     * toString()	                            Mengembalikan deskripsi exception	                        Default output saat System.out.println(e)
-     *
-     * INTI PALING DALAM
-     * Semua exception di Java itu:
-     * punya sistem pelacakan error yang lengkap
-     *
-     * Bukan cuma:
-     * “error terjadi”
-     *
-     * Tapi juga:
-     * dimana
-     * kenapa
-     * dari mana asalnya
-     *
-     * Kalau ada exception, lu bisa tanya:
-     * apa pesannya → getMessage()
-     * dari mana asalnya → getStackTrace()
-     * penyebabnya apa → getCause()
-     * tampilkan semua → printStackTrace()
-     *
-     * KESIMPULAN
-     * Throwable = root dari semua error
-     * semua method ini diwarisin ke semua exception
-     * sebagian besar jarang dipakai
-     * tapi beberapa itu WAJIB ngerti (getMessage, printStackTrace, toString)
-     *
-     * Kenapa Java punya banyak method ini?
-     * Karena:
-     * error handling di Java itu bukan cuma nangkep error, tapi ANALISA error
-     */
+/**
+ * ------------------------------------------------------------
+ * Method Penting pada Throwable
+ * ------------------------------------------------------------
+ *
+ * Throwable adalah root class dari seluruh mekanisme error handling
+ * di Java.
+ *
+ * Semua turunan:
+ *
+ * - Exception
+ * - RuntimeException
+ * - Error
+ *
+ * secara otomatis mewarisi method-method yang didefinisikan oleh
+ * class Throwable.
+ *
+ * Karena itu, seluruh exception di Java memiliki kemampuan untuk:
+ *
+ * - menyimpan pesan error
+ * - menyimpan penyebab error (cause)
+ * - merekam stack trace
+ * - menampilkan detail error
+ * - menyimpan exception tambahan (suppressed exceptions)
+ *
+ * ------------------------------------------------------------
+ * Method yang Paling Sering Digunakan
+ * ------------------------------------------------------------
+ *
+ * getMessage()
+ *
+ * Mengembalikan pesan error yang diberikan saat exception dibuat.
+ *
+ * Contoh:
+ *
+ * throw new Exception("Data tidak ditemukan");
+ *
+ * e.getMessage();
+ *
+ * Hasil:
+ *
+ * Data tidak ditemukan
+ *
+ * ------------------------------------------------------------
+ *
+ * printStackTrace()
+ *
+ * Menampilkan detail exception beserta stack trace ke console.
+ *
+ * Method ini sangat membantu saat debugging karena menunjukkan:
+ *
+ * - jenis exception
+ * - lokasi error terjadi
+ * - urutan pemanggilan method
+ *
+ * Contoh:
+ *
+ * e.printStackTrace();
+ *
+ * ------------------------------------------------------------
+ *
+ * getCause()
+ *
+ * Mengembalikan penyebab utama (root cause) dari sebuah exception.
+ *
+ * Berguna ketika sebuah exception membungkus exception lain.
+ *
+ * Contoh:
+ *
+ * DatabaseException
+ *     -> SQLException
+ *
+ * Dengan getCause() kita dapat mengetahui penyebab aslinya.
+ *
+ * ------------------------------------------------------------
+ *
+ * getStackTrace()
+ *
+ * Mengembalikan array berisi objek StackTraceElement.
+ *
+ * Digunakan ketika kita ingin memproses stack trace secara
+ * programatik tanpa langsung mencetaknya ke console.
+ *
+ * Contoh penggunaan umum:
+ *
+ * - logging framework
+ * - monitoring system
+ * - debugging tools
+ *
+ * ------------------------------------------------------------
+ *
+ * toString()
+ *
+ * Mengembalikan representasi string dari exception.
+ *
+ * Secara default formatnya:
+ *
+ * NamaException: pesan
+ *
+ * Contoh:
+ *
+ * java.lang.Exception: Data tidak ditemukan
+ *
+ * Method ini otomatis dipanggil ketika exception dicetak:
+ *
+ * System.out.println(e);
+ *
+ * ------------------------------------------------------------
+ * Method Tingkat Lanjut (Jarang Dipakai Langsung)
+ * ------------------------------------------------------------
+ *
+ * addSuppressed(Throwable exception)
+ *
+ * Menambahkan exception ke daftar suppressed exceptions.
+ *
+ * Umumnya digunakan secara otomatis oleh mekanisme:
+ *
+ * try-with-resources
+ *
+ * ------------------------------------------------------------
+ *
+ * getSuppressed()
+ *
+ * Mengembalikan seluruh suppressed exceptions yang tersimpan.
+ *
+ * ------------------------------------------------------------
+ *
+ * initCause(Throwable cause)
+ *
+ * Mengaitkan penyebab (cause) ke sebuah exception secara manual.
+ *
+ * Digunakan jika constructor exception tidak menerima parameter
+ * cause.
+ *
+ * ------------------------------------------------------------
+ *
+ * fillInStackTrace()
+ *
+ * Membuat ulang informasi stack trace pada exception.
+ *
+ * Jarang digunakan secara langsung karena biasanya dilakukan
+ * otomatis oleh JVM saat exception dibuat.
+ *
+ * ------------------------------------------------------------
+ *
+ * setStackTrace(StackTraceElement[] trace)
+ *
+ * Mengubah stack trace secara manual.
+ *
+ * Biasanya hanya digunakan oleh:
+ *
+ * - framework
+ * - testing tools
+ * - debugging tools
+ *
+ * Hampir tidak pernah digunakan dalam aplikasi sehari-hari.
+ *
+ * ------------------------------------------------------------
+ *
+ * getLocalizedMessage()
+ *
+ * Mengembalikan pesan error yang telah disesuaikan dengan locale
+ * (bahasa atau wilayah tertentu).
+ *
+ * Pada sebagian besar aplikasi Java modern, method ini jarang
+ * digunakan secara langsung.
+ *
+ * ------------------------------------------------------------
+ *
+ * printStackTrace(PrintStream stream)
+ * printStackTrace(PrintWriter writer)
+ *
+ * Variasi dari printStackTrace() yang memungkinkan output
+ * dikirim ke lokasi lain, misalnya:
+ *
+ * - file log
+ * - network stream
+ * - custom writer
+ *
+ * ------------------------------------------------------------
+ * Ringkasan Method Penting
+ * ------------------------------------------------------------
+ *
+ * Method                 Kegunaan
+ * ------------------------------------------------------------
+ * getMessage()           Ambil pesan error
+ * printStackTrace()      Tampilkan detail error
+ * getCause()             Ambil penyebab error
+ * getStackTrace()        Ambil stack trace
+ * toString()             Representasi string exception
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Throwable adalah fondasi sistem error handling Java.
+ *
+ * Seluruh exception mewarisi kemampuan untuk:
+ *
+ * - menyimpan pesan error
+ * - menyimpan penyebab error
+ * - merekam stack trace
+ * - menampilkan informasi debugging
+ *
+ * Dalam praktik sehari-hari, method yang paling sering digunakan:
+ *
+ * - getMessage()
+ * - printStackTrace()
+ * - getCause()
+ * - toString()
+ *
+ * Sedangkan method lain umumnya lebih banyak digunakan oleh
+ * framework, library, atau tool internal Java.
+ *
+ * Error handling di Java bukan hanya tentang menangkap error,
+ * tetapi juga menyediakan informasi yang cukup untuk melakukan
+ * analisis, debugging, dan pelacakan sumber masalah secara
+ * sistematis.
+ */
 
 // Custome Exception
 // extends Exception

@@ -1,21 +1,295 @@
 package FundamentalJava.ExceptionHandling;
 
-    /**
-     * Nested try Statements
-     *
-     * try bisa ditaruh di dalam try lain (nested).
-     * Setiap masuk ke try, Java menyimpan konteks exception ke dalam stack.
-     * Kalau try di dalam (inner try):
-     * tidak punya catch yang cocok
-     * maka exception akan naik ke luar (outer try)
-     *
-     * Proses ini terus terjadi sampai:
-     * ketemu catch yang cocok, atau
-     * semua try habis → ditangani default handler
-     *
-     * Exception itu bisa “naik level”
-     * inner try → gak bisa handle → lempar ke outer try → outer handle
-     */
+/**
+ * ------------------------------------------------------------
+ * NESTED TRY STATEMENTS
+ * ------------------------------------------------------------
+ *
+ * Java mengizinkan sebuah blok try ditempatkan
+ * di dalam blok try lainnya.
+ *
+ * Teknik ini disebut:
+ *
+ * Nested Try Statements
+ *
+ * atau
+ *
+ * Nested Exception Handling
+ *
+ * Contoh sederhana:
+ *
+ * try {
+ *
+ *     try {
+ *         // inner try
+ *     }
+ *
+ * } catch(Exception e) {
+ *     // outer catch
+ * }
+ *
+ * ------------------------------------------------------------
+ * KONSEP DASAR
+ * ------------------------------------------------------------
+ *
+ * Saat sebuah exception terjadi,
+ * Java akan mencari handler (catch)
+ * yang paling dekat terlebih dahulu.
+ *
+ * Artinya:
+ *
+ * Inner try
+ *     ↓
+ * Outer try
+ *     ↓
+ * Method pemanggil
+ *     ↓
+ * JVM Default Exception Handler
+ *
+ * Java selalu mencari dari level terdalam
+ * menuju level terluar.
+ *
+ * Prinsipnya:
+ *
+ * "Handle sedekat mungkin dengan sumber masalah."
+ *
+ * ------------------------------------------------------------
+ * ALUR EKSEKUSI
+ * ------------------------------------------------------------
+ *
+ * Misalnya:
+ *
+ * try {
+ *
+ *     try {
+ *         int a = 10 / 0;
+ *     }
+ *
+ *     catch(ArrayIndexOutOfBoundsException e) {
+ *         System.out.println("Array Error");
+ *     }
+ *
+ * }
+ *
+ * catch(ArithmeticException e) {
+ *     System.out.println("Divide By Zero");
+ * }
+ *
+ * Yang terjadi:
+ *
+ * 1. Exception muncul:
+ *
+ *    ArithmeticException
+ *
+ * 2. Java cek inner catch:
+ *
+ *    ArrayIndexOutOfBoundsException
+ *
+ *    Tidak cocok.
+ *
+ * 3. Exception diteruskan ke outer try.
+ *
+ * 4. Java cek outer catch:
+ *
+ *    ArithmeticException
+ *
+ *    Cocok.
+ *
+ * 5. Outer catch dijalankan.
+ *
+ * Output:
+ *
+ * Divide By Zero
+ *
+ * ------------------------------------------------------------
+ * EXCEPTION PROPAGATION
+ * ------------------------------------------------------------
+ *
+ * Proses naiknya exception dari satu level
+ * ke level yang lebih tinggi disebut:
+ *
+ * Exception Propagation
+ *
+ * atau
+ *
+ * Exception Bubbling
+ *
+ * Alurnya:
+ *
+ * Inner Try
+ *      ↓
+ * Outer Try
+ *      ↓
+ * Calling Method
+ *      ↓
+ * JVM Handler
+ *
+ * Exception akan terus "naik"
+ * sampai menemukan handler yang cocok.
+ *
+ * ------------------------------------------------------------
+ * HUBUNGAN DENGAN CALL STACK
+ * ------------------------------------------------------------
+ *
+ * Saat program berjalan,
+ * JVM menyimpan informasi method yang aktif
+ * dalam sebuah struktur bernama:
+ *
+ * Call Stack
+ *
+ * Setiap kali masuk ke:
+ *
+ * - method
+ * - try block
+ *
+ * JVM menyimpan konteks eksekusi.
+ *
+ * Ketika exception muncul:
+ *
+ * JVM melakukan proses:
+ *
+ * Stack Unwinding
+ *
+ * yaitu membongkar stack satu per satu
+ * sambil mencari handler yang cocok.
+ *
+ * Contoh:
+ *
+ * main()
+ *    ↓
+ * methodA()
+ *    ↓
+ * methodB()
+ *    ↓
+ * methodC()
+ *    ↓
+ * Exception
+ *
+ * Jika methodC tidak menangani:
+ *
+ * naik ke methodB
+ *
+ * Jika methodB tidak menangani:
+ *
+ * naik ke methodA
+ *
+ * Jika methodA tidak menangani:
+ *
+ * naik ke main
+ *
+ * Jika main tidak menangani:
+ *
+ * JVM Default Exception Handler
+ *
+ * ------------------------------------------------------------
+ * KAPAN NESTED TRY DIGUNAKAN?
+ * ------------------------------------------------------------
+ *
+ * Nested try biasanya digunakan ketika:
+ *
+ * - Sebagian kode memiliki risiko exception berbeda.
+ * - Sebagian exception ingin ditangani secara lokal.
+ * - Sebagian exception ingin diteruskan ke level lebih tinggi.
+ *
+ * Contoh:
+ *
+ * try {
+ *
+ *     // koneksi database
+ *
+ *     try {
+ *         // parsing data
+ *     }
+ *     catch(NumberFormatException e) {
+ *         // tangani parsing
+ *     }
+ *
+ * }
+ * catch(SQLException e) {
+ *     // tangani database
+ * }
+ *
+ * Dengan cara ini:
+ *
+ * Error parsing dan error database
+ * memiliki penanganan yang berbeda.
+ *
+ * ------------------------------------------------------------
+ * PRAKTIK MODERN JAVA
+ * ------------------------------------------------------------
+ *
+ * Walaupun nested try legal,
+ * penggunaan berlebihan biasanya tidak disarankan.
+ *
+ * Contoh buruk:
+ *
+ * try {
+ *     try {
+ *         try {
+ *             try {
+ *             }
+ *         }
+ *     }
+ * }
+ *
+ * Kode seperti ini:
+ *
+ * - Sulit dibaca
+ * - Sulit dipelihara
+ * - Sulit di-debug
+ *
+ * Pada aplikasi modern,
+ * biasanya lebih baik:
+ *
+ * - Memecah logika ke method terpisah
+ * - Menggunakan exception propagation
+ * - Menangani exception pada level yang tepat
+ *
+ * daripada membuat nested try terlalu dalam.
+ *
+ * ------------------------------------------------------------
+ * INSIGHT PENTING
+ * ------------------------------------------------------------
+ *
+ * Nested try menunjukkan salah satu konsep utama
+ * exception handling Java:
+ *
+ * Exception tidak harus ditangani
+ * di tempat exception itu muncul.
+ *
+ * Exception bisa diteruskan ke level yang
+ * lebih tinggi sampai ditemukan bagian program
+ * yang benar-benar tahu cara menanganinya.
+ *
+ * Ini membuat kode:
+ *
+ * - lebih modular
+ * - lebih fleksibel
+ * - lebih mudah dirawat
+ *
+ * ------------------------------------------------------------
+ * RINGKASAN
+ * ------------------------------------------------------------
+ *
+ * - try dapat berada di dalam try lain.
+ * - Java selalu mencari catch dari level terdalam.
+ * - Jika inner try tidak bisa menangani exception,
+ *   exception akan diteruskan ke outer try.
+ * - Proses naiknya exception disebut:
+ *   Exception Propagation.
+ * - Jika tidak ada handler yang cocok,
+ *   JVM akan menjalankan Default Exception Handler.
+ * - Nested try berguna untuk penanganan error
+ *   yang bertingkat.
+ * - Hindari nested try yang terlalu dalam karena
+ *   membuat kode sulit dibaca dan dipelihara.
+ *
+ * Mindset OOP:
+ *
+ * Exception adalah objek yang dapat "berjalan"
+ * naik melalui call stack sampai menemukan
+ * bagian program yang mampu menanganinya.
+ */
 
 public class NestedTryStatements {
 
@@ -86,8 +360,10 @@ public class NestedTryStatements {
          *
          * inner handle langsung
          * outer gak ikut
+         * 
+         * -----------------------------------
          *
-         * Pola Penting (WAJIB INGAT)
+         * Pola Penting
          *
          * Ini inti nested try:
          *
@@ -115,7 +391,9 @@ public class NestedTryStatements {
          * main() → manggil method → di dalam method ada try
          * tetap satu “alur stack”
          *
-         * Kesimpulan Penting (WAJIB INGAT)
+         * ----------------------------------
+         * 
+         * Kesimpulan Penting 
          *
          * Ini inti kerasnya:
          * try bisa di dalam try

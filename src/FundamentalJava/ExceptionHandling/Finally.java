@@ -1,98 +1,218 @@
 package FundamentalJava.ExceptionHandling;
 
-    /**
-     * finally
-     *
-     * Saat exception terjadi, alur program bisa berubah drastis (tidak normal).
-     * Bahkan bisa bikin method berhenti sebelum waktunya.
-     *
-     * Contoh masalah:
-     * method buka file di awal
-     * tapi karena error, bagian tutup file tidak dijalankan 
-     *
-     * Di sinilah finally dipakai
-     *
-     * -----------------------------------
-     * 
-     * Fungsi finally
-     *
-     * finally adalah blok kode yang:
-     * dijalankan setelah try/catch selesai
-     * selalu dijalankan, apapun yang terjadi
-     *
-     * Kondisi finally tetap jalan:
-     *
-     * Ada exception
-     * Tidak ada exception
-     * Ada return di dalam try
-     * Bahkan kalau exception tidak tertangkap
-     *
-     * Catatan:
-     * finally itu opsional
-     * Tapi setiap try harus punya:
-     * catch, atau
-     * finally
-     *
-     * --------------------------------------
-     * 
-     * Intinya
-     * finally = “kode yang pasti dijalankan”
-     *
-     * Analogi
-     * Bayangin:
-     * try     = kerja
-     * catch   = kalau ada masalah
-     * finally = beres-beres sebelum pulang
-     *
-     * Mau kerja lancar atau kacau,
-     * tetap harus beres-beres 
-     *
-     * Kesimpulan Penting (WAJIB INGAT)
-     *
-     * Ini inti kerasnya:
-     * finally SELALU dijalankan
-     * Bahkan kalau:
-     * ada error
-     * ada return
-     * tidak ada catch
-     *
-     * Urutan eksekusi:
-     * try → catch (kalau ada) → finally → lanjut
-     *
-     * -------------------------------------------------
-     * 
-     * Insight Tambahan (Level Up)
-     * Kapan pakai finally?
-     *
-     * Saat lu butuh “cleanup”
-     *
-     * Contoh:
-     * tutup file
-     * tutup database
-     * tutup koneksi network
-     * 
-     * Contoh real
-     * try {
-     *     // buka file
-     * } finally {
-     *     // tutup file (WAJIB)
-     * }
-     *
-     * Cara pro
-     * cleanup di finally
-     *
-     * finally itu soal keamanan resource
-     *
-     * Kalau gak pakai:
-     * memory leak
-     * file gak ketutup
-     * koneksi numpuk
-     *
-     * Ringkasan SUPER SINGKAT
-     * try     = coba jalanin
-     * catch   = tangkap error
-     * finally = selalu dijalankan
-     */
+/**
+ * ------------------------------------------------------------
+ * FINALLY
+ * ------------------------------------------------------------
+ *
+ * Saat exception terjadi, alur eksekusi program dapat berubah secara
+ * tiba-tiba. Akibatnya, kode setelah titik terjadinya exception
+ * mungkin tidak pernah dijalankan.
+ *
+ * Contoh:
+ * - File sudah dibuka
+ * - Koneksi database sudah dibuat
+ * - Socket jaringan sudah aktif
+ *
+ * Jika terjadi exception sebelum proses penutupan resource,
+ * maka resource tersebut bisa tetap terbuka dan menyebabkan
+ * masalah seperti:
+ *
+ * - Resource leak
+ * - File lock
+ * - Koneksi menumpuk
+ * - Pemborosan memori
+ *
+ * Untuk mengatasi hal tersebut, Java menyediakan blok:
+ *
+ * finally
+ *
+ * ------------------------------------------------------------
+ * FUNGSI FINALLY
+ * ------------------------------------------------------------
+ *
+ * finally adalah blok kode yang dijalankan setelah blok try
+ * dan catch selesai diproses.
+ *
+ * Tujuan utamanya adalah menjalankan kode cleanup
+ * (pembersihan resource) yang harus dieksekusi terlepas dari
+ * berhasil atau gagalnya operasi.
+ *
+ * Bentuk umum:
+ *
+ * try {
+ *     // kode yang berpotensi menghasilkan exception
+ * }
+ * catch (Exception e) {
+ *     // penanganan exception
+ * }
+ * finally {
+ *     // cleanup resource
+ * }
+ *
+ * ------------------------------------------------------------
+ * KAPAN FINALLY DIJALANKAN?
+ * ------------------------------------------------------------
+ *
+ * Dalam kondisi normal, finally akan tetap dieksekusi:
+ *
+ * - Tidak ada exception
+ * - Exception terjadi dan ditangani oleh catch
+ * - Ada statement return di dalam try
+ * - Ada statement return di dalam catch
+ * - Exception diteruskan ke caller (throws)
+ *
+ * Contoh:
+ *
+ * static int test() {
+ *     try {
+ *         return 10;
+ *     } finally {
+ *         System.out.println("finally dijalankan");
+ *     }
+ * }
+ *
+ * Output:
+ * finally dijalankan
+ *
+ * Walaupun return sudah dieksekusi,
+ * finally tetap dijalankan terlebih dahulu.
+ *
+ * ------------------------------------------------------------
+ * KONDISI KHUSUS
+ * ------------------------------------------------------------
+ *
+ * Walaupun sering disebut "selalu dijalankan",
+ * ada beberapa kondisi ekstrem yang dapat membuat finally
+ * tidak sempat dieksekusi, misalnya:
+ *
+ * - JVM dihentikan secara paksa menggunakan System.exit()
+ * - Crash pada JVM
+ * - Kegagalan sistem operasi
+ * - Power loss / listrik mati
+ *
+ * Namun dalam alur program Java normal,
+ * finally dapat dianggap selalu dijalankan.
+ *
+ * ------------------------------------------------------------
+ * URUTAN EKSEKUSI
+ * ------------------------------------------------------------
+ *
+ * Kasus 1 - Tidak ada exception:
+ *
+ * try
+ *   ↓
+ * finally
+ *   ↓
+ * lanjut program
+ *
+ * Kasus 2 - Exception ditangkap:
+ *
+ * try
+ *   ↓
+ * catch
+ *   ↓
+ * finally
+ *   ↓
+ * lanjut program
+ *
+ * Kasus 3 - Exception tidak ditangkap:
+ *
+ * try
+ *   ↓
+ * finally
+ *   ↓
+ * exception diteruskan ke caller
+ *
+ * ------------------------------------------------------------
+ * PENGGUNAAN DI JAVA MODERN
+ * ------------------------------------------------------------
+ *
+ * Sebelum Java 7, finally sering digunakan untuk menutup
+ * resource secara manual.
+ *
+ * Contoh:
+ *
+ * FileInputStream fis = null;
+ *
+ * try {
+ *     fis = new FileInputStream("data.txt");
+ * }
+ * finally {
+ *     if (fis != null) {
+ *         fis.close();
+ *     }
+ * }
+ *
+ * Sejak Java 7, pendekatan yang lebih direkomendasikan adalah:
+ *
+ * try-with-resources
+ *
+ * karena resource akan ditutup otomatis.
+ *
+ * Contoh:
+ *
+ * try (FileInputStream fis =
+ *          new FileInputStream("data.txt")) {
+ *
+ *     // gunakan file
+ *
+ * }
+ *
+ * Tidak perlu finally untuk menutup file.
+ *
+ * Oleh karena itu:
+ *
+ * Java modern:
+ * - Utamakan try-with-resources untuk resource management
+ * - Gunakan finally untuk cleanup umum yang tidak bisa
+ *   ditangani oleh try-with-resources
+ *
+ * ------------------------------------------------------------
+ * KAPAN MENGGUNAKAN FINALLY?
+ * ------------------------------------------------------------
+ *
+ * Gunakan finally ketika ada operasi yang HARUS dijalankan
+ * sebelum method berakhir.
+ *
+ * Contoh:
+ *
+ * - Melepas lock
+ * - Mengembalikan status sistem
+ * - Membersihkan temporary data
+ * - Menutup resource legacy
+ * - Logging akhir proses
+ *
+ * ------------------------------------------------------------
+ * ANALOGI
+ * ------------------------------------------------------------
+ *
+ * try
+ * = melakukan pekerjaan
+ *
+ * catch
+ * = menangani masalah yang muncul
+ *
+ * finally
+ * = membereskan semua sebelum pulang
+ *
+ * Mau pekerjaan berjalan lancar ataupun gagal,
+ * proses beres-beres tetap harus dilakukan.
+ *
+ * ------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------
+ *
+ * - finally adalah blok cleanup dalam exception handling.
+ * - finally dijalankan setelah try dan/atau catch selesai.
+ * - finally tetap berjalan meskipun terdapat return.
+ * - finally sangat berguna untuk memastikan resource
+ *   dibersihkan dengan benar.
+ * - Pada Java modern, penutupan resource sebaiknya
+ *   menggunakan try-with-resources.
+ * - finally tetap penting untuk operasi cleanup umum
+ *   yang harus selalu dieksekusi.
+ */
 
 public class Finally {
 

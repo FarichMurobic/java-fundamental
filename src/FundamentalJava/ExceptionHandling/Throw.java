@@ -1,39 +1,301 @@
 package FundamentalJava.ExceptionHandling;
 
-    /**
-     * throw
-     *
-     * Selama ini lu cuma menangkap exception dari Java.
-     * Tapi sebenarnya, lu juga bisa melempar exception sendiri pakai throw.
-     *
-     * Bentuk umum:
-     * throw ThrowableInstance;
-     *
-     * ThrowableInstance harus:
-     * object dari Throwable atau turunannya
-     *
-     * Tidak boleh:
-     * int, char
-     * String, Object
-     *
-     * Cara mendapatkan object exception
-     * Ada 2 cara:
-     * Dari parameter catch
-     * Buat sendiri pakai new
-     *
-     * Behavior throw
-     * Setelah throw:
-     * kode setelahnya tidak dijalankan
-     * langsung lompat ke catch
-     *
-     * Alur
-     * Java cari catch terdekat
-     * Kalau gak ketemu → naik ke luar
-     * Kalau tetap gak ada → default handler (program mati)
-     *
-     * Intinya
-     * throw = “lempar error secara sengaja”
-     */
+/**
+ * ------------------------------------------------------------
+ * THROW
+ * ------------------------------------------------------------
+ *
+ * Java tidak hanya dapat menghasilkan exception secara otomatis,
+ * tetapi programmer juga dapat membuat dan melempar exception
+ * secara manual menggunakan keyword:
+ *
+ * throw
+ *
+ * Dengan throw, program dapat secara eksplisit memberi tahu
+ * bahwa telah terjadi kondisi error atau kondisi yang tidak valid.
+ *
+ * ------------------------------------------------------------
+ * DEFINISI
+ * ------------------------------------------------------------
+ *
+ * throw digunakan untuk melempar sebuah object exception
+ * secara manual.
+ *
+ * Bentuk umum:
+ *
+ * throw throwableObject;
+ *
+ * Contoh:
+ *
+ * throw new ArithmeticException();
+ *
+ * atau:
+ *
+ * throw new IllegalArgumentException("Nilai tidak valid");
+ *
+ * Setelah throw dieksekusi,
+ * alur normal program langsung berhenti dan JVM mulai
+ * mencari exception handler (catch) yang sesuai.
+ *
+ * ------------------------------------------------------------
+ * APA YANG BOLEH DILEMPAR?
+ * ------------------------------------------------------------
+ *
+ * Object yang dilempar HARUS merupakan:
+ *
+ * - Throwable
+ * - Subclass Throwable
+ *
+ * Karena seluruh sistem exception Java dibangun
+ * di atas class:
+ *
+ * java.lang.Throwable
+ *
+ * Hierarki sederhananya:
+ *
+ * Throwable
+ * ├── Exception
+ * └── Error
+ *
+ * Oleh karena itu:
+ *
+ * Benar:
+ *
+ * throw new Exception();
+ * throw new RuntimeException();
+ * throw new IOException();
+ *
+ * Salah:
+ *
+ * throw "Error";
+ * throw 100;
+ * throw new Object();
+ *
+ * Karena:
+ *
+ * String, int, dan Object
+ * bukan turunan dari Throwable.
+ *
+ * ------------------------------------------------------------
+ * CARA MENDAPATKAN OBJECT EXCEPTION
+ * ------------------------------------------------------------
+ *
+ * Umumnya ada dua cara.
+ *
+ * 1. Membuat object exception baru
+ *
+ * Contoh:
+ *
+ * throw new IllegalArgumentException(
+ *     "Umur tidak boleh negatif"
+ * );
+ *
+ * Cara ini adalah yang paling sering digunakan.
+ *
+ * ------------------------------------------------------------
+ *
+ * 2. Melempar ulang exception yang sudah ada
+ *
+ * Contoh:
+ *
+ * catch(Exception e) {
+ *     throw e;
+ * }
+ *
+ * Teknik ini disebut:
+ *
+ * Rethrowing Exception
+ *
+ * yaitu meneruskan exception ke level yang lebih tinggi.
+ *
+ * ------------------------------------------------------------
+ * ALUR EKSEKUSI THROW
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * System.out.println("A");
+ *
+ * throw new RuntimeException();
+ *
+ * System.out.println("B");
+ *
+ * Yang terjadi:
+ *
+ * 1. "A" dicetak.
+ * 2. Exception dilempar.
+ * 3. JVM mulai mencari catch.
+ * 4. "B" TIDAK PERNAH dieksekusi.
+ *
+ * Output:
+ *
+ * A
+ *
+ * Hal penting:
+ *
+ * Setelah throw,
+ * alur normal program langsung berhenti.
+ *
+ * ------------------------------------------------------------
+ * PROSES PENCARIAN CATCH
+ * ------------------------------------------------------------
+ *
+ * Setelah exception dilempar:
+ *
+ * JVM mencari catch yang cocok.
+ *
+ * Urutannya:
+ *
+ * Current Try
+ *      ↓
+ * Outer Try
+ *      ↓
+ * Calling Method
+ *      ↓
+ * Main Method
+ *      ↓
+ * JVM Default Handler
+ *
+ * Jika handler ditemukan:
+ *
+ * catch dijalankan.
+ *
+ * Jika tidak ditemukan:
+ *
+ * JVM menjalankan Default Exception Handler
+ * dan program berhenti.
+ *
+ * ------------------------------------------------------------
+ * THROW VS THROWS
+ * ------------------------------------------------------------
+ *
+ * Banyak pemula sering tertukar.
+ *
+ * throw
+ * =
+ * melempar exception
+ *
+ * throws
+ * =
+ * mendeklarasikan kemungkinan exception
+ *
+ * Contoh:
+ *
+ * throw new IOException();
+ *
+ * artinya:
+ *
+ * "Lempar exception sekarang."
+ *
+ * ------------------------------------------------------------
+ *
+ * void bacaFile() throws IOException {
+ * }
+ *
+ * artinya:
+ *
+ * "Method ini mungkin menghasilkan IOException."
+ *
+ * ------------------------------------------------------------
+ * KAPAN MENGGUNAKAN THROW?
+ * ------------------------------------------------------------
+ *
+ * Throw biasanya digunakan untuk:
+ *
+ * - Validasi parameter
+ * - Validasi business rule
+ * - Menolak kondisi yang tidak valid
+ * - Membuat custom exception
+ *
+ * Contoh:
+ *
+ * public void setUmur(int umur) {
+ *
+ *     if (umur < 0) {
+ *         throw new IllegalArgumentException(
+ *             "Umur tidak boleh negatif"
+ *         );
+ *     }
+ *
+ *     this.umur = umur;
+ * }
+ *
+ * Dengan cara ini:
+ *
+ * object tidak bisa berada pada kondisi yang tidak valid.
+ *
+ * ------------------------------------------------------------
+ * PRAKTIK MODERN JAVA
+ * ------------------------------------------------------------
+ *
+ * Gunakan exception yang paling spesifik.
+ *
+ * Kurang baik:
+ *
+ * throw new Exception("Error");
+ *
+ * Lebih baik:
+ *
+ * throw new IllegalArgumentException(
+ *     "Umur tidak boleh negatif"
+ * );
+ *
+ * atau:
+ *
+ * throw new IllegalStateException(
+ *     "Koneksi belum dibuka"
+ * );
+ *
+ * atau:
+ *
+ * throw new UserNotFoundException(id);
+ *
+ * Semakin spesifik exception,
+ * semakin mudah debugging dan maintenance.
+ *
+ * ------------------------------------------------------------
+ * INSIGHT PENTING
+ * ------------------------------------------------------------
+ *
+ * Exception bukan hanya error.
+ *
+ * Exception adalah cara sebuah object atau method
+ * mengkomunikasikan bahwa:
+ *
+ * "Saya tidak bisa melanjutkan operasi ini
+ * karena kondisi tertentu tidak terpenuhi."
+ *
+ * Dengan throw,
+ * programmer dapat mendefinisikan sendiri
+ * aturan kegagalan (failure rules)
+ * dalam aplikasi.
+ *
+ * Ini merupakan bagian penting dari:
+ *
+ * - Defensive Programming
+ * - Domain Validation
+ * - Robust Software Design
+ *
+ * ------------------------------------------------------------
+ * RINGKASAN
+ * ------------------------------------------------------------
+ *
+ * - throw digunakan untuk melempar exception secara manual.
+ * - Object yang dilempar harus turunan Throwable.
+ * - Setelah throw, alur normal program berhenti.
+ * - JVM akan mencari catch yang sesuai.
+ * - Jika tidak ada handler, JVM menjalankan
+ *   Default Exception Handler.
+ * - throw berbeda dengan throws.
+ * - throw sering digunakan untuk validasi
+ *   dan business rules.
+ *
+ * Mindset OOP:
+ *
+ * throw adalah mekanisme bagi object atau method
+ * untuk menyatakan bahwa operasi tidak dapat
+ * dilanjutkan karena terjadi kondisi yang tidak valid.
+ */
 
 public class Throw {
 
@@ -64,10 +326,12 @@ public class Throw {
 
         /**
          * Output
+         * 
          * Caught inside demoproc.
          * Recaught: java.lang.NullPointerException: demo
          *
-         * Penjelasan Alur (WAJIB PAHAM)
+         * Penjelasan Alur 
+         * 
          * Step-by-step
          * main() → panggil demoproc()
          * Di dalam demoproc():
@@ -89,7 +353,7 @@ public class Throw {
          *
          * --------------------------------------------------
          * 
-         * Kesimpulan Penting (WAJIB INGAT)
+         * Kesimpulan Penting 
          *
          * Intinya:
          * throw = lempar exception manual
@@ -104,7 +368,8 @@ public class Throw {
          */
 
         /**
-         * Insight Tambahan (Level Up)
+         * Insight Tambahan
+         * 
          * Kenapa throw penting?
          * Buat kontrol logika program
          *
@@ -116,7 +381,10 @@ public class Throw {
          * ini bukan error Java
          * ini error dari logika lu sendiri
          *
+         * -------------------------------------------- 
+         *
          * Constructor Exception
+         * 
          * Contoh:
          * throw new NullPointerException("demo");
          *
@@ -124,8 +392,6 @@ public class Throw {
          * Bisa diambil dengan:
          * e.getMessage();
          *
-         * ------------------------------------
-         * 
          * Hal penting
          * Setelah:
          * throw ...
