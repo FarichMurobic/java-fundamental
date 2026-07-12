@@ -172,7 +172,7 @@ package FundamentalJava.Static;
  * Butuh object          | Tidak                     | Ya
  * Jumlah di memori      | 1 saja (shared)           | Tiap object punya sendiri
  * Cara akses            | ClassName.member          | object.member
- * Bisa akses non-static | Tidak langsung             | Bisa (via object)
+ * Bisa akses non-static | Tidak langsung            | Bisa (via object)
  * Bisa akses static     | Bisa                      | Bisa
  * 
  * ------------------------------------------------------------------------
