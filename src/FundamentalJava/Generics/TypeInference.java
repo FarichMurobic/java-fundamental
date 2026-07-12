@@ -1,86 +1,194 @@
 package FundamentalJava.Generics;
 
-/**
- * Intinya apa sih?
+/* ============================================================
+ *                    DIAMOND OPERATOR (<>)
+ * ============================================================
  *
- * Dulu (Java lama), kalau bikin object generic itu ribet karena harus nulis tipe 2x.
- * Sekarang (Java 7+), compiler bisa nebak sendiri tipe datanya.
- * Ini disebut: Type Inference
+ * Sebelum Java 7, saat membuat object dari generic class,
+ * type argument harus ditulis secara lengkap pada kedua sisi
+ * assignment.
  *
- * Cara Lama (Verbose / Ribet)
- * MyClass<Integer, String> mcOb =
+ * Sejak Java 7, compiler dapat menyimpulkan (infer)
+ * type argument secara otomatis berdasarkan konteks.
+ *
+ * Fitur ini dikenal sebagai:
+ *
+ * - Type Inference
+ * - Diamond Operator (<>)
+ */
+
+
+/* ------------------------------------------------------------
+ * Sebelum Java 7
+ * ------------------------------------------------------------
+ *
+ * Penulisan lama:
+ *
+ * MyClass<Integer, String> obj =
  *     new MyClass<Integer, String>(98, "A String");
  *
- * Lu harus nulis:
- * <Integer, String> di kiri
- * <Integer, String> lagi di kanan
+ * Type argument harus ditulis dua kali:
  *
- * Cara Baru (Modern - Diamond Operator)
- * MyClass<Integer, String> mcOb =
- *     new MyClass<>(98, "A String"); // compiler nebak otomatis
+ * - Pada deklarasi variabel.
+ * - Pada pembuatan object.
  *
- * Tanda <> ini disebut:
- * Diamond Operator
+ * Penulisan ini benar, tetapi cukup verbose
+ * (terlalu panjang dan repetitif).
+ */
+
+
+/* ------------------------------------------------------------
+ * Sejak Java 7
+ * ------------------------------------------------------------
  *
- * Kenapa bisa?
- * Karena compiler lihat:
- * MyClass<Integer, String> mcOb
+ * Penulisan modern:
  *
- * Jadi dia tahu:
- * T = Integer
- * V = String
+ * MyClass<Integer, String> obj =
+ *     new MyClass<>(98, "A String");
  *
- * Maka di kanan gak perlu ditulis lagi.
+ * Tanda <> disebut Diamond Operator.
  *
- * ----------------------------------------------------
- * 
- * PENJELASAN
- * 
- * 1. Diamond Operator <>
+ * Compiler akan menyimpulkan bahwa:
  *
- * Artinya:
- * "Compiler, tolong tebak tipe datanya dari context"
+ * T → Integer
+ * V → String
  *
- * Type Inference gak cuma buat object
- * Bisa juga buat:
- * Parameter Method
+ * berdasarkan type argument yang terdapat
+ * pada sisi kiri assignment.
+ */
+
+
+/* ------------------------------------------------------------
+ * Cara Kerja Diamond Operator
+ * ------------------------------------------------------------
+ *
+ * Misalnya:
+ *
+ * MyClass<Integer, String> obj =
+ *     new MyClass<>(98, "A String");
+ *
+ * Compiler melihat deklarasi variabel:
+ *
+ * MyClass<Integer, String>
+ *
+ * sehingga compiler mengetahui bahwa constructor
+ * harus menghasilkan object bertipe:
+ *
+ * MyClass<Integer, String>
+ *
+ * Oleh karena itu, type argument di sisi kanan
+ * tidak perlu ditulis kembali.
+ */
+
+
+/* ------------------------------------------------------------
+ * Type Inference pada Method
+ * ------------------------------------------------------------
+ *
+ * Type inference tidak hanya digunakan saat membuat object,
+ * tetapi juga ketika memanggil method generic.
+ *
+ * Contoh:
+ *
  * obj1.isSame(new MyClass<>(10, "Hello"));
  *
- * Compiler tahu:
- * karena isSame(MyClass<T, V>)
- * maka otomatis T = Integer, V = String
+ * Compiler menggunakan parameter method sebagai konteks
+ * untuk menentukan type argument yang sesuai.
  *
- * -----------------------------------------------
- * 
- * HAL PENTING 
- * 
- * Type inference cuma bantu compile-time
+ * Selama informasi tipe dapat disimpulkan dengan jelas,
+ * penulisan type argument secara eksplisit tidak diperlukan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Hubungan dengan Type Erasure
+ * ------------------------------------------------------------
  *
- * Di runtime:
- * Java tetap gak tahu generic type (type erasure)
+ * Diamond Operator hanya mempermudah proses kompilasi.
  *
- * Jangan overconfident
- * Kadang kalau terlalu kompleks:
- * var obj = new MyClass<>(10, "Hello"); // Java 10+
+ * Setelah proses kompilasi selesai,
+ * informasi generic tetap akan dihapus melalui
+ * mekanisme type erasure.
  *
- * Bisa bikin bingung kalau dibaca orang lain
+ * Dengan kata lain:
  *
- * REAL DI DUNIA KERJA
+ * - Compile-time  → compiler mengetahui type argument.
+ * - Runtime       → type argument sudah tidak tersedia.
+ */
+
+
+/* ------------------------------------------------------------
+ * Praktik Terbaik
+ * ------------------------------------------------------------
  *
- * Ini sering banget dipakai di:
+ * Diamond Operator membuat kode menjadi lebih ringkas
+ * tanpa mengurangi type safety.
+ *
+ * Namun, tetap gunakan secara bijak.
+ *
+ * Pada deklarasi yang terlalu kompleks,
+ * penulisan yang lebih eksplisit terkadang lebih mudah
+ * dipahami oleh pengembang lain.
+ *
+ * Tujuan utamanya bukan sekadar menyingkat kode,
+ * tetapi menjaga keterbacaan (readability).
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Penggunaan pada Java Collections Framework
+ * ------------------------------------------------------------
+ *
+ * Diamond Operator sangat umum digunakan
+ * pada class-class koleksi Java.
+ *
+ * Contoh:
+ *
  * List<String> list = new ArrayList<>();
+ *
  * Map<String, Integer> map = new HashMap<>();
  *
- * Semua pakai <>
+ * Set<Double> set = new HashSet<>();
  *
- * KESIMPULAN
- * <> = Diamond Operator
- * Fungsinya: biar gak nulis tipe 2x
- * Compiler otomatis nebak dari kiri / context
- * Bikin kode:
- * lebih pendek
- * lebih clean
- * lebih readable
+ * Penulisan seperti ini merupakan standar
+ * dalam pengembangan aplikasi Java modern.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Diamond Operator ditulis menggunakan <>.
+ *
+ * - Diperkenalkan pada Java 7.
+ *
+ * - Memanfaatkan mekanisme type inference untuk
+ *   menyimpulkan type argument secara otomatis.
+ *
+ * - Mengurangi penulisan type argument yang berulang
+ *   tanpa mengurangi type safety.
+ *
+ * - Sangat umum digunakan pada generic class maupun
+ *   Java Collections Framework.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Diamond Operator merupakan fitur sintaksis
+ * (syntactic sugar) yang membuat penulisan generic
+ * lebih sederhana.
+ *
+ * Meskipun terlihat berbeda pada source code,
+ * hasil kompilasi tetap memiliki perilaku yang sama
+ * dengan penulisan generic secara lengkap.
+ *
+ * Dengan kata lain, Diamond Operator meningkatkan
+ * keterbacaan kode tanpa mengubah cara kerja
+ * generics di dalam JVM.
  */
 
 class BedRoom<T, V> {

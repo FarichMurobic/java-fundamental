@@ -1,47 +1,277 @@
 package FundamentalJava.Methods;
 
-    /**
-     * Di Java, method dalam satu class bisa saling panggil langsung selama:
-     * Method-nya ada di class yang sama
-     * Dan aksesnya memungkinkan (misalnya public, private, dll — nanti kita bahas lagi kalau perlu)
-     *
-     * Intinya:
-     * Method = kumpulan instruksi
-     * Jadi method bisa "nyuruh" method lain buat ngerjain sesuatu
-     *
-     * Kenapa Bisa Dipanggil Langsung?
-     * Karena:
-     * Mereka ada di class yang sama
-     * Jadi Java otomatis tau referensinya dari object itu
-     *
-     * Ini sebenernya sama dengan:
-     *
-     * this.sapa();
-     * Tapi this. biasanya boleh di-skip
-     *
-     * --------------------------------------
-     * 
-     * Kesimpulan Penting
-     * Method dalam class yang sama bisa saling panggil langsung
-     * Bisa pakai this. atau langsung nama method
-     * Harus hati-hati dengan:
-     * static vs non-static
-     * Ini dipakai buat:
-     * modular code
-     * clean code
-     * reusable logic
-     *
-     * Kesimpulan DALAM
-     * Method dalam class yang sama dipanggil via this
-     * Java pakai call stack
-     * private tetap bisa diakses dalam class
-     * Static vs non-static itu soal context (class vs object)
-     * Method bisa:
-     * manggil method lain
-     * nerima return
-     * overload
-     * Hati-hati recursion tanpa stop condition
-     */
+/*
+ * ============================================================
+ * Pemanggilan Method Dalam Class Yang Sama
+ * ============================================================
+ *
+ * Pada Java, sebuah method dapat memanggil method lain yang
+ * berada dalam class yang sama selama:
+ *
+ * - Method tersebut memiliki akses yang diperbolehkan.
+ * - Tidak melanggar aturan static dan non-static context.
+ *
+ * Contoh:
+ *
+ * class Person {
+ *
+ *     void sapa() {
+ *         System.out.println("Hello");
+ *     }
+ *
+ *     void mulai() {
+ *         sapa();
+ *     }
+ * }
+ *
+ * Pada contoh di atas:
+ *
+ * Method mulai() dapat langsung memanggil method sapa()
+ * karena keduanya berada dalam class Person yang sama.
+ *
+ * ------------------------------------------------------------
+ * Kenapa Method Bisa Dipanggil Langsung?
+ * ------------------------------------------------------------
+ *
+ * Karena method tersebut merupakan bagian dari object yang sama.
+ *
+ * Ketika instance method dipanggil tanpa menuliskan object atau
+ * this, Java secara otomatis memahami bahwa method tersebut
+ * berasal dari object yang sedang aktif.
+ *
+ * Contoh:
+ *
+ * sapa();
+ *
+ * Sebenarnya sama dengan:
+ *
+ * this.sapa();
+ *
+ * Keyword this mengacu kepada object saat ini (current object).
+ *
+ * Pada instance method, penggunaan this dapat ditulis secara
+ * eksplisit, tetapi biasanya tidak wajib jika tidak ada konflik
+ * nama.
+ *
+ * ------------------------------------------------------------
+ * Contoh Dengan this
+ * ------------------------------------------------------------
+ *
+ * class Calculator {
+ *
+ *     void hitung() {
+ *         this.tambah();
+ *     }
+ *
+ *     void tambah() {
+ *         System.out.println("Menambahkan nilai");
+ *     }
+ * }
+ *
+ * Pemanggilan:
+ *
+ * this.tambah();
+ *
+ * memiliki arti:
+ *
+ * "Panggil method tambah() milik object yang sedang digunakan."
+ *
+ * ------------------------------------------------------------
+ * Access Modifier Pada Pemanggilan Method
+ * ------------------------------------------------------------
+ *
+ * Method dapat saling memanggil selama aturan akses terpenuhi.
+ *
+ * Contoh access modifier:
+ *
+ * public
+ * - Dapat diakses dari class mana saja.
+ *
+ * protected
+ * - Dapat diakses dalam package yang sama dan subclass.
+ *
+ * default (tanpa modifier)
+ * - Hanya dapat diakses dalam package yang sama.
+ *
+ * private
+ * - Hanya dapat diakses di dalam class itu sendiri.
+ *
+ * Contoh:
+ *
+ * class User {
+ *
+ *     private void validasi() {
+ *         System.out.println("Validasi data");
+ *     }
+ *
+ *     void simpan() {
+ *         validasi();
+ *     }
+ * }
+ *
+ * Method private tetap dapat dipanggil oleh method lain selama
+ * masih berada dalam class yang sama.
+ *
+ * ------------------------------------------------------------
+ * Hubungan Antar Method
+ * ------------------------------------------------------------
+ *
+ * Method dapat:
+ *
+ * - Memanggil method lain.
+ * - Mengirim nilai melalui parameter.
+ * - Menerima nilai return dari method lain.
+ * - Menggunakan hasil proses method lain.
+ *
+ * Contoh:
+ *
+ * int hitungTotal() {
+ *     return ambilHarga() + 100;
+ * }
+ *
+ * int ambilHarga() {
+ *     return 500;
+ * }
+ *
+ * Alur:
+ *
+ * hitungTotal()
+ *       |
+ *       v
+ * ambilHarga()
+ *       |
+ *       v
+ * return 500
+ *       |
+ *       v
+ * hasil akhir = 600
+ *
+ * ------------------------------------------------------------
+ * Method Call Dan Call Stack
+ * ------------------------------------------------------------
+ *
+ * Ketika method dipanggil, JVM menyimpan informasi eksekusi
+ * method tersebut ke dalam memory yang disebut call stack.
+ *
+ * Setiap pemanggilan method akan membuat stack frame baru.
+ *
+ * Contoh:
+ *
+ * main()
+ *   |
+ *   v
+ * proses()
+ *   |
+ *   v
+ * hitung()
+ *
+ * JVM akan menjalankan method dari bagian paling atas stack.
+ *
+ * Setelah method selesai dijalankan, stack frame akan dihapus
+ * dan program kembali ke method sebelumnya.
+ *
+ * ------------------------------------------------------------
+ * Static Method vs Instance Method
+ * ------------------------------------------------------------
+ *
+ * Salah satu hal yang perlu diperhatikan adalah perbedaan:
+ *
+ * Instance Method:
+ *
+ * - Dimiliki oleh object.
+ * - Dapat menggunakan keyword this.
+ * - Dapat langsung mengakses instance variable.
+ *
+ * Contoh:
+ *
+ * object.method();
+ *
+ *
+ * Static Method:
+ *
+ * - Dimiliki oleh class.
+ * - Tidak membutuhkan object.
+ * - Tidak memiliki keyword this.
+ *
+ * Contoh:
+ *
+ * ClassName.method();
+ *
+ *
+ * Karena perbedaan context tersebut:
+ *
+ * Instance method dapat memanggil static method.
+ *
+ * Tetapi static method tidak dapat langsung memanggil instance
+ * method tanpa membuat object terlebih dahulu.
+ *
+ * ------------------------------------------------------------
+ * Method Overloading
+ * ------------------------------------------------------------
+ *
+ * Java mengizinkan beberapa method memiliki nama yang sama
+ * selama parameter yang dimiliki berbeda.
+ *
+ * Konsep ini disebut method overloading.
+ *
+ * Contoh:
+ *
+ * void cetak(int angka) {
+ * }
+ *
+ * void cetak(String teks) {
+ * }
+ *
+ * Kedua method memiliki nama sama, tetapi parameter berbeda.
+ *
+ * ------------------------------------------------------------
+ * Perhatian: Recursive Method
+ * ------------------------------------------------------------
+ *
+ * Method dapat memanggil dirinya sendiri. Konsep ini disebut
+ * recursion.
+ *
+ * Contoh:
+ *
+ * void hitung(int angka) {
+ *
+ *     if (angka == 0) {
+ *         return;
+ *     }
+ *
+ *     hitung(angka - 1);
+ * }
+ *
+ * Recursive method harus memiliki kondisi berhenti
+ * (stop condition).
+ *
+ * Jika tidak memiliki kondisi berhenti, method akan terus
+ * memanggil dirinya sendiri dan dapat menyebabkan StackOverflowError.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Method dalam class yang sama dapat saling memanggil secara
+ * langsung selama aturan akses dan context Java terpenuhi.
+ *
+ * Hal penting yang harus dipahami:
+ *
+ * - Pemanggilan method tanpa this sebenarnya menggunakan object
+ *   saat ini secara implisit.
+ * - Keyword this hanya tersedia pada instance context.
+ * - Method private tetap dapat dipanggil dalam class yang sama.
+ * - Static dan instance method memiliki aturan pemanggilan berbeda.
+ * - JVM menggunakan call stack untuk mengatur proses pemanggilan
+ *   method.
+ *
+ * Pemahaman konsep ini menjadi dasar untuk membuat:
+ *
+ * - Modular code.
+ * - Clean code.
+ * - Reusable logic.
+ *
+ */
 
 public class MethodChaining {
 
@@ -195,6 +425,7 @@ public class MethodChaining {
 
         /**
          * Alur program:
+         * 
          * Program mulai dari main
          * Buat object: obj
          * Panggil obj.mulai()

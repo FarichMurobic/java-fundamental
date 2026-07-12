@@ -1,82 +1,188 @@
 package FundamentalJava.Generics;
 
-/**
- * Generic Constructor itu:
- * Constructor yang punya type parameter sendiri
+/* ============================================================
+ *                   GENERIC CONSTRUCTOR
+ * ============================================================
  *
- * Walaupun:
- * class GenCons
+ * Generic constructor adalah constructor yang memiliki
+ * type parameter sendiri.
  *
- * class-nya bukan generic
+ * Berbeda dengan generic class, type parameter pada generic
+ * constructor hanya berlaku di dalam constructor tersebut.
  *
- * Tapi:
- * <T extends Number> GenCons(T arg)
+ * Oleh karena itu, sebuah class tidak harus menjadi generic
+ * untuk memiliki generic constructor.
+ */
+
+
+/* ------------------------------------------------------------
+ * Bentuk Umum
+ * ------------------------------------------------------------
  *
- * constructornya generic
+ * class GenCons {
  *
- * Baris paling penting:
+ *     <T> GenCons(T arg) {
+ *         ...
+ *     }
+ *
+ * }
+ *
+ * Perhatikan bahwa type parameter (<T>) ditulis sebelum
+ * nama constructor.
+ *
+ * Type parameter tersebut hanya berlaku pada constructor,
+ * bukan pada keseluruhan class.
+ */
+
+
+/* ------------------------------------------------------------
+ * Generic Constructor dengan Bound
+ * ------------------------------------------------------------
+ *
+ * Generic constructor juga dapat menggunakan bounded type
+ * parameter.
+ *
+ * Contoh:
+ *
  * <T extends Number> GenCons(T arg)
  *
  * Artinya:
- * constructor punya type sendiri (T)
- * T harus:
- * Number
- * atau turunannya
  *
- * Jadi bisa terima:
- * Integer 
- * Float 
- * Double 
+ * T harus bertipe Number atau subclass dari Number.
  *
- * Tidak bisa:
- * String 
+ * Dengan demikian constructor dapat menerima:
  *
- * ------------------------------------------------------
- * 
- * APA YANG TERJADI DI DALAM?
- * 
- * Ini:
- * GenCons test = new GenCons(100);
+ * Integer
+ * Long
+ * Float
+ * Double
  *
- * Java ubah jadi:
+ * Namun tidak dapat menerima:
+ *
+ * String
+ *
+ * karena String bukan turunan dari Number.
+ */
+
+
+/* ------------------------------------------------------------
+ * Type Inference pada Generic Constructor
+ * ------------------------------------------------------------
+ *
+ * Misalnya terdapat kode berikut:
+ *
+ * GenCons obj = new GenCons(100);
+ *
+ * Compiler secara otomatis melakukan type inference sehingga:
+ *
  * T = Integer
  *
- * Ini:
- * GenCons test2 = new GenCons(123.5F);
- * Java ubah jadi:
+ * Contoh lain:
+ *
+ * GenCons obj = new GenCons(123.5F);
+ *
+ * Compiler akan menyimpulkan bahwa:
+ *
  * T = Float
  *
- * Semua otomatis (type inference)
+ * Programmer tidak perlu menentukan type argument secara
+ * eksplisit karena compiler mampu menginferensikannya
+ * dari argumen yang diberikan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Menggunakan Generic Constructor?
+ * ------------------------------------------------------------
  *
- * KENAPA HARUS GENERIC CONSTRUCTOR?
- * 
- * Tujuan utama:
- * fleksibel input
+ * Tujuan utama generic constructor adalah memberikan
+ * fleksibilitas terhadap tipe argumen yang diterima,
+ * tanpa mengorbankan type safety.
  *
- * Tanpa generic:
+ * Generic constructor memungkinkan constructor menerima
+ * berbagai tipe data yang masih memenuhi batas (bound)
+ * yang telah ditentukan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Perbedaan dengan Constructor Biasa
+ * ------------------------------------------------------------
+ *
+ * Misalnya constructor biasa ditulis seperti berikut:
+ *
  * GenCons(Number arg)
- * juga bisa sih…
  *
- * Bedanya?
- * Generic constructor:
+ * Constructor tersebut memang dapat menerima berbagai
+ * subclass Number.
  *
- * lebih fleksibel di compile-time
- * bisa enforce rule lebih kuat
- * sering dipakai di framework
+ * Namun generic constructor memberikan keuntungan tambahan,
+ * yaitu:
  *
- * -------------------------------------------
- * 
- * KESIMPULAN 
- * 
- * 1. Constructor bisa generic
- * 2. Ditulis sebelum nama constructor
- *    <T> NamaConstructor(...)
- * 3. Bisa pakai bound
- *    <T extends Number>
- * 4. Class tidak harus generic
- * 5. Dipakai untuk:
- * fleksibel input
- * enforce type safety
+ * - Memanfaatkan mekanisme generic pada compile-time.
+ * - Dapat menggunakan bounded type parameter.
+ * - Lebih fleksibel ketika dikombinasikan dengan generic method
+ *   atau generic class.
+ * - Menjaga type safety tanpa perlu melakukan casting manual.
+ *
+ * Oleh karena itu, generic constructor sering digunakan
+ * dalam library maupun framework Java.
+ */
+
+
+/* ------------------------------------------------------------
+ * Kapan Generic Constructor Digunakan?
+ * ------------------------------------------------------------
+ *
+ * Generic constructor umumnya digunakan ketika:
+ *
+ * - Class bukan merupakan generic class, tetapi constructor
+ *   perlu menerima berbagai tipe data.
+ *
+ * - Constructor ingin membatasi tipe tertentu menggunakan
+ *   bounded type parameter.
+ *
+ * - Constructor melakukan proses inisialisasi yang bergantung
+ *   pada parameter generic.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Constructor dapat memiliki type parameter sendiri.
+ *
+ * - Type parameter ditulis sebelum nama constructor.
+ *
+ *      <T> NamaConstructor(...)
+ *
+ * - Generic constructor dapat menggunakan bound.
+ *
+ *      <T extends Number>
+ *
+ * - Class tidak harus menjadi generic agar dapat memiliki
+ *   generic constructor.
+ *
+ * - Compiler melakukan type inference secara otomatis terhadap
+ *   type parameter constructor.
+ *
+ * - Generic constructor memberikan fleksibilitas sekaligus
+ *   menjaga type safety selama proses compile-time.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Generic constructor tidak digunakan sesering generic class
+ * atau generic method, tetapi tetap memiliki peran penting
+ * dalam pembuatan API yang fleksibel.
+ *
+ * Konsep ini banyak dijumpai pada library Java maupun framework
+ * modern yang membutuhkan proses inisialisasi object dengan
+ * berbagai tipe data tanpa mengorbankan keamanan tipe (type safety).
  */
 
 // Class bukan generic

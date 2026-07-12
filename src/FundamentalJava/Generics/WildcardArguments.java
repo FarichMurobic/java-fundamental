@@ -1,143 +1,242 @@
 package FundamentalJava.Generics;
 
-/**
- * MASALAH AWAL (KENAPA PERLU WILDCARD?)
- * 
- * Lu punya class:
+/* ============================================================
+ *                    WILDCARD (<?>)
+ * ============================================================
+ *
+ * Wildcard digunakan ketika suatu operasi tidak bergantung
+ * pada type argument tertentu, tetapi tetap ingin menerima
+ * object generic dengan berbagai type argument.
+ *
+ * Wildcard ditulis menggunakan tanda:
+ *
+ * ?
+ *
+ * yang berarti "tipe tidak diketahui" (unknown type).
+ */
+
+
+/* ============================================================
+ * Mengapa Wildcard Diperlukan?
+ * ============================================================
+ *
+ * Misalkan terdapat generic class:
+ *
  * class Stats<T extends Number>
  *
- * bisa dipakai:
+ * Class tersebut dapat digunakan dengan berbagai tipe angka,
+ * misalnya:
+ *
  * Stats<Integer>
  * Stats<Double>
  * Stats<Float>
  *
- * Tujuan kita
- * Bikin method:
- * bandingin rata-rata 2 object Stats
+ * Seluruh type argument tersebut valid karena semuanya
+ * merupakan subclass dari Number.
+ */
+
+
+/* ------------------------------------------------------------
+ * Tujuan
+ * ------------------------------------------------------------
+ *
+ * Misalnya ingin membuat method untuk membandingkan
+ * nilai rata-rata dari dua object Stats.
+ *
+ * Contoh penggunaan:
+ *
+ * Stats<Integer> intStats = ...
+ * Stats<Double> doubleStats = ...
+ *
+ * intStats.sameAvg(doubleStats);
+ *
+ * Method seharusnya dapat membandingkan kedua object,
+ * meskipun type argument-nya berbeda.
+ */
+
+
+/* ============================================================
+ * Pendekatan yang Kurang Tepat
+ * ============================================================
  *
  * Contoh:
- * iob.sameAvg(dob)
  *
- * Integer vs Double
+ * boolean sameAvg(Stats<T> other)
  *
- * PENDEKATAN SALAH (INI PENTING BANGET)
- * 
- * Kode ini KELIHATAN benar, tapi salah
- * // Ini tidak akan bekerja dengan benar
- * boolean sameAvg(Stats<T> ob) {
- *   if(average() == ob.average())
- *     return true;
- *   return false;
- * }
+ * Pada generic class:
  *
- * Masalahnya
+ * class Stats<T extends Number>
  *
- * Kalau:
- * Stats<Integer> iob;
+ * T mengacu pada type parameter milik object saat ini.
  *
- * maka:
- * Stats<T> = Stats<Integer>
+ * Misalnya object bertipe:
  *
- * Jadi method ini cuma bisa terima:
  * Stats<Integer>
  *
- * Tidak bisa:
+ * maka parameter method menjadi:
+ *
+ * Stats<Integer>
+ *
+ * Akibatnya, method hanya dapat menerima:
+ *
+ * Stats<Integer>
+ *
+ * dan tidak dapat menerima:
+ *
  * Stats<Double>
  * Stats<Float>
  *
- * Jadi terlalu terbatas (tidak generic)
+ * Padahal seluruh object tersebut tetap memenuhi
+ * batasan T extends Number.
+ */
+
+
+/* ============================================================
+ * Solusi: Wildcard
+ * ============================================================
  *
- * SOLUSI: WILDCARD (?)
- * Konsepnya
- * Stats<?>
+ * Gunakan:
  *
- * Artinya:
- * "Stats dengan tipe APA AJA"
+ * boolean sameAvg(Stats<?> other)
  *
- * Jadi kita pakai:
- * // Membandingkan rata-rata dengan wildcard
- * boolean sameAvg(Stats<?> ob) {
- *   if(average() == ob.average())
- *     return true;
- *   return false;
- * }
+ * Wildcard menunjukkan bahwa parameter dapat berupa
+ * Stats dengan type argument apa pun.
  *
- * Ini artinya:
- * ob bisa:
+ * Karena class Stats sudah memiliki batasan:
+ *
+ * T extends Number
+ *
+ * maka wildcard tersebut secara efektif dapat menerima:
+ *
  * Stats<Integer>
  * Stats<Double>
  * Stats<Float>
  *
- * Jadi:
- * iob.sameAvg(dob)
+ * tanpa bergantung pada tipe angka tertentu.
+ */
+
+
+/* ------------------------------------------------------------
+ * Cara Kerja
+ * ------------------------------------------------------------
  *
- * -valid
- * -fleksibel
+ * Misalnya:
  *
- * --------------------------------------------------
- * 
- * INTI KONSEP (WAJIB MASUK OTAK)
- * 
- * 1. ? = unknown type
+ * Stats<Integer> intStats = ...
+ * Stats<Double> doubleStats = ...
+ *
+ * intStats.sameAvg(doubleStats);
+ *
+ * Parameter method bertipe:
+ *
  * Stats<?>
  *
- * artinya:
- * tipe tidak diketahui
- * tapi valid
+ * sehingga object Stats dengan type argument apa pun
+ * dapat diterima selama sesuai dengan deklarasi class.
  *
- * 2. Wildcard bikin fleksibel
+ * Hal ini membuat method menjadi jauh lebih fleksibel.
+ */
+
+
+/* ============================================================
+ * Konsep Penting
+ * ============================================================
+ *
+ * 1. Wildcard berarti "unknown type".
+ *
+ * Stats<?>
+ *
+ * menunjukkan bahwa type argument ada,
+ * tetapi tidak diketahui secara spesifik.
+ *
+ *
+ * 2. Wildcard meningkatkan fleksibilitas.
+ *
  * Tanpa wildcard:
+ *
  * Stats<T>
  *
- * terlalu ketat
+ * parameter harus memiliki type argument yang sama.
  *
  * Dengan wildcard:
+ *
  * Stats<?>
  *
- * bisa semua tipe
+ * parameter dapat menggunakan type argument
+ * yang berbeda.
  *
- * 3. Wildcard TIDAK ubah aturan class
- * tetap:
- * <T extends Number>
  *
- * Jadi:
- * tetap hanya angka
- * wildcard cuma fleksibilitas parameter
+ * 3. Wildcard tidak mengubah batasan generic class.
  *
- * ANALOGI PALING GAMPANG
- * Tanpa wildcard
- * "kotak khusus Integer"
- * cuma bisa bandingin dengan Integer
+ * Jika class dideklarasikan sebagai:
  *
- * Dengan wildcard
- * "kotak angka bebas"
+ * class Stats<T extends Number>
  *
- * bisa:
- * Integer
- * Double
- * Float
+ * maka wildcard tetap hanya berlaku
+ * untuk type argument yang memenuhi batasan tersebut.
  *
- * ---------------------------------
- * 
- * KESIMPULAN 
- * 
- * 1. Wildcard = ?
- * artinya:
- * "tipe bebas"
+ * Wildcard tidak menghilangkan constraint
+ * yang sudah ditetapkan pada generic class.
+ */
+
+
+/* ============================================================
+ * Analogi
+ * ============================================================
  *
- * 2. Digunakan saat:
- * gak peduli tipe spesifik
+ * Tanpa wildcard:
  *
- * 3. Keuntungan:
- * fleksibel
- * tetap aman
+ * "Kotak Integer hanya dapat dibandingkan
+ * dengan kotak Integer."
  *
- * 4. Contoh penting:
- * boolean sameAvg(Stats<?> ob)
+ * Dengan wildcard:
  *
- * 5. Tidak mengganti bounded type
- * tetap:
- * <T extends Number>
+ * "Kotak angka dapat dibandingkan dengan
+ * kotak angka lainnya."
+ *
+ * Selama seluruh kotak mengikuti aturan
+ * T extends Number, operasi tetap aman dilakukan.
+ */
+
+
+/* ============================================================
+ * Ringkasan
+ * ============================================================
+ *
+ * - Wildcard ditulis menggunakan tanda ?.
+ *
+ * - ? berarti type argument tidak diketahui
+ *   (unknown type).
+ *
+ * - Wildcard digunakan ketika operasi tidak
+ *   bergantung pada type argument tertentu.
+ *
+ * - Wildcard membuat method dapat menerima
+ *   berbagai parameterized type yang kompatibel.
+ *
+ * - Wildcard tidak mengubah batasan generic class;
+ *   seluruh constraint yang telah ditentukan
+ *   tetap berlaku.
+ */
+
+
+/* ============================================================
+ * Insight
+ * ============================================================
+ *
+ * Wildcard sangat sering digunakan pada Java Collections
+ * Framework dan berbagai API Java.
+ *
+ * Contohnya:
+ *
+ * Collection<?>
+ * List<?>
+ * Iterable<?>
+ *
+ * Penggunaan wildcard memungkinkan API menjadi lebih
+ * fleksibel tanpa mengorbankan type safety, sehingga
+ * menjadi salah satu fitur terpenting dalam pemrograman
+ * generic di Java.
  */
 
 class Statee<T extends Number> {

@@ -1,136 +1,239 @@
 package FundamentalJava.StructurePerulangann;
 
+/**
+ * ------------------------------------------------------------------------
+ * TRADITIONAL FOR LOOP
+ * ------------------------------------------------------------------------
+ * 
+ * for adalah loop yang sangat kuat dan fleksibel di Java.
+ * 
+ * Mulai dari JDK 5, Java memiliki dua jenis for loop:
+ * 1. Traditional for loop (yang klasik)
+ * 2. for-each loop (untuk array dan collection)
+ * 
+ * Di bagian ini kita fokus pada for klasik terlebih dahulu.
+ * 
+ * ------------------------------------------------------------------------
+ * BENTUK UMUM FOR
+ * ------------------------------------------------------------------------
+ * 
+ *     for (initialization; condition; iteration) {
+ *         // body loop
+ *     }
+ * 
+ * Jika hanya 1 statement, kurung kurawal {} TIDAK wajib.
+ * 
+ * ------------------------------------------------------------------------
+ * TIGA BAGIAN FOR LOOP
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Initialization (Inisialisasi)
+ * 
+ *    - Dijalankan SEKALI saja di awal loop
+ *    - Biasanya untuk menginisialisasi variabel counter
+ *    - Contoh: int i = 0
+ * 
+ * 2. Condition (Kondisi)
+ * 
+ *    - Ini adalah kondisi boolean
+ *    - Selama kondisi true → loop terus berjalan
+ *    - Saat kondisi false → loop berhenti
+ *    - Contoh: i < 10
+ * 
+ * 3. Iteration (Iterasi)
+ * 
+ *    - Dijalankan SETELAH setiap body loop selesai
+ *    - Biasanya untuk menambah atau mengurangi counter
+ *    - Contoh: i++
+ * 
+ * ------------------------------------------------------------------------
+ * URUTAN KERJA FOR LOOP
+ * ------------------------------------------------------------------------
+ * 
+ * Urutan eksekusi:
+ * 
+ *     1. Initialization (sekali di awal)
+ *     2. Cek Condition
+ *        ↓
+ *     3. Jika true → jalankan Body
+ *        ↓
+ *     4. Jalankan Iteration
+ *        ↓
+ *     5. Kembali ke langkah 2 (cek condition lagi)
+ * 
+ * Visualisasi:
+ * 
+ *     initialization
+ *         ↓
+ *     ┌─ condition? ─┐
+ *     │   true        │ false
+ *     │   ↓           │   ↓
+ *     │  body         │  keluar
+ *     │   ↓           │
+ *     │  iteration    │
+ *     │   ↓           │
+ *     └───┘           │
+ *                     │
+ *     ←───────────────┘
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH SEDERHANA
+ * ------------------------------------------------------------------------
+ * 
+ *     // Menampilkan angka 1 sampai 5
+ *     for (int i = 1; i <= 5; i++) {
+ *         System.out.println("Angka: " + i);
+ *     }
+ * 
+ *     // Output:
+ *     // Angka: 1
+ *     // Angka: 2
+ *     // Angka: 3
+ *     // Angka: 4
+ *     // Angka: 5
+ * 
+ * ------------------------------------------------------------------------
+ * DEKLARASI VARIABEL DI DALAM FOR
+ * ------------------------------------------------------------------------
+ * 
+ * Variabel loop bisa langsung dibuat di dalam for.
+ * 
+ *     for (int n = 10; n > 0; n--) {
+ *         System.out.println("tick " + n);
+ *     }
+ * 
+ * Kenapa sering dilakukan?
+ * Karena variabel itu HANYA dipakai di dalam loop.
+ * Ini membuat kode lebih rapi dan aman.
+ * 
+ * ------------------------------------------------------------------------
+ * KONSEP PENTING: SCOPE VARIABEL
+ * ------------------------------------------------------------------------
+ * 
+ * Kalau variabel dibuat di dalam for,
+ * maka scope-nya HANYA di dalam loop.
+ * 
+ *     for (int i = 0; i < 5; i++) {
+ *         System.out.println(i);
+ *     }
+ * 
+ *     // Di luar loop
+ *     System.out.println(i); // ERROR! i tidak dikenali
+ * 
+ * Karena:
+ * i sudah tidak ada (out of scope)
+ * 
+ * ------------------------------------------------------------------------
+ * MULTIPLE INITIALIZATION (INISIALISASI GANDA)
+ * ------------------------------------------------------------------------
+ * 
+ * Kita bisa menginisialisasi LEBIH DARI SATU variabel
+ * di bagian initialization.
+ * 
+ *     for (int i = 0, j = 10; i < j; i++, j--) {
+ *         System.out.println("i = " + i + ", j = " + j);
+ *     }
+ * 
+ *     // Output:
+ *     // i = 0, j = 10
+ *     // i = 1, j = 9
+ *     // i = 2, j = 8
+ *     // i = 3, j = 7
+ *     // i = 4, j = 6
+ * 
+ * Dipisahkan dengan tanda koma (,).
+ * 
+ * ------------------------------------------------------------------------
+ * MULTIPLE ITERATION (ITERASI GANDA)
+ * ------------------------------------------------------------------------
+ * 
+ * Kita juga bisa menjalankan lebih dari satu operasi
+ * di bagian iteration.
+ * 
+ *     for (int i = 0, j = 10; i < j; i++, j--) {
+ *         // i++ dan j-- dijalankan setiap iterasi
+ *     }
+ * 
+ * Dipisahkan dengan tanda koma (,).
+ * 
+ * ------------------------------------------------------------------------
+ * ATURAN PENTING: TIPE DATA HARUS SAMA
+ * ------------------------------------------------------------------------
+ * 
+ * Semua variabel yang dideklarasikan di for
+ * harus memiliki TIPE DATA YANG SAMA.
+ * 
+ * // BENAR
+ * for (int i = 0, j = 10; i < j; i++, j--) {
+ *     // i dan j sama-sama int
+ * }
+ * 
+ * // SALAH (compile error)
+ * for (int i = 0, double j = 10; i < j; i++, j--) {
+ *     // ERROR! Tipe data berbeda (int dan double)
+ * }
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH FOR DENGAN BERBAGAI VARIASI
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Menghitung mundur
+ * 
+ *     for (int i = 10; i >= 1; i--) {
+ *         System.out.print(i + " ");
+ *     }
+ *     // Output: 10 9 8 7 6 5 4 3 2 1
+ * 
+ * 2. Melompat (step 2)
+ * 
+ *     for (int i = 0; i <= 10; i += 2) {
+ *         System.out.print(i + " ");
+ *     }
+ *     // Output: 0 2 4 6 8 10
+ * 
+ * 3. Dengan kondisi kompleks
+ * 
+ *     for (int i = 0; i < 10 && i != 5; i++) {
+ *         System.out.print(i + " ");
+ *     }
+ *     // Output: 0 1 2 3 4
+ * 
+ * ------------------------------------------------------------------------
+ * CARA PROGRAMMER SENIOR MEMILIH LOOP
+ * ------------------------------------------------------------------------
+ * 
+ * while
+ * Dipakai kalau:
+ * - Jumlah iterasi BELUM jelas
+ * - Contoh: membaca file, login attempt, menunggu input
+ * 
+ * do-while
+ * Dipakai kalau:
+ * - Harus jalan MINIMAL SEKALI
+ * - Contoh: menu program, input validation
+ * 
+ * for
+ * Dipakai kalau:
+ * - Jumlah iterasi JELAS
+ * - Contoh: loop array, loop angka, loop data terstruktur
+ * 
+ * ------------------------------------------------------------------------
+ * RINGKASAN SUPER SINGKAT
+ * ------------------------------------------------------------------------
+ * 
+ * - for = loop dengan 3 bagian: initialization; condition; iteration
+ * - initialization = dijalankan SEKALI di awal
+ * - condition = dicek SETIAP kali sebelum body
+ * - iteration = dijalankan SETELAH body
+ * - Variabel di for = scope hanya di dalam loop
+ * - Bisa multiple initialization/iteration pakai koma (,)
+ * - Semua variabel di for harus SAMA tipe datanya
+ * 
+ * ------------------------------------------------------------------------
+ */
+
 public class ForLOOP {
     public static void main(String[] args) {
-
-        /**
-         * for adalah loop yang sangat kuat dan fleksibel.
-         * 
-         * Mulai dari JDK 5, Java punya dua jenis for loop:
-         * 1️- Traditional for loop (yang klasik)
-         * 2️- for-each loop (untuk array dan collection
-         * Di bagian ini buku menjelaskan for klasik dulu.
-         *
-         * Bentuk Umum for:
-         * for(initialization; condition; iteration) {
-         *     // body loop
-         * }
-         *
-         * Kalau hanya 1 statement, {} tidak wajib.
-         *
-         * Mari kita bahas satu-satu.
-         *
-         * 1️- Initialization
-         * Bagian ini dijalankan sekali saja di awal loop.
-         * Biasanya untuk menginisialisasi variabel counter.
-         * Contoh:
-         * int i = 0
-         *
-         * 2️- Condition
-         * Ini adalah kondisi boolean.
-         * Selama kondisi true → loop jalan.
-         * Contoh:
-         * i < 10
-         *
-         * 3️- Iteration
-         * Ini bagian yang dijalankan setelah setiap loop selesai.
-         * Biasanya untuk menambah atau mengurangi counter.
-         * Contoh:
-         * i++
-         *
-         * Urutan Kerja for Loop
-         * Urutannya seperti ini:
-         * 1 initialization
-         * 2 cek condition
-         * 3 jalankan body
-         * 4 iteration
-         * 5 balik lagi ke condition
-         *
-         * Deklarasi Variabel di Dalam for
-         * Variabel loop bisa langsung dibuat di dalam for.
-         * Contoh:
-         * for(int n = 10; n > 0; n--)
-         *     System.out.println("tick " + n);
-         *
-         * Kenapa sering dilakukan?
-         * Karena variabel itu hanya dipakai di loop.
-         * Ini membuat kode lebih rapi dan aman.
-         *
-         * Konsep Penting: Scope Variabel
-         * Kalau variabel dibuat di dalam for, maka scope-nya hanya di dalam loop.
-         * Contoh:
-         * for(int i = 0; i < 5; i++){
-         *     System.out.println(i);
-         * }
-         *
-         * Di luar loop:
-         * System.out.println(i); // ERROR
-         * Karena:
-         * i sudah tidak ada
-         *
-         * ------------------------------------------
-         * 
-         * Cara Programmer Senior Memilih Loop:
-         * Biasanya seperti ini:
-         * while
-         * Dipakai kalau:
-         * jumlah loop belum jelas
-         * Contoh:
-         * -membaca file
-         * -login
-         * -menunggu input
-         *
-         * do-while
-         * Dipakai kalau:
-         * harus jalan minimal sekali
-         * Contoh:
-         * menu program
-         * input validation
-         *
-         * for
-         * Dipakai kalau:
-         * jumlah iterasi jelas
-         * Contoh:
-         * loop array
-         * loop angka
-         * loop data
-         *
-         * Istilah Penting
-         * Multiple Initialization
-         * Menginisialisasi lebih dari satu variabel di bagian for.
-         * Contoh:
-         * for(int i=0, j=10; i<j; i++, j--)
-         * Multiple Iteration
-         * Menjalankan lebih dari satu operasi setiap loop.
-         * Contoh:
-         * i++
-         * j--
-         * Separator
-         * Tanda yang memisahkan statement.
-         * Dalam kasus ini:
-         * ,
-         *
-         * Semua variabel harus tipe sama jika dideklarasi di for
-         *
-         * Contoh benar:
-         * for(int i = 0, j = 10; i < j; i++, j--)
-         *
-         * Contoh salah:
-         * for(int i = 0, double j = 10; i < j; i++, j--)
-         * Java tidak mengizinkan ini.
-         *
-         * Ringkasan Super Singkat
-         *
-         * Dalam for loop, kita bisa menulis lebih dari satu statement di:
-         * initialization
-         * a=1, b=4
-         * iteration
-         * a++, b--
-         * Dipisahkan dengan:
-         * ,
-         * Contoh lengkap:
-         * for(a=1, b=4; a<b; a++, b--)
-         */
 
         // Contoh sederhana
         int n;

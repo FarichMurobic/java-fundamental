@@ -1,21 +1,117 @@
 package FundamentalJava.IncrementDecrement;
 
-        /**
-         * Increment and Decrement
-         * Operator ++ dan -- adalah operator increment dan decrement di Java.
-         * -Operator increment (++) menambah nilai operand sebanyak 1.
-         * -Operator decrement (--) mengurangi nilai operand sebanyak 1.
-         *
-         * Operator ini unik karena bisa digunakan dalam dua bentuk:
-         * -Postfix → operator berada setelah variabel (x++)
-         * -Prefix → operator berada sebelum variabel (++x)
-         *
-         * Jika operator ini berdiri sendiri, tidak ada perbedaan antara prefix dan postfix.
-         * Namun jika operator ini digunakan dalam ekspresi yang lebih besar, maka ada perbedaan penting.
-         *
-         * Prefix - Nilai variabel diubah terlebih dahulu, baru digunakan dalam ekspresi.
-         * Postfix - Nilai lama digunakan dulu dalam ekspresi, baru setelah itu variabel diubah.
-         */
+/* ============================================================
+ *               INCREMENT (++) DAN DECREMENT (--)
+ * ============================================================
+ *
+ * Operator increment (++) dan decrement (--) digunakan
+ * untuk menambah atau mengurangi nilai suatu variabel
+ * sebanyak satu.
+ *
+ * Increment (++)  → menambah nilai variabel sebesar 1.
+ * Decrement (--)  → mengurangi nilai variabel sebesar 1.
+ *
+ * Kedua operator ini hanya dapat digunakan pada variabel
+ * yang nilainya dapat diubah (mutable variable), seperti
+ * tipe data numerik dan char.
+ */
+
+
+/* ------------------------------------------------------------
+ * Bentuk Penulisan
+ * ------------------------------------------------------------
+ *
+ * Operator increment dan decrement memiliki dua bentuk:
+ *
+ * Postfix
+ * x++
+ * x--
+ *
+ * Operator ditulis setelah variabel.
+ *
+ * Prefix
+ * ++x
+ * --x
+ *
+ * Operator ditulis sebelum variabel.
+ */
+
+
+/* ------------------------------------------------------------
+ * Penggunaan sebagai Statement
+ * ------------------------------------------------------------
+ *
+ * Jika operator digunakan sebagai statement tersendiri,
+ * tidak ada perbedaan hasil akhir antara prefix dan postfix.
+ *
+ * Contoh:
+ *
+ * x++;
+ *
+ * ++x;
+ *
+ * Keduanya sama-sama menambah nilai x sebesar satu.
+ *
+ * Hal yang sama juga berlaku untuk operator decrement:
+ *
+ * x--;
+ *
+ * --x;
+ *
+ * Keduanya sama-sama mengurangi nilai x sebesar satu.
+ */
+
+
+/* ------------------------------------------------------------
+ * Penggunaan di Dalam Ekspresi
+ * ------------------------------------------------------------
+ *
+ * Perbedaan antara prefix dan postfix muncul ketika
+ * operator digunakan sebagai bagian dari suatu ekspresi.
+ *
+ * Prefix (++x atau --x)
+ *
+ * Variabel diubah terlebih dahulu,
+ * kemudian nilai barunya digunakan dalam ekspresi.
+ *
+ * Postfix (x++ atau x--)
+ *
+ * Nilai lama digunakan terlebih dahulu dalam ekspresi,
+ * kemudian variabel diperbarui setelah ekspresi selesai
+ * dievaluasi.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * Prefix:
+ *
+ * 1. Ubah nilai variabel.
+ * 2. Gunakan nilai yang baru.
+ *
+ * Postfix:
+ *
+ * 1. Gunakan nilai saat ini.
+ * 2. Ubah nilai variabel setelahnya.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Prefix dan postfix menghasilkan nilai akhir variabel
+ * yang sama apabila masing-masing dieksekusi satu kali.
+ *
+ * Perbedaannya hanya terletak pada urutan evaluasi ketika
+ * operator tersebut menjadi bagian dari suatu ekspresi.
+ *
+ * Memahami urutan evaluasi ini sangat penting untuk
+ * menghindari kesalahan logika serta membuat kode lebih
+ * mudah dipahami dan dipelihara.
+ */
 
 public class IncrementDecrement {
     public static void main(String[] args) {

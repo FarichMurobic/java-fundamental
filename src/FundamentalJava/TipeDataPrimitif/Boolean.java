@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Booleans (Logika)
+ * 
  * Tipe data boolean hanya memiliki dua nilai: true atau false.
  * Tipe ini digunakan untuk logika dan mengontrol pernyataan bersyarat seperti if dan for.
  * Sederhana, hanya ada dua: true dan false. Keduanya tidak memiliki representasi numerik.
@@ -14,6 +15,7 @@ public class Boolean {
 
         /**
          * Tipe Data boolean
+         * 
          * Ekspresi yang hasilnya cuma bisa salah (false) atau benar (true)
          * disebut ekspresi logis atau ekspresi boolean.
          * Komputer itu bikin keputusan berdasarkan ekspresi logis ini.

@@ -1,67 +1,219 @@
 package FundamentalJava.StructurePerulangann;
 
+/**
+ * ------------------------------------------------------------------------
+ * DO-WHILE LOOP
+ * ------------------------------------------------------------------------
+ * 
+ * Seperti yang sudah kita lihat pada while,
+ * jika kondisi awalnya false, maka isi loop TIDAK dijalankan sama sekali.
+ * 
+ * Namun kadang kita ingin loop tetap dijalankan MINIMAL SEKALI,
+ * walaupun kondisi awalnya false.
+ * 
+ * Artinya kita ingin:
+ * Mengecek kondisi di AKHIR loop, bukan di AWAL.
+ * 
+ * Java menyediakan loop untuk itu, yaitu do-while.
+ * 
+ * ------------------------------------------------------------------------
+ * BENTUK UMUM
+ * ------------------------------------------------------------------------
+ * 
+ *     do {
+ *         // isi loop (dijalankan minimal sekali)
+ *     } while (kondisi);
+ * 
+ * Urutan eksekusi:
+ * 
+ *     1. Jalankan isi loop dulu
+ *     2. Cek kondisi
+ *     3. Jika kondisi true → ulangi loop (kembali ke langkah 1)
+ *     4. Jika kondisi false → berhenti
+ * 
+ * ------------------------------------------------------------------------
+ * PERBEDAAN WHILE vs DO-WHILE
+ * ------------------------------------------------------------------------
+ * 
+ * while         | do-while
+ * --------------|-----------------------------------------------------------
+ * Cek kondisi   | Cek kondisi
+ * di AWAL       | di AKHIR
+ *               |
+ * if (kondisi)  | do {
+ *     // kode   |     // kode
+ * }             | } while (kondisi);
+ *               |
+ * Bisa 0 kali   | Minimal 1 kali
+ * dieksekusi    | dieksekusi
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH SEDERHANA
+ * ------------------------------------------------------------------------
+ * 
+ *     // while - jika kondisi false, tidak dijalankan
+ *     int x = 10;
+ *     while (x < 5) {
+ *         System.out.println("While: " + x); // TIDAK dijalankan
+ *     }
+ * 
+ *     // do-while - tetap dijalankan minimal sekali
+ *     int y = 10;
+ *     do {
+ *         System.out.println("Do-while: " + y); // DIJALANKAN sekali
+ *     } while (y < 5);
+ * 
+ *     // Output: Do-while: 10
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH DO-WHILE YANG BERULANG
+ * ------------------------------------------------------------------------
+ * 
+ *     int i = 1;
+ * 
+ *     do {
+ *         System.out.println("Perulangan ke-" + i);
+ *         i++;
+ *     } while (i <= 5);
+ * 
+ *     // Output:
+ *     // Perulangan ke-1
+ *     // Perulangan ke-2
+ *     // Perulangan ke-3
+ *     // Perulangan ke-4
+ *     // Perulangan ke-5
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH KASUS NYATA
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Menu Program (harus tampil minimal sekali)
+ * 
+ *     int pilihan;
+ * 
+ *     do {
+ *         System.out.println("=== MENU ===");
+ *         System.out.println("1. Lihat Data");
+ *         System.out.println("2. Tambah Data");
+ *         System.out.println("3. Keluar");
+ *         System.out.print("Pilih: ");
+ * 
+ *         pilihan = scanner.nextInt();
+ * 
+ *         switch (pilihan) {
+ *             case 1 -> System.out.println("Menampilkan data...");
+ *             case 2 -> System.out.println("Menambah data...");
+ *             case 3 -> System.out.println("Keluar...");
+ *             default -> System.out.println("Pilihan tidak valid!");
+ *         }
+ * 
+ *     } while (pilihan != 3);
+ * 
+ * 2. Validasi Input (pastikan user input yang benar)
+ * 
+ *     int umur;
+ * 
+ *     do {
+ *         System.out.print("Masukkan umur (17-60): ");
+ *         umur = scanner.nextInt();
+ * 
+ *         if (umur < 17 || umur > 60) {
+ *             System.out.println("Umur tidak valid! Ulangi.");
+ *         }
+ * 
+ *     } while (umur < 17 || umur > 60);
+ * 
+ *     System.out.println("Umur valid: " + umur);
+ * 
+ * 3. Login Attempt (percobaan login)
+ * 
+ *     int percobaan = 0;
+ *     boolean loginSukses = false;
+ * 
+ *     do {
+ *         percobaan++;
+ *         System.out.print("Username: ");
+ *         String user = scanner.nextLine();
+ *         System.out.print("Password: ");
+ *         String pass = scanner.nextLine();
+ * 
+ *         if (user.equals("admin") && pass.equals("12345")) {
+ *             loginSukses = true;
+ *             System.out.println("Login berhasil!");
+ *         } else {
+ *             System.out.println("Login gagal! Percobaan ke-" + percobaan);
+ *         }
+ * 
+ *     } while (!loginSukses && percobaan < 3);
+ * 
+ *     if (!loginSukses) {
+ *         System.out.println("Terlalu banyak percobaan. Akun terkunci.");
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * ATURAN DASAR TRACING LOOP
+ * ------------------------------------------------------------------------
+ * 
+ * Saat membaca/menganalisis loop, lakukan 3 langkah ini di kepala:
+ * 
+ * 1. Lihat NILAI AWAL variabel kontrol
+ * 2. Lihat PERUBAHAN variabel di dalam loop
+ * 3. Lihat KAPAN KONDISI BERHENTI
+ * 
+ * Contoh:
+ * 
+ *     int i = 1;      // Nilai awal
+ *     do {
+ *         System.out.println(i);
+ *         i++;        // Perubahan
+ *     } while (i <= 5); // Kondisi berhenti
+ * 
+ * ------------------------------------------------------------------------
+ * JANGAN LUPA ; DI AKHIR!
+ * ------------------------------------------------------------------------
+ * 
+ * Berbeda dari while, do-while WAJIB diakhiri dengan titik koma.
+ * 
+ *     // BENAR
+ *     do {
+ *         // ...
+ *     } while (kondisi);   // <- WAJIB ada ;
+ * 
+ *     // SALAH (compile error)
+ *     do {
+ *         // ...
+ *     } while (kondisi)    // <- ERROR! Tidak ada ;
+ * 
+ * ------------------------------------------------------------------------
+ * KAPAN MENGGUNAKAN DO-WHILE?
+ * ------------------------------------------------------------------------
+ * 
+ * Gunakan do-while jika:
+ * - Loop HARUS dijalankan minimal SATU KALI
+ * - Validasi input user (pastikan input dicek)
+ * - Menu program (harus tampil dulu baru pilih)
+ * - Login attempt (coba login dulu baru cek)
+ * 
+ * Gunakan while jika:
+ * - Loop BOLEH TIDAK dijalankan sama sekali
+ * - Kondisi harus dicek sebelum eksekusi
+ * 
+ * ------------------------------------------------------------------------
+ * RINGKASAN SUPER PADAT
+ * ------------------------------------------------------------------------
+ * 
+ * - do-while = jalankan dulu, cek kondisi di akhir
+ * - Minimal dijalankan 1 kali
+ * - Bentuk: do { ... } while (kondisi);
+ * - WAJIB ada ; di akhir
+ * - while = cek di awal, do-while = cek di akhir
+ * - Cocok untuk: menu, validasi input, login attempt
+ * 
+ * ------------------------------------------------------------------------
+ */
+
 public class DoWhileLOOP {
     public static void main(String[] args) throws java.io.IOException {
-
-        /**
-         * do-while
-         * 
-         * Seperti yang baru saja kita lihat pada while, 
-         * jika kondisi awalnya false, maka isi loop tidak dijalankan sama sekali.
-         * 
-         * Namun kadang kita ingin loop tetap dijalankan minimal sekali, walaupun kondisi awalnya false.
-         * Artinya kita ingin:
-         * Mengecek kondisi di akhir loop, bukan di awal.
-         * Java menyediakan loop untuk itu, yaitu do-while.
-         * Loop do-while selalu menjalankan isi loop minimal satu kali, 
-         * karena pengecekan kondisi dilakukan di bagian bawah loop.
-         * 
-         * Bentuk umum:
-         * 
-         * do {
-         *     // isi loop
-         * } while(condition);
-         *
-         * Urutannya:
-         * Jalankan isi loop dulu
-         * Cek kondisi
-         * Jika kondisi true → ulangi loop
-         * Jika false → berhenti
-         * Seperti loop lain di Java, condition harus boolean.
-         *
-         * Perbedaan besar antara while dan do-while adalah posisi pengecekan kondisi.
-         * while        -> cek kondisi dulu baru jalankan kode
-         * do while     -> jalankan kode dulu baru cek kondisi, Jadi minimal pasti jalan 1 kali.
-         *
-         * Aturan Dasar Tracing Loop
-         * Saat membaca loop, lakukan 3 langkah ini di kepala:
-         * Lihat nilai awal
-         * Lihat perubahan variabel di dalam loop
-         * Lihat kapan kondisi berhenti
-         *
-         * Jangan lupa ; di akhir
-         * Berbeda dari while.
-         * Harus ada titik koma.
-         * } while(condition); titik koma
-         * Kalau tidak ada → compile error.
-         *
-         * Perbandingan
-         * Loop	            Kondisi Dicek
-         * while	        di awal
-         * do-while	        di akhir
-         *
-         * Tips Programmer Senior
-         * Biasanya:
-         * Gunakan while kalau:
-         * loop bisa saja tidak dijalankan
-         * Gunakan do-while kalau:
-         * loop harus dijalankan minimal sekali
-         *
-         * Contoh nyata:
-         * menu program
-         * input validasi
-         * login attempt
-         */
 
         // Contoh program sederhana
         int n = 10;

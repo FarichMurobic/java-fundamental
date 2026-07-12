@@ -54,6 +54,7 @@ class Factorial {
 
     /**
      * Output:
+     * 
      * Factorial 3 = 6
      * Factorial 4 = 24
      * Factorial 5 = 120
@@ -185,6 +186,7 @@ class ArrayPrinter {
 
     /**
      * Output
+     * 
      * Index 0 = 0
      * Index 1 = 1
      * Index 2 = 2

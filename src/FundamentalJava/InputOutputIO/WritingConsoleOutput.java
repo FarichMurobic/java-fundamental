@@ -1,135 +1,140 @@
 package FundamentalJava.InputOutputIO;
 
 /**
- * Writing Console Output
+ * ============================================================
+ *                  Writing Console Output
+ * ============================================================
  *
- * Output ke console paling gampang pakai:
- * print()
- * println()
+ * Java menyediakan beberapa cara untuk menampilkan output ke
+ * console. Cara yang paling umum adalah menggunakan method:
  *
- * ini yang selama ini lu pakai
+ *     print()
+ *     println()
  *
- * Asalnya dari mana?
- * Method itu berasal dari class:
- * PrintStream
- * dan:
+ * Kedua method tersebut berasal dari class PrintStream dan
+ * digunakan melalui object:
+ *
+ *     System.out
+ *
+ * Sebagai contoh:
+ *
+ * System.out.println("Hello, World!");
+ *
+ * ------------------------------------------------------------
+ *
  * System.out
- * itu adalah object dari PrintStream
  *
- * -------------------------
- * 
- * Fakta penting
- * 
- * Walaupun:
- * System.out adalah byte stream
+ * System.out merupakan standard output pada Java.
  *
- * tetap boleh dipakai untuk output teks sederhana
+ * Field ini bertipe:
  *
- * Tapi…
- * Ada alternatif:
- * pakai character stream (dibahas setelah ini)
+ *     PrintStream
  *
- * Method lain: write()
- * Karena PrintStream turunan dari:
+ * Secara default, output diarahkan ke console, meskipun dapat
+ * dialihkan (redirect) ke file, network, atau tujuan output
+ * lainnya.
+ *
+ * Meskipun PrintStream merupakan byte stream, class ini
+ * menyediakan method yang memudahkan penulisan teks dan
+ * berbagai tipe data tanpa perlu melakukan konversi secara
+ * manual.
+ *
+ * ------------------------------------------------------------
+ *
+ * Method print() dan println()
+ *
+ * Method print() digunakan untuk menampilkan data tanpa
+ * berpindah ke baris berikutnya.
+ *
+ * Method println() digunakan untuk menampilkan data kemudian
+ * menambahkan karakter pemisah baris (line separator) sesuai
+ * sistem operasi yang digunakan.
+ *
+ * Karena kemudahannya, kedua method ini merupakan pilihan utama
+ * untuk menghasilkan output pada aplikasi console.
+ *
+ * ------------------------------------------------------------
+ *
+ * Method write()
+ *
+ * Selain print() dan println(), PrintStream juga mewarisi
+ * method write() dari OutputStream.
+ *
+ * Bentuk sederhananya adalah:
+ *
+ *     void write(int b)
+ *
+ * Method ini menulis satu byte ke output.
+ *
+ * Walaupun parameter bertipe int, hanya 8 bit paling rendah
+ * yang digunakan sebagai nilai byte yang akan ditulis.
+ *
+ * Method ini bekerja pada level yang lebih rendah dibandingkan
+ * print() maupun println().
+ *
+ * ------------------------------------------------------------
+ *
+ * Perbedaan print()/println() dan write()
+ *
+ * print() / println()
+ *     - Digunakan untuk menampilkan teks dan berbagai tipe data.
+ *     - Melakukan konversi data secara otomatis.
+ *     - Lebih mudah digunakan.
+ *     - Cocok untuk sebagian besar aplikasi console.
+ *
+ * write()
+ *     - Menulis data dalam bentuk byte.
+ *     - Bekerja pada level yang lebih rendah.
+ *     - Lebih sesuai untuk kebutuhan khusus yang berhubungan
+ *       dengan manipulasi byte.
+ *
+ * ------------------------------------------------------------
+ *
+ * Hubungan PrintStream dan OutputStream
+ *
+ * Hierarki sederhananya adalah:
+ *
  * OutputStream
- * dia punya method:
- * write()
+ *      ↑
+ * PrintStream
  *
- * Bentuk paling sederhana
- * void write(int byteval)
+ * Karena PrintStream merupakan turunan dari OutputStream,
+ * seluruh kemampuan dasar OutputStream, termasuk write(),
+ * tetap tersedia.
  *
- * artinya:
- * tulis 1 byte ke output
+ * Sementara itu, PrintStream menambahkan berbagai method
+ * berlevel lebih tinggi seperti:
  *
- * Catatan penting
- * Walaupun parameternya int:
- * yang dipakai cuma 8 bit terakhir (1 byte)
+ * - print()
+ * - println()
+ * - printf()
  *
- * --------------------
- * 
- * Perbedaan besar
- * println()
- * high-level
- * gampang
- * otomatis format
+ * sehingga proses penulisan output menjadi jauh lebih mudah.
  *
- * write()
- * low-level
- * nulis byte langsung
- * lebih “dekat ke mesin”
+ * ------------------------------------------------------------
  *
- * Analogi
- * Method	        Analogi
- * println()	    ngetik kalimat di Word
- * write()	        ngirim kode ASCII langsung
+ * Penggunaan di Java Modern
  *
- * ---------------------------------------------
- * 
- * Kenapa ada write()?
- * Karena:
- * Java dibangun dari level rendah → tinggi
- * write() = fondasi
- * print() = versi gampangnya
+ * Untuk aplikasi console, penggunaan print() dan println()
+ * masih merupakan pendekatan yang umum dan direkomendasikan.
  *
- * Kenapa jarang dipakai?
- * Karena:
- * ribet
- * gak fleksibel
- * harus handle karakter manual
+ * Apabila aplikasi memerlukan output berbasis character stream,
+ * Java juga menyediakan class PrintWriter yang menawarkan API
+ * serupa dengan dukungan penuh terhadap character stream.
  *
- * PERBANDINGAN
- * Aspek	        write()	        print()/println()
- * Level	        rendah	        tinggi
- * Kemudahan	    susah	        gampang
- * Output	        byte	        teks
- * Penggunaan	    jarang	        sering
+ * ------------------------------------------------------------
  *
- * KAPAN write() DIPAKAI?
- * Jarang, tapi berguna kalau:
- * kerja di level byte
- * custom output
- * performance tuning (jarang banget di console)
+ * Ringkasan
  *
- * ---------------------------------------
- * 
- * INSIGHT LEVEL PRO
- * 
- * Ini yang harus lu tangkap:
- * System.out itu sebenarnya byte stream
- *
- * tapi:
- * Java kasih wrapper (PrintStream)
- * biar bisa:
- * println("Hello")
- *
- * Artinya:
- * Yang lu pakai selama ini:
- * System.out.println()
- *
- * itu sebenarnya:
- * sudah di-“abstraksi” dari write()
- *
- * -----------------------------------
- * 
- * KESIMPULAN SUPER SEDERHANA
- * 
- * Output console paling mudah:
- * System.out.println()
- *
- * write():
- * nulis byte langsung
- * low-level
- * jarang dipakai
- *
- * PrintStream:
- * class di balik System.out
- *
- * Inti besar
- * Java punya:
- * level rendah → write()
- * level tinggi → print()
- *
- * lu biasanya pakai yang tinggi
+ * - System.out merupakan standard output pada Java.
+ * - System.out bertipe PrintStream.
+ * - print() dan println() digunakan untuk menghasilkan output
+ *   teks dengan mudah.
+ * - write() menulis data dalam bentuk byte dan bekerja pada
+ *   level yang lebih rendah.
+ * - PrintStream menyediakan abstraksi sehingga penulisan teks
+ *   menjadi lebih sederhana dibandingkan menggunakan write()
+ *   secara langsung.
  */
 
 public class WritingConsoleOutput {

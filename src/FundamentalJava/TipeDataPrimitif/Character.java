@@ -2,6 +2,7 @@ package FundamentalJava.TipeDataPrimitif;
 
 /**
  * Characters (Karakter)
+ * 
  * Tipe data char di Java adalah tipe 16-bit, berbeda dengan C/C++ yang 8-bit. Ini karena Java
  * menggunakan Unicode untuk merepresentasikan karakter, yang dapat mencakup semua karakter
  * dari bahasa manusia di seluruh dunia. Rentang nilai char adalah 0 hingga 65.536 dan tidak ada nilai negatif.
@@ -14,6 +15,7 @@ public class Character {
 
         /**
          * Tipe Data char
+         * 
          * Tipe data char merepresentasikan karakter tunggal. Karakter tunggal bisa berupa huruf (a-z, A-Z),
          * angka (0-9), dan karakter khusus (!, @, #, $, &, *, {, }, [, ], dan sebagainya). Secara khusus, tipe
          * data char bisa digunakan untuk merepresentasikan karakter apa pun yang kamu lihat di keyboard.

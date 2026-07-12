@@ -1,42 +1,150 @@
 package FundamentalJava.JumpStatements;
 
+/* ==========================================================
+ *                           BREAK
+ * ==========================================================
+ *
+ * break adalah salah satu jump statement di Java yang digunakan
+ * untuk menghentikan eksekusi suatu blok program secara langsung
+ * dan memindahkan alur program ke statement berikutnya.
+ *
+ * Pada Java modern, statement break memiliki tiga kegunaan utama:
+ *
+ * 1. Mengakhiri eksekusi pada switch statement atau switch expression.
+ * 2. Keluar lebih awal dari sebuah loop.
+ * 3. Keluar dari blok berlabel (labeled statement), yang merupakan
+ *    alternatif yang lebih aman dan terstruktur dibanding konsep
+ *    goto pada bahasa pemrograman lain.
+ *
+ * ==========================================================
+ *                    APA ITU JUMP STATEMENT?
+ * ==========================================================
+ *
+ * Jump statement adalah perintah yang mengubah alur normal
+ * eksekusi program.
+ *
+ * Secara default, Java mengeksekusi statement secara berurutan
+ * dari atas ke bawah.
+ *
+ * Dengan jump statement, alur program dapat berpindah ke lokasi
+ * lain tanpa harus menyelesaikan seluruh statement yang sedang
+ * dijalankan.
+ *
+ * Contoh penggunaan jump statement:
+ *
+ * - Keluar lebih awal dari loop.
+ * - Melewati sisa statement dalam suatu blok.
+ * - Keluar dari method menggunakan return.
+ * - Keluar dari blok berlabel menggunakan break.
+ *
+ * Java menyediakan beberapa jump statement, yaitu:
+ *
+ * - break
+ * - continue
+ * - return
+ *
+ * ==========================================================
+ *                 BREAK UNTUK KELUAR DARI LOOP
+ * ==========================================================
+ *
+ * Statement break memungkinkan sebuah loop dihentikan sebelum
+ * kondisi perulangannya bernilai false.
+ *
+ * Ketika break dieksekusi:
+ *
+ * - Eksekusi loop langsung dihentikan.
+ * - Kondisi loop tidak diperiksa lagi.
+ * - Seluruh statement yang tersisa di dalam iterasi saat itu
+ *   dilewati.
+ * - Program dilanjutkan pada statement pertama setelah loop.
+ *
+ * Dengan demikian, break sering digunakan ketika tujuan
+ * perulangan telah tercapai sehingga tidak perlu melanjutkan
+ * iterasi berikutnya.
+ *
+ * ==========================================================
+ *              BREAK PADA SWITCH STATEMENT
+ * ==========================================================
+ *
+ * Pada switch statement, break digunakan untuk mengakhiri
+ * eksekusi suatu case.
+ *
+ * Tanpa break, eksekusi akan berlanjut ke case berikutnya
+ * (fall-through).
+ *
+ * Contoh:
+ *
+ *     switch (day) {
+ *         case 1:
+ *             System.out.println("Senin");
+ *             break;
+ *
+ *         case 2:
+ *             System.out.println("Selasa");
+ *             break;
+ *     }
+ *
+ * Catatan:
+ * Pada switch expression (Java 14+), penggunaan break untuk
+ * menghasilkan nilai umumnya digantikan dengan keyword yield.
+ *
+ * ==========================================================
+ *                  LABELED BREAK
+ * ==========================================================
+ *
+ * Java juga mendukung labeled break, yaitu break yang digunakan
+ * untuk keluar dari blok atau nested loop tertentu.
+ *
+ * Contoh:
+ *
+ *     outer:
+ *     for (...) {
+ *         for (...) {
+ *             break outer;
+ *         }
+ *     }
+ *
+ * Saat break outer dijalankan, program langsung keluar dari
+ * loop yang memiliki label outer.
+ *
+ * Fitur ini menjadi alternatif yang lebih aman dibanding
+ * penggunaan goto yang terdapat pada beberapa bahasa
+ * pemrograman lain.
+ *
+ * ==========================================================
+ *                KAPAN BREAK DIGUNAKAN?
+ * ==========================================================
+ *
+ * break umum digunakan ketika:
+ *
+ * - Data yang dicari sudah ditemukan.
+ * - Kondisi tertentu telah terpenuhi.
+ * - Tidak diperlukan iterasi berikutnya.
+ * - Ingin menghentikan proses lebih awal untuk meningkatkan
+ *   efisiensi program.
+ *
+ * ==========================================================
+ *                        KESIMPULAN
+ * ==========================================================
+ *
+ * break adalah jump statement yang menghentikan eksekusi suatu
+ * blok program secara langsung.
+ *
+ * Fungsi utamanya meliputi:
+ *
+ * - Mengakhiri case pada switch statement.
+ * - Menghentikan loop sebelum kondisi selesai.
+ * - Keluar dari blok berlabel (labeled statement).
+ *
+ * Penggunaan break membuat alur program menjadi lebih efisien
+ * ketika proses tidak perlu dilanjutkan hingga akhir.
+ *
+ * ==========================================================
+ */
+
 public class Break {
     public static void main(String[] args) {
         
-         /**
-         * Break
-         *
-         * Menggunakan break
-         * Di Java, statement break memiliki tiga kegunaan:
-         * Mengakhiri rangkaian statement di dalam switch statement.
-         * Digunakan untuk keluar dari loop.
-         * Digunakan sebagai bentuk goto yang lebih aman.
-         *
-         * ------------------------------------
-         * 
-         * Apa itu Jump Statement?
-         * Jump statement adalah perintah yang membuat program "lompat" ke tempat lain.
-         * Biasanya program berjalan baris demi baris dari atas ke bawah.
-         *
-         * Program berjalan urut.
-         * Tapi dengan jump statement, kita bisa mengubah jalur program.
-         *
-         * Misalnya:
-         * keluar dari loop lebih cepat
-         * melewati sebagian kode
-         * langsung keluar dari method
-         *
-         * Menggunakan break untuk Keluar dari Loop
-         * Dengan menggunakan break, kamu bisa langsung menghentikan loop, tanpa peduli kondisi loopnya masih benar atau tidak.
-         *
-         * Artinya:
-         * kondisi loop tidak dicek lagi
-         * sisa kode di dalam loop dilewati
-         * Ketika break dijalankan di dalam loop:
-         * loop langsung berhenti
-         * program lanjut ke baris setelah loop
-         */
-
         // Contoh sederhana
         for (int i = 0; i < 100; i++) {
             if (i == 10)

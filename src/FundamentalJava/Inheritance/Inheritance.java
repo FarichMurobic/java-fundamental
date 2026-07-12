@@ -1,137 +1,283 @@
 package FundamentalJava.Inheritance;
 
-/**
-     * Inheritance (pewarisan) adalah salah satu dasar utama dalam pemrograman berorientasi objek
-     * karena memungkinkan kita membuat klasifikasi yang bertingkat (hierarki).
-     * 
-     * Dengan inheritance, kita bisa membuat sebuah class umum yang mendefinisikan sifat-sifat yang
-     * dimiliki oleh beberapa objek yang mirip. Class ini kemudian bisa diwariskan ke class lain yang lebih spesifik,
-     * di mana class turunan tersebut menambahkan hal-hal unik miliknya sendiri.
-     * 
-     * Dalam istilah Java:
-     * Class yang diwariskan disebut superclass
-     * Class yang mewarisi disebut subclass
-     *
-     * Jadi, subclass adalah versi yang lebih spesifik dari superclass.
-     * Subclass mewarisi semua anggota (variabel & method) dari superclass dan bisa menambahkan fitur baru.
-     *
-     * -------------------------------------------------
-     * 
-     * Penjelasan
-     * 
-     * Bayangin gini bro:
-     * Superclass = Induk
-     * Subclass = Anak
-     *
-     * Contoh real:
-     * Superclass: Kendaraan
-     * Subclass: Motor, Mobil
-     * Semua kendaraan punya:
-     * roda
-     * mesin
-     *
-     * Tapi:
-     * Motor punya stang
-     * Mobil punya pintu
-     * Nah ini konsep inheritance.
-     *
-     * -------------------------------------------
-     * 
-     * Cara Pakai Inheritance
-     * Untuk mewarisi class, kamu cukup memasukkan definisi class lain menggunakan keyword extends.
-     * 
-     * Penjelasan
-     * Keyword penting:
-     * extends
-     * Artinya:
-     * “Class ini mewarisi dari class lain”
-     *
-     * ------------------------------------------------
-     * 
-     * ISTILAH PENTING
-     * Istilah	                Arti
-     * superclass	            class induk
-     * subclass	                class turunan
-     * extends	                keyword untuk mewarisi
-     * inheritance	            pewarisan
-     * member	                variabel + method
-     *
-     * -------------------------------------
-     * 
-     * HAL PENTING YANG HARUS DIPAHAMI
-     * 
-     * 1. Subclass mewarisi semua
-     * B punya:
-     * - i
-     * - j
-     * - showij()
-     * + k
-     * + showk()
-     * + sum()
-     *
-     * 2. Superclass tetap bisa berdiri sendiri
-     * A superOb = new A();
-     * Ini tetap valid walaupun A punya anak (B)
-     *
-     * 3. Java TIDAK support multiple inheritance
-     * Tidak bisa:
-     * class C extends A, B // SALAH
-     * Hanya boleh:
-     * class C extends A
-     *
-     * 4. Bisa bikin rantai inheritance
-     * A → B → C
-     *
-     * -------------------------------------
-     * 
-     * INTINYA
-     * 
-     * Inheritance itu:
-     * cara reuse kode
-     * bikin hubungan antar class
-     * bikin code lebih rapih & scalable
-     *
-     * Walaupun subclass mewarisi semua anggota (member) dari superclass, 
-     * subclass tidak bisa mengakses member yang dideklarasikan sebagai private.
-     * 
-     * Penjelasan Sederhana
-     * Inheritance ≠ bebas akses semua
-     * Ada aturan:
-     * private = cuma bisa dipakai di class itu sendiri
-     *
-     * ----------------------------------
-     * 
-     * KONSEP PENTING (WAJIB PAHAM)
-     * 
-     * 1. private = TERKUNCI
-     * private = hanya class itu sendiri yang boleh akses
-     * Bahkan:
-     * Subclass (anak) TIDAK boleh akses
-     *
-     * 2. Inheritance TIDAK mengubah private
-     * Walaupun diwariskan:
-     * private tetap private
-     *
-     * 3. Cara mengakses private (SOLUSI)
-     * Gunakan method (getter/setter)
-     * Contoh dari kode tadi:
-     * void setij(int x, int y) {
-     *     i = x;
-     *     j = y;
-     * }
-     * 
-     * Ini cara “resmi” untuk akses j
-     *
-     * RINGKASAN SUPER PENTING
-     * Aturan emas:
-     * Modifier	        Bisa diakses subclass?
-     * public	        ya
-     * default	        ya (satu package)
-     * protected	    ya
-     * private	        TIDAK
-     *
-     * "Member yang dideklarasikan sebagai private akan tetap private dan tidak bisa diakses dari luar class, termasuk subclass."
-     */
+/* ============================================================
+ *                     INHERITANCE (PEWARISAN)
+ * ============================================================
+ *
+ * Inheritance merupakan salah satu konsep fundamental dalam
+ * Object-Oriented Programming (OOP).
+ *
+ * Konsep ini memungkinkan sebuah class mewarisi atribut
+ * (field) dan perilaku (method) dari class lain sehingga
+ * membentuk hubungan hierarkis antar class.
+ *
+ * Dengan inheritance, kode dapat digunakan kembali (code
+ * reuse), lebih mudah dikembangkan, dan lebih terstruktur.
+ */
+
+
+/* ------------------------------------------------------------
+ * Konsep Dasar
+ * ------------------------------------------------------------
+ *
+ * Dalam inheritance terdapat dua istilah utama:
+ *
+ * Superclass
+ * Merupakan class induk yang berisi karakteristik umum
+ * yang dapat diwariskan.
+ *
+ * Subclass
+ * Merupakan class turunan yang mewarisi anggota dari
+ * superclass, kemudian dapat menambahkan atau
+ * memodifikasi perilaku sesuai kebutuhannya.
+ *
+ * Dengan kata lain, subclass adalah bentuk yang lebih
+ * spesifik dari superclass.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Konsep
+ * ------------------------------------------------------------
+ *
+ * Misalkan terdapat class:
+ *
+ * Kendaraan
+ *
+ * yang memiliki karakteristik umum:
+ *
+ * - roda
+ * - mesin
+ *
+ * Class tersebut kemudian dapat diturunkan menjadi:
+ *
+ * Motor
+ * Mobil
+ *
+ * Keduanya mewarisi karakteristik dasar dari Kendaraan,
+ * tetapi masing-masing dapat memiliki karakteristik
+ * tambahan.
+ *
+ * Contoh:
+ *
+ * Motor:
+ * - stang
+ *
+ * Mobil:
+ * - pintu
+ *
+ * Dengan demikian, fitur umum cukup ditulis satu kali
+ * pada superclass, sedangkan fitur khusus ditambahkan
+ * pada subclass.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mendeklarasikan Inheritance
+ * ------------------------------------------------------------
+ *
+ * Di Java, inheritance menggunakan keyword:
+ *
+ * extends
+ *
+ * Bentuk umum:
+ *
+ * class Subclass extends Superclass {
+ *     ...
+ * }
+ *
+ * Keyword extends menyatakan bahwa subclass mewarisi
+ * seluruh anggota yang dapat diwariskan dari superclass.
+ */
+
+
+/* ------------------------------------------------------------
+ * Apa yang Diwarisi?
+ * ------------------------------------------------------------
+ *
+ * Subclass mewarisi seluruh field dan method dari
+ * superclass yang dapat diakses sesuai aturan
+ * access modifier.
+ *
+ * Selain mewarisi anggota superclass,
+ * subclass juga dapat:
+ *
+ * - Menambahkan field baru.
+ * - Menambahkan method baru.
+ * - Melakukan overriding terhadap method tertentu.
+ *
+ * Hal ini memungkinkan subclass memiliki perilaku
+ * yang lebih spesifik dibandingkan superclass.
+ */
+
+
+/* ------------------------------------------------------------
+ * Superclass Tetap Dapat Digunakan
+ * ------------------------------------------------------------
+ *
+ * Keberadaan subclass tidak memengaruhi superclass.
+ *
+ * Superclass tetap dapat dibuat object secara langsung,
+ * misalnya:
+ *
+ * A obj = new A();
+ *
+ * selama class tersebut memang dapat diinstansiasi.
+ */
+
+
+/* ------------------------------------------------------------
+ * Single Inheritance
+ * ------------------------------------------------------------
+ *
+ * Java hanya mendukung single inheritance untuk class.
+ *
+ * Artinya, satu subclass hanya dapat mewarisi
+ * satu superclass secara langsung.
+ *
+ * Contoh yang valid:
+ *
+ * class B extends A
+ *
+ * Contoh yang tidak valid:
+ *
+ * class C extends A, B
+ *
+ * Multiple inheritance pada class tidak didukung
+ * untuk menghindari ambiguitas, seperti Diamond Problem.
+ *
+ * Apabila membutuhkan pewarisan dari beberapa tipe,
+ * Java menyediakan interface sebagai alternatif.
+ */
+
+
+/* ------------------------------------------------------------
+ * Multilevel Inheritance
+ * ------------------------------------------------------------
+ *
+ * Inheritance dapat membentuk hierarki yang lebih panjang.
+ *
+ * Contoh:
+ *
+ * A
+ * ↑
+ * B
+ * ↑
+ * C
+ *
+ * Pada hierarki tersebut:
+ *
+ * - B mewarisi A.
+ * - C mewarisi B.
+ *
+ * Secara tidak langsung, C juga memperoleh anggota
+ * yang diwariskan dari A.
+ */
+
+
+/* ============================================================
+ * Access Modifier dan Inheritance
+ * ============================================================
+ *
+ * Meskipun subclass mewarisi anggota superclass,
+ * tidak semua anggota dapat diakses secara langsung.
+ *
+ * Hak akses tetap ditentukan oleh access modifier.
+ */
+
+
+/* ------------------------------------------------------------
+ * Private Tidak Dapat Diakses
+ * ------------------------------------------------------------
+ *
+ * Member yang dideklarasikan sebagai private
+ * hanya dapat diakses dari dalam class tempat
+ * member tersebut dideklarasikan.
+ *
+ * Subclass tetap mewarisi keberadaan member private,
+ * tetapi tidak dapat mengaksesnya secara langsung.
+ *
+ * Oleh karena itu, inheritance tidak mengubah
+ * aturan access modifier private.
+ */
+
+
+/* ------------------------------------------------------------
+ * Cara Mengakses Data Private
+ * ------------------------------------------------------------
+ *
+ * Praktik yang umum digunakan adalah menyediakan
+ * method sebagai perantara, misalnya:
+ *
+ * - getter
+ * - setter
+ *
+ * Dengan pendekatan ini, superclass tetap dapat
+ * mengontrol bagaimana data private dibaca
+ * maupun diubah.
+ */
+
+
+/* ------------------------------------------------------------
+ * Hak Akses terhadap Member
+ * ------------------------------------------------------------
+ *
+ * Access Modifier      Dapat Diakses oleh Subclass?
+ * ------------------------------------------------------------
+ * public              Ya
+ * protected           Ya
+ * default             Ya, jika berada dalam package yang sama
+ * private             Tidak
+ *
+ * Access modifier tetap berlaku meskipun terjadi
+ * hubungan inheritance.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Inheritance memungkinkan subclass mewarisi
+ *   field dan method dari superclass.
+ *
+ * - Hubungan inheritance dibentuk menggunakan
+ *   keyword extends.
+ *
+ * - Subclass dapat menambahkan field maupun method
+ *   baru, serta melakukan method overriding.
+ *
+ * - Java hanya mendukung single inheritance
+ *   untuk class.
+ *
+ * - Inheritance dapat membentuk hierarki bertingkat
+ *   (multilevel inheritance).
+ *
+ * - Member private tidak dapat diakses secara langsung
+ *   oleh subclass.
+ *
+ * - Access modifier tetap menentukan hak akses
+ *   terhadap setiap member.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Tujuan utama inheritance bukan hanya mengurangi
+ * penulisan kode yang berulang (code reuse), tetapi juga
+ * membangun hubungan "is-a" antar class.
+ *
+ * Contohnya:
+ *
+ * Motor is a Kendaraan.
+ * Mobil is a Kendaraan.
+ *
+ * Hubungan inilah yang menjadi dasar berbagai konsep
+ * penting dalam OOP, seperti polymorphism dan
+ * dynamic method dispatch.
+ */
 
 // CLASS INDUK (A)
 // SUPERCLASS

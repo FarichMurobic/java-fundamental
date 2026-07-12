@@ -1,192 +1,235 @@
 package FundamentalJava.Generics;
 
-    /**
-     * KODE MASALAHNYA
-     *
-     * class MyGenClass<T, V> {
-     *   T ob1;
-     *   V ob2;
-     *
-     *   void set(T o) {
-     *     ob1 = o;
-     *   }
-     *
-     *   void set(V o) {
-     *     ob2 = o;
-     *   }
-     * }
-     *
-     * Kelihatannya:
-     * set(T) dan set(V) beda kan?
-     * Harusnya bisa overload?
-     *
-     * SALAH BESAR (di Java generics)
-     *
-     * MASALAH UTAMA: ERASURE
-     *
-     * Ingat ini (WAJIB NANCEP):
-     * Generics di Java cuma ada saat compile
-     * di runtime → hilang (erasure)
-     *
-     * Setelah di-compile:
-     * class MyGenClass {
-     *   Object ob1;
-     *   Object ob2;
-     *
-     *   void set(Object o) {
-     *     ob1 = o;
-     *   }
-     *
-     *   void set(Object o) {
-     *     ob2 = o;
-     *   }
-     * }
-     *
-     * BOOM!
-     *
-     * Sekarang ada:
-     * void set(Object o)
-     * void set(Object o)
-     *
-     * duplicate method → ambiguity error
-     *
-     * ---------------------------------------------------
-     * 
-     * MASALAH KEDUA (yang lebih halus)
-     *
-     * Misalnya ini:
-     * MyGenClass<String, String> obj = new MyGenClass<>();
-     *
-     * Berarti:
-     * T = String
-     * V = String
-     *
-     * Jadi:
-     * void set(String o)
-     * void set(String o)
-     *
-     * MASIH TABRAKAN
-     * 
-     * ------------------------------------------------------------
-     *
-     * INTINYA
-     *
-     * Overloading di Java ditentukan oleh signature setelah erasure
-     *
-     * Bukan:
-     * bukan dari <T>
-     * bukan dari <V>
-     *
-     * Tapi dari:
-     * tipe nyata setelah compile
-     *
-     * KENAPA INI BAHAYA?
-     *
-     * Karena keliatan valid:
-     * set(T)
-     * set(V)
-     *
-     * Tapi sebenarnya:
-     * compiler lihat → sama aja
-     */
-
-    /**
-     * "SOLUSI" YANG KELIHATAN BENER (TAPI MASIH NGACO)
-     *
-     * coba:
-     * class MyGenClass<T, V extends Number> {
-     *
-     * Sekarang erasure jadi:
-     * void set(Object o)
-     * void set(Number o)
-     *
-     * beda → OK (sementara)
-     *
-     * Tapi…
-     * MyGenClass<Number, Number> x = new MyGenClass<>();
-     *
-     * Sekarang:
-     * T = Number
-     * V = Number
-     *
-     * Jadi:
-     * set(Number)
-     * set(Number)
-     *
-     * BALIK ERROR LAGI
-     * 
-     * KESIMPULAN
-     * 
-     * Ambiguity terjadi karena:
-     * 1. Erasure bikin tipe jadi sama
-     * 2. Overloading jadi bentrok
-     * 3. Generics gak menjamin tipe beda
-     */
-
-    /**
-     * CARA BENER (BEST PRACTICE)
-     * 
-     * Pakai nama method beda
-     * void setT(T o) {
-     *   ob1 = o;
-     * }
-     *
-     * void setV(V o) {
-     *   ob2 = o;
-     * }
-     *
-     * ini yang paling aman
-     *
-     * Atau satu method saja
-     * void set(T o1, V o2) {
-     *   ob1 = o1;
-     *   ob2 = o2;
-     * }
-     *
-     * JANGAN maksa overload generics kayak gini
-     * void set(T o)
-     * void set(V o)
-     *
-     * ini desain jelek di Java
-     *
-     * -----------------------------------------
-     * 
-     * CARA MIKIR BIAR GAK KEJEBAK
-     * Setiap lu nulis generics:
-     * Tanya ke diri sendiri:
-     * “Kalau <T> dihapus… jadi apa?”
-     *
-     * Kalau jawabannya:
-     * jadi sama → berarti bakal error
-     *
-     * ANALOGI SIMPLE
-     *
-     * Lu kira punya 2 orang:
-     * T = Andi
-     * V = Budi
-     *
-     * Tapi di runtime:
-     * semuanya jadi “Orang”
-     *
-     * Jadi:
-     * set(Orang)
-     * set(Orang)
-     *
-     * ya jelas tabrakan 
-     *
-     * --------------------------------------------------
-     * 
-     * HUBUNGAN SAMA YANG LU PELAJARI SEBELUMNYA
-     *
-     * Ini nyambung ke:
-     * erasure → penyebab utama
-     * bridge method → solusi untuk override
-     * instanceof → gak bisa cek tipe generic
-     * raw type → balik ke Object
-     *
-     * Semua satu ekosistem
-     */
-
+/**
+ * Overloading Method pada Generic Class
+ *
+ * Salah satu keterbatasan Generic di Java adalah:
+ * method tidak dapat dioverload hanya berdasarkan
+ * parameter bertipe generic yang berbeda.
+ *
+ * Penyebab utamanya adalah:
+ * Type Erasure.
+ *
+ * ------------------------------------------------------------
+ *
+ * Contoh
+ *
+ * class MyGenClass<T, V> {
+ *
+ *     T ob1;
+ *     V ob2;
+ *
+ *     void set(T value) {
+ *         ob1 = value;
+ *     }
+ *
+ *     void set(V value) {
+ *         ob2 = value;
+ *     }
+ * }
+ *
+ * Sekilas terlihat valid karena:
+ *
+ * set(T)
+ * set(V)
+ *
+ * tampak seperti dua method yang berbeda.
+ *
+ * Namun sebenarnya kode di atas TIDAK bisa dikompilasi.
+ *
+ * Compiler akan menghasilkan error seperti:
+ *
+ * name clash:
+ * set(V) and set(T) have the same erasure
+ *
+ * ------------------------------------------------------------
+ *
+ * Penyebab Utama: Type Erasure
+ *
+ * Generic di Java hanya digunakan saat proses kompilasi
+ * (compile-time).
+ *
+ * Setelah proses kompilasi selesai,
+ * informasi tipe generic akan dihapus (type erasure).
+ *
+ * Secara konsep,
+ * compiler mengubah class di atas menjadi kira-kira seperti ini:
+ *
+ * class MyGenClass {
+ *
+ *     Object ob1;
+ *     Object ob2;
+ *
+ *     void set(Object value) {
+ *         ob1 = value;
+ *     }
+ *
+ *     void set(Object value) {
+ *         ob2 = value;
+ *     }
+ * }
+ *
+ * Sekarang terlihat masalahnya:
+ *
+ * Kedua method memiliki signature yang sama:
+ *
+ * set(Object)
+ * set(Object)
+ *
+ * Java tidak mengizinkan dua method dengan signature identik,
+ * sehingga terjadi name clash.
+ *
+ * ------------------------------------------------------------
+ *
+ * Mengapa Overloading Gagal?
+ *
+ * Di Java,
+ * overloading ditentukan berdasarkan method signature,
+ * yaitu:
+ *
+ * - nama method
+ * - jumlah parameter
+ * - tipe parameter
+ *
+ * Return type maupun parameter generic
+ * tidak ikut menentukan overload.
+ *
+ * Setelah type erasure,
+ * parameter generic biasanya berubah menjadi:
+ *
+ * Object
+ *
+ * atau
+ *
+ * bound type (jika menggunakan extends).
+ *
+ * Akibatnya,
+ * dua method yang awalnya tampak berbeda
+ * bisa berubah menjadi identik.
+ *
+ * ------------------------------------------------------------
+ *
+ * Bagaimana Jika Generic Memiliki Bound?
+ *
+ * Misalnya:
+ *
+ * class MyGenClass<T, V extends Number> {
+ *
+ *     void set(T value) { }
+ *
+ *     void set(V value) { }
+ * }
+ *
+ * Setelah type erasure,
+ * compiler melihatnya sebagai:
+ *
+ * void set(Object value)
+ * void set(Number value)
+ *
+ * Karena Object dan Number berbeda,
+ * contoh di atas VALID dan dapat dikompilasi.
+ *
+ * Namun hal ini hanya berlaku karena hasil erasure
+ * menghasilkan tipe parameter yang berbeda.
+ *
+ * ------------------------------------------------------------
+ *
+ * Kesalahpahaman yang Sering Terjadi
+ *
+ * Banyak yang mengira:
+ *
+ * MyGenClass<Number, Number>
+ *
+ * akan membuat dua method berubah menjadi:
+ *
+ * set(Number)
+ * set(Number)
+ *
+ * lalu menjadi error.
+ *
+ * Itu tidak benar.
+ *
+ * Yang menentukan valid atau tidaknya overload
+ * adalah proses compile pada generic class,
+ * bukan saat generic diinstansiasi.
+ *
+ * Setelah class berhasil dikompilasi,
+ * instansiasi generic tidak akan mengubah
+ * method signature yang sudah dihasilkan compiler.
+ *
+ * ------------------------------------------------------------
+ *
+ * Best Practice
+ *
+ * Hindari membuat overload seperti:
+ *
+ * void set(T value)
+ * void set(V value)
+ *
+ * karena mudah menimbulkan konflik akibat type erasure.
+ *
+ * Sebaiknya gunakan nama method yang berbeda,
+ * misalnya:
+ *
+ * void setFirst(T value) {
+ *     ob1 = value;
+ * }
+ *
+ * void setSecond(V value) {
+ *     ob2 = value;
+ * }
+ *
+ * atau gunakan satu method:
+ *
+ * void set(T first, V second) {
+ *     ob1 = first;
+ *     ob2 = second;
+ * }
+ *
+ * Pendekatan ini lebih jelas,
+ * lebih aman,
+ * dan menghindari masalah name clash.
+ *
+ * ------------------------------------------------------------
+ *
+ * Cara Berpikir yang Benar
+ *
+ * Saat membuat Generic,
+ * biasakan bertanya:
+ *
+ * "Setelah type erasure, parameter method ini menjadi apa?"
+ *
+ * Jika dua method menghasilkan signature yang sama
+ * setelah type erasure,
+ * maka overload tersebut tidak valid.
+ *
+ * ------------------------------------------------------------
+ *
+ * Hubungan dengan Materi Generic Lainnya
+ *
+ * Masalah ini berkaitan langsung dengan:
+ *
+ * - Type Erasure
+ * - Raw Type
+ * - Bridge Method
+ * - Batasan instanceof pada Generic
+ *
+ * Semuanya berasal dari fakta bahwa
+ * informasi tipe generic tidak dipertahankan saat runtime.
+ *
+ * ------------------------------------------------------------
+ *
+ * Ringkasan
+ *
+ * - Overloading ditentukan berdasarkan method signature.
+ * - Generic tidak ikut menentukan overload.
+ * - Setelah type erasure, parameter generic biasanya menjadi
+ *   Object atau bound type.
+ * - Jika dua method memiliki signature yang sama setelah erasure,
+ *   compiler akan menghasilkan name clash.
+ * - Gunakan nama method yang berbeda apabila method menerima
+ *   parameter generic yang berbeda untuk menghindari konflik.
+ */
 
 public class AmbiguityErrors {
     public static void main(String[] args) {

@@ -5,6 +5,7 @@ public class UnaryOperators {
 
         /**
          * Unary operator adalah operator yang bekerja pada satu operand saja.
+         * 
          * Contoh unary operator di java:
          *
          * Operator	    Fungsi

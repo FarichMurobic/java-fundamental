@@ -1,18 +1,33 @@
 package FundamentalJava.Generics;
 
-/**
- * APA ITU ERASURE?
- * Intinya:
- * Semua informasi generic DIHAPUS saat compile
+/* ============================================================
+ *                        TYPE ERASURE
+ * ============================================================
  *
- * Jadi pas program jalan (runtime):
- * TIDAK ADA lagi <T>, <Integer>, dll
- * Java cuma lihat Object / tipe bound
+ * Type erasure adalah mekanisme yang digunakan oleh compiler Java
+ * untuk menghapus informasi generic setelah proses compile-time.
  *
- * ---------------------------
- * 
- * PROSESNYA GIMANA?
- * Misalnya lu punya kode:
+ * Artinya, saat program dijalankan (runtime), JVM tidak lagi
+ * mengetahui informasi generic seperti:
+ *
+ * <T>
+ * <Integer>
+ * <String>
+ *
+ * Sebagian besar informasi tersebut telah dihapus dan diganti
+ * dengan Object atau tipe batasnya (bound).
+ *
+ * Oleh karena itu, generic merupakan fitur yang bekerja
+ * terutama pada saat compile-time.
+ */
+
+
+/* ------------------------------------------------------------
+ * Bagaimana Proses Type Erasure Bekerja?
+ * ------------------------------------------------------------
+ *
+ * Misalkan terdapat class generic berikut:
+ *
  * class Box<T> {
  *     T data;
  *
@@ -25,8 +40,8 @@ package FundamentalJava.Generics;
  *     }
  * }
  *
- * Setelah di-compile (ERASURE)
- * Kurang lebih jadi gini:
+ * Setelah melalui proses type erasure, bentuk konseptualnya
+ * menjadi:
  *
  * class Box {
  *     Object data;
@@ -40,47 +55,165 @@ package FundamentalJava.Generics;
  *     }
  * }
  *
- * Lihat?
- * T hilang 
- * diganti jadi Object
+ * Terlihat bahwa seluruh penggunaan T telah dihapus dan
+ * diganti menjadi Object karena T tidak memiliki bound.
  *
- * TERUS KOK BISA BALIK JADI INTEGER / STRING?
+ * Catatan:
+ * Bentuk di atas merupakan ilustrasi konseptual untuk membantu
+ * memahami proses type erasure. Bytecode yang sebenarnya
+ * dihasilkan compiler tidak persis sama dengan contoh tersebut.
+ */
+
+
+/* ------------------------------------------------------------
+ * Jika Generic Memiliki Bound
+ * ------------------------------------------------------------
  *
- * Jawabannya:
- * Compiler nambahin CAST otomatis
+ * Misalnya:
  *
- * Contoh:
+ * class Box<T extends Number> {
+ *     T data;
+ * }
+ *
+ * Karena T memiliki upper bound Number,
+ * maka setelah type erasure:
+ *
+ * T
+ *
+ * tidak diganti menjadi Object, melainkan:
+ *
+ * Number
+ *
+ * Jadi aturan sederhananya adalah:
+ *
+ * - Tanpa bound  → Object
+ * - Dengan bound → Bound tersebut
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Nilainya Tetap Menjadi Integer atau String?
+ * ------------------------------------------------------------
+ *
+ * Misalnya terdapat kode:
+ *
  * Box<Integer> box = new Box<>(10);
- * Integer val = box.getData();
- * Setelah erasure:
+ * Integer value = box.getData();
+ *
+ * Setelah type erasure, secara konseptual compiler mengubahnya
+ * menjadi:
+ *
  * Box box = new Box(10);
- * Integer val = (Integer) box.getData(); // otomatis ditambah compiler
+ * Integer value = (Integer) box.getData();
  *
- * -------------------------------------------
- * 
- * Nah ini penting:
- * Generic itu cuma bantu di compile-time
- * Runtime tetap pakai cast
+ * Perhatikan bahwa compiler secara otomatis menambahkan
+ * proses casting yang diperlukan.
  *
- * KENAPA JAVA PAKE ERASURE?
+ * Programmer tidak perlu menuliskan casting tersebut secara manual.
+ */
+
+
+/* ------------------------------------------------------------
+ * Peran Compiler
+ * ------------------------------------------------------------
  *
- * Karena:
- * Backward Compatibility
+ * Generic bekerja terutama pada saat compile-time.
  *
- * Artinya:
- * Code Java lama (sebelum generics) tetap jalan
- * JVM gak perlu diubah
+ * Compiler bertugas untuk:
  *
- * KESIMPULAN SUPER PENTING
- * Generics = compile-time feature
- * Runtime = tidak tahu generic
- * Semua <T> → dihapus (erased)
- * Diganti:
- * Object
- * atau bound (misalnya Number)
- * Compiler otomatis nambah:
- * cast
- * pengecekan type safety
+ * - Memeriksa type safety.
+ * - Menolak penggunaan generic yang tidak valid.
+ * - Menambahkan cast yang diperlukan setelah type erasure.
+ *
+ * Setelah proses tersebut selesai, bytecode yang dihasilkan
+ * tidak lagi menyimpan sebagian besar informasi generic.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Java Menggunakan Type Erasure?
+ * ------------------------------------------------------------
+ *
+ * Salah satu alasan utama adalah backward compatibility.
+ *
+ * Ketika generic diperkenalkan pada Java 5,
+ * sudah terdapat sangat banyak aplikasi dan library Java
+ * yang tidak menggunakan generic.
+ *
+ * Dengan menggunakan type erasure:
+ *
+ * - JVM tidak perlu diubah untuk memahami generic.
+ * - Bytecode lama tetap dapat dijalankan.
+ * - Library lama tetap kompatibel dengan kode yang
+ *   menggunakan generic.
+ *
+ * Pendekatan ini memungkinkan generic ditambahkan ke Java
+ * tanpa merusak ekosistem yang sudah ada.
+ */
+
+
+/* ------------------------------------------------------------
+ * Dampak Type Erasure
+ * ------------------------------------------------------------
+ *
+ * Karena informasi generic dihapus saat runtime:
+ *
+ * - JVM tidak mengetahui tipe generic sebenarnya.
+ *
+ * - Object seperti Box<Integer> dan Box<String> pada dasarnya
+ *   menggunakan representasi runtime yang sama.
+ *
+ * - Operasi tertentu yang membutuhkan informasi generic
+ *   saat runtime menjadi tidak memungkinkan secara langsung.
+ *
+ * Inilah alasan mengapa beberapa fitur generic memiliki
+ * keterbatasan, seperti tidak dapat membuat instance T secara
+ * langsung atau melakukan pengecekan instanceof terhadap
+ * parameterized type tertentu.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Generic merupakan fitur yang bekerja pada compile-time.
+ *
+ * - Compiler menerapkan type erasure dengan menghapus sebagian
+ *   besar informasi generic.
+ *
+ * - Type parameter tanpa bound diganti menjadi Object.
+ *
+ * - Type parameter yang memiliki bound diganti menjadi
+ *   tipe bound tersebut.
+ *
+ * - Compiler secara otomatis menambahkan cast yang diperlukan
+ *   agar program tetap type-safe.
+ *
+ * - JVM menjalankan bytecode yang sebagian besar sudah tidak
+ *   mengandung informasi generic.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Type erasure merupakan fondasi dari implementasi generic
+ * di Java.
+ *
+ * Mekanisme ini juga menjadi alasan munculnya berbagai konsep
+ * penting lainnya, seperti:
+ *
+ * - Bridge Method
+ * - Type Safety
+ * - Bounded Type Parameter
+ * - Bounded Wildcard
+ *
+ * Memahami type erasure akan memudahkan dalam memahami
+ * cara kerja generic secara menyeluruh serta menjelaskan
+ * mengapa beberapa batasan generic memang dirancang
+ * seperti itu.
  */
 
 // ini contoh kode BRIDGE METHOD

@@ -1,138 +1,420 @@
 package FundamentalJava.MultiThreaded;
 
-/**
- * Deadlock
+/*
+ * ============================================================
+ * Deadlock Pada Multithreading Java
+ * ============================================================
  *
- * Deadlock adalah error khusus di multitasking yang terjadi ketika:
- * Dua thread saling nunggu satu sama lain selamanya
+ * Deadlock adalah kondisi ketika dua atau lebih thread saling
+ * menunggu resource yang sedang dikunci oleh thread lain,
+ * sehingga semua thread tersebut tidak dapat melanjutkan eksekusi.
+ *
+ * Berbeda dengan exception:
+ *
+ * Deadlock tidak menyebabkan program crash.
+ *
+ * Program tetap berjalan, tetapi thread berhenti bekerja karena
+ * semuanya menunggu satu sama lain.
+ *
+ * ------------------------------------------------------------
+ * Contoh Sederhana Deadlock
+ * ------------------------------------------------------------
+ *
+ * Misalkan terdapat dua object:
+ *
+ * Object X
+ * Object Y
+ *
+ *
+ * Thread 1:
+ *
+ * Mengunci X
+ * Membutuhkan Y
+ *
+ *
+ * Thread 2:
+ *
+ * Mengunci Y
+ * Membutuhkan X
+ *
+ *
+ * Kondisi:
+ *
+ * Thread 1:
+ * "Saya menunggu Y."
+ *
+ * Thread 2:
+ * "Saya menunggu X."
+ *
+ *
+ * Karena:
+ *
+ * Thread 1 menunggu Thread 2
+ * Thread 2 menunggu Thread 1
+ *
+ *
+ * Maka keduanya tidak pernah selesai.
+ *
+ * ------------------------------------------------------------
+ * Inti Deadlock: Circular Waiting
+ * ------------------------------------------------------------
+ *
+ * Penyebab utama deadlock adalah:
+ *
+ * Circular waiting
+ *
  *
  * Contoh:
- * Thread 1 pegang lock di object X
- * Thread 2 pegang lock di object Y
  *
- * Lalu:
- * Thread 1 butuh Y → nunggu
- * Thread 2 butuh X → nunggu
+ * Thread A
  *
- * Hasilnya: dua-duanya stuck selamanya
+ * Memegang lock A
+ *        |
+ *        v
+ * Membutuhkan lock B
  *
- * --------------
- * 
- * Kenapa Deadlock susah dideteksi?
- * Jarang terjadi
- * Harus timing-nya pas banget
- * Bisa kompleks
- * Bisa lebih dari 2 thread & 2 object
  *
- * -----------------------------
- * 
- * Penjelasan Inti (biar kebayang jelas)
- * 
- * Inti Deadlock = Circular Waiting
+ * Thread B
  *
- * Bayangin:
- * Thread A → pegang kunci A → butuh kunci B
- * Thread B → pegang kunci B → butuh kunci A
+ * Memegang lock B
+ *        |
+ *        v
+ * Membutuhkan lock A
  *
- * Jadinya:
- * A nunggu B
- * B nunggu A
  *
- * Nggak ada yang bisa jalan lagi
- */
-
-/**
- * BEDAH CONTOH KODE PROGRAM
+ * Hasil:
  *
- * Apa yang terjadi step-by-step?
+ * A menunggu B
+ * B menunggu A
+ *
+ *
+ * Tidak ada thread yang dapat melanjutkan.
+ *
+ * ------------------------------------------------------------
+ * Empat Kondisi Terjadinya Deadlock
+ * ------------------------------------------------------------
+ *
+ * Deadlock dapat terjadi jika empat kondisi berikut terpenuhi:
+ *
+ * 1. Mutual Exclusion
+ *
+ * Resource hanya dapat digunakan oleh satu thread pada satu
+ * waktu.
+ *
+ *
+ * Contoh:
+ *
+ * synchronized(object)
+ *
+ *
+ * 2. Hold and Wait
+ *
+ * Thread sudah memegang satu lock dan menunggu lock lain.
+ *
+ *
+ * 3. No Preemption
+ *
+ * Lock tidak dapat dipaksa diambil dari thread lain.
+ *
+ *
+ * 4. Circular Waiting
+ *
+ * Thread saling menunggu membentuk lingkaran.
+ *
+ *
+ * Jika empat kondisi ini terjadi bersamaan,
+ * deadlock dapat terjadi.
+ *
+ * ------------------------------------------------------------
+ * Analisis Contoh Program Deadlock
+ * ------------------------------------------------------------
+ *
+ * Misalkan terdapat:
+ *
+ * Class A
+ * Class B
+ *
+ *
+ * MainThread:
+ *
+ * Memanggil:
+ *
+ * A.foo()
+ *
+ *
+ * Kemudian:
+ *
+ * MainThread mendapatkan lock object A.
+ *
+ *
+ * RacingThread:
+ *
+ * Memanggil:
+ *
+ * B.bar()
+ *
+ *
+ * RacingThread mendapatkan lock object B.
+ *
+ *
+ * Selanjutnya:
+ *
+ * MainThread ingin menjalankan:
+ *
+ * B.last()
+ *
+ *
+ * Tetapi B sedang dikunci RacingThread.
+ *
+ *
+ * Maka:
+ *
+ * MainThread menunggu B.
+ *
+ *
+ * Di sisi lain:
+ *
+ * RacingThread ingin menjalankan:
+ *
+ * A.last()
+ *
+ *
+ * Tetapi A sedang dikunci MainThread.
+ *
+ *
+ * Maka:
+ *
+ * RacingThread menunggu A.
+ *
+ *
+ * Kondisi akhir:
+ *
+ * MainThread menunggu RacingThread
+ *
+ * RacingThread menunggu MainThread
+ *
+ *
+ * DEADLOCK terjadi.
+ *
+ * ------------------------------------------------------------
+ * Contoh Alur Eksekusi
+ * ------------------------------------------------------------
+ *
  * MainThread
- * masuk A.foo()
- * pegang lock A
+ *      |
+ *      v
+ * Masuk A.foo()
+ *      |
+ *      v
+ * Mendapatkan lock A
+ *
  *
  * RacingThread
- * masuk B.bar()
- * pegang lock B
+ *      |
+ *      v
+ * Masuk B.bar()
+ *      |
+ *      v
+ * Mendapatkan lock B
  *
- * Lanjut:
- * MainThread mau akses B.last() → harus nunggu B
- * RacingThread mau akses A.last() → harus nunggu A
  *
- * BOOM → DEADLOCK
- * Output:
- * MainThread entered A.foo
- * RacingThread entered B.bar
- * MainThread trying to call B.last()
- * RacingThread trying to call A.last()
+ * Kemudian:
  *
- * Program freeze selamanya
+ * MainThread membutuhkan B
  *
- * -----------------------------------------
- * 
- * Insight penting (ini yang bikin lu “naik level”)
- * 
- * 1. Deadlock = bukan error biasa
- * Nggak ada exception
- * Program cuma diam 
+ * RacingThread membutuhkan A
  *
- * 2. sleep() di sini cuma pemancing
- * Thread.sleep(1000);
  *
- * Tujuannya:
- * Biar timing bentrok
- * Deadlock jadi konsisten
+ * Program berhenti selamanya.
  *
- * 3. Ini masalah desain, bukan syntax
- * Kode lu bisa:
- * Compile 
- * Run 
- * Tapi tetep salah 
+ * ------------------------------------------------------------
+ * Kenapa Deadlock Sulit Dideteksi?
+ * ------------------------------------------------------------
  *
- * ------------------
- * 
- * Cara Menghindari Deadlock (WAJIB TAU)
- * 
- * 1. Lock Order (paling penting)
- * Selalu ambil lock dengan urutan yang sama:
+ * Deadlock sering sulit ditemukan karena:
  *
- * SALAH:
- * Thread A: lock A → lock B
- * Thread B: lock B → lock A
+ * - Tidak selalu terjadi.
+ * - Bergantung pada timing thread.
+ * - Bisa muncul hanya pada kondisi tertentu.
+ * - Bisa melibatkan banyak thread dan banyak resource.
  *
- * BENAR:
- * Semua thread: lock A → lock B
  *
- * 2. Hindari nested synchronized berlebihan
+ * Program dapat:
+ *
+ * Compile berhasil
+ *
+ * Run berhasil
+ *
+ * Tetapi memiliki desain concurrency yang salah.
+ *
+ * ------------------------------------------------------------
+ * Peran Thread.sleep()
+ * ------------------------------------------------------------
+ *
+ * Contoh deadlock sering menggunakan:
+ *
+ * Thread.sleep()
+ *
+ *
+ * Tujuannya bukan menyebabkan deadlock.
+ *
+ * sleep() hanya memberikan waktu agar thread lain berjalan dan
+ * mendapatkan lock yang berbeda.
+ *
+ *
+ * Dengan begitu kondisi deadlock lebih mudah terjadi dan
+ * diamati.
+ *
+ * ------------------------------------------------------------
+ * Cara Menghindari Deadlock
+ * ------------------------------------------------------------
+ *
+ * 1. Gunakan Lock Ordering
+ *
+ * Ini adalah cara paling penting.
+ *
+ *
+ * Semua thread harus mengambil lock dengan urutan yang sama.
+ *
+ *
+ * Buruk:
+ *
+ * Thread A:
+ * lock A -> lock B
+ *
+ *
+ * Thread B:
+ * lock B -> lock A
+ *
+ *
+ * Baik:
+ *
+ * Semua thread:
+ *
+ * lock A -> lock B
+ *
+ *
+ * Tidak ada circular waiting.
+ *
+ * ------------------------------------------------------------
+ * 2. Hindari Nested Synchronization Berlebihan
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
  * synchronized(a) {
+ *
  *     synchronized(b) {
- *         ...
+ *
  *     }
+ *
  * }
  *
- * Ini rawan banget deadlock
  *
- * 3. Gunakan higher-level tools
- * Di Java modern:
- * Lock (ReentrantLock)
+ * Semakin banyak lock bertingkat,
+ * semakin besar kemungkinan deadlock.
+ *
+ * ------------------------------------------------------------
+ * 3. Gunakan Concurrency Utility Modern
+ * ------------------------------------------------------------
+ *
+ * Java menyediakan API concurrency yang lebih fleksibel.
+ *
+ * Contoh:
+ *
+ * - ReentrantLock
+ * - tryLock()
+ * - Concurrent Collections
+ * - ExecutorService
+ *
+ *
+ * Contoh:
+ *
  * tryLock()
- * Concurrent Collections
  *
- * 4. Timeout (advanced)
- * Kalau nunggu terlalu lama:
- * batalin
+ * memungkinkan thread mencoba mendapatkan lock tanpa harus
+ * menunggu selamanya.
  *
- * Perbandingan sama materi sebelumnya
- * Konsep	                Fungsi
- * synchronized	            cegah tabrakan
- * wait/notify	            koordinasi
- * deadlock	                kegagalan koordinasi
+ * ------------------------------------------------------------
+ * 4. Gunakan Timeout
+ * ------------------------------------------------------------
  *
- * Ringkasan Super Padat
- * Deadlock = thread saling nunggu selamanya
- * Terjadi karena circular lock
- * Sulit dideteksi
- * Solusi utama: lock ordering
+ * Pada sistem tertentu, thread tidak boleh menunggu selamanya.
  *
- * “Thread bukan cuma jalan bareng, tapi harus didesain bener”
+ * Jika lock tidak tersedia dalam waktu tertentu:
+ *
+ * - Batalkan operasi.
+ * - Lakukan recovery.
+ *
+ * ------------------------------------------------------------
+ * Cara Mendeteksi Deadlock
+ * ------------------------------------------------------------
+ *
+ * Dalam aplikasi Java nyata, deadlock dapat dianalisis menggunakan:
+ *
+ * Thread Dump
+ *
+ *
+ * Tools:
+ *
+ * - jstack
+ * - Java Flight Recorder
+ * - VisualVM
+ *
+ *
+ * Thread dump dapat menunjukkan:
+ *
+ * "Thread A menunggu lock yang dimiliki Thread B."
+ *
+ * ------------------------------------------------------------
+ * Perbandingan Konsep Concurrency
+ * ------------------------------------------------------------
+ *
+ * synchronized
+ *
+ * Tujuan:
+ *
+ * Mencegah beberapa thread mengakses data bersamaan secara
+ * tidak aman.
+ *
+ *
+ * wait()/notify()
+ *
+ * Tujuan:
+ *
+ * Komunikasi dan koordinasi antar thread.
+ *
+ *
+ * Deadlock
+ *
+ * Masalah:
+ *
+ * Thread gagal berkoordinasi sehingga saling menunggu.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Deadlock adalah kondisi ketika thread saling menunggu lock
+ * sehingga program berhenti berjalan.
+ *
+ *
+ * Konsep penting:
+ *
+ * - Deadlock bukan exception.
+ * - Penyebab utama adalah circular waiting.
+ * - Dapat terjadi walaupun kode berhasil compile dan run.
+ * - sleep() hanya membantu memunculkan kondisi deadlock.
+ * - Solusi utama adalah lock ordering.
+ * - Gunakan concurrency utility modern jika memungkinkan.
+ *
+ *
+ * Prinsip utama:
+ *
+ * "Dalam multithreading, bukan hanya membuat thread berjalan
+ * bersamaan, tetapi juga harus mengatur bagaimana mereka
+ * berbagi resource dengan aman."
+ *
  */
 
 // class A

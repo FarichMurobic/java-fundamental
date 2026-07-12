@@ -1,40 +1,163 @@
 package FundamentalJava.OperatorLogika;
 
 /**
-         * Aturan de morgan
-         * untuk ekspresi logika yang lebih kompleks, kita pakai aturan de morgan.
-         * aturan ini seperti sihir yan memindahkan operator ! dari luar ke dalam kurung, sambil membalikkan operator && dan ||.
-         *
-         * aturan 1
-         * !(EksperrsiSatu && EkspresiDua) itu sama dengan !(EkspresiSatu) || !(EkspresiDua).
-         * analogi, "Bukan (lo punya ktp dan sim)" itu sama aja dengan lo tidak punya ktp atau lo tidak punya sim.
-         *
-         * aturan 2
-         * !(Ekspresi1 || Ekspresi2) itu sama dengan !(Ekspresi1) && !(Ekspresi2).
-         * analogi, "Bukan (lo udah makan atau lo udah mandi). itu sama aja dengan "lo tidak makan dan lo tidak mandi"
-         *
-         * intinya mengubah logka negatif menjadi positif agar lebih mudah dibaca.
-         * untuk mengubah logika negatid ke positif, cukup ganti operator relasionalnya dengan kebalikannya. ini dikenal sebagai aturan de morgan.
-         */
+ * ------------------------------------------------------------------------
+ * ATURAN DE MORGAN
+ * ------------------------------------------------------------------------
+ * 
+ * Untuk ekspresi logika yang lebih kompleks, kita menggunakan Aturan De Morgan.
+ * Aturan ini seperti sihir yang memindahkan operator ! (not) dari luar ke
+ * dalam kurung, sambil membalikkan operator && (and) dan || (or).
+ * 
+ * Tujuan utama:
+ * Mengubah logika negatif menjadi positif agar lebih mudah dibaca dan dipahami.
+ * 
+ * ------------------------------------------------------------------------
+ * ATURAN 1
+ * ------------------------------------------------------------------------
+ * 
+ * !(EkspresiSatu && EkspresiDua) sama dengan !(EkspresiSatu) || !(EkspresiDua)
+ * 
+ * Not (A and B) = (Not A) or (Not B)
+ * 
+ * Analogi:
+ * "Bukan (kamu punya KTP dan SIM)"
+ * Sama saja dengan:
+ * "Kamu tidak punya KTP atau kamu tidak punya SIM"
+ * 
+ * Contoh kode:
+ * 
+ *     boolean punyaKTP = true;
+ *     boolean punyaSIM = false;
+ * 
+ *     // Cara negatif (kurang jelas)
+ *     boolean tidakBolehMengemudi1 = !(punyaKTP && punyaSIM);
+ * 
+ *     // Cara positif (lebih mudah dibaca) - menggunakan Aturan De Morgan
+ *     boolean tidakBolehMengemudi2 = !punyaKTP || !punyaSIM;
+ * 
+ * ------------------------------------------------------------------------
+ * ATURAN 2
+ * ------------------------------------------------------------------------
+ * 
+ * !(Ekspresi1 || Ekspresi2) sama dengan !(Ekspresi1) && !(Ekspresi2)
+ * 
+ * Not (A or B) = (Not A) and (Not B)
+ * 
+ * Analogi:
+ * "Bukan (kamu sudah makan atau kamu sudah mandi)"
+ * Sama saja dengan:
+ * "Kamu tidak makan dan kamu tidak mandi"
+ * 
+ * Contoh kode:
+ * 
+ *     boolean sudahMakan = true;
+ *     boolean sudahMandi = false;
+ * 
+ *     // Cara negatif (kurang jelas)
+ *     boolean belumSiap1 = !(sudahMakan || sudahMandi);
+ * 
+ *     // Cara positif (lebih mudah dibaca) - menggunakan Aturan De Morgan
+ *     boolean belumSiap2 = !sudahMakan && !sudahMandi;
+ * 
+ * ------------------------------------------------------------------------
+ * ATURAN DE MORGAN UNTUK OPERATOR RELASIONAL
+ * ------------------------------------------------------------------------
+ * 
+ * Untuk mengubah logika negatif ke positif, cukup ganti operator
+ * relasionalnya dengan kebalikannya.
+ * 
+ * Operator        | Kebalikannya
+ * ----------------|-------------
+ * ==              | !=
+ * !=              | ==
+ * >               | <=
+ * >=              | <
+ * <               | >=
+ * <=              | >
+ * 
+ * Contoh:
+ * 
+ *     // Negatif (kurang jelas)
+ *     boolean hasil1 = !(nilai > 10);
+ * 
+ *     // Positif (lebih jelas) - ubah > menjadi <=
+ *     boolean hasil2 = nilai <= 10;
+ * 
+ *     // Negatif (kurang jelas)
+ *     boolean hasil3 = !(nama.equals("Budi"));
+ * 
+ *     // Positif (lebih jelas)
+ *     boolean hasil4 = !nama.equals("Budi");
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH KOMPLEKS
+ * ------------------------------------------------------------------------
+ * 
+ * Ekspresi kompleks dengan beberapa kondisi:
+ * 
+ *     // Kondisi awal (sulit dibaca)
+ *     boolean bolehMasuk = !(umur >= 17 && (punyaKTP || punyaSIM));
+ * 
+ *     // Gunakan Aturan De Morgan step by step:
+ *     // 1. !(A && (B || C))
+ *     // 2. !A || !(B || C)
+ *     // 3. !A || (!B && !C)
+ * 
+ *     boolean bolehMasuk2 = !(umur >= 17) || (!punyaKTP && !punyaSIM);
+ * 
+ *     // Sederhanakan lagi:
+ *     boolean bolehMasuk3 = umur < 17 || (!punyaKTP && !punyaSIM);
+ * 
+ * ------------------------------------------------------------------------
+ * KAPAN MENGGUNAKAN ATURAN DE MORGAN?
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Ketika kondisi logika terlihat rumit dan sulit dipahami
+ * 2. Untuk menyederhanakan ekspresi boolean yang kompleks
+ * 3. Untuk mengubah logika negatif menjadi positif (lebih natural)
+ * 4. Saat melakukan refactoring kode agar lebih readable
+ * 
+ * ------------------------------------------------------------------------
+ * KESIMPULAN INTI
+ * ------------------------------------------------------------------------
+ * 
+ * Aturan De Morgan:
+ * 
+ * 1. !(A && B) = !A || !B
+ * 2. !(A || B) = !A && !B
+ * 
+ * Intinya:
+ * - Pindahkan ! ke dalam
+ * - Balik && menjadi ||
+ * - Balik || menjadi &&
+ * 
+ * Manfaat:
+ * - Kode lebih mudah dibaca
+ * - Logika lebih natural
+ * - Mengurangi kebingungan
+ * 
+ * ------------------------------------------------------------------------
+ */
 
-        /**
-         * Aturan pelengkap operator relasional, ini adalah pelengkap atau komplemen mengubah opeator menjadi pasangannya.
-         * <    -   >=      contoh !(number1 < 7)   =   (number1 >= 7)
-         * <=   -   >       contoh !(number1 <= 7)  =   (number1 > 7)
-         * >    -   <=      contoh !(number1 > 7)   =   (number1 <= 7)
-         * >=   -   <       contoh !(number1 >= 7)  =   (number1 < 7)
-         * ==   -   !=      contoh !(number1 == 7)  =   (number1 != 7)
-         * !=   -   ==      contoh !(number1 == 7)  =   (number1 == 7)
-         *
-         * Analogi: kalau lu bilang "Bukan(umur lu dibawah 17) itu sama aja lu bilang
-         * "umur lu lebih dari atau sama dengan 17" ini lebih mudah dipahami kan.
-         */
+/**
+ * Aturan pelengkap operator relasional, ini adalah pelengkap atau komplemen mengubah opeator menjadi pasangannya.
+ * <    -   >=      contoh !(number1 < 7)   =   (number1 >= 7)
+ * <=   -   >       contoh !(number1 <= 7)  =   (number1 > 7)
+ * >    -   <=      contoh !(number1 > 7)   =   (number1 <= 7)
+ * >=   -   <       contoh !(number1 >= 7)  =   (number1 < 7)
+ * ==   -   !=      contoh !(number1 == 7)  =   (number1 != 7)
+ * !=   -   ==      contoh !(number1 == 7)  =   (number1 == 7)
+ *
+ * Analogi: kalau lu bilang "Bukan(umur lu dibawah 17) itu sama aja lu bilang
+ * "umur lu lebih dari atau sama dengan 17" ini lebih mudah dipahami kan.
+ */
 
 import java.util.Scanner;
 
 public class AturanDeMorgan {
     public static void main(String[] args) {
-        
+
         // penerapan kode: validator kata sandi
 
         Scanner input = new Scanner(System.in);

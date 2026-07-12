@@ -2,6 +2,7 @@ package FundamentalJava.OperatorBitwise;
 
         /**
          * Bitwise Operators
+         * 
          * Java memiliki beberapa operator bitwise yang bisa digunakan pada tipe integer:
          * -long
          * -int

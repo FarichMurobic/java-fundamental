@@ -1,94 +1,241 @@
 package FundamentalJava.Generics;
 
-/**
- * Saat kita pakai generics:
- * tipe yang dimasukin ke <T> harus reference type
+/* ============================================================
+ *             GENERICS DAN REFERENCE TYPE
+ * ============================================================
  *
- * Tidak boleh:
+ * Pada Java, type argument yang digunakan pada generic
+ * harus berupa reference type (tipe referensi).
+ *
+ * Primitive type tidak dapat digunakan secara langsung
+ * sebagai type argument.
+ *
+ * Primitive type:
+ *
  * int
+ * long
+ * short
+ * byte
+ * float
+ * double
  * char
- * double
+ * boolean
  *
- * Contoh SALAH
- * Gen<int> intOb = new Gen<int>(53); // Error, tidak bisa pakai tipe primitive
+ * Seluruh tipe di atas tidak dapat ditulis di dalam
+ * parameter generic.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh yang Tidak Valid
+ * ------------------------------------------------------------
  *
- * Ini error saat compile
+ * Gen<int> obj = new Gen<int>(53);
  *
- * Kenapa?
- * Karena generics di Java:
- * cuma bekerja dengan object (class)
+ * Kode tersebut menghasilkan compile-time error karena
+ * int merupakan primitive type.
  *
- * Solusi
- * Pakai wrapper class:
- * Primitive	    Wrapper
- * int	            Integer
- * char	            Character
- * double	        Double
+ * Generic di Java hanya menerima object (reference type),
+ * bukan primitive type.
+ */
+
+
+/* ------------------------------------------------------------
+ * Solusinya: Wrapper Class
+ * ------------------------------------------------------------
  *
- * Contoh BENAR
- * Gen<Integer> intOb = new Gen<Integer>(53);
+ * Setiap primitive type memiliki pasangan berupa wrapper class.
  *
- * Kenapa gak masalah?
- * Karena ada:
+ * Primitive        Wrapper
+ * --------------------------------
+ * byte             Byte
+ * short            Short
+ * int              Integer
+ * long             Long
+ * float            Float
+ * double           Double
+ * char             Character
+ * boolean          Boolean
  *
- * Autoboxing & Unboxing
- * new Gen<Integer>(53);
+ * Wrapper class merupakan reference type sehingga dapat
+ * digunakan sebagai type argument pada generic.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh yang Valid
+ * ------------------------------------------------------------
  *
- * 53 otomatis jadi Integer
+ * Gen<Integer> obj = new Gen<>(53);
  *
- * GENERIC BERBEDA = TIPE BERBEDA
- * 
- * Intinya
- * Walaupun sama-sama Gen<T>:
- * Gen<Integer> bukan Gen<String>
+ * Pada contoh tersebut:
  *
- * Contoh ERROR
- * iOb = strOb; // Salah!
+ * Integer merupakan wrapper class sehingga dapat digunakan
+ * sebagai type argument.
  *
- * Kenapa?
+ * Penulisan diamond operator (<>) juga memungkinkan compiler
+ * melakukan type inference terhadap type argument.
+ */
+
+
+/* ------------------------------------------------------------
+ * Autoboxing dan Unboxing
+ * ------------------------------------------------------------
  *
- * iOb = Gen<Integer>
- * strOb = Gen<String>
+ * Perhatikan kode berikut:
  *
- * beda tipe → gak kompatibel
+ * Gen<Integer> obj = new Gen<>(53);
  *
- * Ini penting banget
- * Generics bikin Java jadi ketat (strict)
+ * Meskipun nilai yang diberikan adalah primitive int,
+ * compiler secara otomatis melakukan:
  *
- * -------------------------------------
- * 
- * KONSEP DALAM (WAJIB NGENA)
- * 
- * Generics = Mengubah Runtime Error → Compile Error
+ * Autoboxing
  *
- * Ini penting banget bro
- * Kenapa ini bagus?
+ * yaitu mengubah:
  *
- * Karena:
- * bug ketahuan lebih cepat
- * gak bikin program crash di user
- *
- * KESIMPULAN SUPER JELAS
- * 1. Generics hanya untuk reference type
  * int
- * double
+ *
+ * menjadi:
+ *
  * Integer
- * String
  *
- * 2. Generic beda = tipe beda
- * Gen<Integer> ≠ Gen<String>
+ * Sebaliknya, ketika object Integer digunakan sebagai int,
+ * compiler akan melakukan:
  *
- * 3. Tanpa generics:
- * harus casting
- * rawan error runtime
+ * Unboxing
  *
- * 4. Dengan generics:
- * gak perlu casting
- * aman
- * error ketahuan saat compile
+ * Kedua proses tersebut berlangsung secara otomatis sehingga
+ * programmer tidak perlu melakukan konversi secara manual.
+ */
+
+
+/* ------------------------------------------------------------
+ * Generic dengan Type Argument Berbeda
+ * ------------------------------------------------------------
  *
- * 5. Poin paling penting:
- * Generics = keamanan tipe (type safety)
+ * Walaupun berasal dari generic class yang sama,
+ * setiap type argument menghasilkan tipe yang berbeda.
+ *
+ * Contoh:
+ *
+ * Gen<Integer>
+ * Gen<String>
+ *
+ * Kedua tipe tersebut tidak memiliki hubungan inheritance
+ * hanya karena menggunakan generic class yang sama.
+ *
+ * Artinya:
+ *
+ * Gen<Integer>
+ *
+ * bukan merupakan subtype maupun supertype dari:
+ *
+ * Gen<String>
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh yang Tidak Valid
+ * ------------------------------------------------------------
+ *
+ * Gen<Integer> intObj = new Gen<>(10);
+ * Gen<String> strObj = new Gen<>("Hello");
+ *
+ * intObj = strObj;
+ *
+ * Compiler akan menghasilkan compile-time error karena:
+ *
+ * Gen<Integer>
+ *
+ * dan:
+ *
+ * Gen<String>
+ *
+ * merupakan dua parameterized type yang berbeda.
+ *
+ * Java menjaga agar object dengan type argument berbeda
+ * tidak dapat dipertukarkan secara sembarangan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Aturan Ini Penting?
+ * ------------------------------------------------------------
+ *
+ * Salah satu tujuan utama generic adalah menjaga
+ * type safety.
+ *
+ * Dengan membedakan setiap parameterized type,
+ * compiler dapat mencegah penggunaan object yang
+ * tidak sesuai sejak proses kompilasi.
+ *
+ * Hal ini mengurangi kemungkinan terjadinya
+ * ClassCastException saat program dijalankan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Generic Mengubah Runtime Error Menjadi Compile-Time Error
+ * ------------------------------------------------------------
+ *
+ * Sebelum generic diperkenalkan,
+ * collection umumnya menggunakan Object.
+ *
+ * Akibatnya programmer harus melakukan casting manual
+ * ketika mengambil data.
+ *
+ * Kesalahan casting sering kali baru diketahui
+ * saat program dijalankan (runtime).
+ *
+ * Dengan generic:
+ *
+ * - Type diperiksa oleh compiler.
+ * - Casting dilakukan secara otomatis jika diperlukan.
+ * - Kesalahan tipe dapat ditemukan lebih awal,
+ *   yaitu saat compile-time.
+ *
+ * Pendekatan ini membuat program menjadi lebih aman
+ * dan lebih mudah dipelihara.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Generic hanya menerima reference type sebagai
+ *   type argument.
+ *
+ * - Primitive type harus menggunakan wrapper class.
+ *
+ * - Autoboxing dan unboxing memungkinkan konversi otomatis
+ *   antara primitive type dan wrapper class.
+ *
+ * - Setiap parameterized type merupakan tipe yang berbeda.
+ *
+ *      Gen<Integer> ≠ Gen<String>
+ *
+ * - Generic membantu memindahkan banyak kesalahan tipe
+ *   dari runtime ke compile-time.
+ *
+ * - Tujuan utama generic adalah menjaga type safety
+ *   sekaligus membuat kode lebih fleksibel dan reusable.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Aturan bahwa generic hanya menerima reference type
+ * merupakan konsekuensi dari implementasi generic
+ * melalui type erasure.
+ *
+ * Dengan mengombinasikan wrapper class, autoboxing,
+ * dan compile-time type checking, Java mampu menyediakan
+ * generic yang tetap kompatibel dengan JVM lama sekaligus
+ * memberikan keamanan tipe yang jauh lebih baik dibandingkan
+ * pendekatan berbasis Object.
  */
 
 // CONTOH TANPA GENERICS

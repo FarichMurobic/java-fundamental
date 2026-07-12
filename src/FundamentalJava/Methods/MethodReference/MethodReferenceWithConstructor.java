@@ -1,103 +1,389 @@
 package FundamentalJava.Methods.MethodReference;
 
-/**
- * Intinya:
+/*
+ * ============================================================
+ * Constructor Reference Pada Java
+ * ============================================================
  *
- * Kita bisa bikin referensi ke constructor
+ * Constructor reference adalah fitur Java yang memungkinkan kita
+ * membuat referensi terhadap constructor sebuah class.
+ *
  * Syntax:
+ *
  * ClassName::new
  *
- * Sama seperti method reference:
- * dia tidak langsung bikin object
- * tapi jadi implementasi dari functional interface
  *
- * ---------------------------------
- * 
- * Konsep Inti (WAJIB PAHAM)
- * Ini penting banget:
- * MyClass::new
+ * Constructor reference tidak langsung membuat object ketika
+ * ditulis.
  *
- * artinya:
- * “Kalau nanti dipanggil, bikin object MyClass”
+ * Constructor tersebut baru dijalankan ketika functional interface
+ * memanggilnya.
  *
- * Tapi constructor mana?
- * tergantung functional interface
+ * ------------------------------------------------------------
+ * Konsep Dasar Constructor Reference
+ * ------------------------------------------------------------
  *
- * Insight DALAM 
- * 1. Constructor reference = factory sederhana
- * bikin object tanpa new secara langsung
+ * Contoh:
  *
- * 2. Banyak dipakai di:
- * Stream API
- * DTO → Entity mapping
- * Spring Boot
- *
- * 3. Lebih clean dari lambda
  * User::new
- * vs
+ *
+ *
+ * Artinya:
+ *
+ * "Jika nanti diperlukan, gunakan constructor User untuk membuat
+ * object baru."
+ *
+ *
+ * Tetapi Java masih membutuhkan informasi:
+ *
+ * - Constructor dengan parameter apa yang digunakan?
+ * - Return object tipe apa?
+ *
+ *
+ * Informasi tersebut diberikan oleh functional interface.
+ *
+ * ------------------------------------------------------------
+ * Hubungan Constructor Reference Dengan Functional Interface
+ * ------------------------------------------------------------
+ *
+ * Constructor reference selalu membutuhkan target type berupa
+ * functional interface.
+ *
+ * Contoh:
+ *
+ * Function<String, User> creator =
+ *         User::new;
+ *
+ *
+ * Artinya:
+ *
+ * Input:
+ *
+ * String
+ *
+ * Output:
+ *
+ * User
+ *
+ *
+ * Sama dengan lambda:
+ *
  * name -> new User(name)
  *
- * Kesalahan Umum 
- * Tidak cocok dengan FI
- * interface A {
- *     int func(int x);
+ *
+ * Ketika:
+ *
+ * creator.apply("Farich");
+ *
+ *
+ * Java menjalankan:
+ *
+ * new User("Farich");
+ *
+ * ------------------------------------------------------------
+ * Constructor Mana Yang Digunakan?
+ * ------------------------------------------------------------
+ *
+ * Jika sebuah class memiliki beberapa constructor, Java memilih
+ * constructor berdasarkan functional interface.
+ *
+ * Contoh:
+ *
+ * class User {
+ *
+ *     User() {
+ *     }
+ *
+ *     User(String name) {
+ *     }
  * }
- * 
- * A a = MyClass::new; // ERROR
  *
- * karena return type beda
  *
- * Kesimpulan Super Sederhana
- * Inti:
- * ClassName::new = reference ke constructor
- * Harus cocok dengan functional interface
- * Parameter & return harus match
- * Sama seperti lambda
+ * Constructor reference:
  *
- * Mapping penting:
- * MyClass::new
- * =
- * (args) -> new MyClass(args)
- */
-
-/**
- * Intinya:
+ * Supplier<User> a =
+ *         User::new;
  *
- * Constructor reference juga bisa dipakai ke class generic
- * Caranya sama seperti biasa:
+ *
+ * Mengarah ke:
+ *
+ * new User()
+ *
+ *
+ * Sedangkan:
+ *
+ * Function<String, User> b =
+ *         User::new;
+ *
+ *
+ * Mengarah ke:
+ *
+ * new User(String)
+ *
+ *
+ * Jadi functional interface menentukan constructor yang cocok.
+ *
+ * ------------------------------------------------------------
+ * Constructor Reference Sebagai Factory Sederhana
+ * ------------------------------------------------------------
+ *
+ * Constructor reference sering digunakan sebagai cara sederhana
+ * untuk membuat object secara fleksibel.
+ *
+ * Contoh:
+ *
+ * Function<String, User> factory =
+ *         User::new;
+ *
+ *
+ * Kita tidak menulis:
+ *
+ * new User()
+ *
+ * secara langsung di bagian pemanggilan.
+ *
+ * Namun proses pembuatan object tetap menggunakan constructor.
+ *
+ * ------------------------------------------------------------
+ * Perbandingan Dengan Lambda
+ * ------------------------------------------------------------
+ *
+ * Constructor reference:
+ *
+ * User::new
+ *
+ *
+ * Sama dengan:
+ *
+ * name -> new User(name)
+ *
+ *
+ * Constructor reference lebih singkat karena hanya menunjuk
+ * constructor yang sudah tersedia.
+ *
+ * ------------------------------------------------------------
+ * Kesalahan Umum Constructor Reference
+ * ------------------------------------------------------------
+ *
+ * Constructor reference harus cocok dengan functional interface.
+ *
+ * Contoh:
+ *
+ * interface MyInterface {
+ *
+ *     int func(int x);
+ *
+ * }
+ *
+ *
+ * Jika:
+ *
+ * MyInterface a =
+ *         MyClass::new;
+ *
+ *
+ * Bisa error jika:
+ *
+ * Constructor MyClass tidak menghasilkan object MyClass yang
+ * sesuai dengan return type functional interface.
+ *
+ *
+ * Functional interface:
+ *
+ * Input:
+ * int
+ *
+ * Output:
+ * int
+ *
+ *
+ * Sedangkan constructor:
+ *
+ * new MyClass(int)
+ *
+ * menghasilkan:
+ *
+ * MyClass
+ *
+ *
+ * Return type tidak cocok.
+ *
+ * ------------------------------------------------------------
+ * Constructor Reference Pada Generic Class
+ * ------------------------------------------------------------
+ *
+ * Constructor reference juga dapat digunakan pada generic class.
+ *
+ * Bentuk:
+ *
  * ClassName<Type>::new
  *
- * Perbedaannya cuma:
- * sekarang ada type argument <T>
  *
- * Konsep Inti (WAJIB NANGKEP)
- * Ini:
+ * Contoh:
+ *
  * MyClass<Integer>::new
  *
- * artinya:
- * “Buat constructor reference untuk MyClass dengan tipe Integer”
  *
- * Ini nyambung ke:
- * interface MyFunc<T> {
- *     MyClass<T> func(T n);
+ * Artinya:
+ *
+ * "Gunakan constructor MyClass dengan tipe parameter Integer."
+ *
+ * ------------------------------------------------------------
+ * Contoh Generic Constructor Reference
+ * ------------------------------------------------------------
+ *
+ * Misalkan:
+ *
+ * class MyClass<T> {
+ *
+ *     T value;
+ *
+ *     MyClass(T value) {
+ *         this.value = value;
+ *     }
  * }
  *
- * Jadi mapping-nya:
- * FI	Constructor
- * func(T n)	new MyClass<T>(n)
  *
- * Kesimpulan Super Sederhana
- * Inti:
- * Constructor reference bisa dipakai di generic class
- * Bisa pakai:
- * MyClass::new (infer)
- * MyClass<Integer>::new (explicit)
- * Tetap harus cocok dengan functional interface
+ * Functional interface:
+ *
+ * interface MyFunc<T> {
+ *
+ *     MyClass<T> func(T value);
+ *
+ * }
+ *
+ *
+ * Constructor reference:
+ *
+ * MyFunc<Integer> creator =
+ *         MyClass<Integer>::new;
+ *
+ *
+ * Sama dengan lambda:
+ *
+ * value -> new MyClass<Integer>(value)
+ *
+ * ------------------------------------------------------------
+ * Mapping Generic Constructor Reference
+ * ------------------------------------------------------------
+ *
+ * Functional Interface:
+ *
+ * MyClass<T> func(T value)
+ *
+ *
+ * Constructor:
+ *
+ * new MyClass<T>(value)
+ *
+ *
+ * Hubungan:
+ *
+ * func(T value)
+ *        |
+ *        v
+ * new MyClass<T>(value)
+ *
+ * ------------------------------------------------------------
+ * Type Inference Pada Constructor Reference
+ * ------------------------------------------------------------
+ *
+ * Java sering dapat menentukan generic type secara otomatis.
+ *
+ * Contoh:
+ *
+ * Function<Integer, MyClass<Integer>> creator =
+ *         MyClass::new;
+ *
+ *
+ * Java mengetahui bahwa:
+ *
+ * MyClass
+ *
+ * harus berupa:
+ *
+ * MyClass<Integer>
+ *
+ *
+ * Karena ditentukan oleh target type.
+ *
+ * ------------------------------------------------------------
+ * MyClass::new vs MyClass<Integer>::new
+ * ------------------------------------------------------------
+ *
+ * MyClass::new
+ *
+ * - Menggunakan type inference.
+ * - Lebih ringkas.
+ * - Sering digunakan pada kode modern.
+ *
+ *
+ * MyClass<Integer>::new
+ *
+ * - Menentukan generic type secara eksplisit.
+ * - Berguna ketika compiler membutuhkan informasi tambahan.
+ *
+ * ------------------------------------------------------------
+ * Penggunaan Dunia Nyata
+ * ------------------------------------------------------------
+ *
+ * Constructor reference banyak digunakan pada:
+ *
+ * - Factory method.
+ * - Stream API.
+ * - DTO mapping.
+ * - Entity creation.
+ * - Dependency Injection framework.
+ *
+ *
+ * Contoh mapping:
+ *
+ * userRepository.findAll()
+ *     .stream()
+ *     .map(UserDTO::new);
+ *
+ *
+ * Artinya:
+ *
+ * Setiap User akan dibuat menjadi UserDTO menggunakan constructor
+ * UserDTO.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Constructor reference adalah referensi terhadap constructor
+ * menggunakan syntax:
+ *
+ * ClassName::new
+ *
+ *
+ * Konsep penting:
+ *
+ * - Tidak langsung membuat object ketika ditulis.
+ * - Membutuhkan functional interface.
+ * - Constructor dipilih berdasarkan parameter functional interface.
+ * - Parameter dan return type harus cocok.
+ * - Dapat digunakan pada generic class.
+ *
  *
  * Mapping penting:
+ *
+ * ClassName::new
+ *
+ * sama dengan:
+ *
+ * args -> new ClassName(args)
+ *
+ *
+ * Untuk generic:
+ *
  * MyClass<T>::new
- * =
- * (T x) -> new MyClass<T>(x)
+ *
+ * sama dengan:
+ *
+ * value -> new MyClass<T>(value)
+ *
  */
 
 // Functional interface

@@ -1,115 +1,227 @@
 package FundamentalJava.Generics;
 
-/**
- * Inti Masalahnya: Kenapa Perlu Bridge Method?
+/* ============================================================
+ *                    BRIDGE METHOD PADA GENERICS
+ * ============================================================
  *
- * Liat ini:
+ * Bridge method adalah method sintetis (synthetic method) yang dibuat
+ * secara otomatis oleh compiler Java untuk menjaga agar mekanisme
+ * overriding tetap berjalan dengan benar setelah proses type erasure.
+ *
+ * Bridge method tidak pernah ditulis secara manual oleh programmer.
+ * Method ini hanya ada di bytecode (.class) dan digunakan oleh JVM
+ * saat program dijalankan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Bridge Method Diperlukan?
+ * ------------------------------------------------------------
+ *
+ * Perhatikan class generic berikut:
+ *
  * class Gen<T> {
- *   T getob() { return ob; }
+ *     T getObj() {
+ *         return obj;
+ *     }
  * }
  *
- * Kalau di-compile (karena type erasure), jadi:
+ * Karena Java menerapkan type erasure, informasi generic (<T>)
+ * dihapus saat proses kompilasi.
  *
- * Object getob()
+ * Setelah type erasure, method tersebut secara konseptual menjadi:
  *
- * Terus subclass:
+ * Object getObj()
+ *
+ * Selanjutnya terdapat subclass:
+ *
  * class Gen2 extends Gen<String> {
- *   String getob() { return ob; }
+ *     String getObj() {
+ *         return obj;
+ *     }
  * }
  *
- * Sekilas keliatan override normal.
+ * Sekilas terlihat seperti proses overriding biasa.
  *
- * TAPI MASALAHNYA:
- * Parent: Object getob()
- * Child: String getob()
+ * Namun setelah type erasure terjadi:
  *
- * Secara Java biasa → ini bukan override, karena return type beda
- * Tapi Java generics mengizinkan ini (covariant return type)
+ * Parent : Object getObj()
+ * Child  : String getObj()
  *
- * Solusi dari Compiler: Bridge Method
+ * Signature kedua method tersebut tidak lagi identik.
+ * Tanpa mekanisme tambahan, JVM akan menganggap bahwa method pada
+ * subclass bukan merupakan override dari method milik parent.
  *
- * Compiler diam-diam bikin method tambahan:
- * Object getob() {   // bridge method
- *   return getob();  // panggil versi String
+ * Untuk mengatasi masalah tersebut, compiler secara otomatis
+ * membuat bridge method.
+ */
+
+
+/* ------------------------------------------------------------
+ * Bridge Method yang Dibuat Compiler
+ * ------------------------------------------------------------
+ *
+ * Secara konseptual compiler akan menghasilkan method seperti berikut:
+ *
+ * Object getObj() {          // Bridge Method
+ *     return getObj();       // Memanggil method yang mengembalikan String
  * }
  *
- * Jadi di bytecode, Gen2 punya:
- * String getob()        // versi asli lu
- * Object getob()        // bridge method (dibuat compiler)
+ * Sehingga bytecode class Gen2 secara logis memiliki dua method:
  *
- * Kenapa Ini Penting?
+ * String getObj();   // Method asli yang ditulis programmer
+ * Object getObj();   // Bridge method buatan compiler
  *
- * Supaya ini tetap jalan:
+ * Dengan demikian, kontrak inheritance tetap terjaga meskipun
+ * generic telah dihapus melalui type erasure.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Bridge Method Penting?
+ * ------------------------------------------------------------
+ *
+ * Misalnya terdapat kode berikut:
+ *
  * Gen ref = new Gen2("Hello");
- * Object obj = ref.getob(); // harus tetap valid!
+ * Object obj = ref.getObj();
  *
- * Kalau gak ada bridge method:
- * JVM bakal cari Object getob()
- * Tapi cuma ada String getob()
- * ERROR
+ * Reference bertipe Gen mengharapkan adanya method:
  *
- * --------------------------------------------------------------
- * 
- * Analoginya (biar kebayang)
+ * Object getObj()
  *
- * Lu punya:
- * Parent ngomong: “gue balikin Object”
- * Child bilang: “gue balikin String”
+ * Jika bridge method tidak dibuat:
  *
- * Compiler bikin penerjemah:
- * “Kalau ada yang minta Object → gue ambil dari String terus kasih”
+ * - JVM akan mencari Object getObj().
+ * - Pada subclass hanya tersedia String getObj().
+ * - Kontrak overriding menjadi rusak sehingga polymorphism
+ *   tidak dapat berjalan dengan benar.
  *
- * Hal Penting yang Sering Bikin Bingung
- * 1. Lu GAK AKAN LIAT bridge method di kode
+ * Bridge method memastikan bahwa pemanggilan method tetap valid
+ * meskipun tipe generic telah dihapus.
+ */
+
+
+/* ------------------------------------------------------------
+ * Analogi Sederhana
+ * ------------------------------------------------------------
  *
- * Karena dia cuma ada di:
- * bytecode (.class)
- * bukan di source code
+ * Parent mengatakan:
+ * "Saya mengembalikan Object."
  *
- * Bisa dicek pakai javap
+ * Child mengatakan:
+ * "Saya mengembalikan String."
  *
- * Kalau lu jalanin:
+ * Compiler kemudian membuat "penerjemah" yang mengatakan:
+ *
+ * "Jika ada yang meminta Object, saya akan memanggil method yang
+ * mengembalikan String, lalu mengembalikannya sebagai Object."
+ *
+ * Dengan demikian parent dan child tetap kompatibel.
+ */
+
+
+/* ------------------------------------------------------------
+ * Hal Penting yang Perlu Diketahui
+ * ------------------------------------------------------------
+ *
+ * Bridge method tidak akan terlihat pada source code Java.
+ *
+ * Method tersebut hanya terdapat pada file bytecode (.class)
+ * sebagai synthetic method yang dibuat otomatis oleh compiler.
+ *
+ * Untuk melihatnya, gunakan perintah:
+ *
  * javap -c Gen2
  *
- * lu bakal lihat:
- * java.lang.String getob();
- * java.lang.Object getob(); // bridge method
+ * Atau agar atribut synthetic juga terlihat:
  *
- * Ini efek dari ERASURE
+ * javap -v Gen2
  *
- * Ingat:
- * Generics di Java itu cuma "ilusi compile-time"
+ * Hasilnya akan memperlihatkan dua method, misalnya:
  *
- * Saat runtime:
- * semua <T> hilang
- * jadi Object
+ * String getObj();
+ * Object getObj();   // Bridge Method
+ */
+
+
+/* ------------------------------------------------------------
+ * Hubungan dengan Type Erasure
+ * ------------------------------------------------------------
  *
- * Makanya perlu “jembatan” (bridge)
+ * Bridge method merupakan konsekuensi langsung dari type erasure.
  *
- * Kesimpulan Gampangnya
- * Generics dihapus saat runtime (type erasure)
- * Override jadi “gak cocok” karena beda tipe return
- * Compiler bikin bridge method biar tetap nyambung
- * Ini semua terjadi otomatis
+ * Pada Java, generic hanya digunakan selama proses kompilasi
+ * (compile-time).
  *
- * Insight level pro (ini yang dipakai di dunia kerja)
+ * Saat program dijalankan (runtime), informasi generic seperti:
  *
- * Bridge method sering muncul di:
- * framework (Spring, Hibernate)
- * override method generic
- * polymorphism + generics
+ * <T>
+ * <String>
+ * <Integer>
  *
- * Lu gak nulis dia… tapi dia ngejaga sistem tetap konsisten
+ * sudah tidak ada lagi.
  *
- * FLOW ASLI DI JVM
- * Pas ini dipanggil:
- * ref.getob();
+ * Sebagian besar tipe generic dihapus dan diganti dengan batas
+ * tipenya (bound), atau Object jika tidak memiliki bound.
  *
- * Yang terjadi:
- * 1. JVM cari method → Object getob()
- * 2. nemu bridge method
- * 3. bridge method panggil → String getob()
- * 4. hasil dikembalikan sebagai Object
+ * Karena perubahan inilah compiler perlu membuat bridge method
+ * agar inheritance dan polymorphism tetap bekerja sebagaimana mestinya.
+ */
+
+
+/* ------------------------------------------------------------
+ * Alur Eksekusi di JVM
+ * ------------------------------------------------------------
+ *
+ * Misalkan terdapat pemanggilan:
+ *
+ * ref.getObj();
+ *
+ * Secara konseptual proses yang terjadi adalah:
+ *
+ * 1. JVM mencari method dengan signature Object getObj().
+ * 2. JVM menemukan bridge method yang dibuat compiler.
+ * 3. Bridge method memanggil String getObj().
+ * 4. Nilai hasil dikembalikan sebagai Object.
+ *
+ * Seluruh proses ini terjadi secara otomatis tanpa campur tangan
+ * programmer.
+ */
+
+
+/* ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * - Java menggunakan type erasure untuk menghapus informasi generic
+ *   setelah proses kompilasi.
+ *
+ * - Type erasure dapat menyebabkan signature method pada parent dan
+ *   child tidak lagi identik.
+ *
+ * - Compiler membuat bridge method secara otomatis untuk menjaga
+ *   mekanisme overriding tetap valid.
+ *
+ * - Bridge method memungkinkan inheritance dan polymorphism tetap
+ *   bekerja dengan benar meskipun generic telah dihapus.
+ *
+ * - Bridge method merupakan implementasi internal compiler dan tidak
+ *   pernah ditulis secara langsung oleh programmer.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Bridge method sering dijumpai pada library dan framework yang
+ * banyak memanfaatkan generic, inheritance, dan polymorphism,
+ * seperti Spring, Hibernate, maupun berbagai library koleksi Java.
+ *
+ * Meskipun jarang disadari oleh developer, bridge method merupakan
+ * salah satu mekanisme penting yang menjaga kompatibilitas antara
+ * generic Java dengan JVM yang tidak mengenal generic pada runtime.
  */
 
 class Utama<T> {

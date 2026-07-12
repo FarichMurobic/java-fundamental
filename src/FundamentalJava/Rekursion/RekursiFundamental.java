@@ -25,6 +25,7 @@ public class RekursiFundamental {
 
     /**
      * Sekarang kita lihat bagaimana JVM mengeksekusinya.
+     * 
      * Pemanggilan Pertama
      *
      * Program mulai:
@@ -74,6 +75,7 @@ public class RekursiFundamental {
 
     /**
      * Kenapa Bisa Terus Dipanggil?
+     * 
      * Karena setiap pemanggilan method membuat eksekusi baru.
      * Java tidak membatasi bahwa method hanya boleh dipanggil sekali.
      *
@@ -122,6 +124,7 @@ public class RekursiFundamental {
 
     /**
      * Kenapa Tidak Hanya Sekali?
+     * 
      * Karena method dipanggil lagi dari dalam dirinya sendiri.
      * Baris ini:
      * test(n - 1);

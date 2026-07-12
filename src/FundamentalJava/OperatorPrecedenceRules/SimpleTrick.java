@@ -5,6 +5,7 @@ public class SimpleTrick {
 
         /**
          * Aturan prioritas adalah aturan yang menentukan urutan pengerjaan operasi dalam sebuah ekspresi.
+         * 
          * -operator assignment adalah yang paling lemah - paling terakhir dikerjakan
          * -operator logika biner lebih lemah dari relational dan aritmetika
          * -operator relational lebih lemah dari aritmetik

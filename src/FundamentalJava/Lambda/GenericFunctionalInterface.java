@@ -1,128 +1,300 @@
 package FundamentalJava.Lambda;
 
-/**
- * Generic Functional Interfaces
- * Lambda expression tidak bisa punya generic sendiri
+/* ==========================================================
+ *               GENERIC FUNCTIONAL INTERFACES
+ * ==========================================================
  *
- * Contoh (TIDAK ADA di Java):
- * <T> (x) -> x
- * Tapi…
+ * Lambda expression di Java tidak dapat mendeklarasikan generic
+ * type parameter secara langsung.
  *
- * Functional interface-nya bisa generic
+ * Contoh yang TIDAK valid:
+ *
+ *     <T> (x) -> x
+ *
+ * Java tidak menyediakan sintaks seperti itu untuk lambda.
+ *
+ * Namun, functional interface yang menjadi target lambda dapat
+ * menggunakan generic type.
  *
  * Artinya:
- * Lambda tetap biasa
- * Tapi “wadahnya” (interface) bisa fleksibel
  *
- * Kenapa ini penting?
- * Di contoh sebelumnya:
- * NumericFunc → buat int
- * StringFunc → buat String
+ * - Lambda expression tetap ditulis seperti biasa.
+ * - Fleksibilitas tipe data ditentukan oleh functional interface.
  *
- * Padahal logic sama:
- * 1 parameter
- * 1 return
+ * ==========================================================
+ *              KONSEP DASAR GENERIC LAMBDA
+ * ==========================================================
  *
- * Solusi:
- * Bikin 1 interface generic
+ * Sebuah lambda expression selalu membutuhkan target type.
  *
- * -----------------------------------
- * 
- * Penjelasan 
- * 
- * 1. Interface Generic
- * interface SomeFunc<T> {
- *     T func(T t);
- * }
+ * Target type tersebut biasanya berasal dari functional
+ * interface yang memiliki satu abstract method.
  *
- * T = tipe bebas
- * Artinya:
- * input = T
- * output = T
+ * Contoh:
  *
- * bisa:
- * String → String
- * Integer → Integer
- * dll
+ *     interface StringFunc {
+ *         String func(String value);
+ *     }
  *
- * 2. Saat dipakai
- * SomeFunc<String> reverse
- * T = String
+ *     interface NumericFunc {
+ *         Integer func(Integer value);
+ *     }
  *
- * SomeFunc<Integer> factorial
- * T = Integer
+ * Kedua interface tersebut memiliki konsep yang sama:
  *
- * 3. Lambda tetap sama
- * (str) -> { ... }
- * (n) -> { ... }
+ * - Menerima satu parameter.
+ * - Mengembalikan satu nilai.
  *
- * Tapi tipe ditentukan dari:
- * SomeFunc<T>
+ * Perbedaannya hanya pada tipe data.
  *
- * 4. Type inference bekerja lagi
- * (str) -> ...
+ * Masalah:
  *
- * Java tau:
- * str = String
+ * Kita membuat banyak interface yang sebenarnya memiliki pola
+ * logic yang sama.
  *
- * 5. Reusability 
- * 1 interface bisa dipakai:
- * reverse string
- * factorial
- * operasi lain
+ * Solusinya:
  *
- * ------------------------------------
- * 
- * Insight Mentor (Ini penting banget bro)
- * 
- * 1. Ini solusi dari duplikasi code
+ * Gunakan generic functional interface.
  *
- * Dari:
- * interface StringFunc
- * interface NumericFunc
+ * ==========================================================
+ *              MEMBUAT FUNCTIONAL INTERFACE GENERIC
+ * ==========================================================
  *
- * Jadi:
- * interface SomeFunc<T>
+ * Contoh:
  *
- * 2. Generic + Lambda = powerful banget
+ *     @FunctionalInterface
+ *     interface SomeFunc<T> {
  *
- * Lo bisa bikin:
- * reusable logic
- * fleksibel
- * scalable
+ *         T func(T value);
  *
- * 3. Ini konsep besar di Java modern:
- * “Write once, use everywhere”
+ *     }
  *
- * 4. Ini dasar ke:
- * Function<T, R>
- * Predicate<T>
- * Consumer<T>
+ * Penjelasan:
  *
- * (built-in Java, WAJIB nanti)
+ * T adalah generic type parameter yang dapat diganti dengan
+ * tipe data apa pun ketika interface digunakan.
  *
- * 5. Batasan penting 
- * T func(T t);
+ * Method:
  *
- * Parameter & return HARUS sama tipe
+ *     T func(T value);
  *
- * gak bisa:
- * input String → output int
+ * berarti:
  *
- * [[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]
- * 
- * Kesimpulan Super Sederhana
- * 1. Lambda tidak bisa generic
- * tapi interface-nya bisa
+ * Input  = T
+ * Output = T
  *
- * 2. Generic bikin fleksibel
- * SomeFunc<String>
- * SomeFunc<Integer>
+ * Contoh:
  *
- * 3. 1 interface bisa dipakai banyak lambda
- * 4. Tipe ditentukan saat dipakai
+ *     String -> String
+ *     Integer -> Integer
+ *     Double -> Double
  *
- * 5. Parameter & return harus sama tipe
+ * ==========================================================
+ *                  MENGGUNAKAN GENERIC INTERFACE
+ * ==========================================================
+ *
+ * Saat interface digunakan, tipe T ditentukan.
+ *
+ * Contoh:
+ *
+ *     SomeFunc<String> reverse;
+ *
+ * Maka:
+ *
+ *     T = String
+ *
+ * Method berubah menjadi:
+ *
+ *     String func(String value);
+ *
+ *
+ * Contoh lain:
+ *
+ *     SomeFunc<Integer> factorial;
+ *
+ * Maka:
+ *
+ *     T = Integer
+ *
+ * Method berubah menjadi:
+ *
+ *     Integer func(Integer value);
+ *
+ * ==========================================================
+ *                  LAMBDA TETAP SEDERHANA
+ * ==========================================================
+ *
+ * Lambda tidak perlu mengetahui generic type secara langsung.
+ *
+ * Contoh:
+ *
+ *     SomeFunc<String> reverse = str -> {
+ *         return new StringBuilder(str)
+ *                 .reverse()
+ *                 .toString();
+ *     };
+ *
+ *
+ *     SomeFunc<Integer> square = n -> {
+ *         return n * n;
+ *     };
+ *
+ * Lambda tetap menggunakan parameter biasa.
+ *
+ * Tipe parameter ditentukan berdasarkan generic type pada
+ * functional interface.
+ *
+ * ==========================================================
+ *                  TYPE INFERENCE PADA LAMBDA
+ * ==========================================================
+ *
+ * Java memiliki kemampuan type inference, yaitu kemampuan
+ * compiler untuk menentukan tipe data secara otomatis.
+ *
+ * Contoh:
+ *
+ *     SomeFunc<String> func = str -> str.length();
+ *
+ * Java mengetahui:
+ *
+ * - str bertipe String.
+ * - Method yang dipanggil harus sesuai dengan String.
+ *
+ * Developer tidak perlu menulis tipe parameter secara eksplisit.
+ *
+ * ==========================================================
+ *                    KEUNTUNGAN GENERIC
+ * ==========================================================
+ *
+ * Generic functional interface memberikan:
+ *
+ * 1. Reusability
+ *
+ * Satu interface dapat digunakan untuk berbagai tipe data.
+ *
+ * Contoh:
+ *
+ *     SomeFunc<String>
+ *     SomeFunc<Integer>
+ *     SomeFunc<Double>
+ *
+ *
+ * 2. Mengurangi duplikasi kode
+ *
+ * Sebelum generic:
+ *
+ *     StringFunc
+ *     NumericFunc
+ *
+ * Setelah generic:
+ *
+ *     SomeFunc<T>
+ *
+ * Satu desain dapat menangani banyak kebutuhan.
+ *
+ *
+ * 3. Type Safety
+ *
+ * Compiler dapat memastikan tipe data tetap konsisten.
+ *
+ * ==========================================================
+ *             GENERIC + LAMBDA DI JAVA MODERN
+ * ==========================================================
+ *
+ * Kombinasi generic dan lambda menjadi salah satu konsep penting
+ * dalam Java modern.
+ *
+ * Dengan kombinasi ini, developer dapat membuat:
+ *
+ * - Logic yang reusable.
+ * - Komponen yang fleksibel.
+ * - Kode yang mudah dikembangkan.
+ *
+ * Prinsipnya:
+ *
+ * "Write once, use everywhere."
+ *
+ * Tulis satu kali, gunakan dengan berbagai tipe data.
+ *
+ * ==========================================================
+ *                  DASAR FUNCTIONAL INTERFACE JAVA
+ * ==========================================================
+ *
+ * Konsep generic functional interface menjadi dasar dari
+ * functional interface bawaan Java seperti:
+ *
+ * - Function<T, R>
+ * - Predicate<T>
+ * - Consumer<T>
+ * - Supplier<T>
+ *
+ * Functional interface tersebut banyak digunakan dalam:
+ *
+ * - Stream API.
+ * - Collection processing.
+ * - Functional programming style.
+ *
+ * ==========================================================
+ *                  BATASAN GENERIC INTERFACE
+ * ==========================================================
+ *
+ * Perhatikan deklarasi:
+ *
+ *     T func(T value);
+ *
+ * Input dan output harus memiliki tipe yang sama.
+ *
+ * Contoh:
+ *
+ *     String -> String
+ *
+ * valid.
+ *
+ *     Integer -> Integer
+ *
+ * valid.
+ *
+ * Tetapi:
+ *
+ *     String -> Integer
+ *
+ * tidak dapat dilakukan dengan desain interface tersebut.
+ *
+ * Untuk kebutuhan input dan output dengan tipe berbeda,
+ * gunakan generic dengan dua parameter seperti:
+ *
+ *     Function<T, R>
+ *
+ * Contoh:
+ *
+ *     Function<String, Integer>
+ *
+ * Input:
+ * String
+ *
+ * Output:
+ * Integer
+ *
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
+ *
+ * Generic functional interface memungkinkan lambda expression
+ * digunakan secara fleksibel dengan berbagai tipe data.
+ *
+ * Poin penting:
+ *
+ * - Lambda tidak dapat memiliki generic type sendiri.
+ * - Functional interface dapat menggunakan generic.
+ * - Tipe data ditentukan ketika interface digunakan.
+ * - Satu interface dapat digunakan oleh banyak lambda.
+ * - Generic mengurangi duplikasi dan meningkatkan reusability.
+ *
+ * Konsep ini menjadi dasar penting sebelum memahami functional
+ * interface bawaan Java seperti Function, Predicate, dan
+ * Consumer.
+ *
+ * ==========================================================
  */
 
 // Generic functional interface

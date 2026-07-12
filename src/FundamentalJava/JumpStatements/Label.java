@@ -1,163 +1,319 @@
 package FundamentalJava.JumpStatements;
 
+/* ==========================================================
+ *                           LABEL
+ * ==========================================================
+ *
+ * Label adalah sebuah nama yang diberikan kepada suatu statement
+ * atau blok kode tertentu.
+ *
+ * Label digunakan bersama dengan:
+ *
+ * - break
+ * - continue
+ *
+ * untuk menentukan lokasi tujuan perpindahan alur program.
+ *
+ * Bentuk umum label:
+ *
+ *     labelName: {
+ *         // kode
+ *     }
+ *
+ * Label biasanya digunakan pada nested loop (loop bersarang)
+ * ketika kita perlu mengontrol perpindahan alur program dengan
+ * lebih spesifik.
+ *
+ * ==========================================================
+ *              BREAK SEBAGAI BENTUK GOTO TERSTRUKTUR
+ * ==========================================================
+ *
+ * Selain digunakan pada switch dan loop, break juga dapat
+ * digunakan bersama label untuk membuat perpindahan alur yang
+ * mirip dengan konsep goto.
+ *
+ * Java sebenarnya memiliki keyword goto, tetapi keyword tersebut
+ * tidak digunakan dalam bahasa Java.
+ *
+ * Alasannya:
+ *
+ * Goto memungkinkan program berpindah ke lokasi mana saja secara
+ * bebas sehingga dapat menyebabkan kode:
+ *
+ * - Sulit dibaca.
+ * - Sulit dipelihara.
+ * - Sulit dianalisis oleh compiler.
+ *
+ * Sebagai gantinya, Java menyediakan labeled break yang memiliki
+ * perpindahan alur lebih terbatas dan terstruktur.
+ *
+ * ==========================================================
+ *                    LABELED BREAK
+ * ==========================================================
+ *
+ * Labeled break memungkinkan program keluar dari blok kode atau
+ * loop tertentu yang memiliki label.
+ *
+ * Bentuk umum:
+ *
+ *     break labelName;
+ *
+ * Ketika statement tersebut dijalankan:
+ *
+ * - Program keluar dari statement yang memiliki label tersebut.
+ * - Eksekusi dilanjutkan setelah blok label selesai.
+ *
+ * ==========================================================
+ *              CARA KERJA break label
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     outer:
+ *     for (int i = 0; i < 5; i++) {
+ *
+ *         for (int j = 0; j < 5; j++) {
+ *
+ *             if (j == 3) {
+ *                 break outer;
+ *             }
+ *         }
+ *     }
+ *
+ * Ketika:
+ *
+ *     break outer;
+ *
+ * dijalankan, program langsung keluar dari loop yang memiliki
+ * label outer.
+ *
+ * Artinya:
+ *
+ * - Loop dalam (j) berhenti.
+ * - Loop luar (i) juga berhenti.
+ * - Program melanjutkan kode setelah loop outer.
+ *
+ * ==========================================================
+ *              PERBEDAAN BREAK BIASA DAN LABEL
+ * ==========================================================
+ *
+ * break biasa:
+ *
+ * - Hanya keluar dari loop atau switch terdekat.
+ *
+ * Contoh:
+ *
+ *     for (i) {
+ *         for (j) {
+ *             break;
+ *         }
+ *     }
+ *
+ * Yang berhenti hanya loop j.
+ *
+ *
+ * break dengan label:
+ *
+ *     outer:
+ *     for (i) {
+ *         for (j) {
+ *             break outer;
+ *         }
+ *     }
+ *
+ * Yang berhenti:
+ *
+ * - Loop j.
+ * - Loop i.
+ *
+ * Karena target break diarahkan ke label outer.
+ *
+ * ==========================================================
+ *                   ATURAN BREAK LABEL
+ * ==========================================================
+ *
+ * Beberapa aturan penting:
+ *
+ * - Label harus berada pada statement yang valid.
+ * - break label harus berada di dalam cakupan label tersebut.
+ * - break dapat digunakan untuk keluar dari loop, switch,
+ *   maupun block berlabel.
+ *
+ * ==========================================================
+ *              LABEL PADA CONTINUE
+ * ==========================================================
+ *
+ * continue juga dapat menggunakan label, tetapi memiliki aturan
+ * yang lebih ketat dibanding break.
+ *
+ * continue hanya dapat digunakan pada loop:
+ *
+ * - for
+ * - while
+ * - do-while
+ *
+ * Alasannya:
+ *
+ * Fungsi continue adalah:
+ *
+ * "Lewati sisa kode saat ini dan lanjutkan ke iterasi berikutnya."
+ *
+ * Karena itu, Java harus mengetahui loop mana yang akan
+ * dilanjutkan.
+ *
+ * ==========================================================
+ *             CONTOH continue DENGAN LABEL
+ * ==========================================================
+ *
+ * Contoh valid:
+ *
+ *     outer:
+ *     for (int i = 0; i < 5; i++) {
+ *
+ *         for (int j = 0; j < 5; j++) {
+ *
+ *             if (j == 3) {
+ *                 continue outer;
+ *             }
+ *
+ *             System.out.println(i + " " + j);
+ *         }
+ *     }
+ *
+ * Ketika:
+ *
+ *     continue outer;
+ *
+ * dijalankan:
+ *
+ * - Sisa kode pada iterasi sekarang dilewati.
+ * - Program kembali ke iterasi berikutnya dari loop i.
+ *
+ * Karena label outer menunjuk ke loop, penggunaan ini valid.
+ *
+ * ==========================================================
+ *              CONTINUE PADA BLOCK BIASA
+ * ==========================================================
+ *
+ * Contoh tidak valid:
+ *
+ *     test: {
+ *
+ *         int x = 10;
+ *
+ *         continue test;
+ *     }
+ *
+ * Error karena:
+ *
+ * continue membutuhkan target berupa loop.
+ *
+ * Block:
+ *
+ *     test: { }
+ *
+ * bukan sebuah loop dan tidak memiliki konsep iterasi berikutnya.
+ *
+ * Java tidak tahu harus melanjutkan ke iterasi yang mana.
+ *
+ * ==========================================================
+ *                  KENAPA BREAK BOLEH?
+ * ==========================================================
+ *
+ * Perbedaan konsepnya:
+ *
+ * break:
+ *
+ * "Keluar dari statement."
+ *
+ * continue:
+ *
+ * "Lanjut ke iterasi berikutnya."
+ *
+ * Karena break hanya membutuhkan tujuan untuk keluar, maka
+ * break dapat digunakan pada:
+ *
+ * - Loop.
+ * - Switch.
+ * - Block berlabel.
+ *
+ * Sedangkan continue membutuhkan loop karena harus berpindah
+ * menuju iterasi berikutnya.
+ *
+ * ==========================================================
+ *              CONTOH BREAK PADA BLOCK LABEL
+ * ==========================================================
+ *
+ * Contoh valid:
+ *
+ *     test: {
+ *
+ *         int x = 10;
+ *
+ *         if (x == 10) {
+ *             break test;
+ *         }
+ *
+ *         System.out.println("Tidak tampil");
+ *     }
+ *
+ * Ketika:
+ *
+ *     break test;
+ *
+ * dijalankan, program langsung keluar dari block test.
+ *
+ * ==========================================================
+ *              PERBANDINGAN BREAK DAN CONTINUE
+ * ==========================================================
+ *
+ * break:
+ *
+ * Fungsi:
+ * - Keluar dari statement.
+ *
+ * Target:
+ * - Loop.
+ * - Switch.
+ * - Block berlabel.
+ *
+ *
+ * continue:
+ *
+ * Fungsi:
+ * - Melanjutkan ke iterasi berikutnya.
+ *
+ * Target:
+ * - Hanya loop.
+ *
+ * ==========================================================
+ *                  RINGKASAN ATURAN JAVA
+ * ==========================================================
+ *
+ * Target Label        break        continue
+ *
+ * Loop                Bisa         Bisa
+ * Block {}            Bisa         Tidak
+ * Switch              Bisa         Tidak
+ *
+ *
+ * Kesimpulan:
+ *
+ * continue = hanya untuk melanjutkan loop.
+ *
+ * break = untuk keluar dari statement.
+ *
+ * Labeled statement merupakan fitur Java yang jarang digunakan,
+ * tetapi penting dipahami terutama ketika bekerja dengan nested
+ * loop atau kode kompleks yang membutuhkan kontrol alur lebih
+ * spesifik.
+ *
+ * ==========================================================
+ */
+
 public class Label {
     public static void main(String[] args) {
         
-        /**
-         * Apa itu Label?
-         *
-         * Label adalah nama yang diberikan pada sebuah blok kode.
-         * Formatnya:
-         *
-         * label: {
-         *    kode
-         * }
-         *
-         * Menggunakan break sebagai Bentuk goto
-         * Selain digunakan di switch dan loop, statement break juga bisa digunakan sendiri untuk membuat bentuk goto yang lebih aman.
-         * Java tidak memiliki goto karena goto memungkinkan program melompat ke tempat mana saja secara bebas dan tidak terstruktur.
-         *
-         * -------------------------------------------
-         * 
-         * Masalah goto:
-         * membuat kode sulit dipahami
-         * membuat kode sulit dirawat
-         * mengganggu optimisasi compiler
-         *
-         * Namun ada beberapa situasi di mana konsep seperti goto sebenarnya berguna, misalnya:
-         * keluar dari loop yang sangat bersarang (nested loops).
-         * Untuk mengatasi situasi seperti ini, Java menyediakan bentuk khusus dari break yang disebut labeled break.
-         * Dengan bentuk ini kita bisa:
-         * keluar dari satu atau beberapa blok kode
-         * menentukan ke mana program akan melanjutkan eksekusi
-         *
-         * Bentuk umum:
-         * break label;
-         *
-         * Bagaimana break label bekerja?
-         * Ketika program menjalankan:
-         * break label;
-         *
-         * Program akan:
-         * keluar dari blok yang memiliki label tersebut
-         * melanjutkan eksekusi setelah blok itu
-         *
-         * --------------------------------------
-         * 
-         * Aturan Java:
-         * 
-         * break label
-         * harus berada di dalam blok label itu
-         *
-         * break biasa
-         * hanya keluar dari loop terdekat.
-         *
-         * for i
-         *    for j
-         *       break
-         * yang berhenti hanya j.
-         *
-         * break label
-         * bisa keluar dari loop luar.
-         * outer:
-         * for i
-         *    for j
-         *       break outer
-         *
-         * yang berhenti:
-         * loop i dan loop j
-         */
-
-        /**
-         * Penting
-         *
-         * perbedaan break dan continue dalam menggunakan label
-         * continue tidak bisa dipakai ke label yang menunjuk ke block {}, sedangkan break bisa
-         * Aturan dasar continue di Java
-         *
-         * continue hanya bekerja pada loop, yaitu:
-         * for
-         * while
-         * do-while
-         *
-         * Fungsinya:
-         * loncat ke iterasi berikutnya dari loop
-         * Karena itu Java harus tahu loop mana yang mau dilanjutkan.
-         *
-         * Contoh continue dengan label (VALID)
-         * outer:
-         * for (int i = 0; i < 5; i++) {
-         *
-         *     for (int j = 0; j < 5; j++) {
-         *
-         *         if (j == 3)
-         *             continue outer;
-         *
-         *         System.out.println(i + " " + j);
-         *     }
-         * }
-         *
-         * Artinya:
-         * continue outer
-         * ↓
-         * lanjut ke iterasi berikutnya dari loop i
-         * Karena outer menunjuk ke loop, maka valid.
-         *
-         * Contoh continue ke block (ERROR)
-         * test: {
-         *     int x = 10;
-         *
-         *     continue test; // ERROR
-         * }
-         *
-         * Kenapa error?
-         * Karena:
-         * continue = lanjut iterasi loop
-         * Sedangkan:
-         * test: { }
-         * bukan loop.
-         * Block {} tidak punya iterasi berikutnya.
-         * Jadi compiler bingung:
-         * lanjut ke iterasi yang mana?
-         *
-         * Kenapa break boleh?
-         * 
-         * break artinya:
-         * keluar dari statement
-         * Bukan melanjutkan iterasi.
-         * Jadi dia bisa keluar dari:
-         * loop
-         * switch
-         * block berlabel
-         *
-         * Contoh valid:
-         *
-         * test: {
-         *     int x = 10;
-         *
-         *     if (x == 10)
-         *         break test;
-         *
-         *     System.out.println("tidak tampil");
-         * }
-         *
-         * break test → keluar dari block test.
-         *
-         * Perbedaan konsep inti
-         * Statement	    Fungsi
-         * break	        keluar dari statement
-         * continue	        lanjut ke iterasi loop berikutnya
-         *
-         * Makanya aturan Java jadi seperti ini
-         * Target Label	    break	continue
-         * loop	            ya	      ya
-         * block {}	        ya	      tidak
-         * switch	        ya	      tidak
-         *
-         * continue = hanya loop
-         * break = semua statement
-         */
-
         boolean t = true;
 
         first: {
@@ -180,6 +336,7 @@ public class Label {
 
         /**
          * Output:
+         * 
          * Before the break.
          * This is after second block.
          *
@@ -216,6 +373,7 @@ public class Label {
 
         /**
          * Output:
+         * 
          * Pass 0: 0 1 2 3 4 5 6 7 8 9
          * Loops complete.
          *

@@ -1,162 +1,458 @@
 package FundamentalJava.MultiThreaded;
 
 /**
+ * JAVA MEMORY MODEL (JMM) DAN VOLATILE
+ *
  * Dalam multithreading:
  *
- * Satu variabel bisa diakses banyak thread
- * TAPI…
- * Setiap thread kadang nyimpen versi sendiri dari variabel itu (di CPU cache)
+ * Banyak thread bisa mengakses variabel yang sama.
  *
- * Nah di sinilah masalah mulai muncul
+ * Contoh:
  *
- * Step by Step (Visualisasi)
- * Misal kita punya variabel:
  * int angka = 0;
  *
- * Dan ada:
  * Thread A
  * Thread B
  *
- * Yang lu kira terjadi:
- * Semua thread pakai 1 variabel yang sama
+ * Keduanya membaca dan mengubah angka.
  *
- * Thread A ─┐
- *           ├── angka = 0 (1 sumber)
- * Thread B ─┘
+ * Masalah:
  *
- * Yang sebenarnya bisa terjadi:
- * Setiap thread punya salinan sendiri
+ * Java tidak menjamin setiap thread selalu membaca nilai terbaru
+ * dari main memory.
  *
- * Main Memory (asli)
+ * Karena ada optimisasi dari CPU dan JVM.
+ */
+
+
+/**
+ * KONSEP DASAR: MAIN MEMORY DAN CPU CACHE
+ *
+ * Secara sederhana:
+ *
+ * Main Memory
+ *     |
+ *     |
+ * CPU Cache
+ *     |
+ *     |
+ * Thread
+ *
+ *
+ * CPU punya cache kecil yang jauh lebih cepat dibanding RAM.
+ *
+ * Untuk performa:
+ *
+ * CPU tidak selalu mengambil data langsung dari RAM.
+ *
+ * Bisa terjadi:
+ *
+ * Main Memory:
  * angka = 0
  *
- * Thread A (copy sendiri) → angka = 0
- * Thread B (copy sendiri) → angka = 0
  *
- * Masalahnya mulai di sini
- * Step 1:
- * Thread A ubah nilai:
+ * Thread A Cache:
+ * angka = 0
+ *
+ *
+ * Thread B Cache:
+ * angka = 0
+ */
+
+
+/**
+ * MASALAH VISIBILITY
+ *
+ * Contoh:
+ *
+ * int angka = 0;
+ *
+ *
+ * Thread A:
+ *
  * angka = 10;
  *
- * TAPI…
- * yang berubah cuma copy milik Thread A
  *
- * Thread A → angka = 10
- * Thread B → angka = 0 (belum tau perubahan)
- * Main Memory → mungkin masih 0
+ * Thread B:
  *
- * Step 2:
- * Thread B baca nilai:
  * System.out.println(angka);
  *
- * Outputnya bisa:
- * 0
  *
- * Padahal harusnya:
+ * Kita berharap:
+ *
+ * Output:
  * 10
  *
- * Kenapa bisa gitu?
- * Karena:
- * CPU nyimpen data di cache (memori cepat)
  *
- * Jadi:
- * Thread gak selalu langsung baca dari "memori utama"
- * Dia baca dari cache sendiri
+ * Tapi bisa terjadi:
  *
- * Analogi Paling Gampang
+ * Output:
+ * 0
  *
- * Bayangin lu dan temen lu kerja bareng:
- * Tanpa volatile
  *
- * Ada papan tulis utama (data asli)
- * Tapi kalian nyatet di buku masing-masing
- * Papan tulis: angka = 0
+ * Kenapa?
  *
- * Lu (Thread A): catatan = 0
- * Temen (Thread B): catatan = 0
+ * Karena perubahan Thread A belum terlihat
+ * oleh Thread B.
  *
- * Lu ubah:
- * catatan lu = 10
+ * Ini disebut:
  *
- * Temen lu?
- * masih lihat = 0
+ * Visibility Problem
  *
- * Gak sinkron 
  *
- * Perbaikan Analogi (Lebih Akurat)
- * Tanpa volatile (yang bener-bener terjadi)
+ * Artinya:
  *
- * Bayangin:
- * Ada papan tulis utama (Main Memory)
- * Tapi tiap orang punya buku catatan sendiri (CPU Cache)
- * Papan tulis: angka = 0
+ * Satu thread mengubah data,
+ * tetapi thread lain belum melihat perubahan tersebut.
+ */
+
+
+/**
+ * ANALOGI
  *
- * Thread A: catatan = 0
- * Thread B: catatan = 0
+ * Tanpa volatile:
  *
- * Masalahnya di sini:
- * Thread A ubah nilai:
- * Thread A: catatan = 10
+ * Ada papan tulis utama.
  *
- * Tapi:
- * Dia BELUM tentu langsung nulis ke papan tulis
- * Jadi papan tulis masih:
- * Papan tulis: angka = 0
- * Thread B baca:
- * Thread B baca dari catatan sendiri → 0
+ * Papan tulis:
+ * angka = 0
  *
- * Jadi:
- * Thread A lihat: 10
- * Thread B lihat: 0
  *
- * Nah ini baru "data beda antar thread"
+ * Kamu punya buku catatan:
+ * angka = 0
  *
- * Jadi inti koreksinya:
+ * Teman kamu punya buku catatan:
+ * angka = 0
  *
- * Masalah BUKAN:
  *
- * semua thread lihat papan tulis
+ * Kamu mengubah buku kamu:
  *
- * Masalahnya:
+ * angka = 10
  *
- * thread bisa baca dari cache masing-masing, bukan dari sumber utama
  *
- * Dengan volatile
+ * Tapi teman kamu masih melihat:
  *
- * Semua orang:
- * HARUS lihat langsung ke papan tulis
- * Papan tulis: angka = 10
- * Semua thread baca ini langsung
+ * angka = 0
  *
- * Jadi selalu update 
  *
- * Kenapa Java bikin sistem kayak gini?
+ * Karena catatan kalian belum sinkron.
+ */
+
+
+/**
+ * VOLATILE
  *
- * Karena:
- * Performance (kecepatan)
+ * volatile memberi tahu JVM:
  *
- * Akses RAM lambat
- * Cache CPU cepat
+ * "Variabel ini bisa diakses banyak thread.
+ * Jangan simpan nilai lama.
+ * Selalu baca nilai terbaru."
  *
- * Jadi Java (dan CPU) mikir:
- * “Gua simpen copy aja biar cepat”
  *
- * TAPI…
- * efek sampingnya: data bisa beda-beda antar thread
+ * Contoh:
  *
- * Kesimpulan Super Simpel
- * Banyak thread = banyak yang akses variabel
- * Setiap thread bisa punya copy sendiri
- * Copy ini bisa ketinggalan update
+ * volatile boolean running = true;
+ *
+ *
+ * Thread A:
+ *
+ * running = false;
+ *
+ *
+ * Thread B:
+ *
+ * while(running){
+ *     // kerja
+ * }
+ *
+ *
+ * Dengan volatile:
+ *
+ * Saat Thread A mengubah running:
+ *
+ * Thread B akan melihat perubahan itu.
+ */
+
+
+/**
+ * CONTOH MASALAH TANPA VOLATILE
+ */
+
+class Worker {
+
+    boolean running = true;
+
+    void stop() {
+        running = false;
+    }
+
+    void run() {
+
+        while (running) {
+
+            // melakukan pekerjaan
+
+        }
+
+    }
+}
+
+
+/**
+ * Masalah:
+ *
+ * Thread utama:
+ *
+ * worker.stop();
+ *
+ *
+ * Mengubah:
+ *
+ * running = false;
+ *
+ *
+ * Tapi thread worker
+ * belum tentu melihat perubahan.
  *
  * Akibatnya:
- * data gak sinkron
- * bug aneh
- * hasil tidak konsisten
  *
- * Solusi (nyambung ke materi)
- * volatile → paksa semua thread pakai data terbaru
- * synchronized → kontrol akses biar aman
+ * loop bisa terus berjalan.
+ */
+
+
+/**
+ * SOLUSI DENGAN VOLATILE
+ */
+
+// class Worker {
+
+//     volatile boolean running = true;
+
+//     void stop() {
+//         running = false;
+//     }
+
+//     void run() {
+
+//         while (running) {
+
+//             // melakukan pekerjaan
+
+//         }
+
+//     }
+// }
+
+
+/**
+ * Sekarang:
+ *
+ * Thread yang menjalankan loop
+ * akan melihat perubahan running.
+ *
+ * Saat:
+ *
+ * running = false
+ *
+ * loop berhenti.
+ */
+
+
+/**
+ * VOLATILE VS SYNCHRONIZED
+ *
+ * Ini bagian paling penting.
+ *
+ *
+ * volatile:
+ *
+ * Fokus:
+ * visibility
+ *
+ * Artinya:
+ * semua thread melihat nilai terbaru.
+ *
+ *
+ * synchronized:
+ *
+ * Fokus:
+ * atomicity + locking
+ *
+ * Artinya:
+ * hanya satu thread yang boleh masuk
+ * ke bagian kode tertentu.
+ */
+
+
+/**
+ * Contoh:
+ *
+ * count++;
+ *
+ *
+ * Ini terlihat satu operasi.
+ *
+ * Tapi sebenarnya:
+ *
+ * 1. baca count
+ * 2. tambah 1
+ * 3. simpan kembali
+ *
+ *
+ * Misal:
+ *
+ * Thread A:
+ * baca count = 0
+ *
+ * Thread B:
+ * baca count = 0
+ *
+ * Thread A:
+ * simpan 1
+ *
+ * Thread B:
+ * simpan 1
+ *
+ *
+ * Hasil:
+ *
+ * Harusnya 2
+ *
+ * Tapi jadi:
+ *
+ * 1
+ *
+ *
+ * volatile TIDAK bisa memperbaiki ini.
+ *
+ * Karena masalahnya bukan visibility.
+ *
+ * Masalahnya:
+ * race condition.
+ *
+ *
+ * Solusi:
+ *
+ * synchronized
+ */
+
+
+/**
+ * PERBANDINGAN
+ *
+ * volatile:
+ *
+ * "Semua orang harus lihat papan terbaru."
+ *
+ *
+ * synchronized:
+ *
+ * "Cuma satu orang boleh masuk ruangan."
+ */
+
+
+/**
+ * KAPAN MENGGUNAKAN VOLATILE?
+ *
+ * Cocok untuk:
+ *
+ * 1. Flag sederhana
+ *
+ * Contoh:
+ *
+ * boolean running;
+ *
+ *
+ * 2. Status aplikasi
+ *
+ * Contoh:
+ *
+ * serverStarted
+ * shutdownRequested
+ *
+ *
+ * 3. Variabel yang hanya satu thread mengubah
+ * dan thread lain membaca.
+ */
+
+
+/**
+ * KAPAN JANGAN PAKAI VOLATILE?
+ *
+ * Jangan gunakan untuk:
+ *
+ * counter
+ * transaksi
+ * operasi tambah kurang
+ * data kompleks
+ *
+ *
+ * Contoh:
+ *
+ * volatile int count;
+ *
+ * count++;
+ *
+ *
+ * Tetap tidak aman.
+ */
+
+
+/**
+ * HUBUNGAN DENGAN MATERI SEBELUMNYA
+ *
+ *
+ * Race Condition
+ *        |
+ *        |
+ * Synchronization
+ *
+ *
+ * Visibility Problem
+ *        |
+ *        |
+ * volatile
+ *
+ *
+ * Jadi:
+ *
+ * synchronized = mengatur siapa yang boleh akses
+ *
+ * volatile = memastikan nilai terlihat antar thread
+ */
+
+
+/**
+ * KESIMPULAN SUPER PADAT
+ *
+ * Multithreading membuat banyak thread mengakses data bersama.
+ *
+ * CPU punya cache sehingga nilai bisa berbeda antar thread.
+ *
+ * Masalah:
+ *
+ * Thread A mengubah data,
+ * Thread B belum melihat perubahan.
+ *
+ * Ini disebut:
+ *
+ * Visibility Problem.
+ *
+ *
+ * Solusi:
+ *
+ * volatile:
+ * memastikan perubahan terlihat.
+ *
+ * synchronized:
+ * memastikan akses aman.
+ *
+ *
+ * Ingat:
+ *
+ * volatile = "lihat data terbaru"
+ *
+ * synchronized = "akses bergantian"
  */
 
 // TANPA VOLATILE

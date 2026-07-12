@@ -1,148 +1,168 @@
 package FundamentalJava.InputOutputIO;
 
 /**
- * Reading Console Input
+ * ============================================================
+ *                    Reading Console Input
+ * ============================================================
  *
- * Di Java 1.0:
- * satu-satunya cara baca input console adalah pakai byte stream
+ * Pada Java versi awal, pembacaan input dari console dilakukan
+ * menggunakan byte stream melalui System.in.
  *
- * Sekarang:
- * masih boleh pakai byte stream
- * tapi untuk aplikasi serius (production):
- * lebih disarankan pakai character stream
+ * Hingga saat ini pendekatan tersebut masih didukung. Namun,
+ * untuk membaca data berupa teks, Java menyediakan character
+ * stream yang lebih nyaman digunakan karena mendukung Unicode
+ * secara langsung dan lebih mudah dipelihara.
  *
- * Kenapa?
- * lebih mudah di-maintain
- * lebih gampang support berbagai bahasa (Unicode)
+ * Untuk aplikasi modern, pembacaan input teks umumnya dilakukan
+ * menggunakan character stream seperti BufferedReader atau
+ * Scanner, tergantung kebutuhan aplikasi.
  *
- * -----------------------------
- * 
- * Cara kerja input console
- * Di Java:
+ * ------------------------------------------------------------
+ *
  * System.in
  *
- * ini sumber input (keyboard)
+ * Input standar (standard input) pada Java disediakan oleh
+ * field:
  *
- * Masalahnya
- * System.in itu:
- * bertipe InputStream (byte stream)
+ *     System.in
  *
- * sedangkan kita mau:
- * character stream
+ * Secara default, System.in terhubung ke keyboard dan bertipe:
  *
- * Solusinya (dibungkus!)
- * Kita bungkus jadi:
- * BufferedReader br = new BufferedReader(
- *     new InputStreamReader(System.in)
- * );
+ *     InputStream
  *
- * Penjelasan constructor
- * 
- * 1. BufferedReader
- * BufferedReader(Reader inputReader)
- * butuh Reader
+ * Karena InputStream merupakan byte stream, diperlukan proses
+ * konversi apabila data akan diproses sebagai karakter.
  *
- * 2. InputStreamReader
- * InputStreamReader(InputStream inputStream)
+ * ------------------------------------------------------------
  *
- * mengubah:
- * byte → karakter
+ * Mengubah Byte Stream Menjadi Character Stream
  *
- * Jadi alurnya:
- * Keyboard → System.in → InputStreamReader → BufferedReader → Program
- *
- * ---------------------------------
- * 
- * Kenapa harus ribet dibungkus?
- *
- * Karena:
- * keyboard → byte
- * manusia → karakter
- *
- * jadi harus ada “translator”
- *
- * Peran masing-masing
- * System.in
- * sumber data (byte)
- *
- * InputStreamReader
- * translator:
- * byte → karakter
- *
- * BufferedReader
- * bikin lebih cepat
- * bisa baca per karakter / per baris
- *
- * Kenapa gak langsung muncul?
- *
- * Karena:
- * System.in itu line-buffered
- *
- * artinya:
- * input baru dikirim ke program setelah tekan ENTER
- *
- * Dampaknya
- * lu gak bisa baca karakter real-time
- * harus tunggu ENTER dulu
- *
- * ------------------------------------
- * 
- * KEKURANGAN read()
- * Masalah utama:
- * br.read()
- *
- * kurang cocok buat input interaktif
- *
- * Kenapa?
- * harus ENTER dulu
- * gak fleksibel
- *
- * SOLUSI YANG LEBIH BAGUS
- *
- * Biasanya dipakai:
- * br.readLine()
- *
- * baca langsung 1 baris
+ * Java menyediakan class InputStreamReader sebagai jembatan
+ * antara byte stream dan character stream.
  *
  * Contoh:
+ *
+ * BufferedReader br =
+ *     new BufferedReader(
+ *         new InputStreamReader(System.in)
+ *     );
+ *
+ * Pada contoh di atas:
+ *
+ * - System.in menyediakan data dalam bentuk byte.
+ * - InputStreamReader mengubah byte menjadi karakter Unicode.
+ * - BufferedReader memberikan mekanisme pembacaan yang lebih
+ *   efisien serta mendukung pembacaan per karakter maupun
+ *   per baris.
+ *
+ * Alur pembacaan data menjadi:
+ *
+ * Keyboard
+ *      ↓
+ * System.in
+ *      ↓
+ * InputStreamReader
+ *      ↓
+ * BufferedReader
+ *      ↓
+ * Program
+ *
+ * ------------------------------------------------------------
+ *
+ * Peran Masing-Masing Class
+ *
+ * System.in
+ *     Sumber input standar berupa byte stream.
+ *
+ * InputStreamReader
+ *     Mengonversi data dari byte stream menjadi character stream.
+ *
+ * BufferedReader
+ *     Menambahkan buffering agar proses pembacaan lebih efisien
+ *     serta menyediakan method seperti read() dan readLine().
+ *
+ * ------------------------------------------------------------
+ *
+ * Line Buffering
+ *
+ * Secara default, input dari console bersifat line-buffered.
+ *
+ * Artinya, data baru dikirimkan ke program setelah pengguna
+ * menekan tombol Enter.
+ *
+ * Oleh karena itu, pembacaan input dari keyboard umumnya tidak
+ * terjadi secara real-time untuk setiap penekanan tombol.
+ *
+ * ------------------------------------------------------------
+ *
+ * Method read()
+ *
+ * Method:
+ *
+ *     read()
+ *
+ * digunakan untuk membaca satu karakter dari stream.
+ *
+ * Method ini mengembalikan nilai bertipe int.
+ *
+ * Nilai yang dikembalikan dapat berupa:
+ *
+ * - Nilai Unicode dari karakter yang berhasil dibaca.
+ * - -1 apabila telah mencapai akhir stream (End Of File / EOF).
+ *
+ * Karena hanya membaca satu karakter setiap pemanggilan,
+ * method ini kurang praktis untuk membaca input berupa satu
+ * baris teks.
+ *
+ * ------------------------------------------------------------
+ *
+ * Method readLine()
+ *
+ * Untuk membaca satu baris teks sekaligus, BufferedReader
+ * menyediakan method:
+ *
+ *     readLine()
+ *
+ * Contoh:
+ *
  * String input = br.readLine();
  *
- * ---------------------
- * 
- * INSIGHT LEVEL PRO
- * 
- * Ini penting banget
- * Walaupun ini kelihatan sederhana:
- * ini dasar dari:
- * input user
- * CLI tools
- * backend processing
+ * Method ini mengembalikan sebuah String yang berisi seluruh
+ * karakter hingga pengguna menekan tombol Enter.
  *
- * Real-world
+ * Dalam banyak kasus, readLine() lebih nyaman digunakan
+ * dibandingkan read() untuk menerima input dari pengguna.
  *
- * Di dunia nyata:
- * jarang pakai read()
- * lebih sering:
- * readLine()
- * atau Scanner
+ * ------------------------------------------------------------
  *
- * ---------------------------
- * 
- * KESIMPULAN SUPER SEDERHANA
- * 
- * System.in = input dari keyboard (byte)
- * harus dibungkus jadi character stream:
- * BufferedReader br = new BufferedReader(
- *     new InputStreamReader(System.in)
- * );
+ * Penggunaan di Java Modern
  *
- * read():
- * baca 1 karakter
- * return int
- * -1 = EOF
+ * Dalam aplikasi modern, terdapat dua pendekatan yang paling
+ * umum digunakan untuk membaca input dari console:
  *
- * input console:
- * harus tekan ENTER dulu (line-buffered)
+ * - BufferedReader
+ *   Memberikan performa yang baik dan sering digunakan ketika
+ *   memerlukan pembacaan teks secara efisien.
+ *
+ * - Scanner
+ *   Menyediakan API yang lebih sederhana untuk membaca berbagai
+ *   tipe data seperti int, double, String, dan lain-lain.
+ *
+ * Pemilihan class bergantung pada kebutuhan aplikasi.
+ *
+ * ------------------------------------------------------------
+ *
+ * Ringkasan
+ *
+ * - System.in merupakan standard input bertipe InputStream.
+ * - InputStreamReader mengubah byte stream menjadi character
+ *   stream.
+ * - BufferedReader menambahkan buffering dan menyediakan method
+ *   read() serta readLine().
+ * - read() membaca satu karakter dan mengembalikan nilai int.
+ * - readLine() membaca satu baris teks dan mengembalikan String.
+ * - Input console umumnya bersifat line-buffered sehingga data
+ *   baru diterima setelah pengguna menekan Enter.
  */
 
 import java.io.*;

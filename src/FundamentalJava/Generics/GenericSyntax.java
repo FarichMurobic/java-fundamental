@@ -1,104 +1,272 @@
 package FundamentalJava.Generics;
 
-/**
- * Deklarasi generic class
- * 
- * class class-name<type-param-list> { // …
+/* ============================================================
+ *              DEKLARASI DAN PENGGUNAAN GENERIC CLASS
+ * ============================================================
  *
- * Artinya:
- * class-name = nama class
- * <type-param-list> = daftar parameter tipe (T, V, dll)
+ * Generic class dideklarasikan dengan menambahkan
+ * satu atau lebih type parameter setelah nama class.
  *
- * Cara pakai (buat object)
- * 
- * class-name<type-arg-list> var-name =
- *     new class-name<type-arg-list>(cons-arg-list);
- *
- * Artinya:
- * type-arg-list = tipe asli (Integer, String, dll)
- * cons-arg-list = parameter constructor
- *
- * -----------------------------------------------
- * 
- * A. DEKLARASI CLASS
- * 
  * Bentuk umum:
- * // Deklarasi class generic dengan parameter tipe
- * class NamaClass<T> {
- * 
- * }
- * 
- *  Kalau lebih dari satu:
- * // Class generic dengan dua parameter tipe
- * class NamaClass<T, V> {
  *
+ * class ClassName<TypeParameter> {
+ *     ...
  * }
  *
- * Penjelasan:
- * T, V = placeholder
- * nanti diganti tipe asli
+ * Type parameter berfungsi sebagai placeholder yang akan
+ * diganti dengan tipe data sebenarnya saat object dibuat.
+ */
+
+
+/* ------------------------------------------------------------
+ * Deklarasi Generic Class
+ * ------------------------------------------------------------
  *
- * MEMBUAT OBJECT (INI KRUSIAL)
- * 
  * Bentuk umum:
- * // Membuat object dari class generic
- * NamaClass<TipeAsli> namaVariabel =
- *     new NamaClass<TipeAsli>(parameterConstructor);
  *
- * Contoh 1 (1 tipe)
- * // Membuat object dengan tipe Integer
- * Gen<Integer> obj = new Gen<Integer>(10);
+ * class ClassName<T> {
+ *     ...
+ * }
  *
- * Artinya:
- * T → diganti Integer
+ * Keterangan:
  *
- * Contoh 2 (2 tipe)
- * // Membuat object dengan dua tipe: Integer dan String
+ * ClassName
+ *     Nama class.
+ *
+ * T
+ *     Type parameter yang mewakili tipe data dan akan
+ *     ditentukan ketika object dibuat.
+ *
+ * Nama type parameter tidak harus menggunakan huruf T,
+ * tetapi Java memiliki konvensi penamaan seperti:
+ *
+ * T  = Type
+ * E  = Element
+ * K  = Key
+ * V  = Value
+ * N  = Number
+ */
+
+
+/* ------------------------------------------------------------
+ * Generic Class dengan Banyak Type Parameter
+ * ------------------------------------------------------------
+ *
+ * Sebuah generic class dapat memiliki lebih dari satu
+ * type parameter.
+ *
+ * Contoh:
+ *
+ * class ClassName<T, V> {
+ *     ...
+ * }
+ *
+ * Pada contoh tersebut:
+ *
+ * T dan V merupakan dua type parameter yang berbeda.
+ *
+ * Masing-masing akan diganti dengan tipe data yang sesuai
+ * ketika object dibuat.
+ */
+
+
+/* ------------------------------------------------------------
+ * Membuat Object dari Generic Class
+ * ------------------------------------------------------------
+ *
+ * Bentuk umum:
+ *
+ * ClassName<TypeArgument> variable =
+ *         new ClassName<TypeArgument>(constructorArgument);
+ *
+ * Keterangan:
+ *
+ * TypeArgument
+ *     Tipe data sebenarnya, misalnya Integer atau String.
+ *
+ * constructorArgument
+ *     Nilai yang diteruskan ke constructor.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh dengan Satu Type Parameter
+ * ------------------------------------------------------------
+ *
+ * Gen<Integer> obj =
+ *         new Gen<Integer>(10);
+ *
+ * Compiler mengganti:
+ *
+ * T → Integer
+ *
+ * sehingga seluruh member yang menggunakan T
+ * akan bertipe Integer.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh dengan Dua Type Parameter
+ * ------------------------------------------------------------
+ *
  * TwoGen<Integer, String> obj =
- *     new TwoGen<Integer, String>(10, "Halo");
+ *         new TwoGen<Integer, String>(10, "Halo");
  *
- * Artinya:
+ * Compiler mengganti:
+ *
  * T → Integer
  * V → String
  *
- * -------------------------------------------
- * 
- * POLA YANG HARUS LU HAFAL (INI PENTING)
+ * Akibatnya:
  *
- * Pola dasar generics:
+ * Semua penggunaan T menjadi Integer.
+ * Semua penggunaan V menjadi String.
+ */
+
+
+/* ------------------------------------------------------------
+ * Diamond Operator
+ * ------------------------------------------------------------
+ *
+ * Sejak Java 7, type argument pada sisi kanan
+ * dapat dihilangkan menggunakan diamond operator (<>).
+ *
+ * Contoh:
+ *
+ * Gen<Integer> obj = new Gen<>(10);
+ *
+ * Compiler akan melakukan type inference sehingga
+ * hasilnya setara dengan:
+ *
+ * Gen<Integer> obj =
+ *         new Gen<Integer>(10);
+ *
+ * Penulisan dengan diamond operator lebih ringkas
+ * dan menjadi gaya penulisan yang umum digunakan
+ * pada Java modern.
+ */
+
+
+/* ------------------------------------------------------------
+ * Pola Dasar Generic Class
+ * ------------------------------------------------------------
+ *
+ * Hampir seluruh generic class mengikuti pola berikut:
+ *
  * 1. Deklarasi
- * class Nama<T>
  *
- * 2. Pakai
- * Nama<Tipe> var = new Nama<Tipe>();
+ *      class ClassName<T>
  *
- * Ini muncul terus di Java
+ * 2. Membuat object
  *
- * HAL PENTING YANG SERING BIKIN SALAH
- * 1. Tipe harus sama
- * // SALAH (beda tipe)
- * Gen<Integer> obj = new Gen<String>("Test");
+ *      ClassName<TypeArgument> variable =
+ *              new ClassName<>(...);
  *
- * Harus sama:
- * // BENAR (tipe konsisten)
- * Gen<Integer> obj = new Gen<Integer>(10);
+ * Pola ini merupakan dasar penggunaan seluruh
+ * generic class di Java.
+ */
+
+
+/* ------------------------------------------------------------
+ * Hal Penting yang Perlu Diperhatikan
+ * ------------------------------------------------------------
  *
- * --------------------------------------------
- * 
- * KESIMPULAN
- * 
- * 1. Generic class punya pola:
- * class Nama<T>
+ * Type argument pada deklarasi variabel dan object
+ * harus konsisten.
  *
- * 2. Object dibuat dengan:
- * Nama<Tipe> var = new Nama<Tipe>();
+ * Contoh yang tidak valid:
  *
- * 3. <T> = placeholder
- * diganti saat object dibuat
+ * Gen<Integer> obj =
+ *         new Gen<String>("Test");
  *
- * 4. Jumlah & urutan tipe HARUS sesuai
+ * Compiler menghasilkan compile-time error karena:
  *
- * 5. Ini fondasi semua generics
+ * Integer ≠ String
+ *
+ * Contoh yang benar:
+ *
+ * Gen<Integer> obj =
+ *         new Gen<Integer>(10);
+ *
+ * atau:
+ *
+ * Gen<Integer> obj =
+ *         new Gen<>(10);
+ */
+
+
+/* ------------------------------------------------------------
+ * Jumlah dan Urutan Type Argument
+ * ------------------------------------------------------------
+ *
+ * Jika generic class memiliki beberapa type parameter,
+ * maka jumlah dan urutannya harus sesuai.
+ *
+ * Contoh:
+ *
+ * class Pair<K, V>
+ *
+ * Maka object harus dibuat seperti:
+ *
+ * Pair<String, Integer>
+ *
+ * Bukan:
+ *
+ * Pair<String>
+ *
+ * ataupun:
+ *
+ * Pair<Integer, String>
+ *
+ * apabila urutan tipe yang diharapkan berbeda.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Generic class dideklarasikan menggunakan
+ *   satu atau lebih type parameter.
+ *
+ * - Type parameter merupakan placeholder
+ *   yang diganti dengan tipe sebenarnya
+ *   saat object dibuat.
+ *
+ * - Object dibuat menggunakan type argument
+ *   yang sesuai dengan deklarasi generic class.
+ *
+ * - Type argument harus konsisten pada deklarasi
+ *   variabel dan object.
+ *
+ * - Jika terdapat lebih dari satu type parameter,
+ *   jumlah dan urutannya harus sesuai.
+ *
+ * - Diamond operator (<>) dapat digunakan untuk
+ *   memanfaatkan type inference sehingga penulisan
+ *   menjadi lebih ringkas.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Deklarasi generic class merupakan fondasi seluruh
+ * mekanisme generics di Java.
+ *
+ * Konsep ini digunakan hampir di seluruh Java Standard Library,
+ * seperti:
+ *
+ * List<E>
+ * Set<E>
+ * Queue<E>
+ * Map<K, V>
+ * Optional<T>
+ *
+ * Oleh karena itu, memahami pola deklarasi dan penggunaan
+ * generic class merupakan langkah awal untuk menguasai
+ * fitur generics secara menyeluruh.
  */
 
 class Animal<F, U> {

@@ -1,123 +1,203 @@
 package FundamentalJava.MultiThreaded;
 
 /**
-     * Java punya method:
-     *
-     * Thread.State getState()
-     * Dipakai buat lihat status thread saat ini
-     * Return-nya berupa enum Thread.State
-     *
-     * Daftar State
-     * State	            Arti
-     * NEW	                Thread belum mulai
-     * RUNNABLE	            Lagi jalan / siap jalan
-     * BLOCKED	            Nunggu lock
-     * WAITING	            Nunggu tanpa batas
-     * TIMED_WAITING	    Nunggu dengan waktu
-     * TERMINATED	        Sudah selesai
-     *
-     * PENJELASAN DALAM (INTUISI)
-     * 1. NEW
-     * Thread dibuat, tapi belum start()
-     * Thread t = new Thread(...);
-     *
-     * Masih “calon thread”
-     *
-     * 2. RUNNABLE
-     * Thread siap jalan / sedang jalan
-     *
-     * Penting:
-     * Ini bukan berarti selalu jalan
-     * Tapi:
-     * bisa jalan kapan saja (nunggu CPU)
-     *
-     * Jadi:
-     * RUNNABLE = “siap tempur”
-     *
-     * 3. BLOCKED
-     * Thread nunggu lock (synchronized)
-     *
-     * Contoh:
-     * synchronized(obj) {
-     *    ...
-     * }
-     *
-     * Kalau ada thread lain pegang lock:
-     * thread ini → BLOCKED
-     *
-     * 4. WAITING
-     * Thread nunggu tanpa batas
-     *
-     * Biasanya karena:
-     * wait();
-     * join();
-     *
-     * Dia nunggu:
-     * sampai ada notify()
-     * atau thread lain selesai
-     *
-     * 5. TIMED_WAITING
-     * Thread nunggu dengan waktu
-     *
-     * Contoh:
-     * Thread.sleep(1000);
-     * wait(1000);
-     * join(1000);
-     *
-     * Setelah waktu habis → lanjut
-     *
-     * 6. TERMINATED
-     * Thread sudah selesai
-     *
-     * run() selesai
-     *
-     * GAMBARAN ALUR (BIAR KEBAYANG)
-     * NEW → RUNNABLE → RUNNING
-     *              ↓
-     *         WAITING / BLOCKED / TIMED_WAITING
-     *              ↓
-     *         RUNNABLE lagi
-     *              ↓
-     *         TERMINATED
-     *
-     * HAL PENTING (WAJIB PAHAM)
-     * 1. State bisa berubah cepat banget
-     * Thread.State ts = t.getState();
-     *
-     * Bisa aja:
-     * lu cek RUNNABLE
-     * 1ms kemudian → WAITING
-     *
-     * 2. getState() bukan buat sinkronisasi
-     * Ini penting banget dari teks:
-     *
-     * Bukan untuk kontrol thread
-     * Untuk debugging
-     *
-     * 3. RUNNABLE ≠ selalu jalan
-     * Ini kesalahan umum
-     *
-     * RUNNABLE =
-     * bisa jalan
-     * belum tentu lagi jalan
-     *
-     * ANALOGI PALING NGENA
-     *
-     * Bayangin thread kayak orang:
-     * State	            Analoginya
-     * NEW	                belum mulai kerja
-     * RUNNABLE	            siap kerja / lagi kerja
-     * BLOCKED	            nunggu kunci ruangan
-     * WAITING	            nunggu orang lain
-     * TIMED_WAITING	    lagi tidur
-     * TERMINATED	        sudah selesai kerja
-     *
-     * RINGKASAN SUPER PADAT
-     * getState() → lihat status thread
-     * Ada 6 state utama
-     * State bisa berubah cepat
-     * Dipakai untuk debugging, bukan kontrol
-     */
+ * ------------------------------------------------------------------------
+ * THREAD STATE (STATUS THREAD)
+ * ------------------------------------------------------------------------
+ * 
+ * Java memiliki method:
+ *     Thread.State getState()
+ * 
+ * Digunakan untuk melihat status thread saat ini.
+ * Return value berupa enum Thread.State.
+ * 
+ * ------------------------------------------------------------------------
+ * DAFTAR STATE LENGKAP
+ * ------------------------------------------------------------------------
+ * 
+ * State               | Arti
+ * --------------------|---------------------------------------------------
+ * NEW                 | Thread belum dimulai
+ * RUNNABLE            | Sedang berjalan atau siap berjalan
+ * BLOCKED             | Menunggu lock (synchronized)
+ * WAITING             | Menunggu tanpa batas waktu
+ * TIMED_WAITING       | Menunggu dengan batas waktu
+ * TERMINATED          | Sudah selesai dieksekusi
+ * 
+ * ------------------------------------------------------------------------
+ * PENJELASAN MENDALAM
+ * ------------------------------------------------------------------------
+ * 
+ * 1. NEW
+ * 
+ * Thread baru saja dibuat, tapi belum dipanggil start().
+ * 
+ *     Thread t = new Thread(...);
+ *     // Statusnya: NEW
+ * 
+ * Masih "calon thread" atau thread dalam bentuk objek saja.
+ * 
+ * 2. RUNNABLE
+ * 
+ * Thread sudah siap berjalan atau sedang berjalan.
+ * 
+ * Penting:
+ * Ini bukan berarti thread selalu berjalan secara aktif.
+ * Artinya: thread siap dieksekusi kapan saja oleh CPU.
+ * 
+ * Jadi:
+ * RUNNABLE = "siap tempur"
+ * 
+ * 3. BLOCKED
+ * 
+ * Thread sedang menunggu lock (synchronized) yang sedang dipegang
+ * oleh thread lain.
+ * 
+ * Contoh:
+ *     synchronized(obj) {
+ *         // kode kritis
+ *     }
+ * 
+ * Jika ada thread lain memegang lock pada obj:
+ * thread ini akan masuk ke status BLOCKED.
+ * 
+ * 4. WAITING
+ * 
+ * Thread menunggu tanpa batas waktu.
+ * 
+ * Biasanya terjadi karena pemanggilan:
+ * - wait() tanpa parameter
+ * - join() tanpa parameter
+ * 
+ * Thread akan menunggu sampai:
+ * - Ada notifikasi (notify() / notifyAll())
+ * - Thread lain selesai (join())
+ * 
+ * 5. TIMED_WAITING
+ * 
+ * Thread menunggu dengan batas waktu tertentu.
+ * 
+ * Contoh pemanggilan:
+ * - Thread.sleep(1000)
+ * - wait(1000)
+ * - join(1000)
+ * 
+ * Setelah waktu habis, thread akan kembali ke status RUNNABLE.
+ * 
+ * 6. TERMINATED
+ * 
+ * Thread sudah selesai dieksekusi.
+ * 
+ * Terjadi ketika:
+ * - Method run() selesai dieksekusi
+ * - Thread keluar karena exception yang tidak tertangani
+ * 
+ * ------------------------------------------------------------------------
+ * GAMBARAN ALUR PERUBAHAN STATE
+ * ------------------------------------------------------------------------
+ * 
+ *      NEW
+ *       ↓
+ *      start()
+ *       ↓
+ *    RUNNABLE  ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+ *       ↓                                             ↑
+ *       | (butuh resource)                            |
+ *       | (scheduler memilih)                         |
+ *       ↓                                             |
+ *     RUNNING (konseptual, tetap RUNNABLE di Java)    |
+ *       ↓                                             |
+ *       | (thread.sleep / wait / join / lock)         |
+ *       ↓                                             |
+ *   ┌───┴───────┬────────────┬──────────────┐        |
+ *   ↓           ↓            ↓              ↓        |
+ * WAITING   TIMED_WAITING  BLOCKED       TERMINATED  |
+ *   ↓           ↓            ↓              ↓        |
+ *   └───┬───────┴────────────┴──────────────┘        |
+ *       | (notify / waktu habis / lock tersedia)      |
+ *       └─────────────────────────────────────────────┘
+ * 
+ * ------------------------------------------------------------------------
+ * HAL PENTING (WAJIB PAHAM)
+ * ------------------------------------------------------------------------
+ * 
+ * 1. State bisa berubah sangat cepat
+ * 
+ *     Thread.State ts = t.getState();
+ * 
+ * Bisa saja:
+ * - Saat dicek statusnya RUNNABLE
+ * - 1 milidetik kemudian berubah menjadi WAITING
+ * 
+ * Oleh karena itu, getState() hanya untuk keperluan debugging,
+ * BUKAN untuk logika sinkronisasi.
+ * 
+ * 2. getState() BUKAN untuk kontrol thread
+ * 
+ * Ini sangat penting:
+ * - Jangan gunakan getState() untuk mengatur alur program
+ * - Gunakan untuk debugging dan monitoring saja
+ * 
+ * 3. RUNNABLE ≠ selalu berjalan
+ * 
+ * Ini adalah kesalahan umum pemula.
+ * 
+ * RUNNABLE artinya:
+ * - Thread siap dijalankan oleh scheduler
+ * - Bisa saja sedang menunggu giliran CPU
+ * - Belum tentu sedang berjalan secara aktif
+ * 
+ * ------------------------------------------------------------------------
+ * ANALOGI PALING NGENA
+ * ------------------------------------------------------------------------
+ * 
+ * Bayangkan thread seperti orang yang sedang bekerja:
+ * 
+ * State               | Analogi
+ * --------------------|---------------------------------------------------
+ * NEW                 | Belum mulai kerja (masih di rumah)
+ * RUNNABLE            | Siap kerja / sedang kerja (di kantor)
+ * BLOCKED             | Nunggu kunci ruangan (pintu terkunci)
+ * WAITING             | Nunggu orang lain (menunggu rekan)
+ * TIMED_WAITING       | Lagi tidur siang (istirahat sebentar)
+ * TERMINATED          | Pulang kerja (selesai)
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH IMPLEMENTASI
+ * ------------------------------------------------------------------------
+ * 
+ *     Thread t = new Thread(() -> {
+ *         try {
+ *             Thread.sleep(1000);
+ *         } catch (InterruptedException e) {
+ *             Thread.currentThread().interrupt();
+ *         }
+ *     });
+ * 
+ *     System.out.println("State: " + t.getState()); // NEW
+ *     
+ *     t.start();
+ *     System.out.println("State: " + t.getState()); // RUNNABLE
+ *     
+ *     // Tunggu sebentar agar thread masuk ke TIMED_WAITING
+ *     Thread.sleep(100);
+ *     System.out.println("State: " + t.getState()); // TIMED_WAITING
+ *     
+ *     t.join();
+ *     System.out.println("State: " + t.getState()); // TERMINATED
+ * 
+ * ------------------------------------------------------------------------
+ * RINGKASAN SUPER PADAT
+ * ------------------------------------------------------------------------
+ * 
+ * - getState() → melihat status thread saat ini
+ * - Ada 6 state utama: NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED
+ * - State bisa berubah cepat, gunakan untuk debugging
+ * - RUNNABLE ≠ sedang berjalan, hanya siap dijalankan
+ * - Jangan gunakan getState() untuk logika kontrol thread
+ * 
+ * ------------------------------------------------------------------------
+ */
 
 // contoh kode lengkap
 // Ini contoh biar lu lihat state berubah real-time:

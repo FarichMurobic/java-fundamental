@@ -1,64 +1,308 @@
 package FundamentalJava.Methods.MethodReference;
 
-/**
- * Ada 2 jenis instance method reference:
+/*
+ * ============================================================
+ * Instance Method Reference Pada Java
+ * ============================================================
  *
- * 1. Object tertentu (fixed object)
- * objRef::methodName
+ * Method reference adalah fitur Java yang memungkinkan kita
+ * mereferensikan sebuah method tanpa langsung menjalankannya.
  *
- * method dipanggil dari object spesifik
+ * Method reference diperkenalkan pada Java 8 dan sering digunakan
+ * bersama:
  *
- * 2. Class (object belum diketahui)
+ * - Lambda Expression.
+ * - Functional Interface.
+ * - Stream API.
+ *
+ * Bentuk umum method reference:
+ *
+ * object::methodName
+ *
+ * atau:
+ *
  * ClassName::methodName
  *
- * method dipanggil dari object yang dikirim nanti
+ * Method reference merupakan bentuk penulisan yang lebih singkat
+ * dari lambda expression ketika lambda hanya memanggil sebuah
+ * method.
  *
- * Ini beda walaupun bentuknya mirip!
+ * ------------------------------------------------------------
+ * Hubungan Lambda dan Method Reference
+ * ------------------------------------------------------------
  *
- * Real Project Insight
- * 1. Ini sering banget di Stream API
+ * Contoh lambda:
+ *
+ * (String text) -> text.toUpperCase()
+ *
+ * Dapat ditulis lebih sederhana menjadi:
+ *
+ * String::toUpperCase
+ *
+ * Karena Java sudah mengetahui bahwa method toUpperCase()
+ * dipanggil dari object String yang diberikan.
+ *
+ * ------------------------------------------------------------
+ * Jenis Instance Method Reference
+ * ------------------------------------------------------------
+ *
+ * Instance method reference memiliki dua bentuk utama:
+ *
+ * 1. Reference ke Object Tertentu
+ *
+ * Bentuk:
+ *
+ * objectReference::methodName
+ *
+ *
+ * Method akan dipanggil dari object yang sudah ada.
+ *
+ * Contoh:
+ *
+ * String nama = "java";
+ *
+ * Supplier<String> supplier = nama::toUpperCase;
+ *
+ *
+ * Sama seperti:
+ *
+ * () -> nama.toUpperCase()
+ *
+ *
+ * Pada contoh tersebut:
+ *
+ * - Object String sudah diketahui.
+ * - Method dipanggil dari object tersebut.
+ *
+ * ------------------------------------------------------------
+ * 2. Reference ke Class Dengan Instance Method
+ * ------------------------------------------------------------
+ *
+ * Bentuk:
+ *
+ * ClassName::methodName
+ *
+ *
+ * Bentuk ini terlihat seperti pemanggilan static method, tetapi
+ * sebenarnya mengacu kepada instance method.
+ *
+ * Object yang akan digunakan diberikan nanti sebagai parameter.
+ *
+ * Contoh:
+ *
+ * Function<String, String> converter =
+ *         String::toUpperCase;
+ *
+ *
+ * Sama seperti:
+ *
+ * text -> text.toUpperCase()
+ *
+ *
+ * Java memahami bahwa object String akan menjadi target dari
+ * method toUpperCase().
+ *
+ * ------------------------------------------------------------
+ * Perbedaan Dua Bentuk Instance Method Reference
+ * ------------------------------------------------------------
+ *
+ * Object::method
+ *
+ * - Object sudah tersedia.
+ * - Method dipanggil dari object tertentu.
+ *
+ * Contoh:
+ *
+ * myObject::method
+ *
+ *
+ * Class::method
+ *
+ * - Object belum diberikan saat membuat reference.
+ * - Object diberikan ketika functional interface dijalankan.
+ *
+ * Contoh:
+ *
+ * String::toUpperCase
+ *
+ * ------------------------------------------------------------
+ * Penggunaan Dalam Stream API
+ * ------------------------------------------------------------
+ *
+ * Method reference sangat sering digunakan pada Stream API karena
+ * membuat kode lebih ringkas dan mudah dibaca.
+ *
+ * Contoh:
+ *
  * list.stream()
- *     .map(String::toUpperCase)
+ *     .map(String::toUpperCase);
  *
- * sama dengan:
- * (str) -> str.toUpperCase()
  *
- * 2. Contoh real Spring Boot style
+ * Setara dengan:
+ *
+ * list.stream()
+ *     .map(text -> text.toUpperCase());
+ *
+ *
+ * Proses:
+ *
+ * Setiap element String dari stream akan dikirim ke method
+ * toUpperCase().
+ *
+ * ------------------------------------------------------------
+ * Contoh Real Project Style
+ * ------------------------------------------------------------
+ *
+ * Misalnya terdapat list User:
+ *
  * users.stream()
  *      .filter(User::isActive)
  *      .map(User::getName)
  *      .forEach(System.out::println);
  *
- * 3. Contoh compare object
+ *
+ * Penjelasan:
+ *
+ * User::isActive
+ *
+ * Sama seperti:
+ *
+ * user -> user.isActive()
+ *
+ *
+ * User::getName
+ *
+ * Sama seperti:
+ *
+ * user -> user.getName()
+ *
+ *
+ * System.out::println
+ *
+ * Sama seperti:
+ *
+ * name -> System.out.println(name)
+ *
+ * ------------------------------------------------------------
+ * Method Reference Untuk Sorting
+ * ------------------------------------------------------------
+ *
+ * Method reference juga sering digunakan pada Comparator.
+ *
+ * Contoh:
+ *
  * list.sort(String::compareToIgnoreCase);
  *
- * ini instance method reference tipe ke-2
  *
- * Bonus: super::method
+ * Setara dengan:
+ *
+ * (a, b) -> a.compareToIgnoreCase(b)
+ *
+ *
+ * Java akan menggunakan method compareToIgnoreCase() untuk
+ * membandingkan dua object String.
+ *
+ * ------------------------------------------------------------
+ * Method Reference super::methodName
+ * ------------------------------------------------------------
+ *
+ * Java juga menyediakan method reference menggunakan keyword
+ * super.
+ *
+ * Bentuk:
+ *
  * super::methodName
  *
- * buat panggil method parent class
  *
- * ----------------------------------
- * 
- * Kesimpulan 
- * 1. Ada 2 jenis instance method reference:
- * obj::method
- * Class::method
+ * Digunakan untuk mereferensikan method milik superclass.
  *
- * 2. Mapping penting:
- * (v1, v2) -> v1.method(v2)
+ * Contoh:
  *
- * 3. Dipakai di:
- * Stream API
- * sorting
- * filtering
- * mapping
+ * super::show
  *
- * 4. Bikin code:
- * lebih clean
- * lebih readable
- * lebih profesional
+ *
+ * Konsepnya mirip dengan:
+ *
+ * super.show()
+ *
+ *
+ * Tetapi digunakan ketika membutuhkan method reference, bukan
+ * langsung menjalankan method.
+ *
+ * ------------------------------------------------------------
+ * Aturan Method Reference
+ * ------------------------------------------------------------
+ *
+ * Method reference hanya dapat digunakan jika signature method
+ * sesuai dengan functional interface yang digunakan.
+ *
+ * Contoh:
+ *
+ * Function<String, Integer> parser =
+ *         String::length;
+ *
+ *
+ * Setara:
+ *
+ * text -> text.length()
+ *
+ *
+ * Karena:
+ *
+ * Input:
+ * String
+ *
+ * Output:
+ * Integer
+ *
+ * Sesuai dengan Function<T, R>.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Instance method reference memiliki dua bentuk utama:
+ *
+ * 1. Object reference:
+ *
+ * object::methodName
+ *
+ * Object sudah tersedia.
+ *
+ *
+ * 2. Class reference:
+ *
+ * ClassName::methodName
+ *
+ * Object diberikan saat method dijalankan.
+ *
+ *
+ * Konsep penting:
+ *
+ * Lambda:
+ *
+ * value -> value.method()
+ *
+ *
+ * Dapat disederhanakan menjadi:
+ *
+ * ClassName::method
+ *
+ *
+ * Method reference sering digunakan pada:
+ *
+ * - Stream API.
+ * - Filtering.
+ * - Mapping.
+ * - Sorting.
+ * - Functional programming.
+ *
+ * Keuntungan:
+ *
+ * - Kode lebih singkat.
+ * - Lebih mudah dibaca.
+ * - Lebih sesuai dengan gaya Java modern.
+ *
  */
 
 // CASE 1 — Object tertentu (objRef::method)

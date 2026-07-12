@@ -5,6 +5,7 @@ public class OperatorRelational {
 
         /**
          * Relational Operators
+         * 
          * Operator relational digunakan untuk menentukan hubungan antara dua operand.
          * Secara khusus operator ini digunakan untuk menentukan:
          * - kesamaan (equality)
@@ -40,6 +41,7 @@ public class OperatorRelational {
          * <
          * >=
          * <=
+         * 
          * Artinya hanya bisa dipakai untuk:
          * int
          * float

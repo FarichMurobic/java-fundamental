@@ -1,131 +1,393 @@
 package FundamentalJava.MultiThreaded;
 
-/**
-     * Sistem multithreading di Java dibangun dari:
-     *
-     * class Thread
-     * interface Runnable
-     *
-     * Apa itu Thread?
-     *
-     * Thread itu:
-     * representasi (proxy) dari thread yang lagi jalan
-     *
-     * Karena:
-     * Thread asli itu gak bisa kita pegang langsung
-     * Kita kontrol lewat object Thread
-     *
-     * Cara bikin thread:
-     * Ada 2 cara:
-     *
-     * Extend Thread
-     * Implement Runnable
-     *
-     * Method penting di Thread
-     * Method	        Fungsi
-     * getName()	    ambil nama thread
-     * getPriority()	ambil prioritas
-     * isAlive()	    cek thread masih jalan
-     * join()	        tunggu thread selesai
-     * run()	        isi kerja thread
-     * sleep()	        delay
-     * start()	        mulai thread
-     *
-     * Catatan penting:
-     * Semua program Java:
-     * selalu punya 1 thread awal → main thread
-     *
-     * ============================================
-     * 
-     * KONSEP INTI
-     * run() vs start() (INI WAJIB BANGET PAHAM)
-     * Salah (pemula sering banget):
-     * t.run();
-     *
-     * Ini BUKAN thread baru
-     * Cuma method biasa
-     *
-     * Benar:
-     * t.start();
-     *
-     * Ini:
-     * bikin thread baru
-     * lalu otomatis panggil run()
-     *
-     * -----------------------------
-     * 
-     * Penjelasan:
-     * extends Thread → class lu jadi thread
-     * override run() → isi kerja
-     * start() → mulai thread
-     * Kekurangan:
-     * Java gak bisa multiple inheritance
-     * Lu jadi “keikat” sama Thread
-     *
-     * -----------------------
-     * 
-     * Insight Level Pro
-     * 
-     * Kenapa Runnable lebih disarankan?
-     * Bisa extend class lain
-     * Lebih fleksibel
-     * Dipakai di:
-     * Thread pool
-     * Executor framework
-     *
-     * Thread itu mahal
-     * Jangan bikin thread sembarangan
-     *
-     * Makanya di dunia nyata:
-     * pakai ExecutorService (nanti kita bahas)
-     *
-     * Penerapan Nyata
-     * Dipakai di:
-     *
-     * Server (handle banyak user)
-     * Game loop
-     * Background task
-     * Download manager
-     *
-     * ----------------------------------------------------
-     * 
-     * KESIMPULAN
-     * Thread = representasi eksekusi
-     * Ada 2 cara bikin:
-     * extend Thread
-     * implement Runnable (lebih baik)
-     * start() = mulai thread
-     * run() = isi kerja
-     * Java selalu punya main thread
-     */
-
-    /**
-     * Saat program Java mulai:
-     * 
-     * 1 thread langsung jalan otomatis
-     *
-     * Ini disebut:
-     * main thread
-     *
-     * Kenapa main thread penting?
-     * Tempat lahir thread lain
-     * → semua thread lain dibuat dari sini
-     * Biasanya yang terakhir selesai
-     * → handle shutdown program
-     *
-     * Cara akses main thread
-     * Gunakan:
-     * Thread.currentThread()
-     *
-     * Ini akan:
-     * ngasih referensi ke thread yang lagi jalan sekarang
-     *
-     * KONSEP INTI
-     * Fakta penting:
-     * Semua program Java:
-     * Selalu dimulai dari main thread
-     * Bahkan sebelum lu bikin thread sendiri
-     */
+/*
+ * ============================================================
+ * Thread Fundamental Java
+ * ============================================================
+ *
+ * Sistem multithreading pada Java dibangun menggunakan dua
+ * komponen utama:
+ *
+ * - Class Thread
+ * - Interface Runnable
+ *
+ *
+ * Keduanya digunakan untuk membuat dan menjalankan pekerjaan
+ * secara concurrent.
+ *
+ * ------------------------------------------------------------
+ * Apa Itu Thread?
+ * ------------------------------------------------------------
+ *
+ * Thread adalah jalur eksekusi independen di dalam sebuah
+ * program.
+ *
+ *
+ * Dalam Java, kita tidak mengontrol thread OS secara langsung.
+ *
+ * Sebagai gantinya, Java menyediakan object Thread sebagai
+ * representasi untuk membuat dan mengontrol sebuah thread.
+ *
+ *
+ * Alurnya:
+ *
+ * Object Thread
+ *        |
+ *        v
+ * JVM
+ *        |
+ *        v
+ * OS Thread
+ *
+ *
+ * Jadi:
+ *
+ * Object Thread adalah jembatan antara program Java dengan
+ * mekanisme thread yang dikelola JVM dan Operating System.
+ *
+ * ------------------------------------------------------------
+ * Cara Membuat Thread
+ * ------------------------------------------------------------
+ *
+ * Java menyediakan dua pendekatan utama:
+ *
+ *
+ * 1. Extend class Thread
+ *
+ * class MyThread extends Thread {
+ *
+ *     public void run() {
+ *
+ *         // pekerjaan thread
+ *
+ *     }
+ *
+ * }
+ *
+ *
+ *
+ * 2. Implement interface Runnable
+ *
+ * class MyTask implements Runnable {
+ *
+ *     public void run() {
+ *
+ *         // pekerjaan thread
+ *
+ *     }
+ *
+ * }
+ *
+ *
+ * Keduanya dapat digunakan untuk membuat thread baru.
+ *
+ * ------------------------------------------------------------
+ * Method Penting Pada Class Thread
+ * ------------------------------------------------------------
+ *
+ * Method              Fungsi
+ *
+ * start()
+ *
+ * Memulai thread baru.
+ * JVM kemudian menjalankan method run().
+ *
+ *
+ * run()
+ *
+ * Berisi pekerjaan yang akan dilakukan thread.
+ *
+ *
+ * sleep()
+ *
+ * Menghentikan sementara thread selama waktu tertentu.
+ *
+ *
+ * join()
+ *
+ * Membuat thread menunggu thread lain selesai.
+ *
+ *
+ * getName()
+ *
+ * Mengambil nama thread.
+ *
+ *
+ * getPriority()
+ *
+ * Mengambil prioritas thread.
+ *
+ *
+ * isAlive()
+ *
+ * Mengecek apakah thread masih berjalan.
+ *
+ * ------------------------------------------------------------
+ * Main Thread
+ * ------------------------------------------------------------
+ *
+ * Ketika program Java dimulai:
+ *
+ * JVM otomatis membuat satu thread pertama.
+ *
+ *
+ * Thread tersebut disebut:
+ *
+ * main thread
+ *
+ *
+ * Contoh:
+ *
+ * public static void main(String[] args)
+ *
+ *
+ * Method main() selalu dijalankan oleh main thread.
+ *
+ *
+ * Alur:
+ *
+ * JVM Start
+ *     |
+ *     v
+ * Main Thread dibuat
+ *     |
+ *     v
+ * Method main() dijalankan
+ *     |
+ *     v
+ * Membuat thread tambahan jika diperlukan
+ *
+ * ------------------------------------------------------------
+ * Cara Mengakses Main Thread
+ * ------------------------------------------------------------
+ *
+ * Java menyediakan:
+ *
+ * Thread.currentThread()
+ *
+ *
+ * Method ini mengembalikan referensi ke thread yang sedang
+ * menjalankan kode saat itu.
+ *
+ *
+ * Contoh:
+ *
+ * Thread t = Thread.currentThread();
+ *
+ *
+ * Hasil:
+ *
+ * Kita mendapatkan object Thread dari thread aktif.
+ *
+ * ------------------------------------------------------------
+ * Konsep Paling Penting:
+ * run() vs start()
+ * ------------------------------------------------------------
+ *
+ * Ini adalah kesalahan paling umum programmer pemula.
+ *
+ *
+ * Salah:
+ *
+ * t.run();
+ *
+ *
+ * Kenapa salah?
+ *
+ * Karena run() hanyalah method biasa.
+ *
+ *
+ * Ketika dipanggil langsung:
+ *
+ * Tidak membuat thread baru.
+ *
+ *
+ * Kode tetap berjalan pada thread yang sedang aktif.
+ *
+ *
+ * ------------------------------------------------------------
+ * Cara Yang Benar
+ * ------------------------------------------------------------
+ *
+ * Benar:
+ *
+ * t.start();
+ *
+ *
+ * Yang terjadi:
+ *
+ * start()
+ *    |
+ *    v
+ * JVM membuat thread baru
+ *    |
+ *    v
+ * Thread baru menjalankan run()
+ *
+ *
+ * Jadi:
+ *
+ * start() = membuat jalur eksekusi baru
+ *
+ * run() = pekerjaan yang dijalankan oleh thread tersebut
+ *
+ * ------------------------------------------------------------
+ * Extend Thread vs Implement Runnable
+ * ------------------------------------------------------------
+ *
+ * Extend Thread:
+ *
+ * Kelebihan:
+ *
+ * - Sederhana untuk dipahami.
+ * - Langsung menjadi object Thread.
+ *
+ *
+ * Kekurangan:
+ *
+ * Java tidak mendukung multiple inheritance.
+ *
+ * Jika class sudah extends Thread:
+ *
+ * tidak bisa extends class lain.
+ *
+ *
+ * ------------------------------------------------------------
+ *
+ * Implement Runnable:
+ *
+ * Kelebihan:
+ *
+ * - Memisahkan task dan thread.
+ * - Class masih bisa extends class lain.
+ * - Lebih fleksibel.
+ *
+ *
+ * Contoh konsep:
+ *
+ * Runnable
+ *    |
+ *    v
+ * Task / pekerjaan
+ *
+ *
+ * Thread
+ *    |
+ *    v
+ * Menjalankan task
+ *
+ *
+ * ------------------------------------------------------------
+ * Kenapa Runnable Lebih Banyak Dipakai?
+ * ------------------------------------------------------------
+ *
+ * Dalam aplikasi modern:
+ *
+ * Kita biasanya tidak membuat thread secara manual.
+ *
+ *
+ * Contoh:
+ *
+ * ExecutorService
+ *
+ *
+ * ExecutorService menggunakan konsep:
+ *
+ * Task (Runnable/Callable)
+ *
+ *
+ * kemudian menjalankannya menggunakan:
+ *
+ * Thread Pool
+ *
+ *
+ * Jadi kode lebih aman dan efisien.
+ *
+ * ------------------------------------------------------------
+ * Thread Itu Resource Yang Mahal
+ * ------------------------------------------------------------
+ *
+ * Membuat terlalu banyak thread dapat menyebabkan:
+ *
+ * - Penggunaan memory meningkat.
+ * - Context switching berlebihan.
+ * - Performa turun.
+ *
+ *
+ * Karena itu:
+ *
+ * Jangan membuat thread baru untuk setiap pekerjaan kecil.
+ *
+ *
+ * Gunakan:
+ *
+ * - ExecutorService
+ * - Thread Pool
+ * - Concurrent API
+ *
+ *
+ * ------------------------------------------------------------
+ * Contoh Penggunaan Thread Dunia Nyata
+ * ------------------------------------------------------------
+ *
+ * Thread digunakan pada:
+ *
+ * - Server menangani banyak request.
+ * - Background processing.
+ * - Download manager.
+ * - Game loop.
+ * - Pemrosesan data.
+ *
+ *
+ * Dalam backend:
+ *
+ * Request masuk
+ *      |
+ *      v
+ * Thread menangani pekerjaan
+ *      |
+ *      v
+ * Response dikirim
+ *
+ * ------------------------------------------------------------
+ * Ringkasan Konsep Utama
+ * ------------------------------------------------------------
+ *
+ * Thread:
+ *
+ * Jalur eksekusi independen dalam program.
+ *
+ *
+ * Java membuat thread melalui:
+ *
+ * - Extend Thread
+ * - Implement Runnable
+ *
+ *
+ * Perbedaan penting:
+ *
+ * start()
+ *
+ * Membuat thread baru dan menjalankan run().
+ *
+ *
+ * run()
+ *
+ * Berisi pekerjaan thread.
+ *
+ *
+ * Main thread:
+ *
+ * Thread pertama yang dibuat JVM saat program dimulai.
+ *
+ *
+ * Prinsip utama:
+ *
+ * "Thread adalah cara Java menjalankan beberapa pekerjaan
+ * secara concurrent, tetapi pengelolaannya harus dilakukan
+ * dengan desain yang benar."
+ *
+ */
 
 // CARA 1: EXTEND THREAD
 // class jadi Thread
@@ -250,7 +512,7 @@ public class MultiThreaded {
         }
 
         /**
-         * PENJELASAN DETAIL
+         * PENJELASAN 
          * 
          * Thread.currentThread()
          * Thread t = Thread.currentThread();

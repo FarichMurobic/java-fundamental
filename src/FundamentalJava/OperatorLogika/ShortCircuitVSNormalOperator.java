@@ -5,10 +5,12 @@ public class ShortCircuitVSNormalOperator {
 
         /**
          * Di java operator logika && dan || itu pemalas atau lebih tepatnya effisien,
-         * mereka pakai yg namanya short-circuit evaluation, artinya mereka hanya mengevaluasi satu ekspresi saja yang sesuai dengan hasilnya.
+         * mereka pakai yg namanya short-circuit evaluation, 
+         * artinya mereka hanya mengevaluasi satu ekspresi saja yang sesuai dengan hasilnya.
          *
          * ada operator lain, yaitu & dan | (tanpa double)
-         * ini adalah operator "tidak pemalas" mereka selalu mengevaluasi kedua sisi ekspresi. terlepas dari hasil ekspresi pertamanya.
+         * ini adalah operator "tidak pemalas" mereka selalu mengevaluasi kedua sisi ekspresi. 
+         * terlepas dari hasil ekspresi pertamanya.
          *
          * ini sangat penting kalau ekspresi kedua punya efek samping (side effect), seperti menambahkan nilai variabel.
          */

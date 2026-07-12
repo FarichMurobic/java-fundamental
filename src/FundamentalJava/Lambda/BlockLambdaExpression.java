@@ -1,108 +1,255 @@
 package FundamentalJava.Lambda;
 
-/**
- * Block Lambda Expressions
+/* ==========================================================
+ *                  BLOCK LAMBDA EXPRESSIONS
+ * ==========================================================
  *
- * Di contoh sebelumnya:
- * lambda cuma 1 baris → disebut expression lambda
+ * Lambda expression di Java memiliki dua bentuk utama:
  *
- * Expression Lambda
+ * 1. Expression Lambda
+ * 2. Block Lambda
  *
- * Contoh:
- * (n) -> n % 2 == 0
+ * Expression lambda digunakan ketika logic hanya terdiri dari
+ * satu ekspresi sederhana.
  *
- * Cuma 1 ekspresi
- * otomatis return
+ * Sedangkan block lambda digunakan ketika logic membutuhkan
+ * beberapa statement atau proses yang lebih kompleks.
  *
- * Masalahnya…
- * Kadang kita butuh:
- * banyak baris kode
- * loop
- * kondisi
- * variabel
- *
- * Nah di sinilah kita pakai block lambda
- *
- * Block Lambda
- * Lambda dengan body berupa blok kode {}
- *
- * Ciri-ciri:
- * pakai { }
- * bisa banyak statement
- * bisa:
- * variabel
- * loop
- * if/switch
- * HARUS pakai return (kalau ada nilai balik)
- *
- * 1. Block lambda = mini method
- *
- * Ini udah kayak method beneran:
- * ada variable
- * ada loop
- * ada logic kompleks
- *
- * 2. Kapan pakai?
- *
- * Gunakan block lambda kalau:
- * logic panjang
- * butuh lebih dari 1 baris
- * butuh kontrol alur
- *
- * 3. Ini sering dipakai di:
- *
- * Stream API kompleks
- * Data processing
- * Business logic kecil
- *
- * 4. Ini perbedaan besar:
- * Expression Lambda	    Block Lambda
- * 1 baris	                banyak baris
- * auto return	            wajib return
- * simpel	                kompleks
- *
- * ----------------------------------------------
- * 
- * Kesimpulan Super Sederhana
- * 
- * 1. Block lambda pakai {}
- * (n) -> {
- *     return n * 2;
- * }
- * 
- * 2. Bisa banyak statement
- * variabel
- * loop
- * kondisi
- * 
- * 3. HARUS pakai return
- * 4. Dipakai untuk logic kompleks
- */
-
-/**
- * Penjelasan tambahan dari buku
- *
- * Di contoh sebelumnya:
- * block lambda bisa punya:
- * variabel (result)
- * loop (for)
- * return
- *
- * Intinya:
- * Block lambda mirip banget sama isi method biasa
- *
- * Hal penting banget:
- * return di dalam lambda
- * cuma keluar dari lambda
- * BUKAN keluar dari method utama (main)
- *
- * Contoh baru: Membalik String
- *
- * Program ini:
- * membalik karakter string
+ * ==========================================================
+ *                  EXPRESSION LAMBDA
+ * ==========================================================
  *
  * Contoh:
- * "Lambda" → "adbmaL"
+ *
+ *     n -> n % 2 == 0
+ *
+ * Karakteristik:
+ *
+ * - Hanya memiliki satu ekspresi.
+ * - Tidak menggunakan tanda kurung kurawal {}.
+ * - Return dilakukan secara otomatis.
+ *
+ * Contoh di atas secara konsep sama seperti:
+ *
+ *     (n) -> {
+ *         return n % 2 == 0;
+ *     }
+ *
+ * Karena hanya terdapat satu ekspresi, Java dapat langsung
+ * mengetahui nilai yang harus dikembalikan.
+ *
+ * ==========================================================
+ *                 KETERBATASAN EXPRESSION LAMBDA
+ * ==========================================================
+ *
+ * Expression lambda cocok untuk operasi sederhana.
+ *
+ * Namun, terkadang sebuah fungsi membutuhkan:
+ *
+ * - Beberapa baris kode.
+ * - Variabel sementara.
+ * - Perulangan.
+ * - Percabangan if/switch.
+ * - Proses pengolahan data yang lebih kompleks.
+ *
+ * Untuk kebutuhan tersebut digunakan block lambda.
+ *
+ * ==========================================================
+ *                    BLOCK LAMBDA
+ * ==========================================================
+ *
+ * Block lambda adalah lambda expression yang memiliki body
+ * berupa blok kode menggunakan tanda kurung kurawal {}.
+ *
+ * Bentuk umum:
+ *
+ *     parameter -> {
+ *         statement;
+ *         statement;
+ *         return value;
+ *     }
+ *
+ * Contoh:
+ *
+ *     n -> {
+ *         int result = n * 2;
+ *         return result;
+ *     }
+ *
+ * ==========================================================
+ *              KARAKTERISTIK BLOCK LAMBDA
+ * ==========================================================
+ *
+ * Block lambda memiliki beberapa karakteristik:
+ *
+ * - Menggunakan {} sebagai body lambda.
+ * - Dapat memiliki banyak statement.
+ * - Dapat membuat variable lokal.
+ * - Dapat menggunakan loop.
+ * - Dapat menggunakan percabangan.
+ * - Harus menggunakan return jika functional interface
+ *   membutuhkan nilai balik.
+ *
+ * Berbeda dengan expression lambda yang melakukan return
+ * secara otomatis.
+ *
+ * ==========================================================
+ *                 BLOCK LAMBDA = MINI METHOD
+ * ==========================================================
+ *
+ * Block lambda dapat dianggap sebagai method kecil yang dibuat
+ * secara langsung.
+ *
+ * Di dalam block lambda kita dapat memiliki:
+ *
+ * - Variable.
+ * - Perulangan.
+ * - Kondisi.
+ * - Proses pengolahan data.
+ * - Return value.
+ *
+ * Contoh:
+ *
+ *     number -> {
+ *
+ *         int total = 0;
+ *
+ *         for (int i = 0; i < number; i++) {
+ *             total += i;
+ *         }
+ *
+ *         return total;
+ *     }
+ *
+ * Struktur tersebut sudah menyerupai sebuah method biasa.
+ *
+ * ==========================================================
+ *                   KAPAN MENGGUNAKAN?
+ * ==========================================================
+ *
+ * Gunakan block lambda ketika:
+ *
+ * - Logic tidak cukup ditulis dalam satu ekspresi.
+ * - Membutuhkan beberapa langkah proses.
+ * - Membutuhkan variable tambahan.
+ * - Membutuhkan kontrol alur seperti if atau loop.
+ *
+ * Expression lambda lebih cocok untuk logic pendek,
+ * sedangkan block lambda cocok untuk logic yang lebih kompleks.
+ *
+ * ==========================================================
+ *              PENGGUNAAN DALAM JAVA MODERN
+ * ==========================================================
+ *
+ * Block lambda sering ditemukan pada:
+ *
+ * - Stream API.
+ * - Pemrosesan collection.
+ * - Filtering dan transformasi data.
+ * - Business logic sederhana.
+ * - Callback operation.
+ *
+ * Contoh:
+ *
+ *     list.stream()
+ *         .map(item -> {
+ *
+ *             String result = item.toUpperCase();
+ *
+ *             return result;
+ *         });
+ *
+ * ==========================================================
+ *          PERBEDAAN EXPRESSION DAN BLOCK LAMBDA
+ * ==========================================================
+ *
+ * Expression Lambda:
+ *
+ * - Satu baris.
+ * - Satu ekspresi.
+ * - Return otomatis.
+ * - Cocok untuk logic sederhana.
+ *
+ *
+ * Block Lambda:
+ *
+ * - Banyak baris.
+ * - Menggunakan {}.
+ * - Return harus ditulis secara eksplisit.
+ * - Cocok untuk logic kompleks.
+ *
+ * ==========================================================
+ *                ATURAN RETURN DALAM LAMBDA
+ * ==========================================================
+ *
+ * Hal penting yang harus dipahami:
+ *
+ * return di dalam lambda hanya mengembalikan nilai dari lambda
+ * tersebut.
+ *
+ * return TIDAK akan keluar dari method yang membungkus lambda.
+ *
+ * Contoh konsep:
+ *
+ *     public static void main(String[] args) {
+ *
+ *         process(() -> {
+ *             return;
+ *         });
+ *
+ *         System.out.println("Tetap berjalan");
+ *     }
+ *
+ * Return tersebut hanya menghentikan eksekusi lambda, bukan
+ * method main.
+ *
+ * ==========================================================
+ *             CONTOH: MEMBALIK STRING
+ * ==========================================================
+ *
+ * Block lambda dapat digunakan untuk melakukan proses yang
+ * membutuhkan beberapa langkah.
+ *
+ * Contoh tujuan:
+ *
+ * Membalik karakter sebuah String.
+ *
+ * Input:
+ *
+ *     "Lambda"
+ *
+ * Output:
+ *
+ *     "adbmaL"
+ *
+ * Logic seperti ini membutuhkan:
+ *
+ * - Variable penampung hasil.
+ * - Loop untuk membaca karakter.
+ * - Return hasil akhir.
+ *
+ * Sehingga lebih cocok menggunakan block lambda dibanding
+ * expression lambda.
+ *
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
+ *
+ * Block lambda adalah bentuk lambda expression yang digunakan
+ * untuk menulis logic lebih kompleks menggunakan blok kode {}.
+ *
+ * Inti konsep:
+ *
+ * - Expression lambda = logic pendek dengan return otomatis.
+ *
+ * - Block lambda = mini method dengan banyak statement dan
+ *   return eksplisit.
+ *
+ * Block lambda memberikan fleksibilitas lambda expression agar
+ * dapat menangani proses yang lebih kompleks tanpa harus selalu
+ * membuat method terpisah.
+ *
+ * ==========================================================
  */
 
 interface Faktorial {

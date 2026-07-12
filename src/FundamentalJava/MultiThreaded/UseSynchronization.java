@@ -1,142 +1,172 @@
 package FundamentalJava.MultiThreaded;
 
 /**
-     * Synchronization
-     *
-     * Ketika dua atau lebih thread ingin mengakses resource yang sama, 
-     * mereka butuh cara agar resource itu hanya dipakai
-     * oleh satu thread dalam satu waktu. Proses ini disebut synchronization.
-     *
-     * Konsep utama dari synchronization adalah monitor.
-     * Monitor adalah object yang berfungsi sebagai kunci (lock).
-     *
-     * Hanya 1 thread yang bisa pegang monitor dalam satu waktu
-     * Saat thread dapat lock → dia “masuk monitor”
-     * Thread lain yang mau masuk → ditahan (waiting)
-     * Setelah thread keluar → thread lain boleh masuk
-     *
-     * Synchronized Methods
-     * Di Java, setiap object otomatis punya monitor sendiri.
-     *
-     * Cara pakainya:
-     * Tambahkan keyword synchronized ke method
-     * Kalau satu thread lagi jalan di method itu → thread lain harus nunggu
-     *
-     * Masalah Tanpa Synchronization (Race Condition)
-     *
-     * Program contoh:
-     * Ada class Callme
-     * Method call() print string dalam bracket [msg]
-     * Tapi ada Thread.sleep(1000) → bikin thread pause
-     *
-     * Karena pause ini:
-     * Thread lain bisa masuk
-     * Output jadi acak / campur
-     *
-     * Contoh output:
-     * Hello[Synchronized[World]
-     * ]
-     * ]
-     *
-     * Ini disebut race condition
-     * → karena thread “balapan” akses method yang sama
-     *
-     * Solusinya
-     * Tambahin:
-     * synchronized void call(String msg)
-     *
-     * Hasil:
-     * [Hello]
-     * [Synchronized]
-     * [World]
-     *
-     * Sekarang:
-     * Thread masuk satu per satu
-     * Output rapi
-     *
-     * Race Condition
-     * Terjadi saat banyak thread akses data yang sama
-     * Hasil bisa random / tidak konsisten
-     *
-     * Monitor (Lock)
-     * Setiap object punya “kunci”
-     * Dipakai untuk kontrol akses thread
-     *
-     * synchronized
-     * Fungsi:
-     * Bikin method hanya bisa dipakai 1 thread dalam satu waktu
-     *
-     * Behavior penting
-     *
-     * Kalau ada:
-     * synchronized void A()
-     * synchronized void B()
-     *
-     * Thread yang masuk A
-     * Thread lain TIDAK bisa masuk B juga
-     *
-     * karena lock-nya di object yang sama
-     *
-     * Non-synchronized method
-     * Masih bisa dipanggil bebas:
-     * void biasa()
-     *
-     * synchronized itu bukan soal method, tapi soal:
-     * “SIAPA YANG MEGANG LOCK OBJECT”
-     *
-     * Masalah concurrency itu:
-     * kadang tidak kelihatan
-     * bisa jalan normal → tiba-tiba bug
-     *
-     * Makanya:
-     * race condition itu salah satu bug paling bahaya di programming
-     *
-     * Kesimpulan Singkat
-     * Banyak thread = potensi konflik
-     * Konflik = race condition
-     * Solusi = synchronized
-     * synchronized = lock object → satu thread saja
-     */
-
-    /**
-     * Dalam multithreading, masalah utama adalah:
-     * Banyak thread akses object yang sama secara bersamaan
-     *
-     * Contoh sederhana:
-     * balance = balance - 100;
-     *
-     * Kelihatannya aman, tapi sebenarnya ini bukan 1 langkah. Di dalam CPU, itu jadi:
-     * Ambil nilai balance
-     * Kurangi 100
-     * Simpan lagi
-     *
-     * Kalau ada 2 thread:
-     * Thread A & B baca balance = 1000
-     * A simpan 900
-     * B juga simpan 900
-     *
-     * Harusnya 800, tapi jadi 900 → ERROR
-     *
-     * Ini disebut:
-     * Race Condition
-     *
-     * KONSEP DASAR: MONITOR (LOCK)
-     *
-     * Di Java:
-     * Setiap object punya lock (monitor)
-     * Lock ini seperti kunci pintu
-     * Aturan:
-     * Hanya 1 thread boleh pegang lock
-     * Thread lain → nunggu
-     *
-     * SYNCHRONIZED = NGUNCI OBJECT
-     *
-     * Ada 2 cara:
-     * synchronized method
-     * synchronized block (nanti kita bahas kalau lanjut)
-     *
-     * Sekarang fokus ke method dulu.
-     */
+ * ------------------------------------------------------------------------
+ * SYNCHRONIZATION (SINKRONISASI)
+ * ------------------------------------------------------------------------
+ * 
+ * Ketika dua atau lebih thread ingin mengakses resource yang sama,
+ * mereka membutuhkan mekanisme agar resource tersebut hanya digunakan
+ * oleh satu thread dalam satu waktu. Proses ini disebut synchronization.
+ * 
+ * ------------------------------------------------------------------------
+ * KONSEP DASAR: MONITOR (LOCK)
+ * ------------------------------------------------------------------------
+ * 
+ * Konsep utama dari synchronization adalah monitor.
+ * 
+ * Monitor adalah objek yang berfungsi sebagai kunci (lock).
+ * - Hanya 1 thread yang bisa memegang monitor dalam satu waktu
+ * - Saat thread mendapatkan lock → dia "masuk monitor"
+ * - Thread lain yang ingin masuk → ditahan (waiting)
+ * - Setelah thread keluar → thread lain boleh masuk
+ * 
+ * Di Java:
+ * Setiap objek secara otomatis memiliki monitor sendiri.
+ * Lock ini seperti kunci pintu.
+ * Aturan: Hanya 1 thread yang boleh memegang lock.
+ * 
+ * ------------------------------------------------------------------------
+ * SYNCHRONIZED METHODS
+ * ------------------------------------------------------------------------
+ * 
+ * Cara penggunaan:
+ * Tambahkan keyword synchronized ke method.
+ * 
+ * Jika satu thread sedang menjalankan method tersebut,
+ * thread lain harus menunggu.
+ * 
+ *     synchronized void call(String msg) {
+ *         // kode kritis
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * MASALAH TANPA SYNCHRONIZATION (RACE CONDITION)
+ * ------------------------------------------------------------------------
+ * 
+ * Program contoh:
+ * Ada class Callme dengan method call() yang mencetak string dalam bracket.
+ * 
+ *     void call(String msg) {
+ *         System.out.print("[" + msg);
+ *         Thread.sleep(1000);
+ *         System.out.println("]");
+ *     }
+ * 
+ * Karena ada Thread.sleep(1000) yang membuat thread pause,
+ * thread lain bisa masuk di tengah-tengah eksekusi.
+ * 
+ * Contoh output yang salah:
+ *     Hello[Synchronized[World]
+ *     ]
+ *     ]
+ * 
+ * Ini disebut race condition.
+ * Terjadi karena thread "balapan" mengakses method yang sama secara bersamaan.
+ * 
+ * ------------------------------------------------------------------------
+ * SOLUSI DENGAN SYNCHRONIZED
+ * ------------------------------------------------------------------------
+ * 
+ * Tambahkan keyword synchronized:
+ * 
+ *     synchronized void call(String msg) {
+ *         System.out.print("[" + msg);
+ *         Thread.sleep(1000);
+ *         System.out.println("]");
+ *     }
+ * 
+ * Hasil output yang benar:
+ *     [Hello]
+ *     [Synchronized]
+ *     [World]
+ * 
+ * Sekarang:
+ * - Thread masuk satu per satu
+ * - Output rapi dan konsisten
+ * 
+ * ------------------------------------------------------------------------
+ * RACE CONDITION
+ * ------------------------------------------------------------------------
+ * 
+ * Terjadi saat banyak thread mengakses data yang sama secara bersamaan
+ * tanpa sinkronisasi yang tepat.
+ * 
+ * Hasilnya bisa:
+ * - Random
+ * - Tidak konsisten
+ * - Sulit direproduksi
+ * 
+ * Contoh klasik:
+ * 
+ *     balance = balance - 100;
+ * 
+ * Kelihatannya aman, tapi sebenarnya ini bukan 1 langkah.
+ * Di dalam CPU, operasi ini terbagi menjadi:
+ * 1. Ambil nilai balance dari memory
+ * 2. Kurangi dengan 100
+ * 3. Simpan kembali ke memory
+ * 
+ * Masalah terjadi ketika ada 2 thread:
+ * 
+ * Thread A dan B sama-sama membaca balance = 1000
+ * Thread A menyimpan 900
+ * Thread B juga menyimpan 900
+ * 
+ * Seharusnya balance menjadi 800, tapi malah 900.
+ * Ini adalah ERROR akibat race condition.
+ * 
+ * ------------------------------------------------------------------------
+ * BEHAVIOR PENTING SYNCHRONIZED
+ * ------------------------------------------------------------------------
+ * 
+ * Jika sebuah class memiliki:
+ * 
+ *     synchronized void methodA()
+ *     synchronized void methodB()
+ * 
+ * Thread yang masuk ke methodA,
+ * thread lain TIDAK bisa masuk ke methodB juga.
+ * 
+ * Karena lock-nya ada di objek yang SAMA.
+ * 
+ * Method non-synchronized:
+ *     void methodBiasa()
+ * 
+ * Masih bisa dipanggil dengan bebas oleh thread mana pun,
+ * meskipun ada thread lain yang sedang memegang lock.
+ * 
+ * ------------------------------------------------------------------------
+ * PENTING!
+ * ------------------------------------------------------------------------
+ * 
+ * synchronized bukan tentang method, tapi tentang:
+ * "SIAPA YANG MEMEGANG LOCK OBJECT"
+ * 
+ * ------------------------------------------------------------------------
+ * BAHAYA RACE CONDITION
+ * ------------------------------------------------------------------------
+ * 
+ * Masalah concurrency:
+ * - Kadang tidak terlihat
+ * - Bisa berjalan normal → tiba-tiba bug
+ * - Sulit dilacak dan direproduksi
+ * 
+ * Race condition adalah salah satu bug paling berbahaya
+ * dalam pemrograman multithread.
+ * 
+ * ------------------------------------------------------------------------
+ * KESIMPULAN SINGKAT
+ * ------------------------------------------------------------------------
+ * 
+ * - Banyak thread → potensi konflik
+ * - Konflik → race condition
+ * - Solusi → synchronized
+ * - synchronized = lock object → hanya 1 thread yang boleh masuk
+ * - Hati-hati dengan race condition, sulit dilacak dan berbahaya
+ * 
+ * ------------------------------------------------------------------------
+ */
 
 // contoh sederhana syncronized
 class CallMe {

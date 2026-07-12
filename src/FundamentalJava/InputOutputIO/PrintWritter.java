@@ -1,60 +1,175 @@
 package FundamentalJava.InputOutputIO;
 
-/**
- * The PrintWriter Class
+/* ============================================================
+ *                     THE PrintWriter CLASS
+ * ============================================================
  *
- * Walaupun:
- * System.out.println()
+ * PrintWriter adalah class Character Stream yang digunakan
+ * untuk menghasilkan output teks.
  *
- * itu boleh dipakai…
- * tapi biasanya:
+ * Class ini berada dalam package java.io dan merupakan salah
+ * satu pilihan utama ketika bekerja dengan output berbasis
+ * karakter (teks).
  *
- * lebih cocok untuk:
- * debugging
- * contoh program
+ * PrintWriter menyediakan method yang familier, seperti:
  *
- * Untuk real-world
- * Disarankan pakai:
+ * - print()
+ * - println()
+ * - printf()
+ * - format()
+ *
+ * sehingga sangat nyaman digunakan untuk menghasilkan output.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Menggunakan PrintWriter?
+ * ------------------------------------------------------------
+ *
+ * System.out.println() tetap valid dan masih banyak digunakan,
+ * terutama untuk:
+ *
+ * - Contoh program
+ * - Pembelajaran
+ * - Debugging sederhana
+ * - Aplikasi console
+ *
+ * Namun, ketika bekerja dengan Character Stream atau ingin
+ * menghasilkan output teks secara lebih fleksibel, PrintWriter
+ * sering menjadi pilihan yang lebih tepat.
+ *
+ * Karena berbasis Character Stream, PrintWriter menangani
+ * karakter Unicode dengan lebih alami melalui mekanisme
+ * Writer.
+ */
+
+
+/* ------------------------------------------------------------
+ * System.out vs PrintWriter
+ * ------------------------------------------------------------
+ *
+ * System.out
+ * - Bertipe PrintStream.
+ * - Turunan dari OutputStream (Byte Stream).
+ *
  * PrintWriter
+ * - Turunan dari Writer (Character Stream).
+ * - Dirancang khusus untuk menghasilkan output teks.
  *
- * karena:
- * dia character-based
- * lebih mudah untuk:
- * internationalization (Unicode, berbagai bahasa)
+ * Keduanya sama-sama menyediakan method:
  *
- * Perbedaan besar
- * System.out	        PrintWriter
- * byte stream	        character stream
- * simpel	            lebih proper
- * basic	            lebih fleksibel
+ * - print()
+ * - println()
+ * - printf()
  *
- * Constructor utama
- * PrintWriter(OutputStream outputStream, boolean flushingOn)
+ * Namun, PrintWriter lebih sesuai ketika aplikasi memang
+ * bekerja dengan Character Stream.
+ */
+
+
+/* ------------------------------------------------------------
+ * Constructor yang Sering Digunakan
+ * ------------------------------------------------------------
  *
- * --------------------------------------
- * 
- * Penjelasan
- * 
- * 1. outputStream
- * tujuan output (contoh: System.out)
+ * Salah satu constructor yang umum digunakan adalah:
  *
- * flushingOn
- * apakah auto flush?
- * Nilai	    Arti
- * true	        otomatis flush
- * false	    harus manual
+ * PrintWriter(OutputStream out, boolean autoFlush)
  *
- * Kalau: true
- * gak perlu \n atau flush() manual
+ * Parameter:
  *
- * ------------------------------------
- * 
- * CARA BUAT PrintWriter
- * PrintWriter pw = new PrintWriter(System.out, true);
+ * out
+ * - Menentukan tujuan output, misalnya:
+ *   System.out atau FileOutputStream.
  *
- * artinya:
- * output ke console
- * auto flush aktif
+ * autoFlush
+ * - Menentukan apakah buffer akan dikosongkan (flush)
+ *   secara otomatis pada kondisi tertentu.
+ *
+ * Nilai:
+ *
+ * true
+ * - Flush dilakukan otomatis setelah pemanggilan
+ *   println(), printf(), atau format().
+ *
+ * false
+ * - Flush dilakukan secara manual menggunakan flush()
+ *   atau saat stream ditutup.
+ */
+
+
+/* ------------------------------------------------------------
+ * Membuat Object PrintWriter
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * PrintWriter pw =
+ *     new PrintWriter(System.out, true);
+ *
+ * Artinya:
+ *
+ * - Output diarahkan ke console melalui System.out.
+ * - Auto flush diaktifkan.
+ *
+ * Dengan demikian, output akan segera dikirim tanpa perlu
+ * memanggil flush() secara manual setelah println(),
+ * printf(), atau format().
+ */
+
+
+/* ------------------------------------------------------------
+ * Tentang flush()
+ * ------------------------------------------------------------
+ *
+ * PrintWriter menggunakan buffer untuk meningkatkan efisiensi
+ * proses output.
+ *
+ * Method flush() berfungsi memaksa seluruh data yang masih
+ * berada di dalam buffer agar segera dikirim ke tujuan output.
+ *
+ * Biasanya flush dilakukan:
+ *
+ * - Secara otomatis (jika autoFlush = true dan menggunakan
+ *   println(), printf(), atau format()).
+ *
+ * - Secara manual dengan memanggil flush().
+ *
+ * - Otomatis saat stream ditutup menggunakan close().
+ */
+
+
+/* ------------------------------------------------------------
+ * Kapan Menggunakan PrintWriter?
+ * ------------------------------------------------------------
+ *
+ * PrintWriter sering digunakan untuk:
+ *
+ * - Menulis file teks.
+ * - Menghasilkan output Character Stream.
+ * - Menulis data ke socket sebagai teks.
+ * - Membuat laporan atau log berbasis teks.
+ * - Aplikasi yang memproses data Unicode.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - PrintWriter merupakan Character Stream untuk menghasilkan
+ *   output teks.
+ *
+ * - PrintWriter menyediakan method print(), println(),
+ *   printf(), dan format().
+ *
+ * - Constructor yang sering digunakan:
+ *   PrintWriter(OutputStream out, boolean autoFlush).
+ *
+ * - Jika autoFlush bernilai true, flush otomatis terjadi
+ *   setelah pemanggilan println(), printf(), atau format().
+ *
+ * - PrintWriter sangat cocok digunakan ketika bekerja dengan
+ *   Character Stream dan pengolahan data teks.
  */
 
 import java.io.*;

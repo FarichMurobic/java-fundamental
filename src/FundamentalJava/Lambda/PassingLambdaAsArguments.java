@@ -1,119 +1,364 @@
 package FundamentalJava.Lambda;
 
-/**
- * Intinya:
+/* ==========================================================
+ *            MENGIRIM LAMBDA SEBAGAI ARGUMENT METHOD
+ * ==========================================================
  *
- * Lambda bisa dipakai di mana aja selama ada:
- * target type (functional interface)
+ * Lambda Expression dapat digunakan di berbagai tempat selama
+ * terdapat target type yang sesuai.
  *
- * Salah satu tempat paling penting:
- * sebagai argument method
+ * Target type tersebut biasanya berupa Functional Interface.
+ *
+ * Salah satu penggunaan Lambda yang paling penting adalah:
+ *
+ * Mengirim Lambda sebagai argument method.
+ *
+ * Artinya:
+ *
+ * Kita dapat mengirim sebuah logic atau behavior ke dalam
+ * sebuah method sebagai parameter.
+ *
+ * Konsep ini sering disebut:
+ *
+ * "Passing behavior as parameter"
+ *
+ * ==========================================================
+ *              KONSEP DASAR METHOD ARGUMENT LAMBDA
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     method(lambda);
+ *
  *
  * Artinya:
  *
- * Lo bisa:
- * method(lambda)
+ * - Lambda dibuat.
+ * - Lambda dikirim sebagai parameter.
+ * - Method menjalankan lambda tersebut ketika diperlukan.
  *
- * alias:
- * kirim kode sebagai parameter
+ * Namun ada satu syarat utama:
  *
- * Syaratnya:
- * Parameter method harus:
- * functional interface yang cocok dengan lambda
+ * Parameter method harus menggunakan Functional Interface yang
+ * kompatibel dengan bentuk lambda tersebut.
  *
- * --------------------------------
- * 
- * Penjelasan 
- * 1. Method ini kunci utama
- * static String stringOp(StringFunc sf, String s)
+ * ==========================================================
+ *              CONTOH FUNCTIONAL INTERFACE
+ * ==========================================================
  *
- * Parameter pertama:
- * StringFunc sf → ini functional interface
+ * Contoh:
  *
- * Artinya:
- * bisa terima lambda
+ *     @FunctionalInterface
+ *     interface StringFunc {
  *
- * 2. Cara kerja di dalam method
- * return sf.func(s);
+ *         String func(String str);
+ *
+ *     }
+ *
+ * Interface ini mendefinisikan kontrak:
+ *
+ * Input:
+ *     String
+ *
+ * Output:
+ *     String
+ *
+ * Maka lambda yang digunakan harus menerima String dan
+ * menghasilkan String.
+ *
+ * ==========================================================
+ *              METHOD YANG MENERIMA LAMBDA
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     static String stringOp(
+ *             StringFunc sf,
+ *             String s) {
+ *
+ *         return sf.func(s);
+ *
+ *     }
+ *
+ *
+ * Penjelasan parameter:
+ *
+ * StringFunc sf:
+ *
+ * Parameter pertama adalah Functional Interface.
+ *
+ * Karena StringFunc merupakan functional interface, maka
+ * parameter ini dapat menerima Lambda Expression.
+ *
+ *
+ * String s:
+ *
+ * Data yang akan diproses oleh lambda.
+ *
+ * ==========================================================
+ *              CARA KERJA DI DALAM METHOD
+ * ==========================================================
+ *
+ * Perhatikan:
+ *
+ *     return sf.func(s);
+ *
  *
  * Yang terjadi:
- * lambda dipanggil lewat func()
- * s jadi inputnya
  *
- * 3. Kirim lambda langsung
- * stringOp((str) -> str.toUpperCase(), inStr);
+ * 1. Method memanggil abstract method func().
+ *
+ * 2. Implementasi func() berasal dari lambda yang dikirim.
+ *
+ * 3. Nilai s menjadi input untuk lambda.
+ *
+ * 4. Hasil lambda dikembalikan oleh method.
+ *
+ * Alur:
+ *
+ * Lambda
+ *    |
+ *    v
+ * StringFunc
+ *    |
+ *    v
+ * sf.func(s)
+ *    |
+ *    v
+ * Hasil dikembalikan
+ *
+ * ==========================================================
+ *              MENGIRIM LAMBDA SECARA LANGSUNG
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     String result =
+ *         stringOp(
+ *             str -> str.toUpperCase(),
+ *             "hello"
+ *         );
+ *
  *
  * Yang terjadi:
- * Java bikin object dari lambda
- * dikirim ke sf
- * dipanggil di dalam method
  *
- * Ini konsep penting:
- * "Function bisa dikirim sebagai parameter"
+ * 1. Java membuat object lambda.
  *
- * 4. Block lambda sebagai argument
- * (str) -> { ... }
+ * 2. Object tersebut dikirim sebagai argument pertama.
  *
- * Sama seperti sebelumnya
- * cuma lebih panjang
+ * 3. Method stringOp menerima object tersebut melalui
+ *    parameter StringFunc.
  *
- * Kekurangan:
- * kalau terlalu panjang → jadi susah dibaca
+ * 4. Method menjalankan:
  *
- * 5. Solusi: simpan dulu ke variable
- * StringFunc reverse = (str) -> { ... };
+ *        sf.func(s)
  *
- * lalu kirim:
- * stringOp(reverse, inStr);
  *
- * Ini best practice:
- * lambda pendek → inline
- * lambda panjang → simpan dulu
+ * Hasil:
  *
- * --------------------------------------------------
- * 
- * Insight Mentor (Ini yang bikin lo beda)
- * 
- * 1. Ini konsep besar:
- * “Passing behavior ke method”
+ *     HELLO
  *
- * 2. Ini dasar dari:
- * Stream API (filter, map)
- * callback
- * event handling
+ * ==========================================================
+ *              BLOCK LAMBDA SEBAGAI ARGUMENT
+ * ==========================================================
  *
- * 3. Ini mirip konsep di bahasa lain:
- * JavaScript → function sebagai parameter
- * Python → first-class function
+ * Lambda yang dikirim sebagai argument juga dapat menggunakan
+ * block lambda.
  *
- * 4. Ini bikin code fleksibel banget
+ * Contoh:
  *
- * Satu method:
- * stringOp(...)
+ *     stringOp(
  *
- * bisa:
- * uppercase
- * remove space
- * reverse
- * dll
+ *         str -> {
  *
- * 5. Ini seperti strategy pattern versi simpel
+ *             String result =
+ *                 str.toUpperCase();
  *
- * ----------------------------------------
- * 
- * Kesimpulan Super Sederhana
- * 
- * 1. Lambda bisa dikirim ke method
- *    method(lambda)
+ *             return result;
  *
- * 2. Parameter harus functional interface
+ *         },
  *
- * 3. Lambda bisa:
- *    langsung (inline)
- *    lewat variable
+ *         "hello"
+ *     );
  *
- * 4. Lambda pendek → inline
- *    Lambda panjang → simpan dulu
+ *
+ * Konsepnya sama:
+ *
+ * Lambda menjadi implementasi dari method func().
+ *
+ * ==========================================================
+ *              MASALAH BLOCK LAMBDA PANJANG
+ * ==========================================================
+ *
+ * Walaupun valid, block lambda yang terlalu panjang dapat
+ * membuat pemanggilan method sulit dibaca.
+ *
+ * Contoh masalah:
+ *
+ *     stringOp(
+ *         str -> {
+ *             banyak;
+ *             sekali;
+ *             logic;
+ *         },
+ *         input
+ *     );
+ *
+ *
+ * Jika logic semakin kompleks, lebih baik dipisahkan.
+ *
+ * ==========================================================
+ *              SOLUSI: SIMPAN LAMBDA KE VARIABLE
+ * ==========================================================
+ *
+ * Lambda dapat disimpan terlebih dahulu ke variable.
+ *
+ * Contoh:
+ *
+ *     StringFunc reverse =
+ *
+ *         str -> {
+ *
+ *             return new StringBuilder(str)
+ *                     .reverse()
+ *                     .toString();
+ *
+ *         };
+ *
+ *
+ * Kemudian dikirim:
+ *
+ *     stringOp(reverse, input);
+ *
+ *
+ * Keuntungan:
+ *
+ * - Kode lebih mudah dibaca.
+ * - Lambda dapat digunakan ulang.
+ * - Pemisahan logic menjadi lebih jelas.
+ *
+ * ==========================================================
+ *              INLINE VS VARIABLE LAMBDA
+ * ==========================================================
+ *
+ * Lambda pendek:
+ *
+ * Gunakan inline.
+ *
+ * Contoh:
+ *
+ *     stringOp(
+ *         str -> str.toUpperCase(),
+ *         input
+ *     );
+ *
+ *
+ * Lambda panjang:
+ *
+ * Simpan ke variable.
+ *
+ * Contoh:
+ *
+ *     StringFunc processor = str -> {
+ *         ...
+ *     };
+ *
+ *     stringOp(processor, input);
+ *
+ * ==========================================================
+ *                    INSIGHT PENTING
+ * ==========================================================
+ *
+ * Konsep ini merupakan salah satu perubahan besar dari Lambda.
+ *
+ * Sebelumnya:
+ *
+ * Method hanya menerima data.
+ *
+ * Sekarang:
+ *
+ * Method juga dapat menerima behavior atau logic.
+ *
+ *
+ * Contoh:
+ *
+ *     stringOp(...)
+ *
+ * Satu method dapat memiliki banyak perilaku:
+ *
+ * - Uppercase.
+ * - Lowercase.
+ * - Reverse.
+ * - Remove whitespace.
+ * - Validasi string.
+ *
+ *
+ * Method tetap sama.
+ *
+ * Yang berubah hanya logic yang dikirim.
+ *
+ * ==========================================================
+ *              DASAR FEATURE JAVA MODERN
+ * ==========================================================
+ *
+ * Passing lambda sebagai parameter menjadi dasar dari:
+ *
+ * - Stream API.
+ * - filter().
+ * - map().
+ * - Callback mechanism.
+ * - Event handling.
+ *
+ * Konsep ini juga mirip dengan bahasa lain:
+ *
+ * JavaScript:
+ * function sebagai parameter.
+ *
+ * Python:
+ * first-class function.
+ *
+ * ==========================================================
+ *              HUBUNGAN DENGAN DESIGN PATTERN
+ * ==========================================================
+ *
+ * Penggunaan Lambda seperti ini memiliki konsep yang mirip
+ * dengan Strategy Pattern.
+ *
+ * Perbedaannya:
+ *
+ * Strategy Pattern tradisional membutuhkan class terpisah.
+ *
+ * Lambda dapat memberikan strategy secara langsung dengan
+ * kode yang lebih sederhana.
+ *
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
+ *
+ * Lambda Expression dapat dikirim sebagai argument method
+ * selama parameter method menggunakan Functional Interface yang
+ * sesuai.
+ *
+ * Poin penting:
+ *
+ * - Lambda dapat menjadi parameter method.
+ * - Functional Interface menjadi target type lambda.
+ * - Lambda dapat dikirim langsung (inline).
+ * - Lambda panjang lebih baik disimpan dalam variable.
+ * - Konsep ini memungkinkan passing behavior sebagai parameter.
+ *
+ * Mental model:
+ *
+ * Data:
+ *     method(data)
+ *
+ * Lambda:
+ *     method(logic)
+ *
+ * Java modern tidak hanya mengirim data,
+ * tetapi juga dapat mengirim perilaku program.
+ *
+ * ==========================================================
  */
 
 // Functional interface

@@ -1,42 +1,188 @@
 package FundamentalJava.Rekursion;
 
-    /**
-     * Java mendukung recursion.
-     * Recursion adalah proses mendefinisikan sesuatu menggunakan dirinya sendiri.
-     * Dalam konteks pemrograman Java, recursion adalah kemampuan method untuk memanggil dirinya sendiri.
-     * Method yang memanggil dirinya sendiri disebut recursive method.
-     *
-     * Contoh klasik dari recursion adalah menghitung factorial sebuah angka.
-     * Factorial dari angka N adalah hasil perkalian semua bilangan bulat dari 1 sampai N.
-     * Contoh:
-     * 3! = 1 × 2 × 3 = 6
-     * Berikut contoh program yang menghitung factorial menggunakan recursive method.
-     *
-     * Kapan Recursion Sangat Berguna
-     * Recursion sering dipakai untuk:
-     * Tree traversal
-     * Graph algorithm
-     * QuickSort
-     * MergeSort
-     * Backtracking
-     * AI algorithms
-     *
-     * Inti Konsep Recursion (Ini yang Harus Lu Ingat)
-     * Setiap recursive algorithm selalu punya 2 bagian:
-     * Base Case
-     * kondisi berhenti
-     * if(n == 1)
-     *    return 1;
-     *
-     * Recursive Case
-     * memanggil diri sendiri
-     * fact(n-1)
-     * Kalau lu ingat dua hal ini:
-     * BASE CASE
-     * RECURSIVE CASE
-     *
-     * lu sudah ngerti 90% recursion.
-     */
+/**
+ * ------------------------------------------------------------------------
+ * RECURSION (REKURSI)
+ * ------------------------------------------------------------------------
+ * 
+ * Java mendukung recursion.
+ * 
+ * Recursion adalah proses mendefinisikan sesuatu menggunakan dirinya sendiri.
+ * Dalam konteks pemrograman Java, recursion adalah kemampuan sebuah method
+ * untuk memanggil dirinya sendiri.
+ * 
+ * Method yang memanggil dirinya sendiri disebut recursive method.
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH KLASIK: FAKTORIAL
+ * ------------------------------------------------------------------------
+ * 
+ * Factorial dari angka N adalah hasil perkalian semua bilangan bulat
+ * dari 1 sampai N.
+ * 
+ * Contoh:
+ * 3! = 1 × 2 × 3 = 6
+ * 5! = 1 × 2 × 3 × 4 × 5 = 120
+ * 
+ * Implementasi rekursif:
+ * 
+ *     int factorial(int n) {
+ *         if (n == 1) {          // BASE CASE
+ *             return 1;
+ *         }
+ *         return n * factorial(n - 1); // RECURSIVE CASE
+ *     }
+ * 
+ * Alur eksekusi factorial(5):
+ * 
+ *     factorial(5) = 5 * factorial(4)
+ *     factorial(4) = 4 * factorial(3)
+ *     factorial(3) = 3 * factorial(2)
+ *     factorial(2) = 2 * factorial(1)
+ *     factorial(1) = 1              // BASE CASE tercapai
+ * 
+ *     Kembali ke atas:
+ *     factorial(2) = 2 * 1 = 2
+ *     factorial(3) = 3 * 2 = 6
+ *     factorial(4) = 4 * 6 = 24
+ *     factorial(5) = 5 * 24 = 120
+ * 
+ * ------------------------------------------------------------------------
+ * DUA BAGIAN PENTING RECURSIVE ALGORITHM
+ * ------------------------------------------------------------------------
+ * 
+ * Setiap recursive algorithm WAJIB memiliki 2 bagian:
+ * 
+ * 1. BASE CASE (Kondisi Berhenti)
+ * 
+ *     if (n == 1) {
+ *         return 1;
+ *     }
+ * 
+ *    - Kondisi di mana rekursi BERHENTI
+ *    - Tidak ada pemanggilan method lagi
+ *    - HARUS ADA! Kalau tidak, terjadi infinite recursion (StackOverflowError)
+ * 
+ * 2. RECURSIVE CASE (Pemanggilan Diri Sendiri)
+ * 
+ *     return n * factorial(n - 1);
+ * 
+ *    - Memanggil method yang sama dengan parameter yang berbeda
+ *    - Harus mendekati base case (nilai parameter berubah menuju base case)
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH LAIN: FIBONACCI
+ * ------------------------------------------------------------------------
+ * 
+ * Deret Fibonacci: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
+ * 
+ * Rumus: fib(n) = fib(n-1) + fib(n-2)
+ * 
+ *     int fibonacci(int n) {
+ *         if (n <= 1) {              // BASE CASE
+ *             return n;
+ *         }
+ *         return fibonacci(n - 1) + fibonacci(n - 2); // RECURSIVE CASE
+ *     }
+ * 
+ * Alur fibonacci(4):
+ * 
+ *     fibonacci(4) = fibonacci(3) + fibonacci(2)
+ *     fibonacci(3) = fibonacci(2) + fibonacci(1)
+ *     fibonacci(2) = fibonacci(1) + fibonacci(0)
+ *     fibonacci(1) = 1
+ *     fibonacci(0) = 0
+ * 
+ * ------------------------------------------------------------------------
+ * KAPAN RECURSION SANAT BERGUNA?
+ * ------------------------------------------------------------------------
+ * 
+ * Recursion sangat cocok untuk:
+ * 
+ * 1. Tree Traversal
+ *    - Binary Tree
+ *    - File System
+ *    - DOM Tree
+ * 
+ * 2. Graph Algorithm
+ *    - DFS (Depth First Search)
+ *    - BFS (Breadth First Search)
+ * 
+ * 3. Sorting Algorithm
+ *    - QuickSort
+ *    - MergeSort
+ * 
+ * 4. Backtracking
+ *    - Maze solving
+ *    - N-Queens problem
+ *    - Sudoku solver
+ * 
+ * 5. AI Algorithms
+ *    - Minimax
+ *    - Decision Tree
+ * 
+ * 6. Matematika
+ *    - Faktorial
+ *    - Fibonacci
+ *    - Euclidean algorithm (GCD)
+ * 
+ * ------------------------------------------------------------------------
+ * KELEBIHAN DAN KEKURANGAN RECURSION
+ * ------------------------------------------------------------------------
+ * 
+ * Kelebihan:
+ * - Kode lebih bersih dan elegan
+ * - Lebih mudah dipahami untuk problem yang naturally recursive
+ * - Mudah diimplementasikan untuk tree/grafik
+ * 
+ * Kekurangan:
+ * - Lebih lambat dari iterasi (overhead pemanggilan method)
+ * - Menggunakan lebih banyak memory (stack frame)
+ * - Risiko StackOverflowError jika rekursi terlalu dalam
+ * - Kadang sulit dilacak (debugging)
+ * 
+ * ------------------------------------------------------------------------
+ * KAPAN PAKAI RECURSION VS ITERASI?
+ * ------------------------------------------------------------------------
+ * 
+ * Gunakan recursion jika:
+ * - Problemnya naturally recursive (tree, grafik)
+ * - Kedalaman rekursi tidak terlalu dalam
+ * - Kejelasan kode lebih penting dari performa
+ * 
+ * Gunakan iterasi jika:
+ * - Performa sangat kritis
+ * - Kedalaman rekursi bisa sangat dalam
+ * - Problemnya linear (sederhana)
+ * 
+ * ------------------------------------------------------------------------
+ * BAHAYA: INFINITE RECURSION
+ * ------------------------------------------------------------------------
+ * 
+ * Jika base case tidak ada atau tidak tercapai:
+ * 
+ *     int infinite(int n) {
+ *         return infinite(n + 1); // TIDAK ADA BASE CASE!
+ *     }
+ * 
+ * Akibat:
+ * - Method memanggil dirinya terus-menerus
+ * - Stack memory habis
+ * - Terjadi StackOverflowError
+ * 
+ * ------------------------------------------------------------------------
+ * RINGKASAN SUPER PADAT
+ * ------------------------------------------------------------------------
+ * 
+ * - Recursion = method memanggil dirinya sendiri
+ * - WAJIB ada BASE CASE (kondisi berhenti)
+ * - WAJIB ada RECURSIVE CASE (memanggil diri, mendekati base case)
+ * - Tanpa base case → StackOverflowError
+ * - Cocok untuk: tree, grafik, sorting, backtracking
+ * - Hati-hati: lebih lambat dan boros memory dari iterasi
+ * 
+ * ------------------------------------------------------------------------
+ */
 
 public class Rekursi {
     int fact(int n) {

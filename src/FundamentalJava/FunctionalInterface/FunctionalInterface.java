@@ -1,181 +1,362 @@
 package FundamentalJava.FunctionalInterface;
 
-    /**
-     * Functional interface = SEMUA interface yang punya 1 abstract method
-     * SAM Single Abstract Method
-     * Mau:
-     * lo bikin sendiri 
-     * atau bawaan Java 
-     *
-     * Ada 2 jenis Functional Interface
-     *
-     * 1. Custom (yang lo bikin sendiri)
-     * // Ini yang sering di buku
-     * interface MyFunc {
-     *     int apply(int x);
-     * }
-     *
-     * 2. Built-in (yang disediain Java)
-     *
-     * ini yang sering dipakai di real project
-     *
-     * Contoh:
-     * Function
-     * Function<String, Integer> f = String::length;
-     * Predicate
-     * Predicate<Integer> p = (n) -> n > 10;
-     * Consumer
-     * Consumer<String> c = System.out::println;
-     * Supplier
-     * Supplier<Double> s = Math::random;
-     *
-     * Kenapa Java nyediain built-in?
-     * Karena kalau gak…
-     * lo bakal bikin ini terus:
-     *
-     * interface MyStringToInt {
-     *     int convert(String s);
-     * }
-     *
-     * padahal udah ada:
-     * Function<String, Integer>
-     *
-     * Jadi:
-     * Built-in = biar gak reinvent the wheel
-     * 
-     * ---------------------------------------
-     *
-     * Kapan pakai custom vs built-in?
-     * Pakai built-in kalau:
-     * cuma transform data
-     * filter
-     * consume
-     * supply
-     *
-     * 90% kasus real project
-     *
-     * Pakai custom kalau:
-     * logic spesifik
-     * parameter aneh / banyak
-     * butuh nama method yang meaningful
-     * Contoh custom:
-     * interface PaymentValidator {
-     *     boolean validate(User user, double amount);
-     * }
-     *
-     * Functional interface itu konsep, bukan syntax
-     * bukan soal:
-     * harus bikin interface sendiri 
-     *
-     * tapi soal:
-     * “kontrak 1 method” 
-     *
-     * Lambda & Method Reference itu implementasi
-     * Function<String, String> f = String::toUpperCase;
-     *
-     * di sini:
-     * FI = Function
-     * implementasi = method reference
-     *
-     * Kesimpulan Super Padat
-     * Inti:
-     * Functional interface ≠ harus bikin sendiri
-     * Yang penting: 1 abstract method
-     * Java udah nyediain banyak (Function, Predicate, dll)
-     * Lambda & method reference butuh ini
-     */
-
-    /**
-     * Sampai sekarang:
-     *
-     * kita bikin sendiri interface kayak:
-     * NumericFunc
-     * StringFunc
-     *
-     * Konsep Inti (WAJIB BANGET PAHAM)
-     * Intinya:
-     * “Gak perlu bikin interface sendiri lagi, Java udah sediain”
-     *
-     * Kenapa ini penting?
-     *
-     * Karena:
-     * lebih cepat
-     * lebih standar
-     * dipakai di Stream API
-     * dipakai di Spring Boot
-     *
-     * Daftar Interface Penting
-     * Tabel Predefined Functional Interfaces (Java)
-     * Interface	         Bentuk Umum	   Method	             Deskripsi (Bahasa Indo)
-     * Function<T, R>	     T → R	           apply(T t)	         Mengubah (transform) satu data menjadi data lain. Contoh: String jadi Integer, objek jadi DTO
-     * Predicate<T>	         T → boolean	   test(T t)	         Mengecek kondisi / filter. Hasilnya true atau false
-     * Consumer<T>	         T → void          accept(T t)	         Menggunakan data tanpa mengembalikan nilai. Biasanya buat print, save, log
-     * Supplier<T>	         void → T	       get()	             Menghasilkan data tanpa input. Contoh: random number, object baru
-     * UnaryOperator<T>	     T → T	           apply(T t)	         Mengubah data tapi tipe tetap sama. Contoh: angka diubah tapi tetap Integer
-     * BinaryOperator<T>	 (T, T) → T	       apply(T t1, T t2)	 Operasi dua data dengan tipe sama, hasilnya juga sama. Contoh: penjumlahan
-     *
-     * 1. Function<T, R>
-     * Function<T, R>
-     * dari T → jadi R
-     * Contoh:
-     * Integer → String
-     * Method:
-     * apply()
-     * Analoginya:
-     * mesin transformasi
-     *
-     * 2. Predicate<T>
-     * Predicate<T>
-     * ngecek kondisi → hasil boolean
-     *
-     * Method:
-     * test()
-     * Analoginya:
-     * filter / if condition
-     *
-     * 3. Consumer<T>
-     * Consumer<T>
-     * menerima data, tapi tidak return
-     *
-     * Method:
-     * accept()
-     * Analoginya:
-     * printer (cuma pakai, gak balikin)
-     *
-     * 4. Supplier<T>
-     * Supplier<T>
-     * tidak ada input, tapi return data
-     *
-     * Method:
-     * get()
-     * Analoginya:
-     * mesin vending (keluarin sesuatu)
-     *
-     * 5. UnaryOperator<T>
-     * UnaryOperator<T>
-     *
-     * T → T
-     *
-     * Contoh:
-     * Integer → Integer
-     *
-     * 6. BinaryOperator<T>
-     * BinaryOperator<T>
-     *
-     * T + T → T
-     *
-     * Contoh:
-     * int + int → int
-     *
-     * Ringkasan Kilat (Versi Hafalan)
-     * Interface	    Fungsi Cepat
-     * Function	        Ubah data
-     * Predicate	    Cek kondisi
-     * Consumer	        Pakai data
-     * Supplier	        Hasilkan data
-     * UnaryOperator	Ubah tipe sama
-     * BinaryOperator	Operasi 2 data
-     */
+/**
+ * Functional Interface
+ *
+ * Functional Interface adalah interface yang hanya memiliki
+ * SATU abstract method (Single Abstract Method / SAM).
+ *
+ * Functional interface merupakan fondasi utama fitur:
+ * - Lambda Expression
+ * - Method Reference
+ * - Stream API
+ * - Banyak API modern di Java
+ *
+ * Walaupun hanya boleh memiliki satu abstract method,
+ * functional interface tetap boleh memiliki:
+ *
+ * - default method
+ * - static method
+ * - private method (Java 9+)
+ *
+ * Method-method tersebut tidak dihitung sebagai abstract method.
+ *
+ * Contoh:
+ *
+ * interface MyFunction {
+ *
+ *     int apply(int x);      // abstract method (SATU)
+ *
+ *     default void info() {}
+ *
+ *     static void print() {}
+ *
+ *     private void helper() {}
+ * }
+ *
+ * Karena hanya ada satu abstract method,
+ * interface di atas tetap termasuk Functional Interface.
+ *
+ * ------------------------------------------------------------
+ *
+ * @FunctionalInterface
+ *
+ * Java menyediakan anotasi:
+ *
+ * @FunctionalInterface
+ *
+ * Anotasi ini bersifat opsional tetapi sangat disarankan.
+ *
+ * Fungsinya:
+ * Memberi tahu compiler bahwa interface tersebut memang
+ * dimaksudkan sebagai functional interface.
+ *
+ * Jika tanpa sengaja menambahkan abstract method kedua,
+ * compiler akan menghasilkan error.
+ *
+ * Contoh:
+ *
+ * @FunctionalInterface
+ * interface MyFunction {
+ *     void execute();
+ * }
+ *
+ * Salah:
+ *
+ * @FunctionalInterface
+ * interface MyFunction {
+ *     void execute();
+ *     void run();      // ERROR
+ * }
+ *
+ * ------------------------------------------------------------
+ *
+ * Kenapa Functional Interface Penting?
+ *
+ * Sebelum Java 8:
+ *
+ * Untuk mengimplementasikan interface,
+ * kita harus membuat class baru atau anonymous class.
+ *
+ * Contoh:
+ *
+ * interface Printer {
+ *     void print(String text);
+ * }
+ *
+ * Printer p = new Printer() {
+ *     @Override
+ *     public void print(String text) {
+ *         System.out.println(text);
+ *     }
+ * };
+ *
+ * Setelah Java 8:
+ *
+ * Printer p = text -> System.out.println(text);
+ *
+ * Jauh lebih singkat dan mudah dibaca.
+ *
+ * ------------------------------------------------------------
+ *
+ * Jenis Functional Interface
+ *
+ * Functional Interface dibagi menjadi dua kelompok:
+ *
+ * 1. Custom Functional Interface
+ *    Interface yang dibuat sendiri.
+ *
+ * 2. Built-in Functional Interface
+ *    Interface bawaan Java pada package:
+ *
+ *    java.util.function
+ *
+ * Hampir semua project Java modern menggunakan interface bawaan ini.
+ *
+ * ------------------------------------------------------------
+ *
+ * Custom Functional Interface
+ *
+ * Digunakan ketika kebutuhan aplikasi sangat spesifik.
+ *
+ * Contoh:
+ *
+ * @FunctionalInterface
+ * interface PaymentValidator {
+ *     boolean validate(User user, double amount);
+ * }
+ *
+ * Kelebihan:
+ * - Nama method lebih bermakna
+ * - Lebih mudah dipahami sesuai domain aplikasi
+ * - Cocok untuk business logic khusus
+ *
+ * ------------------------------------------------------------
+ *
+ * Built-in Functional Interface
+ *
+ * Java menyediakan banyak functional interface bawaan
+ * agar programmer tidak perlu membuat interface sederhana berulang kali.
+ *
+ * Contoh:
+ *
+ * Function<String, Integer> length = String::length;
+ *
+ * Predicate<Integer> positive = n -> n > 0;
+ *
+ * Consumer<String> printer = System.out::println;
+ *
+ * Supplier<Double> random = Math::random;
+ *
+ * Keuntungan:
+ * - Lebih standar
+ * - Lebih konsisten
+ * - Terintegrasi dengan Stream API
+ * - Banyak digunakan di library modern seperti Spring Framework
+ *
+ * ------------------------------------------------------------
+ *
+ * Kapan Menggunakan Custom atau Built-in?
+ *
+ * Gunakan Built-in apabila:
+ *
+ * - transformasi data
+ * - filtering
+ * - operasi sederhana
+ * - consume data
+ * - menghasilkan data
+ *
+ * Ini mencakup sebagian besar kebutuhan pada project nyata.
+ *
+ * Gunakan Custom apabila:
+ *
+ * - business logic sangat spesifik
+ * - nama method harus lebih deskriptif
+ * - parameter atau return type tidak cocok dengan interface bawaan
+ *
+ * ------------------------------------------------------------
+ *
+ * Functional Interface Adalah Konsep
+ *
+ * Functional Interface bukan syntax khusus.
+ *
+ * Yang terpenting hanyalah:
+ *
+ * "Interface memiliki tepat satu abstract method."
+ *
+ * Implementasinya bisa menggunakan:
+ *
+ * - Anonymous Class
+ * - Lambda Expression
+ * - Method Reference
+ *
+ * Contoh:
+ *
+ * Function<String, String> upper = String::toUpperCase;
+ *
+ * Pada contoh di atas:
+ *
+ * Functional Interface : Function
+ * Implementasi         : Method Reference
+ *
+ * ------------------------------------------------------------
+ *
+ * Predefined Functional Interfaces (java.util.function)
+ *
+ * 1. Function<T, R>
+ *
+ * Bentuk:
+ * T -> R
+ *
+ * Method:
+ * apply(T value)
+ *
+ * Digunakan untuk mengubah suatu data menjadi data lain.
+ *
+ * Contoh:
+ *
+ * String -> Integer
+ * User -> UserDTO
+ *
+ * Analogi:
+ * Mesin transformasi.
+ *
+ * ------------------------------------------------------------
+ *
+ * 2. Predicate<T>
+ *
+ * Bentuk:
+ * T -> boolean
+ *
+ * Method:
+ * test(T value)
+ *
+ * Digunakan untuk melakukan pengecekan kondisi.
+ *
+ * Sangat sering dipakai pada:
+ * - filter()
+ * - removeIf()
+ * - validasi
+ *
+ * Analogi:
+ * Penyaring (filter).
+ *
+ * ------------------------------------------------------------
+ *
+ * 3. Consumer<T>
+ *
+ * Bentuk:
+ * T -> void
+ *
+ * Method:
+ * accept(T value)
+ *
+ * Menerima data tanpa mengembalikan hasil.
+ *
+ * Contoh:
+ *
+ * - print
+ * - logging
+ * - save data
+ *
+ * Analogi:
+ * Mesin yang hanya menggunakan data.
+ *
+ * ------------------------------------------------------------
+ *
+ * 4. Supplier<T>
+ *
+ * Bentuk:
+ * () -> T
+ *
+ * Method:
+ * get()
+ *
+ * Tidak menerima parameter,
+ * tetapi menghasilkan sebuah nilai.
+ *
+ * Contoh:
+ *
+ * - random number
+ * - object baru
+ * - timestamp
+ *
+ * Analogi:
+ * Mesin penyuplai.
+ *
+ * ------------------------------------------------------------
+ *
+ * 5. UnaryOperator<T>
+ *
+ * Bentuk:
+ *
+ * T -> T
+ *
+ * Method:
+ * apply(T value)
+ *
+ * Digunakan ketika tipe input dan output sama.
+ *
+ * Contoh:
+ *
+ * Integer -> Integer
+ * String -> String
+ *
+ * Analogi:
+ * Mengubah sesuatu tanpa mengubah jenisnya.
+ *
+ * ------------------------------------------------------------
+ *
+ * 6. BinaryOperator<T>
+ *
+ * Bentuk:
+ *
+ * (T, T) -> T
+ *
+ * Method:
+ * apply(T a, T b)
+ *
+ * Digunakan untuk operasi dua objek
+ * dengan tipe yang sama dan menghasilkan tipe yang sama.
+ *
+ * Contoh:
+ *
+ * Integer + Integer -> Integer
+ * String + String -> String
+ *
+ * Sering digunakan pada:
+ * - reduce()
+ * - operasi matematika
+ * - penggabungan data
+ *
+ * ------------------------------------------------------------
+ *
+ * Ringkasan Cepat
+ *
+ * Interface               Fungsi
+ * ---------------------------------------------------------
+ * Function<T, R>          Mengubah data menjadi tipe lain
+ * Predicate<T>            Mengecek kondisi (boolean)
+ * Consumer<T>             Menggunakan data tanpa return
+ * Supplier<T>             Menghasilkan data tanpa input
+ * UnaryOperator<T>        Mengubah data dengan tipe yang sama
+ * BinaryOperator<T>       Mengolah dua data bertipe sama
+ *
+ * ------------------------------------------------------------
+ *
+ * Best Practice
+ *
+ * - Gunakan functional interface bawaan jika sudah sesuai kebutuhan.
+ * - Buat custom functional interface hanya jika benar-benar diperlukan.
+ * - Tambahkan @FunctionalInterface agar compiler membantu menjaga aturan SAM.
+ * - Gunakan lambda expression atau method reference untuk implementasi sederhana.
+ *
+ * Intinya:
+ * Functional Interface adalah kontrak yang memiliki satu abstract method.
+ * Kontrak inilah yang memungkinkan Java menjalankan Lambda Expression,
+ * Method Reference, Stream API, serta banyak API modern lainnya secara ringkas
+ * dan tetap memiliki type safety.
+ */
 
 import java.util.function.Consumer;
 import java.util.function.Function;

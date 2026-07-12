@@ -1,109 +1,184 @@
 package FundamentalJava.MultiThreaded;
 
 /**
-     * Creating a Thread (Membuat Thread)
-     * Secara umum, kamu membuat thread dengan membuat objek dari tipe Thread.
-     *
-     * Java menyediakan dua cara:
-     * Mengimplementasikan interface Runnable
-     * Meng-extends class Thread
-     *
-     * Implementing Runnable
-     * Cara paling mudah adalah membuat class yang mengimplementasikan Runnable.
-     * Runnable merepresentasikan sebuah unit kode yang bisa dijalankan.
-     * Untuk implement, cukup buat method:
-     * public void run()
-     *
-     * Isi dari run() adalah kode yang akan dijalankan oleh thread baru.
-     *
-     * Penting:
-     * run() bisa melakukan apapun seperti main()
-     * Bedanya: run() adalah titik awal thread baru (entry point)
-     * Thread akan selesai saat run() selesai.
-     *
-     * Setelah buat class Runnable, kita bikin object Thread:
-     * Thread(Runnable threadOb, String threadName)
-     * threadOb → objek yang punya method run()
-     * threadName → nama thread
-     *
-     * Thread tidak langsung jalan!
-     *
-     * Harus dipanggil:
-     * start()
-     * start() → akan menjalankan run()
-     *
-     * Konsep utama di sini:
-     * Thread = jalur eksekusi lain dalam program
-     * main() = thread utama
-     * run() = thread tambahan
-     *
-     * Jadi program bisa:
-     * jalan barengan (concurrent)
-     * bukan satu-satu lagi
-     *
-     * Runnable = “pekerjaan”
-     * Lu bikin kerjaan:
-     * run()
-     *
-     * Thread = “pekerja”
-     * Thread yang ngejalanin kerjaan itu
-     *
-     * Analoginya:
-     * Runnable → script pekerjaan
-     * Thread → orang yang ngerjain
-     *
-     * Insight penting:
-     * t.start();  // BENAR
-     * t.run();    // SALAH (kalau mau multithreading)
-     *
-     * Kenapa?
-     * start() → bikin thread baru
-     * run() → cuma dipanggil biasa (tidak multithread)
-     *
-     * Bedah Kode
-     * implements Runnable
-     *
-     * Artinya:
-     * “Class ini punya pekerjaan (run) yang bisa dijalankan thread”
-     *
-     * new Thread(this, "Demo Thread")
-     * Ini penting banget:
-     * this
-     * Artinya:
-     * thread akan menjalankan run() dari object ini
-     *
-     * t.start()
-     * Ini yang bikin:
-     * thread baru dibuat
-     * run() dipanggil secara paralel
-     *
-     * Thread.sleep(500)
-     * Artinya:
-     * thread “tidur” 500ms
-     * Dipakai biar keliatan efek concurrency
-     *
-     * Hal yang Sering Bikin Bingung
-     * 1. Kenapa output acak?
-     *
-     * Karena:
-     * thread jalan bersamaan
-     * CPU bagi waktu
-     *
-     * Kenapa pakai try-catch?
-     * Karena:
-     * Thread.sleep()
-     * bisa throw:
-     * InterruptedException
-     *
-     * Thread itu bukan jalan paralel 100%, tapi gantian cepat banget (concurrent)
-     *
-     * Dan ini:
-     * Runnable lebih fleksibel daripada extends Thread
-     *
-     * Kenapa?
-     * Java cuma bisa extends 1 class
-     * Tapi bisa implement banyak interface
-     */
+ * ------------------------------------------------------------------------
+ * CREATING A THREAD (MEMBUAT THREAD)
+ * ------------------------------------------------------------------------
+ * 
+ * Secara umum, kamu membuat thread dengan membuat objek dari tipe Thread.
+ * 
+ * Java menyediakan dua cara:
+ * 1. Mengimplementasikan interface Runnable
+ * 2. Meng-extends class Thread
+ * 
+ * ------------------------------------------------------------------------
+ * IMPLEMENTING RUNNABLE (CARA PERTAMA)
+ * ------------------------------------------------------------------------
+ * 
+ * Cara paling umum dan direkomendasikan adalah membuat class yang
+ * mengimplementasikan Runnable.
+ * 
+ * Runnable merepresentasikan sebuah unit kode yang bisa dijalankan.
+ * Untuk mengimplementasikannya, cukup buat method:
+ *     public void run()
+ * 
+ * Isi dari run() adalah kode yang akan dieksekusi oleh thread baru.
+ * 
+ * Penting:
+ * - run() bisa melakukan apapun seperti main()
+ * - Bedanya: run() adalah titik awal thread baru (entry point)
+ * - Thread akan selesai saat run() selesai dieksekusi
+ * 
+ * Setelah membuat class Runnable, kita buat objek Thread:
+ *     Thread(Runnable threadOb, String threadName)
+ * 
+ * - threadOb → objek yang memiliki method run()
+ * - threadName → nama thread (opsional)
+ * 
+ * ------------------------------------------------------------------------
+ * THREAD TIDAK LANGSUNG BERJALAN!
+ * ------------------------------------------------------------------------
+ * 
+ * Setelah objek Thread dibuat, thread belum berjalan.
+ * Harus dipanggil method:
+ *     start()
+ * 
+ * start() → akan menjalankan run() di dalam thread baru secara concurrent.
+ * 
+ * ------------------------------------------------------------------------
+ * KONSEP UTAMA
+ * ------------------------------------------------------------------------
+ * 
+ * - Thread = jalur eksekusi lain dalam program
+ * - main() = thread utama
+ * - run() = thread tambahan (child thread)
+ * 
+ * Jadi program bisa:
+ * - Berjalan bersamaan (concurrent)
+ * - Tidak lagi berurutan satu per satu
+ * 
+ * ------------------------------------------------------------------------
+ * ANALOGI RUNNABLE DAN THREAD
+ * ------------------------------------------------------------------------
+ * 
+ * Runnable = "pekerjaan"
+ * Kamu buat pekerjaan di dalam run()
+ * 
+ * Thread = "pekerja"
+ * Thread yang menjalankan pekerjaan tersebut
+ * 
+ * Analogi sederhana:
+ * - Runnable → script pekerjaan / daftar tugas
+ * - Thread → orang yang mengerjakan tugas tersebut
+ * 
+ * ------------------------------------------------------------------------
+ * INSIGHT PENTING
+ * ------------------------------------------------------------------------
+ * 
+ *     t.start();   // BENAR - membuat thread baru
+ *     t.run();     // SALAH - hanya dipanggil biasa, TIDAK multithread
+ * 
+ * Kenapa?
+ * - start() → membuat thread baru secara native, lalu menjalankan run()
+ * - run() → hanya dipanggil seperti method biasa, tetap di thread yang sama
+ * 
+ * ------------------------------------------------------------------------
+ * BEDAH KODE
+ * ------------------------------------------------------------------------
+ * 
+ * implements Runnable
+ * 
+ * Artinya:
+ * "Class ini memiliki pekerjaan (run) yang bisa dijalankan oleh thread"
+ * 
+ * new Thread(this, "Demo Thread")
+ * 
+ * Ini penting banget:
+ * keyword this merujuk ke objek saat ini
+ * Artinya: thread akan menjalankan run() dari objek ini
+ * 
+ * t.start()
+ * 
+ * Inilah yang membuat:
+ * - Thread baru dibuat di level sistem operasi
+ * - run() dipanggil secara paralel dengan main()
+ * 
+ * Thread.sleep(500)
+ * 
+ * Artinya:
+ * Thread "tidur" selama 500 milidetik
+ * Digunakan agar efek concurrency terlihat lebih jelas
+ * 
+ * ------------------------------------------------------------------------
+ * HAL YANG SERING MEMBUAT BINGUNG
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Kenapa output bisa acak?
+ * 
+ * Karena:
+ * - Thread berjalan bersamaan
+ * - CPU membagi waktu secara bergantian
+ * - Tidak ada jaminan urutan eksekusi
+ * 
+ * 2. Kenapa pakai try-catch?
+ * 
+ * Karena:
+ * - Thread.sleep() bisa melempar InterruptedException
+ * - Ini adalah checked exception, wajib ditangani
+ * 
+ * 3. Apakah thread berjalan paralel 100%?
+ * 
+ * Tidak selalu. Pada umumnya:
+ * - Di CPU single core: bergantian cepat (concurrent)
+ * - Di CPU multi core: bisa benar-benar paralel (parallel)
+ * 
+ * ------------------------------------------------------------------------
+ * KENAPA RUNNABLE LEBIH DISARANKAN?
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Java hanya mendukung single inheritance
+ *    - Jika extends Thread, tidak bisa extends class lain
+ *    - Jika implements Runnable, masih bisa extends class lain
+ * 
+ * 2. Runnable memisahkan tugas dari mekanisme eksekusi
+ * 
+ * 3. Runnable lebih fleksibel untuk digunakan dengan:
+ *    - ExecutorService
+ *    - Thread pool
+ *    - Lambda expression (Java 8+)
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH IMPLEMENTASI RUNNABLE (JAVA MODERN)
+ * ------------------------------------------------------------------------
+ * 
+ * // Cara klasik
+ * class MyRunnable implements Runnable {
+ *     public void run() {
+ *         System.out.println("Thread running: " + Thread.currentThread().getName());
+ *     }
+ * }
+ * 
+ * // Cara lambda (Java 8+)
+ * Runnable task = () -> {
+ *     System.out.println("Running in: " + Thread.currentThread().getName());
+ * };
+ * 
+ * Thread t = new Thread(task, "MyThread");
+ * t.start();
+ * 
+ * ------------------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------------------
+ * 
+ * - Runnable = interface yang mendefinisikan tugas (run)
+ * - Thread = class yang menjalankan tugas tersebut
+ * - start() = method untuk memulai thread baru
+ * - run() = method yang berisi kode eksekusi
+ * - Jangan panggil run() langsung, selalu gunakan start()
+ * - Runnable lebih fleksibel daripada extends Thread
+ * 
+ * ------------------------------------------------------------------------
+ */
 
 // Contoh cara ke 2 dengan implements Runnable
 class NewThread implements Runnable {
@@ -195,6 +270,7 @@ public class ThreadImplementsRunnable {
      * Tapi dipanggil di jalur berbeda dari main()
      *
      * SEKARANG ADA 2 ALUR SEKALIGUS
+     * 
      * MAIN THREAD lanjut:
      * for (int i = 5; i > 0; i--) {
      * CHILD THREAD mulai:
@@ -291,9 +367,9 @@ public class ThreadImplementsRunnable {
      * Java cuma bisa extend 1 class
      * tapi bisa implement banyak interface
      *
-     * PENUTUP (INTI PALING DALAM)
+     * PENUTUP:
      *
-     * Kalau gue ringkas:
+     * Kalau di ringkas:
      * Runnable = blueprint kerja
      * Thread = yang ngejalanin
      * start() = tombol hidup

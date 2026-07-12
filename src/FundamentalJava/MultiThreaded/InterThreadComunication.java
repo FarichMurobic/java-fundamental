@@ -1,115 +1,505 @@
 package FundamentalJava.MultiThreaded;
 
-/**
-     * Interthread Communication (Komunikasi antar Thread)
-     *
-     * Contoh sebelumnya itu “memblokir” thread lain supaya nggak akses method tertentu secara bersamaan.
-     * Itu pakai synchronized.
-     * Tapi Java punya cara yang lebih halus & efisien: yaitu komunikasi antar thread.
-     *
-     * Masalah Polling
-     * Dalam multithreading:
-     * Kita bagi tugas jadi bagian kecil (thread)
-     * Tapi kadang thread harus nunggu thread lain
-     *
-     * Cara jelek (polling):
-     * Thread ngecek kondisi terus-menerus pakai loop
-     * Contoh:
-     * Consumer nunggu Producer
-     * Tapi dia ngecek terus → buang CPU
-     *
-     * Masalah Producer–Consumer
-     * Bayangin:
-     * Producer → bikin data
-     * Consumer → ambil data
-     *
-     * Masalah:
-     * Producer bisa terlalu cepat (overrun)
-     * Consumer bisa baca data yang sama berkali-kali
-     *
-     * Solusi: wait(), notify(), notifyAll()
-     *
-     * Java kasih mekanisme komunikasi:
-     * wait()
-     * → Thread tidur & lepas lock (monitor)
-     * notify()
-     * → Bangunin 1 thread yang lagi nunggu
-     * notifyAll()
-     * → Bangunin semua thread yang nunggu
-     *
-     * HARUS dipanggil di dalam synchronized
-     *
-     * -----------------------
-     * 
-     * Spurious Wakeup (rare case)
-     * Kadang thread bisa bangun tanpa notify()
-     *
-     * Makanya:
-     * wait() HARUS di dalam while, bukan if
-     *
-     * -----------
-     * 
-     * Penjelasan Inti (biar lu bener-bener ngerti)
-     * 
-     * Kenapa synchronized doang nggak cukup?
-     *
-     * Lihat versi salah:
-     * synchronized int get() { ... }
-     * synchronized void put(int n) { ... }
-     *
-     * Masalah:
-     * Memang nggak tabrakan
-     * Tapi:
-     * Producer bisa jalan terus
-     * Consumer bisa baca data lama berkali-kali
-     *
-     * Jadi:
-     * Synchronized = aman
-     * tapi belum tentu sinkron (teratur)
-     *
-     * Konsep penting: “Koordinasi”
-     * Dengan wait() & notify():
-     *
-     * Producer & Consumer saling nunggu
-     * Jadi kayak ngobrol:
-     *
-     * Producer: "Gue tunggu dulu ya sampai data diambil"
-     * Consumer: "Oke, gue ambil dulu, nanti gue kasih tau"
-     *
-     * Insight penting (ini bagian “aha moment”)
-     * 1. wait() itu bukan sleep biasa
-     * sleep() → tetap pegang lock
-     * wait() → lepas lock
-     *
-     * -------------------------------
-     * 
-     * Ini krusial banget
-     *
-     * while, bukan if
-     * while (!valueSet) wait();
-     *
-     * Kenapa?
-     *
-     * Antisipasi spurious wakeup
-     * Jaga kondisi tetap valid
-     *
-     * notify() = sinyal, bukan langsung jalan
-     * Thread yang dibangunin:
-     * Harus nunggu lock dulu
-     * Baru lanjut
-     *
-     * Ini contoh real “cooperative threading”
-     *
-     * Bukan cuma jalan bareng, tapi:
-     * saling koordinasi
-     *
-     * Ringkasan Super Singkat
-     * synchronized → cegah tabrakan
-     * wait() → thread tidur + lepas lock
-     * notify() → bangunin thread lain
-     * Gunakan while, bukan if
-     * Digunakan untuk sinkronisasi antar thread
-     */
+/*
+ * ============================================================
+ * Interthread Communication (Komunikasi Antar Thread)
+ * ============================================================
+ *
+ * Dalam multithreading, terkadang masalahnya bukan hanya:
+ *
+ * "Bagaimana mencegah thread mengakses data bersamaan?"
+ *
+ * Tetapi juga:
+ *
+ * "Bagaimana membuat thread saling menunggu dan memberi tahu?"
+ *
+ *
+ * synchronized menyelesaikan masalah akses bersamaan.
+ *
+ * Tetapi synchronized saja belum cukup untuk mengatur urutan
+ * kerja antar thread.
+ *
+ * Untuk itu Java menyediakan:
+ *
+ * Interthread Communication
+ *
+ * menggunakan:
+ *
+ * - wait()
+ * - notify()
+ * - notifyAll()
+ *
+ * ------------------------------------------------------------
+ * Perbedaan Synchronization dan Communication
+ * ------------------------------------------------------------
+ *
+ * synchronized:
+ *
+ * Tujuan:
+ *
+ * Mencegah beberapa thread mengakses resource yang sama secara
+ * bersamaan.
+ *
+ *
+ * Contoh masalah:
+ *
+ * Dua thread mengubah data yang sama.
+ *
+ *
+ * wait()/notify():
+ *
+ * Tujuan:
+ *
+ * Membuat thread saling berkoordinasi.
+ *
+ *
+ * Contoh masalah:
+ *
+ * Consumer harus menunggu Producer menghasilkan data.
+ *
+ *
+ * Kesimpulan:
+ *
+ * synchronized = keamanan data
+ *
+ * wait/notify = komunikasi antar thread
+ *
+ * ------------------------------------------------------------
+ * Masalah Polling
+ * ------------------------------------------------------------
+ *
+ * Salah satu cara sederhana untuk menunggu kondisi adalah
+ * polling.
+ *
+ *
+ * Contoh:
+ *
+ * while(dataBelumAda) {
+ *
+ *     // cek terus
+ *
+ * }
+ *
+ *
+ * Masalah:
+ *
+ * - CPU tetap bekerja.
+ * - Memboroskan resource.
+ * - Tidak efisien.
+ *
+ *
+ * Thread hanya berulang kali bertanya:
+ *
+ * "Sudah ada data?"
+ *
+ * "Sudah ada data?"
+ *
+ * "Sudah ada data?"
+ *
+ *
+ * Padahal tidak ada pekerjaan yang dilakukan.
+ *
+ * ------------------------------------------------------------
+ * Masalah Producer - Consumer
+ * ------------------------------------------------------------
+ *
+ * Contoh klasik komunikasi antar thread:
+ *
+ *
+ * Producer:
+ *
+ * Bertugas membuat data.
+ *
+ *
+ * Consumer:
+ *
+ * Bertugas mengambil dan menggunakan data.
+ *
+ *
+ * Masalah:
+ *
+ * Producer terlalu cepat:
+ *
+ * Data lama belum diproses, tetapi data baru sudah dibuat.
+ *
+ *
+ * Consumer terlalu cepat:
+ *
+ * Consumer mencoba mengambil data ketika belum tersedia.
+ *
+ *
+ * Solusi:
+ *
+ * Producer dan Consumer harus saling memberi sinyal.
+ *
+ * ------------------------------------------------------------
+ * wait(), notify(), notifyAll()
+ * ------------------------------------------------------------
+ *
+ * Java menyediakan mekanisme komunikasi:
+ *
+ *
+ * wait()
+ *
+ * Fungsi:
+ *
+ * Membuat thread berhenti sementara dan melepaskan lock yang
+ * sedang dimiliki.
+ *
+ *
+ * notify()
+ *
+ * Fungsi:
+ *
+ * Memberikan sinyal kepada satu thread yang sedang menunggu pada
+ * object monitor yang sama.
+ *
+ *
+ * notifyAll()
+ *
+ * Fungsi:
+ *
+ * Memberikan sinyal kepada semua thread yang sedang menunggu pada
+ * object monitor yang sama.
+ *
+ *
+ * ------------------------------------------------------------
+ * Syarat Menggunakan wait() dan notify()
+ * ------------------------------------------------------------
+ *
+ * wait(), notify(), dan notifyAll()
+ *
+ * HARUS dipanggil di dalam:
+ *
+ * synchronized block
+ *
+ * atau
+ *
+ * synchronized method
+ *
+ *
+ * Contoh:
+ *
+ * synchronized(this) {
+ *
+ *     wait();
+ *
+ * }
+ *
+ *
+ * Karena method tersebut bekerja menggunakan:
+ *
+ * intrinsic lock / monitor
+ *
+ *
+ * Jika dipanggil di luar synchronized:
+ *
+ * IllegalMonitorStateException
+ *
+ * akan terjadi.
+ *
+ * ------------------------------------------------------------
+ * Perbedaan wait() dan sleep()
+ * ------------------------------------------------------------
+ *
+ * Banyak programmer pemula mengira:
+ *
+ * wait() = sleep()
+ *
+ *
+ * Padahal berbeda.
+ *
+ *
+ * Thread.sleep()
+ *
+ * - Menghentikan thread sementara.
+ * - Tidak melepaskan lock.
+ *
+ *
+ * Object.wait()
+ *
+ * - Menghentikan thread sementara.
+ * - Melepaskan lock yang dimiliki.
+ *
+ *
+ * Contoh:
+ *
+ * Thread A:
+ *
+ * synchronized(object) {
+ *
+ *     object.wait();
+ *
+ * }
+ *
+ *
+ * Saat wait():
+ *
+ * Lock object dilepas.
+ *
+ *
+ * Sehingga thread lain bisa masuk.
+ *
+ * ------------------------------------------------------------
+ * Konsep Guarded Block
+ * ------------------------------------------------------------
+ *
+ * Pola umum penggunaan wait() adalah:
+ *
+ *
+ * while(conditionTidakTerpenuhi) {
+ *
+ *     wait();
+ *
+ * }
+ *
+ *
+ * Disebut:
+ *
+ * Guarded Block
+ *
+ *
+ * Artinya:
+ *
+ * Thread hanya boleh lanjut jika kondisi yang dibutuhkan sudah
+ * terpenuhi.
+ *
+ * ------------------------------------------------------------
+ * Kenapa Harus while, Bukan if?
+ * ------------------------------------------------------------
+ *
+ * Salah:
+ *
+ * if(!dataReady) {
+ *
+ *     wait();
+ *
+ * }
+ *
+ *
+ * Benar:
+ *
+ * while(!dataReady) {
+ *
+ *     wait();
+ *
+ * }
+ *
+ *
+ * Alasannya:
+ *
+ * 1. Spurious Wakeup
+ *
+ * Thread dapat terbangun tanpa adanya notify().
+ *
+ *
+ * 2. Kondisi bisa berubah sebelum thread mendapatkan lock kembali.
+ *
+ *
+ * Maka setelah bangun:
+ *
+ * Thread harus mengecek kondisi lagi.
+ *
+ * ------------------------------------------------------------
+ * notify() Bukan Berarti Thread Langsung Jalan
+ * ------------------------------------------------------------
+ *
+ * Kesalahpahaman umum:
+ *
+ * notify()
+ *
+ * dianggap:
+ *
+ * "Thread langsung aktif."
+ *
+ *
+ * Yang benar:
+ *
+ * notify()
+ *
+ * hanya memberikan sinyal.
+ *
+ *
+ * Alurnya:
+ *
+ * Thread A:
+ *
+ * wait()
+ *    |
+ *    v
+ * Menunggu
+ *
+ *
+ * Thread B:
+ *
+ * notify()
+ *    |
+ *    v
+ * Memberikan sinyal
+ *
+ *
+ * Thread A:
+ *
+ * Bangun
+ *    |
+ *    v
+ * Menunggu mendapatkan lock kembali
+ *    |
+ *    v
+ * Lanjut eksekusi
+ *
+ * ------------------------------------------------------------
+ * Kenapa synchronized Saja Tidak Cukup?
+ * ------------------------------------------------------------
+ *
+ * synchronized hanya memastikan:
+ *
+ * "Tidak ada dua thread masuk bersamaan."
+ *
+ *
+ * Tetapi synchronized tidak mengatur:
+ *
+ * "Kapan thread harus berhenti dan kapan harus lanjut."
+ *
+ *
+ * Contoh:
+ *
+ * Producer:
+ *
+ * synchronized put()
+ *
+ *
+ * Consumer:
+ *
+ * synchronized get()
+ *
+ *
+ * Data mungkin aman dari race condition.
+ *
+ * Tetapi:
+ *
+ * Consumer bisa membaca data lama berulang kali.
+ *
+ * Producer bisa terus membuat data tanpa kontrol.
+ *
+ *
+ * Jadi:
+ *
+ * synchronized = aman
+ *
+ * wait/notify = terkoordinasi
+ *
+ * ------------------------------------------------------------
+ * Analogi Sederhana
+ * ------------------------------------------------------------
+ *
+ * Producer:
+ *
+ * "Saya belum punya tempat kosong untuk data baru.
+ * Saya tunggu dulu."
+ *
+ *
+ * Consumer:
+ *
+ * "Saya sudah mengambil data.
+ * Saya beri tahu Producer."
+ *
+ *
+ * Producer:
+ *
+ * "Oke, saya lanjut bekerja."
+ *
+ *
+ * Inilah komunikasi antar thread.
+ *
+ * ------------------------------------------------------------
+ * Konsep Cooperative Threading
+ * ------------------------------------------------------------
+ *
+ * Dengan wait() dan notify(), thread tidak hanya berjalan
+ * bersamaan.
+ *
+ * Mereka bekerja sama.
+ *
+ *
+ * Thread:
+ *
+ * - Menunggu kondisi tertentu.
+ * - Memberikan sinyal.
+ * - Melanjutkan ketika kondisi terpenuhi.
+ *
+ *
+ * Ini disebut:
+ *
+ * Cooperative Threading
+ *
+ * ------------------------------------------------------------
+ * Penggunaan Dunia Nyata
+ * ------------------------------------------------------------
+ *
+ * Konsep komunikasi thread digunakan pada:
+ *
+ * - Thread pool.
+ * - Task queue.
+ * - Producer-consumer system.
+ * - Message processing.
+ * - Background worker.
+ *
+ *
+ * Pada Java modern, banyak kasus sudah digantikan oleh API
+ * tingkat tinggi seperti:
+ *
+ * - BlockingQueue
+ * - ExecutorService
+ * - CompletableFuture
+ *
+ *
+ * Tetapi memahami wait/notify tetap penting karena menjadi dasar
+ * concurrency Java.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Interthread Communication digunakan ketika thread perlu saling
+ * berkoordinasi.
+ *
+ *
+ * Konsep utama:
+ *
+ * synchronized:
+ *
+ * Mencegah tabrakan akses data.
+ *
+ *
+ * wait():
+ *
+ * Thread berhenti sementara dan melepas lock.
+ *
+ *
+ * notify():
+ *
+ * Memberi sinyal kepada satu thread yang menunggu.
+ *
+ *
+ * notifyAll():
+ *
+ * Memberi sinyal kepada semua thread yang menunggu.
+ *
+ *
+ * Aturan penting:
+ *
+ * - wait/notify harus berada dalam synchronized.
+ * - Gunakan while, bukan if.
+ * - notify bukan berarti thread langsung berjalan.
+ *
+ *
+ * Prinsip utama:
+ *
+ * "Multithreading bukan hanya menjalankan banyak thread,
+ * tetapi membuat mereka bekerja sama dengan aturan yang benar."
+ *
+ */
 
 // Contoh
 class Q {
@@ -205,6 +595,7 @@ class Consumer implements Runnable {
      * ------------------------------------
      * 
      * ALUR BESAR PROGRAM
+     * 
      * Producer jalan → put()
      * Consumer jalan → get()
      *
@@ -260,6 +651,7 @@ class Consumer implements Runnable {
      * -------------------------
      * 
      * LANGKAH-LANGKAH get()
+     * 
      * 1. CEK: apakah ada data?
      * while (!valueSet)
      *

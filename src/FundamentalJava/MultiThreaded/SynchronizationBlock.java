@@ -1,120 +1,145 @@
 package FundamentalJava.MultiThreaded;
 
 /**
-     * The synchronized Statement
-     *
-     * Walaupun membuat method dengan synchronized itu gampang dan efektif, tapi tidak selalu bisa dipakai.
-     *
-     * Bayangin:
-     * Lu mau sync sebuah class
-     * Tapi class itu:
-     * dibuat oleh orang lain (third party)
-     * lu tidak punya source code-nya
-     *
-     * Jadi lu tidak bisa tambah keyword synchronized di method-nya
-     *
-     * Solusinya gimana?
-     * Gunakan:
-     *
-     * synchronized(objRef) {
-     *     // kode yang mau disinkronisasi
-     * }
-     *
-     * Ini disebut synchronized block
-     *
-     * Artinya:
-     * Lu “ngunci” object objRef
-     * Semua kode di dalam block:
-     * hanya bisa dijalankan oleh 1 thread dalam satu waktu
-     *
-     * Perbedaan besar:
-     * synchronized method:
-     * synchronized void call() {}
-     * Lock otomatis = this (object sekarang)
-     * Lu tidak bisa kontrol lock object lain
-     *
-     * synchronized block:
-     * synchronized(target) {
-     *     target.call(msg);
-     * }
-     *
-     * Lu bebas milih:
-     * object mana yang mau dijadikan lock
-     *
-     * Karena di dunia nyata:
-     * Banyak class dari library
-     * Lu gak bisa ubah kodenya
-     *
-     * Contoh:
-     * ArrayList
-     * HashMap
-     *
-     * Kalau mau thread-safe:
-     * lu harus sync dari luar
-     *
-     * APA YANG TERJADI DI BALIK LAYAR?
-     * Saat thread masuk:
-     * synchronized(target)
-     *
-     * Java melakukan:
-     * Cek: apakah target sedang dikunci?
-     * Kalau tidak:
-     * thread ambil lock
-     * masuk block
-     * Kalau iya:
-     * thread nunggu (blocked)
-     *
-     * Flow:
-     * Thread 1:
-     * ambil lock target
-     * jalan call()
-     * keluar → lepas lock
-     *
-     * Thread 2:
-     * nunggu
-     * baru jalan setelah Thread 1 selesai
-     *
-     * PERBANDINGAN: METHOD vs BLOCK
-     * Fitur	                                synchronized method	            synchronized block
-     * Lock object	                            otomatis (this)	                bisa pilih
-     * Fleksibel	                            tidak	                        ya
-     * Bisa dipakai di class orang lain	        tidak                           ya
-     * Granularity (kontrol detail)	            kasar	                        halus
-     *
-     * Lock tidak harus "this"
-     * Object lock = new Object();
-     *
-     * synchronized(lock) {
-     *     // critical section
-     * }
-     *
-     * Ini sering dipakai di real-world
-     *
-     * Lu bisa lock sebagian kecil kode
-     * void method() {
-     *
-     *     // tidak perlu lock
-     *     doSomething();
-     *
-     *     synchronized(this) {
-     *         // hanya bagian penting yang dikunci
-     *         criticalSection();
-     *     }
-     * }
-     *
-     * Ini bikin:
-     * program lebih cepat
-     * tidak semua dikunci
-     *
-     * KESIMPULAN DALAM
-     * synchronized block = versi fleksibel dari synchronization
-     *
-     * Dipakai kalau:
-     * gak bisa ubah class
-     * butuh kontrol lock lebih detail
-     * Lock = object
-     * Thread lain = harus nunggu
-     */
+ * ------------------------------------------------------------------------
+ * PERNYATAAN SYNCHRONIZED
+ * ------------------------------------------------------------------------
+ * 
+ * Walaupun membuat method dengan kata kunci synchronized itu mudah dan
+ * efektif, tapi tidak selalu bisa diterapkan di semua situasi.
+ * 
+ * Coba bayangkan skenario ini:
+ * Kamu ingin mensinkronisasi akses ke sebuah class,
+ * tapi class tersebut:
+ * - Dibuat oleh pihak ketiga (third party)
+ * - Kamu tidak memiliki akses ke source code-nya
+ * 
+ * Jadi, kamu tidak bisa menambahkan kata kunci synchronized ke method-method
+ * yang ada di dalam class tersebut.
+ * 
+ * Lalu, apa solusinya?
+ * Gunakan synchronized block:
+ * 
+ *     synchronized(objRef) {
+ *         // kode yang ingin disinkronisasi
+ *     }
+ * 
+ * Konstruk inilah yang disebut dengan synchronized block.
+ * 
+ * Artinya:
+ * Kamu mengunci objek yang dirujuk oleh objRef.
+ * Semua kode di dalam blok ini:
+ * hanya bisa dijalankan oleh satu thread dalam satu waktu.
+ * 
+ * ------------------------------------------------------------------------
+ * PERBEDAAN UTAMA: METHOD vs BLOCK
+ * ------------------------------------------------------------------------
+ * 
+ * Synchronized method:
+ *     synchronized void call() { ... }
+ *     Lock secara otomatis adalah this (instance objek saat ini).
+ *     Kamu tidak bisa mengontrol objek mana yang dijadikan lock.
+ * 
+ * Synchronized block:
+ *     synchronized(target) {
+ *         target.call(msg);
+ *     }
+ *     Kamu bebas memilih:
+ *     objek mana pun yang ingin dijadikan lock.
+ * 
+ * Di dunia nyata:
+ * Banyak class berasal dari library eksternal,
+ * dan kamu tidak bisa mengubah kode sumbernya.
+ * 
+ * Contoh:
+ * - ArrayList
+ * - HashMap
+ * 
+ * Untuk membuatnya thread-safe:
+ * kamu harus mengatur sinkronisasi dari luar.
+ * 
+ * ------------------------------------------------------------------------
+ * APA YANG TERJADI DI BALIK LAYAR?
+ * ------------------------------------------------------------------------
+ * 
+ * Ketika sebuah thread mencoba masuk ke:
+ *     synchronized(target)
+ * 
+ * Java melakukan proses berikut:
+ * 1. Mengecek apakah objek target sedang dikunci oleh thread lain
+ * 2. Jika tidak dikunci:
+ *    - Thread mengambil lock
+ *    - Masuk ke dalam blok
+ * 3. Jika sedang dikunci:
+ *    - Thread akan menunggu (berada dalam status blocked)
+ * 
+ * Alur eksekusi:
+ * 
+ * Thread 1:
+ * - Mengambil lock pada target
+ * - Menjalankan call()
+ * - Keluar dari blok → melepas lock
+ * 
+ * Thread 2:
+ * - Menunggu
+ * - Baru berjalan setelah Thread 1 selesai
+ * 
+ * ------------------------------------------------------------------------
+ * PERBANDINGAN: METHOD vs BLOCK
+ * ------------------------------------------------------------------------
+ * 
+ * Fitur                    | Synchronized Method   | Synchronized Block
+ * -------------------------|-----------------------|--------------------
+ * Objek lock               | Otomatis (this)       | Bisa dipilih sendiri
+ * Fleksibilitas            | Tidak                 | Ya
+ * Bisa dipakai di class    | Tidak                 | Ya
+ * pihak ketiga             |                       |
+ * Tingkat kontrol          | Kasar (coarse)        | Halus (fine-grained)
+ * 
+ * ------------------------------------------------------------------------
+ * LOCK TIDAK HARUS "this"
+ * ------------------------------------------------------------------------
+ * 
+ * Kamu bisa membuat objek lock khusus:
+ * 
+ *     Object lock = new Object();
+ * 
+ *     synchronized(lock) {
+ *         // bagian kritis (critical section)
+ *     }
+ * 
+ * Pola ini sering digunakan di aplikasi dunia nyata.
+ * 
+ * Kamu bisa mengunci hanya sebagian kecil dari sebuah method:
+ * 
+ *     void method() {
+ *         // Tidak perlu lock di sini
+ *         doSomething();
+ * 
+ *         synchronized(this) {
+ *             // Hanya bagian penting yang dikunci
+ *             criticalSection();
+ *         }
+ *     }
+ * 
+ * Pendekatan ini menghasilkan:
+ * - Performa yang lebih baik
+ * - Tidak semua bagian method terkunci tanpa perlu
+ * 
+ * ------------------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------------------
+ * 
+ * Synchronized block adalah versi fleksibel dari sinkronisasi tingkat method.
+ * 
+ * Gunakan ketika:
+ * - Kamu tidak bisa mengubah class target
+ * - Kamu butuh kontrol yang lebih detail terhadap objek lock
+ * - Lock bisa berupa objek apa pun yang kamu tentukan
+ * - Thread lain hanya perlu menunggu jika benar-benar diperlukan
+ * 
+ * ------------------------------------------------------------------------
+ */
 
 class CallmeOne {
 

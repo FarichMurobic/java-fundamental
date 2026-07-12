@@ -1,111 +1,269 @@
 package FundamentalJava.Generics;
 
-/**
- * APA ITU GENERIC METHOD?
+/* ============================================================
+ *                     GENERIC METHOD
+ * ============================================================
  *
- * Intinya:
- * Method yang punya type parameter sendiri
+ * Generic method adalah method yang memiliki satu atau lebih
+ * type parameter sendiri.
  *
- * Bedanya:
- * Generic class
- * class Box<T> { }
- * T berlaku untuk seluruh class
+ * Berbeda dengan generic class, type parameter pada generic
+ * method hanya berlaku di dalam method tersebut.
  *
- * Generic method
- * <T> void method(T x) { }
- * T hanya berlaku di method itu saja
+ * Dengan demikian, sebuah class tidak harus menjadi generic
+ * untuk dapat memiliki generic method.
+ */
+
+
+/* ------------------------------------------------------------
+ * Perbedaan Generic Class dan Generic Method
+ * ------------------------------------------------------------
  *
- * ---------------------------------------------
- * 
- * KENAPA HARUS RIBET BEGINI?
- * 
- * Tanpa generic method:
- * gak aman
+ * Generic class:
  *
- * Dengan ini:
- * Java memastikan:
- * tipe cocok 
- * gak bisa salah 
- * error ditangkap saat compile 
+ * class Box<T> {
+ *     ...
+ * }
  *
- * CONTOH PROSES DI BELAKANG LAYAR
- * 
- * Ini:
- * isIn(2, nums)
+ * Type parameter T berlaku untuk seluruh anggota class,
+ * seperti field, constructor, maupun method.
  *
- * Java otomatis:
+ * Generic method:
+ *
+ * <T> void method(T value) {
+ *     ...
+ * }
+ *
+ * Pada kasus ini, T hanya berlaku di dalam method tersebut.
+ * Method lain di class yang sama tidak dapat menggunakan
+ * type parameter tersebut kecuali mendeklarasikannya sendiri.
+ */
+
+
+/* ------------------------------------------------------------
+ * Bentuk Umum Generic Method
+ * ------------------------------------------------------------
+ *
+ * Generic method selalu menuliskan type parameter sebelum
+ * return type.
+ *
+ * Bentuk umum:
+ *
+ * <T> ReturnType methodName(Parameter)
+ *
+ * Contoh:
+ *
+ * <T> void print(T value)
+ *
+ * Generic method juga dapat memiliki lebih dari satu
+ * type parameter.
+ *
+ * Contoh:
+ *
+ * <T, V> void process(T first, V second)
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Menggunakan Generic Method?
+ * ------------------------------------------------------------
+ *
+ * Generic method memungkinkan satu method digunakan untuk
+ * berbagai tipe data tanpa kehilangan type safety.
+ *
+ * Compiler akan memverifikasi bahwa seluruh tipe yang digunakan
+ * sesuai dengan deklarasi generic.
+ *
+ * Kesalahan tipe dapat dideteksi sejak compile-time,
+ * sehingga mengurangi kemungkinan terjadinya
+ * ClassCastException saat runtime.
+ */
+
+
+/* ------------------------------------------------------------
+ * Type Inference
+ * ------------------------------------------------------------
+ *
+ * Salah satu keunggulan generic method adalah compiler mampu
+ * menentukan type argument secara otomatis.
+ *
+ * Mekanisme ini disebut:
+ *
+ * Type Inference
+ *
+ * Contoh:
+ *
+ * isIn(2, nums);
+ *
+ * Compiler menyimpulkan:
+ *
  * T = Integer
  * V = Integer
  *
- * Ini:
- * isIn("two", strs)
+ * Contoh lain:
  *
- * Java otomatis:
+ * isIn("two", strs);
+ *
+ * Compiler menyimpulkan:
+ *
  * T = String
  * V = String
  *
- * Ini ERROR:
- * isIn("two", nums)
+ * Programmer tidak perlu menentukan type argument secara manual.
+ */
+
+
+/* ------------------------------------------------------------
+ * Type Inference Secara Eksplisit
+ * ------------------------------------------------------------
  *
- * karena:
- * T = String
- * V = Integer 
+ * Meskipun jarang diperlukan, type argument juga dapat
+ * ditentukan secara eksplisit.
  *
- * --------------------------------------------------
- * 
- * TYPE INFERENCE (INI KEREN BANGET)
- * 
- * Java otomatis tebak tipe
+ * Contoh:
  *
- * Lu gak perlu nulis:
  * GenMethDemo.<Integer, Integer>isIn(2, nums);
  *
- * cukup:
+ * Namun pada hampir semua kasus,
+ * compiler mampu melakukan type inference secara otomatis,
+ * sehingga penulisan yang umum digunakan adalah:
+ *
  * isIn(2, nums);
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Kesalahan Type
+ * ------------------------------------------------------------
  *
- * ini namanya:
- * Type Inference
+ * Misalkan terdapat pemanggilan:
  *
- * ANALOGI BIAR NGERTI
+ * isIn("two", nums);
  *
- * Bayangin:
- * Tanpa generic method
- * fungsi cuma bisa satu tipe
+ * Jika:
  *
- * Dengan generic method
- * fungsi bisa:
- * cari Integer 
- * cari String 
- * cari Object 
+ * nums bertipe Integer[]
  *
- * ---------------------------------------------------
- * 
- * SYNTAX UMUM (WAJIB HAFAL)
- * 
- * <type-param> returnType methodName(parameters)
+ * maka compiler akan menyimpulkan:
+ *
+ * T = String
+ * V = Integer
+ *
+ * Kedua type argument tersebut tidak memenuhi hubungan
+ * yang diharapkan oleh method, sehingga compiler akan
+ * menghasilkan compile-time error.
+ *
+ * Inilah salah satu bentuk perlindungan type safety
+ * yang diberikan oleh generic.
+ */
+
+
+/* ------------------------------------------------------------
+ * Generic Method dengan Bound
+ * ------------------------------------------------------------
+ *
+ * Sama seperti generic class,
+ * generic method juga dapat menggunakan bounded type parameter.
+ *
  * Contoh:
- * <T> void print(T x)
  *
- * Multiple:
- * <T, V> void method(T a, V b)
+ * <T extends Number>
  *
- * KESIMPULAN 
- * 
- * 1. Generic method = method punya type sendiri
- * 2. Ditulis sebelum return type
- *    <T> void method()
- * 3. Bisa pakai bound
- *    <T extends Something>
- * 4. Bisa lebih dari satu tipe
- *    <T, V>
- * 5. Type otomatis ditebak (type inference)
- * 6. Keuntungan:
- * reusable
- * aman
- * fleksibel
+ * atau:
  *
- * Generic method bikin:
- * 1 method → bisa semua tipe
+ * <T extends Comparable<T>>
+ *
+ * Constraint tersebut membatasi tipe yang dapat digunakan
+ * sebagai type argument sekaligus memungkinkan method
+ * mengakses operasi yang dimiliki oleh bound tersebut.
+ */
+
+
+/* ------------------------------------------------------------
+ * Keunggulan Generic Method
+ * ------------------------------------------------------------
+ *
+ * Generic method memberikan beberapa keuntungan, antara lain:
+ *
+ * - Satu method dapat digunakan untuk berbagai tipe data.
+ *
+ * - Tidak memerlukan casting manual.
+ *
+ * - Type safety diperiksa oleh compiler.
+ *
+ * - Kode menjadi lebih reusable.
+ *
+ * - Dapat dikombinasikan dengan bounded type parameter
+ *   untuk membatasi tipe yang diperbolehkan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Analogi
+ * ------------------------------------------------------------
+ *
+ * Tanpa generic method,
+ * sebuah method biasanya hanya dirancang untuk satu tipe data.
+ *
+ * Dengan generic method,
+ * method yang sama dapat digunakan untuk berbagai tipe,
+ * misalnya:
+ *
+ * Integer
+ * String
+ * Double
+ * Character
+ *
+ * selama seluruh syarat generic yang ditentukan
+ * tetap terpenuhi.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Generic method memiliki type parameter sendiri.
+ *
+ * - Type parameter ditulis sebelum return type.
+ *
+ *      <T> void method(...)
+ *
+ * - Generic method dapat memiliki lebih dari satu
+ *   type parameter.
+ *
+ *      <T, V>
+ *
+ * - Generic method dapat menggunakan bounded type parameter.
+ *
+ *      <T extends Number>
+ *
+ * - Compiler melakukan type inference secara otomatis
+ *   pada sebagian besar pemanggilan method.
+ *
+ * - Generic method meningkatkan fleksibilitas,
+ *   reusability, dan type safety.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Generic method banyak digunakan pada Java Standard Library
+ * maupun framework modern.
+ *
+ * Contohnya dapat ditemukan pada:
+ *
+ * - Collections
+ * - Arrays
+ * - Optional
+ * - Stream API
+ * - Utility class lainnya
+ *
+ * Dengan generic method, satu implementasi method dapat
+ * digunakan oleh berbagai tipe data tanpa perlu membuat
+ * versi method yang berbeda untuk setiap tipe.
  */
 
 class GenericMethods {

@@ -5,7 +5,9 @@ public class PrecedenceRules {
 
         /**
          * Operator precedence adalah urutan prioritas operator saat Java menghitung sebuah ekspresi.
+         * 
          * Berikut urutan sederhananya.
+         * 
          * Prioritas	Operator
          * 1	        ++ -- (postfix)
          * 2	        ++ -- ~ ! + - (type cast)
@@ -22,6 +24,7 @@ public class PrecedenceRules {
          * 13	        ?: (ternary)
          * 14	        -> (lambda)
          * 15	        = += -= *= /=
+         * 
          * Yang paling rendah adalah assignment (=).
          *
          * Perbandingan Associavity Operator
@@ -35,10 +38,12 @@ public class PrecedenceRules {
          * (Penting)
          * Menggunakan parentheses (tanda kurung) ().
          * tanda kurung menaikkan prioritas operasi
+         * 
          * contoh:
          * a >> b + 3;
          * java membaca ini sebagai:
          * a >> (b + 3);
+         * 
          * karena + lebih tinggi dari >>.
          * Tanda kurung tidak memperlambat program
          * Sederhananya ekspresi yang menggunakan tanda kurung adalah prioritas tertinggi.

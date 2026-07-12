@@ -1,183 +1,387 @@
 package FundamentalJava.Generics;
 
-/**
- * Apa itu Generics?
- * Generics = cara bikin kode yang fleksibel + aman untuk berbagai tipe data
- * Kenapa generics penting?
+/* ============================================================
+ *                         GENERICS
+ * ============================================================
  *
- * Sebelum generics (Java lama):
- * Semua pakai Object
- * Harus casting manual
- * Rawan error
+ * Generics adalah fitur Java yang memungkinkan class,
+ * interface, dan method bekerja dengan berbagai tipe data
+ * secara fleksibel tanpa mengorbankan type safety.
  *
- * Setlah generics:
- * Bisa tentuin tipe dari awal
- * Gak perlu casting
- * Aman (type-safe)
+ * Generics diperkenalkan pada JDK 5 dan menjadi salah satu
+ * fitur terpenting dalam perkembangan Java modern.
  *
- * ------------------------------------------------
- * 
- * MASALAH SEBELUM GENERICS (INI PENTING BANGET)
- * 
- * Dulu orang bikin class umum kayak gini:
- * 
+ * Konsep utama generics adalah:
+ *
+ * Parameterized Type
+ *
+ * yaitu menjadikan tipe data sebagai parameter sehingga
+ * kode yang sama dapat digunakan untuk berbagai jenis data.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Generics Dibutuhkan?
+ * ------------------------------------------------------------
+ *
+ * Sebelum generics diperkenalkan, banyak class umum dibuat
+ * menggunakan Object sebagai tipe data.
+ *
+ * Contoh:
+ *
  * class Box {
- *   Object data;
+ *     Object data;
  * }
  *
- * Bisa simpan apa aja:
- * Integer 
- * String 
- * Double 
+ * Pendekatan ini memungkinkan object menyimpan berbagai
+ * jenis data:
  *
- * Tapi masalahnya:
- * Integer x = (Integer) box.data; // HARUS casting
+ * Integer
+ * String
+ * Double
+ * dan lain-lain
  *
- * Kalau salah cast → error runtime
- * Baru ketahuan pas program jalan (bahaya)
+ * Namun fleksibilitas tersebut memiliki kelemahan karena
+ * compiler tidak dapat memverifikasi tipe data yang sebenarnya.
+ */
+
+
+/* ------------------------------------------------------------
+ * Masalah Sebelum Generics
+ * ------------------------------------------------------------
  *
- * ---------------------------------------------
- * 
- * SOLUSI: GENERICS
- * 
+ * Misalnya:
+ *
+ * Box box = new Box();
+ *
+ * Integer value = (Integer) box.data;
+ *
+ * Untuk mengambil data, programmer harus melakukan
+ * casting secara manual.
+ *
+ * Jika casting dilakukan terhadap tipe yang salah:
+ *
+ * String text = (String) box.data;
+ *
+ * maka kesalahan baru akan diketahui saat program berjalan
+ * (runtime) melalui ClassCastException.
+ *
+ * Pendekatan seperti ini berisiko karena bug tidak terdeteksi
+ * sejak proses kompilasi.
+ */
+
+
+/* ------------------------------------------------------------
+ * Solusi: Generics
+ * ------------------------------------------------------------
+ *
  * Dengan generics:
  *
  * class Box<T> {
- *   T data;
+ *     T data;
  * }
  *
- * T = tipe yang nanti ditentukan
+ * T merupakan type parameter yang berfungsi sebagai
+ * placeholder untuk tipe data sebenarnya.
  *
- * Sejak Java pertama rilis tahun 1995, banyak fitur baru ditambahkan. Salah satu yang paling berpengaruh adalah Generics.
- * Generics diperkenalkan di JDK 5, dan mengubah Java dalam dua hal:
+ * Ketika object dibuat:
  *
- * Nambah syntax baru
- * Mengubah banyak class & method di API Java
- * Sekarang, generics jadi bagian penting banget dalam Java. Wajib ngerti.
+ * Box<Integer> box = new Box<>();
  *
- * ----------------------------------------------------------
- * 
+ * maka compiler mengganti:
+ *
+ * T → Integer
+ *
+ * sehingga seluruh operasi menjadi lebih aman.
+ */
+
+
+/* ------------------------------------------------------------
  * Fungsi Generics
- * Dengan generics, kita bisa bikin:
- * class
- * interface
- * method
+ * ------------------------------------------------------------
  *
- * yang bisa bekerja dengan berbagai tipe data, tapi tetap aman (type-safe).
+ * Generics dapat digunakan pada:
  *
- * Contoh konsep
- * Misalnya:
- * Stack Integer
- * Stack String
- * Stack Object
+ * - Class
+ * - Interface
+ * - Method
+ * - Constructor
  *
- * Cara kerjanya sama!
+ * Tujuannya adalah membuat kode yang:
  *
- * Dengan generics:
- * Kita cukup bikin 1 algoritma
- * Bisa dipakai ke banyak tipe data tanpa nulis ulang
+ * - Fleksibel
+ * - Reusable
+ * - Type-safe
  *
- * Pengaruh besar generics
+ * tanpa perlu membuat implementasi terpisah untuk setiap tipe data.
+ */
+
+
+/* ------------------------------------------------------------
+ * Satu Implementasi untuk Banyak Tipe
+ * ------------------------------------------------------------
  *
- * Yang paling kena dampak:
- * Collections Framework
+ * Misalnya terdapat struktur data Stack.
+ *
+ * Tanpa generics mungkin diperlukan:
+ *
+ * StackInteger
+ * StackString
+ * StackDouble
+ *
+ * Dengan generics cukup dibuat:
+ *
+ * Stack<T>
+ *
+ * sehingga satu implementasi dapat digunakan untuk
+ * berbagai tipe data.
+ *
+ * Pendekatan ini mengurangi duplikasi kode secara signifikan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Dampak Besar pada Collections Framework
+ * ------------------------------------------------------------
+ *
+ * Salah satu bagian Java yang paling banyak memanfaatkan
+ * generics adalah Collections Framework.
+ *
+ * Contohnya:
+ *
+ * List<E>
+ * Set<E>
+ * Queue<E>
+ * Map<K, V>
+ *
+ * Dengan generics, collection dapat menentukan tipe data
+ * yang boleh disimpan sejak awal.
  *
  * Contoh:
- * List
- * Map
- * Set
  *
- * Dulu bisa simpan apa aja, tapi:
- * gak aman (bisa salah tipe)
+ * List<String>
  *
- * Sekarang:
- * aman (type-safe)
+ * berarti collection tersebut hanya menerima String.
  *
- * ------------------------------------------
- * 
- * INTI GENERICS
+ * Compiler akan menolak penambahan tipe yang tidak sesuai.
+ */
+
+
+/* ------------------------------------------------------------
  * Generics = Parameterized Type
- *
- * Artinya:
- * Tipe data dijadikan parameter
+ * ------------------------------------------------------------
  *
  * Contoh:
+ *
  * class Gen<T>
  *
- * T = placeholder (pengganti tipe asli nanti)
+ * T bukanlah tipe data sebenarnya.
  *
- * Sebelum Generics
- * Dulu pakai:
- * Object
+ * T hanya merupakan parameter tipe yang akan diganti
+ * saat object dibuat.
  *
- * Masalahnya:
- * Harus casting manual
- * Bisa error runtime
+ * Misalnya:
  *
- * Setelah Generics
- * Gak perlu casting
- * Lebih aman
- * Lebih rapi
+ * Gen<Integer>
  *
- * --------------------------------------------------------------
- * 
- * KONSEP DALAM YANG WAJIB LU PAHAM
- * 1. Type Safety
- * Gen<Integer> iOb = new Gen<Double>(88.0); // ERROR
+ * maka:
  *
- * Ini ditolak compile
- * Generics jaga supaya gak salah tipe
+ * T → Integer
  *
- * 2. Autoboxing
- * new Gen<Integer>(88);
+ * Atau:
  *
- * 88 otomatis jadi Integer
+ * Gen<String>
  *
- * 3. No Casting
- * Dulu:
- * (Integer) obj
+ * maka:
  *
- * Sekarang:
- * int v = iOb.getob();
+ * T → String
+ */
+
+
+/* ------------------------------------------------------------
+ * Type Safety
+ * ------------------------------------------------------------
  *
- * 4. Type Erasure (ini advance dikit)
- * Java sebenarnya:
- * hapus info generic saat compile
+ * Salah satu manfaat terbesar generics adalah type safety.
  *
- * Jadi:
- * cuma ada 1 class Gen
- * bukan banyak versi
+ * Contoh:
  *
- * ---------------------------------------
- * 
- * ANALOGI BIAR MASUK
- * Bayangin Gen<T> itu kayak:
- * "Kotak fleksibel"
+ * Gen<Integer> obj =
+ *         new Gen<Integer>(88);
  *
- * Bisa isi Integer
- * Bisa isi String
- * Tapi sekali isi → harus konsisten
+ * Compiler menjamin bahwa object tersebut hanya bekerja
+ * dengan Integer.
  *
- * ---------------------------------------------
- * 
- * KESIMPULAN
- * 
- * Generics = cara bikin kode fleksibel + aman
+ * Kesalahan seperti:
  *
- * Keuntungan:
- * Bisa dipakai banyak tipe data
- * Gak perlu casting
- * Lebih aman (type-safe)
- * Kode lebih rapi & reusable
+ * Gen<Integer> obj =
+ *         new Gen<Double>(88.0);
  *
- * KESIMPULAN (SUPER JELAS)
- * Generics itu:
- * Cara bikin class fleksibel tapi tetap aman
+ * akan ditolak saat compile-time.
  *
- * Hal penting:
- * T = placeholder
- * Tipe asli ditentukan saat object dibuat
- * Java pakai type erasure
+ * Dengan demikian banyak bug dapat dicegah sebelum
+ * program dijalankan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Tidak Perlu Casting Manual
+ * ------------------------------------------------------------
+ *
+ * Sebelum generics:
+ *
+ * Integer value = (Integer) obj;
+ *
+ * Setelah generics:
+ *
+ * Integer value = box.getData();
+ *
+ * Compiler sudah mengetahui tipe yang dikembalikan sehingga
+ * casting manual tidak diperlukan.
+ *
+ * Kode menjadi lebih bersih dan lebih mudah dibaca.
+ */
+
+
+/* ------------------------------------------------------------
+ * Autoboxing dan Generics
+ * ------------------------------------------------------------
+ *
+ * Generic hanya menerima reference type.
+ *
+ * Oleh karena itu:
+ *
+ * Gen<int>
+ *
+ * tidak diperbolehkan.
+ *
+ * Sebagai gantinya digunakan:
+ *
+ * Gen<Integer>
+ *
+ * Ketika menulis:
+ *
+ * new Gen<Integer>(88)
+ *
+ * compiler secara otomatis melakukan autoboxing:
+ *
+ * int → Integer
+ *
+ * sehingga penggunaan generic menjadi lebih nyaman.
+ */
+
+
+/* ------------------------------------------------------------
+ * Type Erasure
+ * ------------------------------------------------------------
+ *
+ * Secara internal, Java mengimplementasikan generics melalui
+ * mekanisme yang disebut type erasure.
+ *
+ * Setelah proses kompilasi:
+ *
+ * - Sebagian besar informasi generic dihapus.
+ * - Type parameter diganti menjadi Object atau bound-nya.
+ * - Compiler menambahkan cast yang diperlukan.
+ *
+ * Akibatnya, JVM tidak menyimpan sebagian besar informasi
+ * generic saat runtime.
+ *
+ * Meskipun demikian, type safety tetap terjaga karena
+ * seluruh pengecekan telah dilakukan pada compile-time.
+ */
+
+
+/* ------------------------------------------------------------
+ * Analogi Sederhana
+ * ------------------------------------------------------------
+ *
+ * Bayangkan:
+ *
+ * Gen<T>
+ *
+ * adalah sebuah kotak fleksibel.
+ *
+ * Kotak tersebut dapat digunakan untuk menyimpan:
+ *
+ * Integer
+ * String
+ * Double
+ *
+ * Namun setelah tipe ditentukan:
+ *
+ * Gen<Integer>
+ *
+ * maka kotak tersebut hanya boleh menyimpan Integer.
+ *
+ * Compiler akan menjaga konsistensi tipe tersebut
+ * selama program dikompilasi.
+ */
+
+
+/* ------------------------------------------------------------
+ * Keuntungan Generics
+ * ------------------------------------------------------------
+ *
+ * - Dapat digunakan untuk berbagai tipe data.
+ *
+ * - Mengurangi duplikasi kode.
+ *
+ * - Tidak memerlukan casting manual.
+ *
+ * - Meningkatkan type safety.
+ *
+ * - Membuat API lebih fleksibel.
+ *
+ * - Membantu menemukan kesalahan sejak compile-time.
+ *
+ * - Sangat cocok untuk struktur data dan library umum.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Generics adalah mekanisme parameterized type di Java.
+ *
+ * - Type parameter bertindak sebagai placeholder untuk tipe
+ *   yang ditentukan kemudian.
+ *
+ * - Generics memungkinkan satu implementasi bekerja untuk
+ *   banyak tipe data.
+ *
+ * - Compiler menggunakan generics untuk menjaga type safety.
+ *
+ * - Generics mengurangi kebutuhan casting manual.
+ *
+ * - Java mengimplementasikan generics menggunakan
+ *   type erasure.
+ *
+ * - Generics merupakan fondasi penting bagi Collections
+ *   Framework dan banyak library Java modern.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Hampir seluruh pengembangan Java modern memanfaatkan
+ * generics, baik secara langsung maupun tidak langsung.
+ *
+ * Memahami generics dengan baik akan mempermudah dalam
+ * mempelajari:
+ *
+ * - Collections Framework
+ * - Stream API
+ * - Functional Programming
+ * - Spring Framework
+ * - Hibernate
+ * - Jakarta EE
+ *
+ * karena konsep generic menjadi fondasi bagi banyak API
+ * dan framework yang digunakan dalam dunia kerja.
  */
 
 // Class Generic

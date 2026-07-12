@@ -1,106 +1,292 @@
 package FundamentalJava.Methods;
 
-    /**
-     * Parameter
-     *
-     * Parameter adalah variabel yang didefinisikan di dalam method.
-     * Walaupun beberapa method tidak membutuhkan parameter, kebanyakan method menggunakan parameter.
-     * 
-     * Parameter memungkinkan sebuah method menjadi lebih umum (generalized).
-     * Artinya, method tersebut dapat bekerja dengan berbagai macam data atau digunakan dalam berbagai situasi yang sedikit berbeda.
-     * 
-     * Untuk menjelaskan hal ini, kita gunakan contoh sederhana.
-     * Berikut adalah method yang mengembalikan kuadrat dari angka 10:
-     * 
-     * int square() {
-     *     return 10 * 10;
-     * }
-     *
-     * Walaupun method ini benar-benar mengembalikan nilai 10², penggunaannya sangat terbatas.
-     *
-     * Namun jika method tersebut dimodifikasi agar menerima parameter, seperti berikut:
-     * 
-     * int square(int i) {
-     *     return i * i;
-     * }
-     *
-     * Sekarang method square() dapat mengembalikan kuadrat dari nilai apa pun yang diberikan.
-     * Artinya method tersebut sekarang menjadi general-purpose method 
-     * yang bisa menghitung kuadrat dari angka apa pun, bukan hanya 10.
-     *
-     * --------------------------------------------------------
-     * 
-     * Konsep Penting: Parameter vs Argument
-     * 
-     * Parameter
-     * Parameter adalah variabel yang didefinisikan di dalam method.
-     * Contoh:
-     * int square(int i)
-     * i adalah parameter.
-     *
-     * Argument
-     * Argument adalah nilai yang dikirim ke method saat method dipanggil.
-     * Contoh:
-     * square(100)
-     * 100 adalah argument.
-     *
-     * ---------------------------------------------------------
-     * 
-     * Penjelasan Konsep Parameter
-     *
-     * Parameter membuat method lebih fleksibel.
-     * Tanpa parameter:
-     * 
-     * int square() {
-     *     return 10 * 10;
-     * }
-     *
-     * Hanya bisa menghitung:
-     * 100
-     *
-     * Dengan parameter:
-     * 
-     * int square(int i) {
-     *     return i * i;
-     * }
-     *
-     * Bisa menghitung:
-     * square(2)
-     * square(5)
-     * square(20)
-     * square(100)
-     */
-
-    /**
-     * Penerapan Parameter di Class Box
-     * 
-     * Di contoh sebelumnya, kita mengatur ukuran box seperti ini:
-     * mybox1.width = 10;
-     * mybox1.height = 20;
-     * mybox1.depth = 15;
-     *
-     * Walaupun ini bekerja, buku mengatakan ini bukan desain yang baik karena dua alasan.
-     *
-     * Masalah 1: Tidak praktis
-     * Kode jadi panjang.
-     * mybox.width = 10;
-     * mybox.height = 20;
-     * mybox.depth = 15;
-     *
-     * Masalah 2: Rawan kesalahan
-     * Bisa saja lupa set salah satu nilai.
-     *
-     * Misalnya:
-     * mybox.width = 10;
-     * mybox.height = 20;
-     * // lupa set depth
-     *
-     * Masalah 3: Melanggar prinsip OOP
-     *
-     * Dalam program Java yang baik:
-     * instance variable seharusnya diakses melalui method
-     * Ini adalah bagian dari konsep encapsulation.
-     */
+/*
+ * ============================================================
+ * Parameter Pada Method Java
+ * ============================================================
+ *
+ * Parameter adalah variabel yang didefinisikan di dalam deklarasi
+ * sebuah method dan digunakan untuk menerima data dari pemanggil
+ * method.
+ *
+ * Parameter membuat sebuah method menjadi lebih fleksibel karena
+ * method tidak hanya bekerja dengan satu nilai tetap, tetapi dapat
+ * menerima berbagai nilai yang berbeda.
+ *
+ * Dengan parameter:
+ *
+ * - Method dapat digunakan kembali (reusable).
+ * - Method menjadi lebih umum (general-purpose).
+ * - Logika program menjadi lebih fleksibel.
+ *
+ * ------------------------------------------------------------
+ * Contoh Method Tanpa Parameter
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * int square() {
+ *     return 10 * 10;
+ * }
+ *
+ * Method tersebut selalu menghasilkan nilai:
+ *
+ * 10 x 10 = 100
+ *
+ * Masalah:
+ *
+ * Method ini hanya dapat menghitung kuadrat angka 10.
+ *
+ * Jika ingin menghitung angka lain, kita harus membuat method
+ * baru atau mengubah isi method tersebut.
+ *
+ * ------------------------------------------------------------
+ * Contoh Method Dengan Parameter
+ * ------------------------------------------------------------
+ *
+ * Method dapat dibuat lebih fleksibel menggunakan parameter.
+ *
+ * Contoh:
+ *
+ * int square(int i) {
+ *     return i * i;
+ * }
+ *
+ * Sekarang method square() dapat menerima nilai apa pun.
+ *
+ * Contoh pemanggilan:
+ *
+ * square(2);
+ * square(5);
+ * square(20);
+ * square(100);
+ *
+ * Hasil:
+ *
+ * square(2)   -> 4
+ * square(5)   -> 25
+ * square(20)  -> 400
+ * square(100) -> 10000
+ *
+ * Method tersebut sekarang menjadi general-purpose method karena
+ * dapat digunakan untuk berbagai nilai.
+ *
+ * ------------------------------------------------------------
+ * Parameter vs Argument
+ * ------------------------------------------------------------
+ *
+ * Parameter dan argument sering dianggap sama, tetapi sebenarnya
+ * memiliki perbedaan.
+ *
+ * ------------------------------------------------------------
+ *
+ * Parameter:
+ *
+ * Parameter adalah variabel yang ditulis pada deklarasi method.
+ *
+ * Contoh:
+ *
+ * int square(int i) {
+ *     return i * i;
+ * }
+ *
+ * Pada contoh tersebut:
+ *
+ * i adalah parameter.
+ *
+ * Parameter berfungsi sebagai tempat menerima nilai yang dikirim
+ * ketika method dipanggil.
+ *
+ * ------------------------------------------------------------
+ *
+ * Argument:
+ *
+ * Argument adalah nilai nyata yang dikirimkan ketika method
+ * dipanggil.
+ *
+ * Contoh:
+ *
+ * square(100);
+ *
+ * Pada contoh tersebut:
+ *
+ * 100 adalah argument.
+ *
+ * Nilai argument akan dimasukkan ke dalam parameter i.
+ *
+ * Alur:
+ *
+ * argument
+ *    |
+ *    v
+ * parameter
+ *    |
+ *    v
+ * proses method
+ *
+ * ------------------------------------------------------------
+ * Parameter Membuat Method Lebih Fleksibel
+ * ------------------------------------------------------------
+ *
+ * Tanpa parameter:
+ *
+ * int square() {
+ *     return 10 * 10;
+ * }
+ *
+ * Hanya dapat menghasilkan:
+ *
+ * 100
+ *
+ *
+ * Dengan parameter:
+ *
+ * int square(int i) {
+ *     return i * i;
+ * }
+ *
+ * Dapat digunakan untuk berbagai nilai.
+ *
+ * Contoh:
+ *
+ * square(3)
+ * square(8)
+ * square(50)
+ *
+ * ------------------------------------------------------------
+ * Penerapan Parameter Pada Class Box
+ * ============================================================
+ *
+ * Sebelumnya, ukuran object Box dapat diberikan secara langsung:
+ *
+ * myBox.width = 10;
+ * myBox.height = 20;
+ * myBox.depth = 15;
+ *
+ * Cara tersebut memang dapat berjalan, tetapi dalam desain OOP
+ * yang baik cara tersebut memiliki beberapa masalah.
+ *
+ * ------------------------------------------------------------
+ * Masalah 1: Tidak Praktis
+ * ------------------------------------------------------------
+ *
+ * Jika object memiliki banyak attribute, pemberian nilai satu
+ * per satu dapat membuat kode menjadi panjang.
+ *
+ * Contoh:
+ *
+ * myBox.width = 10;
+ * myBox.height = 20;
+ * myBox.depth = 15;
+ *
+ * Akan sulit dipelihara jika jumlah attribute semakin banyak.
+ *
+ * ------------------------------------------------------------
+ * Masalah 2: Rawan Kesalahan
+ * ------------------------------------------------------------
+ *
+ * Programmer dapat lupa memberikan nilai pada salah satu variable.
+ *
+ * Contoh:
+ *
+ * myBox.width = 10;
+ * myBox.height = 20;
+ *
+ * // lupa memberikan nilai depth
+ *
+ * Akibatnya object dapat berada dalam kondisi data yang tidak
+ * lengkap.
+ *
+ * ------------------------------------------------------------
+ * Masalah 3: Melanggar Konsep Encapsulation
+ * ------------------------------------------------------------
+ *
+ * Dalam konsep Object-Oriented Programming, data internal object
+ * sebaiknya tidak diubah secara langsung dari luar class.
+ *
+ * Contoh yang kurang baik:
+ *
+ * myBox.width = 10;
+ *
+ * Karena kode luar dapat mengubah data object tanpa kontrol.
+ *
+ * Desain yang lebih baik adalah menggunakan method untuk mengatur
+ * nilai tersebut.
+ *
+ * Contoh:
+ *
+ * class Box {
+ *
+ *     private int width;
+ *     private int height;
+ *     private int depth;
+ *
+ *     void setSize(int width, int height, int depth) {
+ *         this.width = width;
+ *         this.height = height;
+ *         this.depth = depth;
+ *     }
+ * }
+ *
+ * Pemanggilan:
+ *
+ * myBox.setSize(10, 20, 15);
+ *
+ * Keuntungan:
+ *
+ * - Data object lebih terkontrol.
+ * - Validasi dapat ditambahkan di dalam method.
+ * - Mengurangi kemungkinan kesalahan.
+ *
+ * ------------------------------------------------------------
+ * Parameter Dalam Constructor
+ * ------------------------------------------------------------
+ *
+ * Selain method biasa, parameter juga sering digunakan pada
+ * constructor untuk memastikan object dibuat dengan data awal
+ * yang lengkap.
+ *
+ * Contoh:
+ *
+ * class Box {
+ *
+ *     private int width;
+ *     private int height;
+ *     private int depth;
+ *
+ *     Box(int width, int height, int depth) {
+ *         this.width = width;
+ *         this.height = height;
+ *         this.depth = depth;
+ *     }
+ * }
+ *
+ * Pembuatan object:
+ *
+ * Box box = new Box(10, 20, 15);
+ *
+ * Object langsung memiliki data ketika dibuat.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Parameter adalah mekanisme yang memungkinkan method menerima
+ * data dari luar sehingga method menjadi lebih fleksibel.
+ *
+ * Konsep penting:
+ *
+ * - Parameter adalah variabel pada deklarasi method.
+ * - Argument adalah nilai yang dikirim saat pemanggilan method.
+ * - Parameter membuat method dapat digunakan kembali untuk banyak
+ *   kondisi.
+ * - Parameter sering digunakan bersama encapsulation untuk membuat
+ *   desain class yang lebih aman.
+ *
+ * Dengan memahami parameter, kita dapat membuat method yang lebih
+ * reusable, fleksibel, dan sesuai dengan prinsip OOP Java.
+ *
+ */
 
 public class MethodWithParameters {
     // variabel instance

@@ -1,58 +1,153 @@
 package FundamentalJava.StructurePercabangan;
 
+/**
+ * ------------------------------------------------------------------------
+ * STRUKTUR SELEKSI DI JAVA
+ * ------------------------------------------------------------------------
+ * 
+ * Di Java ada 3 cara utama untuk mengambil keputusan atau menyeleksi sebuah aksi:
+ * 
+ * 1. if          → Jalur satu arah
+ * 2. if-else     → Jalur dua arah
+ * 3. switch      → Banyak jalur
+ * 
+ * ------------------------------------------------------------------------
+ * IF STATEMENT
+ * ------------------------------------------------------------------------
+ * 
+ * if adalah pernyataan percabangan kondisional.
+ * 
+ * Kamu memberi syarat:
+ * - Jika syaratnya tembus (bernilai true) → Java menjalankan perintahnya
+ * - Jika tidak tembus (false) → Java menjalankan perintah di bagian else
+ * 
+ * Bentuk umum:
+ * 
+ *     if (kondisi) {
+ *         // dijalankan jika kondisi true
+ *     } else {
+ *         // dijalankan jika kondisi false
+ *     }
+ * 
+ * Penjelasan:
+ * - kondisi → ekspresi yang menghasilkan nilai boolean (true/false)
+ * - statement1 → dijalankan jika kondisi true
+ * - statement2 → dijalankan jika kondisi false
+ * - else bersifat OPSIONAL (boleh ada, boleh tidak)
+ * 
+ * Yang penting:
+ * TIDAK MUNGKIN dua statement dijalankan sekaligus.
+ * Hanya satu jalur yang akan dieksekusi.
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH IF STATEMENT
+ * ------------------------------------------------------------------------
+ * 
+ *     int umur = 18;
+ * 
+ *     if (umur >= 17) {
+ *         System.out.println("Kamu sudah cukup umur");
+ *     } else {
+ *         System.out.println("Kamu belum cukup umur");
+ *     }
+ * 
+ *     // Output: Kamu sudah cukup umur
+ * 
+ * ------------------------------------------------------------------------
+ * IF TANPA ELSE (SATU JALUR)
+ * ------------------------------------------------------------------------
+ * 
+ *     int nilai = 85;
+ * 
+ *     if (nilai >= 75) {
+ *         System.out.println("Lulus");
+ *     }
+ * 
+ *     // Jika nilai >= 75, tampilkan "Lulus"
+ *     // Jika tidak, tidak ada yang terjadi
+ * 
+ * ------------------------------------------------------------------------
+ * KESALAHAN UMUM DALAM IF STATEMENT
+ * ------------------------------------------------------------------------
+ * 
+ * 1. = vs == (Assignment vs Equality)
+ * 
+ *     // SALAH
+ *     if (x = 5) {     // ERROR! = adalah assignment, bukan perbandingan
+ *         // ...
+ *     }
+ * 
+ *     // BENAR
+ *     if (x == 5) {    // == adalah perbandingan
+ *         // ...
+ *     }
+ * 
+ * 2. Tidak Ada Tanda Kurung ()
+ * 
+ *     // SALAH
+ *     if x > 5 {       // ERROR! Kondisi harus dalam ()
+ *         // ...
+ *     }
+ * 
+ *     // BENAR
+ *     if (x > 5) {     // Kondisi dalam ()
+ *         // ...
+ *     }
+ * 
+ * 3. Semicolon (;) Setelah if
+ * 
+ *     // SALAH
+ *     if (x > 5); {    // ; mengakhiri if, blok di bawah selalu dijalankan
+ *         System.out.println("x lebih dari 5"); // SELALU dijalankan!
+ *     }
+ * 
+ *     // BENAR
+ *     if (x > 5) {
+ *         System.out.println("x lebih dari 5");
+ *     }
+ * 
+ * 4. Tidak Ada Kurung Kurawal {}
+ * 
+ *     // HATI-HATI! Tanpa {}, hanya 1 baris yang dianggap bagian dari if
+ *     if (x > 5)
+ *         System.out.println("x lebih dari 5");
+ *         System.out.println("Ini selalu dijalankan!"); // BUKAN bagian dari if!
+ * 
+ *     // BENAR
+ *     if (x > 5) {
+ *         System.out.println("x lebih dari 5");
+ *         System.out.println("Ini juga bagian dari if");
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * TIPS MENGHINDARI KESALAHAN
+ * ------------------------------------------------------------------------
+ * 
+ * 1. SELALU gunakan kurung kurawal {} meskipun hanya satu baris
+ * 2. SELALU gunakan () untuk kondisi if
+ * 3. SELALU gunakan == untuk perbandingan, = untuk assignment
+ * 4. JANGAN taruh ; setelah if
+ * 5. Indentasi kode dengan rapi agar mudah dibaca
+ * 
+ * ------------------------------------------------------------------------
+ * RINGKASAN SUPER PADAT
+ * ------------------------------------------------------------------------
+ * 
+ * - if       = jalur satu arah (opsional else)
+ * - if-else  = jalur dua arah (pasti salah satu jalan)
+ * - switch   = banyak jalur (lebih dari 2 pilihan)
+ * 
+ * Kesalahan umum:
+ * - = (assignment) vs == (perbandingan)
+ * - Lupa ()
+ * - Semicolon setelah if
+ * - Lupa {} untuk multiple statements
+ * 
+ * ------------------------------------------------------------------------
+ */
+
 public class StructurePercabangan {
     public static void main(String[] args) {
-
-        /**
-         * Struktur seleksi
-         * di java ada 3 cara utama untuk mengambil keputusan atau menyeleksi seuah aksi.
-         * 1, if - jalur satu arah
-         * 2, if else - jalur dua arah
-         * 3, switch - banyak jalur
-         *
-         * Kesalahan umum dalam pemtograman if statement
-         * = vs ==              - operator = adalah untuk memberi nilai (assignment),
-         *                        bukan membandingkan. menggunakannya di if akan menghasilkan error
-         * Tidak ada ()         - Kondisi if harus selalu berada di dalam tanda kurung (),
-         *                        ini adalah aturan wajib
-         * Semicolon setelah if - Menambahkan ; setelah if akan mengakhiri pernyataan if tersebut,
-         *                        aksi yg seharusnya dieksekusi akan menjadi aksi kosong dan blok kode dibawahnya selalu dijalankan.
-         * Tidak ada {}         - Tanpa kurung kurawal, if hanya akan menganggap satu baris kode dibawahnya sebagai aksi.
-         *                        jika butuh lebih dari 1 aksi, harus pakai {}.
-         */
-
-        /**
-         * if adalah pernyataan percabangan kondisional. Lo ngasih syarat, kalau syaratnya tembus
-         * (bernilai true), Java jalanin perintahnya. Kalau nggak tembus (false), Java jalanin perintah di
-         * bagian else.
-         *
-         * if (condition) {
-         *     // dijalankan jika kondisi true
-         * } else {
-         *     // dijalankan jika kondisi false
-         * }
-         */
-
-        /**
-         * IF Statement
-         * if adalah percabangan kondisi di Java.
-         * Dia memungkinkan program memilih dua jalur eksekusi yang berbeda.
-         * Bentuk umum:
-         *
-         * if (kondisi)
-         *    statement1;
-         * else
-         *    statement2;
-         *
-         * Penjelasan:
-         * condition → ekspresi yang menghasilkan boolean
-         * statement1 → dijalankan jika kondisi true
-         * statement2 → dijalankan jika kondisi false
-         * else bersifat opsiona
-         *
-         * Yang penting:
-         * Tidak mungkin dua statement dijalankan sekaligus.
-         */
 
         int a, b;
         a = 5;

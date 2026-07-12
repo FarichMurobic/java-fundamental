@@ -1,93 +1,165 @@
 package FundamentalJava.InstanceofJava;
 
-/**
- * Using instanceof
+/* ==========================================================
+ *                     USING instanceof
+ * ==========================================================
  *
- * Kadang kita perlu tahu:
- * tipe asli object saat program berjalan (runtime)
+ * Operator instanceof digunakan untuk memeriksa apakah sebuah
+ * object merupakan instance dari kelas tertentu, subclass,
+ * atau interface tertentu pada saat program berjalan (runtime).
+ *
+ * Pemeriksaan ini sangat berguna ketika tipe asli object tidak
+ * diketahui secara pasti hingga runtime.
+ *
+ * ==========================================================
+ *                     MENGAPA DIPERLUKAN?
+ * ==========================================================
+ *
+ * Dalam beberapa kasus, sebuah object dapat dibuat di satu bagian
+ * program dan diproses di bagian lain.
  *
  * Contoh:
- * Thread A bikin berbagai object
- * Thread B nerima & proses object itu
+ * - Thread A membuat berbagai jenis object.
+ * - Thread B menerima object tersebut untuk diproses.
  *
- * Thread B perlu tahu:
- * “ini object tipe apa sih?”
+ * Karena Thread B hanya menerima referensi object, tipe aslinya
+ * belum tentu diketahui. Oleh karena itu, diperlukan pemeriksaan
+ * tipe sebelum object diproses lebih lanjut.
  *
- * Masalah Casting
+ * ==========================================================
+ *                     CASTING DAN RISIKONYA
+ * ==========================================================
  *
- * Di Java:
- * Casting yang salah = error saat runtime
+ * Java mengizinkan casting antar kelas yang memiliki hubungan
+ * inheritance. Namun, casting yang tidak sesuai akan menyebabkan
+ * ClassCastException pada saat runtime.
+ *
+ * Misalkan terdapat:
+ *
+ *      A
+ *     / \
+ *    B   C
+ *
+ * Casting yang valid:
+ * - B -> A (Upcasting)
+ * - C -> A (Upcasting)
+ *
+ * Casting yang berpotensi menyebabkan ClassCastException:
+ * - B -> C
+ * - C -> B
  *
  * Contoh:
- * Ada superclass: A
- * Subclass: B dan C
  *
- * Legal:
- * B → A
- * C → A
+ *     A obj;
  *
- * Tidak legal:
- * B → C
- * C → B
+ * Referensi di atas dapat menunjuk ke object bertipe A, B, atau C.
+ * Jika langsung dilakukan casting tanpa pemeriksaan:
  *
- * Problemnya:
- * Kalau kita punya:
- * A obj;
+ *     C c = (C) obj;
  *
- * Kita gak tahu:
- * ini A asli?
- * atau B?
- * atau C?
+ * maka program dapat menghasilkan ClassCastException apabila
+ * object tersebut ternyata bukan instance dari C.
  *
- * Kalau langsung dipaksa cast:
- * C c = (C) obj;
+ * ==========================================================
+ *                     SOLUSINYA: instanceof
+ * ==========================================================
  *
- * Bisa error 
+ * Operator instanceof digunakan untuk memeriksa apakah sebuah
+ * object merupakan instance dari tipe tertentu sebelum dilakukan
+ * proses casting.
  *
- * Solusinya: instanceof
- * Digunakan untuk cek:
- * object ini bisa jadi tipe tertentu atau tidak
+ * Bentuk umum:
  *
- * Bentuk Umum
- * objref instanceof Type
+ *     objectReference instanceof Type
  *
- * Hasil:
- * true → bisa jadi tipe itu
- * false → tidak bisa
+ * Nilai yang dihasilkan:
+ * - true  : object merupakan instance dari tipe tersebut.
+ * - false : object bukan instance dari tipe tersebut.
  *
- * Kenapa instanceof Penting?
+ * ==========================================================
+ *                  CASTING YANG AMAN
+ * ==========================================================
  *
- * Dipakai kalau:
- * Object datang dari luar (API, thread, input)
- * Lu gak yakin tipe aslinya
- * Mau casting dengan aman
+ * Contoh penggunaan:
  *
- * Contoh Aman
- * if(obj instanceof C) {
- *     C c = (C) obj; // aman
- * }
+ *     if (obj instanceof C) {
+ *         C c = (C) obj;
+ *     }
  *
- * Tanpa ini:
- * C c = (C) obj; // bisa error
+ * Dengan melakukan pemeriksaan terlebih dahulu, proses casting
+ * menjadi aman dan terhindar dari ClassCastException.
  *
- * ---------------------------------------
- * 
- * Kesimpulan Santai
- * instanceof = cek tipe object saat runtime
- * Dipakai buat:
- * hindari error casting
- * ngecek tipe object dinamis
- * Penting di:
- * polymorphism
- * OOP kompleks
- * multithread / generic system
+ * Sebaliknya, melakukan casting secara langsung:
  *
- * Insight Level Atas
- * Semua object di Java adalah turunan:
- * Object
+ *     C c = (C) obj;
  *
- * Makanya:
- * a instanceof Object // selalu true
+ * dapat menyebabkan exception apabila tipe object tidak sesuai.
+ *
+ * ==========================================================
+ *                     KAPAN DIGUNAKAN?
+ * ==========================================================
+ *
+ * Operator instanceof umum digunakan ketika:
+ *
+ * - Object berasal dari API atau library.
+ * - Object diterima dari thread lain.
+ * - Object berasal dari koleksi (Collection) yang berisi berbagai
+ *   jenis object.
+ * - Object diperoleh melalui mekanisme polymorphism.
+ * - Tipe asli object belum diketahui secara pasti hingga runtime.
+ *
+ * ==========================================================
+ *                     CATATAN MODERN JAVA
+ * ==========================================================
+ *
+ * Sejak Java 16, instanceof mendukung Pattern Matching sehingga
+ * proses pemeriksaan tipe dan casting dapat dilakukan sekaligus.
+ *
+ * Contoh:
+ *
+ *     if (obj instanceof C c) {
+ *         // Variabel c sudah otomatis bertipe C
+ *     }
+ *
+ * Pendekatan ini lebih ringkas, lebih aman, dan menjadi gaya
+ * penulisan yang direkomendasikan pada Java modern.
+ *
+ * ==========================================================
+ *                         INSIGHT
+ * ==========================================================
+ *
+ * Seluruh class di Java secara langsung maupun tidak langsung
+ * mewarisi class Object.
+ *
+ * Oleh karena itu:
+ *
+ *     obj instanceof Object
+ *
+ * akan bernilai true selama obj mengacu pada object yang bukan
+ * bernilai null.
+ *
+ * Perlu diperhatikan bahwa:
+ *
+ *     null instanceof Object
+ *
+ * selalu menghasilkan false.
+ *
+ * ==========================================================
+ *                        KESIMPULAN
+ * ==========================================================
+ *
+ * instanceof adalah operator untuk memeriksa tipe object pada
+ * saat runtime.
+ *
+ * Operator ini sangat penting untuk:
+ *
+ * - Memastikan casting dilakukan dengan aman.
+ * - Menghindari ClassCastException.
+ * - Mendukung implementasi polymorphism.
+ * - Memproses object dengan tipe yang dinamis.
+ * - Membangun aplikasi Java yang lebih aman dan fleksibel.
+ *
+ * ==========================================================
  */
 
 class A {

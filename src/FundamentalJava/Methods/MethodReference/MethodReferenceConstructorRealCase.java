@@ -1,83 +1,309 @@
 package FundamentalJava.Methods.MethodReference;
 
-/**
- * Intinya:
+/*
+ * ============================================================
+ * Constructor Reference Sebagai Factory Method
+ * ============================================================
  *
- * Contoh sebelumnya cuma nunjukin cara kerja
- * Tapi belum ada manfaat nyata
+ * Contoh sebelumnya hanya menunjukkan cara kerja constructor
+ * reference.
  *
- * Nah di sini mulai masuk USE CASE REAL:
- * bikin factory method generic
- * yang bisa bikin object apa pun
+ * Namun manfaat sebenarnya terlihat ketika constructor reference
+ * digunakan untuk membuat object secara fleksibel.
  *
- * Konsep Besar (WAJIB PAHAM)
- * Ini inti dari semuanya:
- * static <R,T> R myClassFactory(MyFunc<R, T> cons, T v)
+ * Salah satu penggunaan nyata adalah membuat:
  *
- * artinya:
- * “Kasih gue constructor (cons), gue bakal bikin object dari situ”
+ * Generic Factory Method
  *
- * Jadi ini:
+ * Yaitu sebuah method yang dapat membuat berbagai jenis object
+ * tanpa harus mengetahui detail pembuatan object tersebut.
+ *
+ * ------------------------------------------------------------
+ * Konsep Besar
+ * ------------------------------------------------------------
+ *
+ * Perhatikan method berikut:
+ *
+ * static <R, T> R myClassFactory(
+ *         MyFunc<R, T> cons,
+ *         T value
+ * )
+ *
+ *
+ * Artinya:
+ *
+ * "Berikan saya sebuah constructor,
+ * kemudian saya akan menggunakan constructor tersebut untuk
+ * membuat object."
+ *
+ *
+ * Constructor dikirim sebagai parameter:
+ *
  * MyClass<Double>::new
  *
- * dikirim sebagai parameter
  *
- * Jadi constructor = first-class citizen
+ * Jadi factory tidak perlu tahu bagaimana object dibuat.
  *
- * bisa dipassing kayak:
- * variable
- * parameter
- * return value
+ * Factory hanya menjalankan constructor yang diberikan.
  *
- * Cara Kerja
- * Ini:
- * MyFunc<MyClass<Double>, Double> cons1 = MyClass<Double>::new;
+ * ------------------------------------------------------------
+ * Constructor Reference
+ * ------------------------------------------------------------
  *
- * artinya:
- * (n) -> new MyClass<Double>(n)
+ * Contoh:
  *
- * Masuk ke factory:
+ * MyFunc<MyClass<Double>, Double> cons1 =
+ *         MyClass<Double>::new;
+ *
+ *
+ * Constructor reference tersebut setara dengan lambda:
+ *
+ * value -> new MyClass<Double>(value)
+ *
+ *
+ * Artinya:
+ *
+ * Jika diberikan sebuah nilai Double,
+ * buat object MyClass<Double>.
+ *
+ * ------------------------------------------------------------
+ * Cara Kerja Factory Method
+ * ------------------------------------------------------------
+ *
+ * Pemanggilan:
+ *
  * myClassFactory(cons1, 100.1);
  *
- * Di dalam:
- * return cons.func(v);
  *
- * jadi:
+ * Data yang dikirim:
+ *
+ * Constructor:
+ *
+ * MyClass<Double>::new
+ *
+ *
+ * Nilai:
+ *
+ * 100.1
+ *
+ *
+ * Di dalam factory:
+ *
+ * return cons.func(value);
+ *
+ *
+ * Maka yang sebenarnya terjadi:
+ *
  * return new MyClass<Double>(100.1);
  *
- * BOOM — object dibuat tanpa new langsung
  *
- * --------------------------------------------
- * 
- * Insight DALAM
- * 1. Ini adalah DESIGN PATTERN: Factory
- * lo bikin object tanpa tahu class detail
+ * Object berhasil dibuat tanpa menulis keyword new secara
+ * langsung di kode pemanggil.
  *
- * 2. SUPER reusable
- * Satu method:
- * myClassFactory(...)
+ * ------------------------------------------------------------
+ * Gambaran Alur
+ * ------------------------------------------------------------
  *
- * bisa bikin:
- * MyClass<Integer>
- * MyClass<Double>
- * MyClass2
- * dll
+ * Constructor Reference:
  *
- * 3. Ini dipakai di dunia nyata:
- * Spring Bean Factory
- * Dependency Injection
- * Object Mapper
- * Framework internal
+ * MyClass::new
  *
- * Analoginya Biar Nempel
+ *        |
+ *        v
  *
- * Bayangin:
- * MyFunc = blueprint mesin
- * MyClass::new = mesin pembuat object
- * myClassFactory = operator
+ * Functional Interface
  *
- * lo tinggal bilang:
- * “buatkan gue object ini dengan mesin ini”
+ *        |
+ *        v
+ *
+ * Factory Method
+ *
+ *        |
+ *        v
+ *
+ * Object baru dibuat
+ *
+ * ------------------------------------------------------------
+ * Kenapa Ini Berguna?
+ * ------------------------------------------------------------
+ *
+ * Tanpa factory:
+ *
+ * MyClass<Integer> a =
+ *         new MyClass<>(10);
+ *
+ * MyClass<Double> b =
+ *         new MyClass<>(10.5);
+ *
+ *
+ * Kode pemanggil harus mengetahui detail pembuatan object.
+ *
+ *
+ * Dengan factory:
+ *
+ * MyClass<Integer> a =
+ *         create(MyClass<Integer>::new, 10);
+ *
+ *
+ * Factory menangani proses pembuatan object.
+ *
+ * ------------------------------------------------------------
+ * Konsep Factory Method
+ * ------------------------------------------------------------
+ *
+ * Factory method adalah metode yang bertugas membuat object.
+ *
+ * Keuntungan:
+ *
+ * - Proses pembuatan object terpusat.
+ * - Kode lebih fleksibel.
+ * - Detail implementasi object dapat disembunyikan.
+ *
+ *
+ * Factory dapat menerima berbagai constructor.
+ *
+ * Contoh:
+ *
+ * MyClass<Integer>::new
+ *
+ * atau:
+ *
+ * MyClass<Double>::new
+ *
+ *
+ * Dengan method factory yang sama.
+ *
+ * ------------------------------------------------------------
+ * Apakah Constructor Adalah First-Class Citizen?
+ * ------------------------------------------------------------
+ *
+ * Dalam Java, constructor bukan first-class citizen secara
+ * langsung.
+ *
+ * Java tidak memperlakukan constructor sebagai object yang dapat
+ * disimpan secara bebas.
+ *
+ * Tetapi Java menyediakan:
+ *
+ * Constructor Reference
+ *
+ * menggunakan:
+ *
+ * ::
+ *
+ *
+ * Constructor reference dapat diperlakukan sebagai nilai karena
+ * disimpan melalui functional interface.
+ *
+ * Contoh:
+ *
+ * Function<String, User> creator =
+ *         User::new;
+ *
+ *
+ * Di sini yang disimpan bukan constructor secara langsung,
+ * melainkan implementasi Function yang tahu cara memanggil
+ * constructor tersebut.
+ *
+ * ------------------------------------------------------------
+ * Hubungan Dengan Functional Interface
+ * ------------------------------------------------------------
+ *
+ * Constructor reference selalu membutuhkan functional interface.
+ *
+ * Contoh:
+ *
+ * Function<Integer, User> factory =
+ *         User::new;
+ *
+ *
+ * Functional interface menjadi kontrak:
+ *
+ * Input:
+ *
+ * Integer
+ *
+ * Output:
+ *
+ * User
+ *
+ *
+ * Tanpa functional interface Java tidak tahu bagaimana constructor
+ * tersebut digunakan.
+ *
+ * ------------------------------------------------------------
+ * Insight Dunia Nyata
+ * ------------------------------------------------------------
+ *
+ * Konsep seperti ini banyak digunakan dalam framework modern.
+ *
+ * Contoh penggunaan:
+ *
+ * - Factory object creation.
+ * - Dependency Injection.
+ * - Object mapping.
+ * - Framework internal.
+ *
+ *
+ * Dalam Spring Boot, konsep serupa terlihat ketika framework
+ * membuat dan mengelola object melalui:
+ *
+ * - Bean creation.
+ * - Application context.
+ * - Dependency injection container.
+ *
+ * ------------------------------------------------------------
+ * Analogi Sederhana
+ * ------------------------------------------------------------
+ *
+ * Functional Interface:
+ *
+ * Blueprint atau aturan mesin.
+ *
+ *
+ * Constructor Reference:
+ *
+ * Mesin pembuat object.
+ *
+ *
+ * Factory Method:
+ *
+ * Operator yang menggunakan mesin tersebut.
+ *
+ *
+ * Kita cukup mengatakan:
+ *
+ * "Gunakan mesin ini untuk membuat object dengan data ini."
+ *
+ *
+ * Factory yang menangani proses pembuatannya.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Constructor reference memungkinkan constructor digunakan
+ * sebagai referensi melalui functional interface.
+ *
+ * Dengan konsep ini kita dapat membuat factory method yang:
+ *
+ * - Generic.
+ * - Reusable.
+ * - Tidak bergantung pada class tertentu.
+ *
+ * Konsep penting:
+ *
+ * - Class dapat dikirim sebagai pembuat object melalui constructor
+ *   reference.
+ * - Factory dapat membuat object tanpa mengetahui detail class.
+ * - Functional interface menjadi penghubung antara constructor
+ *   dan factory.
+ *
+ * Prinsip utama:
+ *
+ * "Berikan cara membuat object, bukan beri tahu bagaimana cara
+ * membuatnya."
+ *
  */
 
 // Functional interface generic

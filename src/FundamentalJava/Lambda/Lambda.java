@@ -1,499 +1,523 @@
 package FundamentalJava.Lambda;
 
-/**
- * Lambda Expressions
+/* ==========================================================
+ *                    LAMBDA EXPRESSIONS
+ * ==========================================================
  *
- * Selama perkembangan Java dari versi awal 1.0, banyak fitur baru ditambahkan.
- * Tapi ada dua yang benar-benar mengubah cara kita nulis kode Java secara fundamental:
- * Generics (ditambahkan di JDK 5)
- * Lambda Expressions (topik di bab ini, ditambahkan di JDK 8)
+ * Lambda Expression adalah salah satu fitur penting yang
+ * diperkenalkan pada Java 8.
  *
- * Kenapa Lambda Expression penting?
+ * Fitur ini membawa perubahan besar dalam cara programmer Java
+ * menulis kode karena memungkinkan penggunaan konsep
+ * functional programming.
  *
- * Lambda expressions meningkatkan Java karena 2 alasan utama:
+ * Sebelum Lambda Expression diperkenalkan, Java lebih banyak
+ * menggunakan pendekatan Object-Oriented Programming (OOP)
+ * dengan banyak anonymous class untuk membuat implementasi
+ * sederhana.
  *
- * 1. Syntax baru (lebih ringkas & kuat)
- * Nambah cara penulisan baru
- * Bikin kode jadi lebih singkat
- * Mempermudah implementasi pola coding yang sering dipakai
+ * Lambda Expression membuat kode menjadi:
  *
- * 2. Nambah kemampuan baru di API Java
- * Beberapa kemampuan baru:
- * Mendukung parallel processing (multi-core CPU)
- * Mempermudah operasi model for-each
- * Memperkenalkan Stream API (olah data seperti pipeline)
+ * - Lebih ringkas.
+ * - Lebih mudah dibaca.
+ * - Mengurangi boilerplate code.
+ * - Lebih cocok digunakan untuk pemrosesan data modern.
  *
- * ------------------------------------------------------------------
- * 
- * Efek domino dari Lambda:
+ * ==========================================================
+ *              FITUR BESAR DALAM PERKEMBANGAN JAVA
+ * ==========================================================
  *
- * Lambda juga memicu fitur lain:
- * default method → method default di interface
- * method reference → refer ke method tanpa langsung ngejalanin
+ * Selama perkembangan Java, banyak fitur baru ditambahkan.
  *
- * Tren global
+ * Namun terdapat beberapa fitur yang memberikan perubahan
+ * besar terhadap cara penulisan kode Java:
  *
- * Lambda bukan cuma di Java:
- * Ada juga di C#
- * Ada di C++
+ * 1. Generics (Java 5)
  *
- * Artinya: ini konsep penting di dunia programming modern
+ * Generics memperkenalkan kemampuan untuk membuat kode yang
+ * aman terhadap tipe data (type-safe) dan lebih reusable.
  *
- * Kesimpulan dari buku:
- * Seperti generics dulu mengubah Java, sekarang lambda juga melakukan hal yang sama.
  *
- * Semua programmer Java bakal kena impact-nya.
- */
-
-/**
- * Ada 2 konsep utama:
- * 
+ * 2. Lambda Expression (Java 8)
+ *
+ * Lambda Expression memperkenalkan cara baru dalam menulis
+ * fungsi secara lebih sederhana menggunakan functional interface.
+ *
+ * Kedua fitur ini menjadi bagian penting dari perkembangan
+ * Java modern.
+ *
+ * ==========================================================
+ *              MENGAPA LAMBDA EXPRESSION PENTING?
+ * ==========================================================
+ *
+ * Lambda Expression meningkatkan kemampuan Java melalui dua
+ * perubahan besar.
+ *
+ * ----------------------------------------------------------
+ * 1. Syntax Baru yang Lebih Ringkas
+ * ----------------------------------------------------------
+ *
+ * Lambda memberikan cara baru untuk menulis implementasi
+ * function tanpa harus membuat class anonim secara manual.
+ *
+ * Keuntungannya:
+ *
+ * - Mengurangi jumlah kode yang harus ditulis.
+ * - Membuat logic sederhana lebih mudah dibaca.
+ * - Mempermudah penggunaan callback pattern.
+ *
+ *
+ * Contoh sebelum Lambda:
+ *
+ *     Runnable task = new Runnable() {
+ *
+ *         public void run() {
+ *             System.out.println("Running");
+ *         }
+ *     };
+ *
+ *
+ * Dengan Lambda:
+ *
+ *     Runnable task = () ->
+ *         System.out.println("Running");
+ *
+ *
+ * Implementasi menjadi lebih pendek dan fokus pada logic.
+ *
+ * ----------------------------------------------------------
+ * 2. Kemampuan Baru pada Java API
+ * ----------------------------------------------------------
+ *
+ * Lambda menjadi dasar dari banyak fitur Java modern seperti:
+ *
+ * - Stream API.
+ * - Functional Interface.
+ * - Method Reference.
+ * - Parallel Processing.
+ *
+ * Dengan Lambda, Java dapat melakukan pemrosesan data dengan
+ * pendekatan pipeline yang lebih deklaratif.
+ *
+ * ==========================================================
+ *                  EFEK DOMINO DARI LAMBDA
+ * ==========================================================
+ *
+ * Setelah Lambda diperkenalkan, Java juga menambahkan beberapa
+ * fitur pendukung:
+ *
+ * 1. Default Method
+ *
+ * Method dengan implementasi default di dalam interface.
+ *
+ * Tujuannya:
+ * memungkinkan interface berkembang tanpa merusak implementasi
+ * class lama.
+ *
+ *
+ * 2. Method Reference
+ *
+ * Cara singkat untuk mereferensikan method yang sudah ada tanpa
+ * langsung menjalankannya.
+ *
+ * Contoh:
+ *
+ *     System.out::println
+ *
+ *
+ * Lambda menjadi salah satu fondasi utama yang membuat fitur-
+ * fitur tersebut dapat digunakan dengan baik.
+ *
+ * ==========================================================
+ *                  LAMBDA DALAM DUNIA PROGRAMMING
+ * ==========================================================
+ *
+ * Konsep Lambda bukan hanya terdapat pada Java.
+ *
+ * Bahasa pemrograman modern lain juga menggunakan konsep serupa,
+ * seperti:
+ *
+ * - C#
+ * - C++
+ * - Kotlin
+ * - JavaScript
+ *
+ * Hal ini menunjukkan bahwa Lambda merupakan konsep penting
+ * dalam perkembangan programming modern.
+ *
+ * ==========================================================
+ *                       KONSEP UTAMA
+ * ==========================================================
+ *
+ * Lambda Expression memiliki dua konsep utama:
+ *
  * 1. Lambda Expression
  * 2. Functional Interface
  *
- * A. Apa itu Lambda Expression?
- * Lambda expression = method tanpa nama (anonymous method)
+ * Keduanya selalu berhubungan.
  *
- * Tapi hati-hati bro…
- * Dia bukan method biasa
- * Dia gak berdiri sendiri
+ * Lambda tidak dapat berdiri sendiri.
  *
- * Dia dipakai untuk mengisi method dari interface
- * 
- * Analogi:
- * Bayangin lo punya interface:
+ * Lambda membutuhkan functional interface sebagai tempat untuk
+ * menentukan bentuk function yang harus diimplementasikan.
  *
- * interface Aksi {
- *     void lakukan();
- * }
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
  *
- * Biasanya:
+ * Lambda Expression merupakan fitur Java 8 yang mengubah cara
+ * programmer menulis kode Java.
  *
- * Aksi a = new Aksi() {
- *     public void lakukan() {
- *         System.out.println("Halo");
- *     }
- * };
+ * Inti manfaat Lambda:
  *
- * Dengan lambda:
- * Aksi a = () -> System.out.println("Halo");
+ * - Mengurangi boilerplate code.
+ * - Menulis logic lebih sederhana.
+ * - Mendukung functional programming.
+ * - Menjadi dasar Stream API dan pemrosesan data modern.
  *
- * Lebih singkat banget kan?
+ * Konsep ini menjadi salah satu kemampuan wajib bagi programmer
+ * Java modern karena banyak digunakan pada framework dan API
+ * terbaru.
  *
- * Intinya:
- *
- * Lambda itu:
- * Fungsi tanpa nama
- * Dipakai buat isi method
- * Biasanya buat ganti anonymous class
- *
- * ------------------------------------
- * 
- * Istilah lain:
- * Lambda juga disebut:
- * Closure
- *
- * B. Apa itu Functional Interface?
- * Interface yang cuma punya 1 method abstract
- *
- * Contoh:
- * interface Runnable {
- *     void run();
- * }
- *
- * Kenapa ini functional interface?
- * Karena cuma punya 1 method abstract
- *
- * Penting:
- * Functional interface:
- * Harus hanya 1 abstract method
- * Boleh punya method lain (default/static)
- *
- * Peran penting:
- * Functional interface = target type dari lambda
- *
- * Artinya:
- * Lambda gak bisa berdiri sendiri
- * Dia butuh "wadah" (interface ini)
- *
- * Contoh hubungan:
- * Runnable r = () -> System.out.println("Jalan");
- * Runnable → functional interface
- * run() → method target
- * lambda → isi dari method itu
- *
- * --------------------------------------------------------------------------
- * 
- * Aturan penting banget:
- * Lambda hanya bisa dipakai kalau ada target type (functional interface)
- *
- * Istilah tambahan:
- * Functional interface juga disebut:
- * SAM (Single Abstract Method)
- *
- * NOTE penting dari buku:
- * Functional interface boleh punya method dari Object seperti:
- * equals()
- * toString()
- *
- * Itu gak dihitung sebagai abstract method tambahan
- *
- * Kenapa?
- * Karena:
- * Itu otomatis ada dari class Object
- * Semua object Java punya itu
- *
- * Insight Penting (Gaya Mentor)
- * Bro, ini bagian penting banget, dengerin:
- *
- * Lambda itu bukan sekadar syntax baru
- * Ini perubahan mindset coding
- *
- * Dulu:
- * Banyak boilerplate
- * Banyak class kecil
- *
- * Sekarang:
- * Lebih fokus ke logic
- * Lebih mirip functional programming
- *
- * -----------------------------------------
- * 
- * Kesimpulan Super Sederhana
- * Inti yang harus lo inget:
- *
- * 1. Lambda Expression
- * Method tanpa nama
- * Dipakai buat isi method interface
- * Lebih singkat dari anonymous class
- *
- * 2. Functional Interface
- * Interface dengan 1 method abstract
- * Jadi "target" dari lambda
- *
- * 3. Hubungan mereka
- * Lambda BUTUH functional interface
- * Gak bisa berdiri sendiri
- *
- * 4. Kenapa penting?
- * Bikin kode lebih singkat
- * Support parallel processing
- * Dasar Stream API
- * Dipakai di banyak fitur modern Java
+ * ==========================================================
  */
 
-/**
- * LAMBDA EXPRESSION FUNDAMENTAL
- * 
- * Dasar-Dasar Lambda Expression
- * Lambda expression memperkenalkan:
- * syntax baru
- * dan operator baru di Java
+/* ==========================================================
+ *                  FUNCTIONAL INTERFACE
+ * ==========================================================
  *
- * Operator baru: -> (arrow operator)
+ * Functional Interface adalah interface yang hanya memiliki satu
+ * abstract method.
  *
- * Operator ini disebut:
- * lambda operator
- * atau arrow operator
+ * Functional Interface menjadi konsep utama yang memungkinkan
+ * penggunaan Lambda Expression di Java.
  *
- * Fungsinya:
- * Membagi lambda jadi 2 bagian:
+ * Lambda tidak dapat berdiri sendiri karena membutuhkan target
+ * type berupa functional interface untuk menentukan bentuk
+ * method yang harus diimplementasikan.
  *
- * Kiri (sebelah kiri ->)
- * Berisi parameter
- * Kalau gak ada → pakai ()
+ * ==========================================================
+ *              PERUBAHAN INTERFACE SEJAK JAVA 8
+ * ==========================================================
  *
- * Kanan (sebelah kanan ->)
- * Berisi isi logic (body)
- * Apa yang dilakukan lambda
+ * Sebelum Java 8:
  *
- * Cara bacanya:
- * -> bisa dibaca:
- * "menjadi"
- * "menuju ke"
+ * - Semua method di dalam interface secara default adalah
+ *   abstract.
  *
- * 2 Jenis Body Lambda
- * Java punya 2 jenis lambda body:
- * Single expression (1 baris)
- * Block code {} (banyak baris)
+ * Setelah Java 8:
  *
- * Contoh 1: Lambda paling sederhana
- * () -> 123.45
+ * - Interface dapat memiliki method dengan implementasi.
  *
- * Penjelasan:
- * () → tidak ada parameter
- * 123.45 → nilai yang dikembalikan
+ * Jenis method yang dapat dimiliki interface modern:
  *
- * Artinya:
- * Lambda ini cuma ngasih nilai 123.45
+ * - Abstract method
+ *   Method tanpa body yang harus diimplementasikan oleh class.
  *
- * Versi method biasa:
- * // Method biasa yang setara dengan lambda di atas
- * double myMeth() {
- *     return 123.45; // Mengembalikan nilai konstan
- * }
+ * - Default method
+ *   Method yang memiliki implementasi bawaan menggunakan keyword
+ *   default.
  *
- * ---------------------------------------------------------
- * 
- * Insight:
- * Lambda = method tanpa nama
- * Tapi tetap punya return value
+ * - Static method
+ *   Method yang dimiliki oleh interface itu sendiri.
  *
- * Contoh 2: Pakai operasi
- * () -> Math.random() * 100
+ * - Private method (Java 9+)
+ *   Method helper yang hanya dapat digunakan di dalam interface.
  *
- * Penjelasan:
- * Math.random() → angka random 0.0 - 1.0
- * dikali 100 → jadi 0 - 100
+ * ==========================================================
+ *              KAPAN METHOD DIANGGAP ABSTRACT?
+ * ==========================================================
  *
- * Artinya:
- * Lambda ini:
- * generate angka random
- * langsung return hasilnya
+ * Sebuah method pada interface dianggap abstract apabila:
  *
- * Insight:
- * Lambda bisa langsung isi logic tanpa {} kalau cuma 1 baris
+ * - Tidak memiliki body.
  *
- * Contoh 3: Lambda dengan parameter
- * (n) -> (n % 2) == 0
- *
- * Penjelasan:
- * n = parameter input
- * (n % 2) == 0 = cek genap
- *
- * Artinya:
- * Lambda ini:
- * return true kalau n genap
- * return false kalau n ganjil
- *
- * Versi method biasa:
- * // Method biasa untuk cek bilangan genap
- * boolean isEven(int n) {
- *     return (n % 2) == 0; // true jika n habis dibagi 2
- * }
- *
- * Tentang tipe parameter
- * Bisa ditulis:
- * (int n) -> (n % 2) == 0
- *
- * Tapi biasanya gak perlu.
- * Kenapa?
- * Karena Java bisa infer (nebak otomatis) tipe datanya.
- *
- * Banyak parameter
- * Lambda bisa punya banyak parameter juga:
  * Contoh:
- * (a, b) -> a + b
  *
- * Ini yang harus lo nangkep:
- * 1. Lambda itu super ringkas
+ *     interface Example {
  *
- * Dari:
- * boolean isEven(int n) {
- *     return n % 2 == 0;
- * }
+ *         void execute();
  *
- * Jadi:
- * (n) -> n % 2 == 0
+ *     }
  *
- * 2. Kalau cuma 1 ekspresi:
- * gak perlu {}
- * gak perlu return
+ * Method execute() otomatis dianggap:
  *
- * otomatis return
+ *     public abstract void execute();
  *
- * 3. Lambda = function mini
- * Lo bisa anggap:
- * Lambda itu function kecil yang bisa langsung dipassing
+ * Keyword abstract tidak wajib ditulis karena Java sudah
+ * menentukannya secara otomatis.
  *
- * 4. Ini bakal kepake di:
- * Stream API
- * forEach
- * filter
- * map
+ * ==========================================================
+ *              CONTOH FUNCTIONAL INTERFACE
+ * ==========================================================
  *
- * Jadi ini fondasi ke depan
+ * Contoh:
  *
- * -----------------------------------------
- * 
- * Kesimpulan Super Sederhana
- * 
- * 1. Operator lambda
- * ->
- * Kiri = parameter
- * Kanan = logic
+ *     interface MyNumber {
  *
- * 2. Bentuk dasar
- * (parameter) -> expression
+ *         double getValue();
  *
- * 3. Contoh penting
- * Tanpa parameter:
- * () -> 123
- * Dengan parameter:
- * (n) -> n % 2 == 0
- *
- * 4. Aturan penting
- * 1 baris → auto return
- * Tipe parameter bisa di-skip
- * Bisa punya banyak parameter
- */
-
-/**
- * FUNCTIONAL INTERFACE
- * 
- * Functional Interfaces
- *
- * Seperti yang sudah dijelaskan:
- * Functional interface = interface yang hanya punya 1 method abstract
- *
- * Perubahan sejak JDK 8
- * Dulu (sebelum JDK 8):
- * Semua method di interface = abstract
- *
- * Sekarang (JDK 8 ke atas):
- * Interface bisa punya:
- * default method (punya isi)
- * method biasa (abstract)
- *
- * Artinya:
- * Method di interface dianggap abstract hanya jika TIDAK punya body
- *
- * Catatan:
- * Gak wajib tulis abstract
- * Karena sudah otomatis dianggap abstract
- *
- * Contoh Functional Interface
- * interface MyNumber {
- *   double getValue();
- * }
+ *     }
  *
  * Penjelasan:
- * getValue() = abstract
- * cuma ada 1 method
  *
- * Jadi ini adalah functional interface
+ * - getValue() tidak memiliki body.
+ * - Hanya terdapat satu abstract method.
  *
- * Hubungan dengan Lambda
- * Lambda tidak jalan sendiri
+ * Maka MyNumber memenuhi aturan sebagai Functional Interface.
  *
- * Tapi:
- * Dia jadi implementasi method di functional interface
+ * Biasanya developer menambahkan annotation:
  *
- * ------------------------------------
- * 
- * Aturan penting:
- * Lambda cuma bisa dipakai kalau ada:
- * target type (functional interface)
+ *     @FunctionalInterface
  *
- * Contoh penggunaan (assignment)
- * 1. Buat reference:
- * // Membuat referensi ke interface MyNumber
- * MyNumber myNum;
+ * Contoh:
  *
- * 2. Assign lambda:
- * // Assign lambda ke MyNumber
- * myNum = () -> 123.45;
+ *     @FunctionalInterface
+ *     interface MyNumber {
  *
- * Yang terjadi di belakang layar:
- * Java otomatis:
- * bikin object
- * implement interface MyNumber
- * isi method getValue() pakai lambda
+ *         double getValue();
  *
- * Jadi ini sebenarnya setara dengan:
- * MyNumber myNum = new MyNumber() {
- *
- *     @Override
- *     public double getValue() {
- *         return 123.45;
  *     }
- * };
  *
- * Tapi lambda bikin jauh lebih simpel
+ * Annotation ini membantu compiler memastikan bahwa interface
+ * tersebut benar-benar hanya memiliki satu abstract method.
  *
- * Eksekusi Lambda
- * System.out.println(myNum.getValue());
+ * ==========================================================
+ *                 HUBUNGAN DENGAN LAMBDA
+ * ==========================================================
+ *
+ * Lambda Expression membutuhkan Functional Interface sebagai
+ * target type.
+ *
+ * Hubungannya:
+ *
+ * Functional Interface:
+ * Tempat atau wadah yang menentukan bentuk method.
+ *
+ * Lambda Expression:
+ * Implementasi dari abstract method tersebut.
+ *
+ * ==========================================================
+ *              CONTOH ASSIGNMENT LAMBDA
+ * ==========================================================
+ *
+ * Membuat reference interface:
+ *
+ *     MyNumber myNum;
+ *
+ *
+ * Mengisi reference dengan lambda:
+ *
+ *     myNum = () -> 123.45;
+ *
+ *
+ * Yang terjadi secara konsep:
+ *
+ * Java membuat object yang mengimplementasikan MyNumber dan
+ * menggunakan lambda sebagai isi dari method getValue().
+ *
+ * Kode lambda tersebut setara dengan anonymous class:
+ *
+ *     MyNumber myNum = new MyNumber() {
+ *
+ *         @Override
+ *         public double getValue() {
+ *             return 123.45;
+ *         }
+ *
+ *     };
+ *
+ * Perbedaannya:
+ *
+ * Lambda menyediakan cara penulisan yang jauh lebih singkat
+ * dan fokus pada logic yang dibutuhkan.
+ *
+ * ==========================================================
+ *                    EKSEKUSI LAMBDA
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     System.out.println(myNum.getValue());
  *
  * Output:
- * 123.45
  *
- * Kenapa?
- * Karena:
- * getValue() diisi lambda
- * lambda return 123.45
+ *     123.45
  *
- * ----------------------------------------------------
- * 
- * Insight penting:
- * Lambda = cara mengubah kode jadi object
+ * Alasannya:
+ *
+ * - Method getValue() telah diisi oleh lambda.
+ * - Lambda mengembalikan nilai 123.45.
+ *
+ * ==========================================================
+ *                 TARGET TYPE CONTEXT
+ * ==========================================================
+ *
+ * Lambda selalu membutuhkan konteks yang menentukan tipe
+ * interface tujuan.
+ *
+ * Konteks tersebut disebut:
  *
  * Target Type Context
- * Lambda bisa dipakai di beberapa tempat:
- * assignment (contoh tadi)
- * inisialisasi variable
- * return method
- * parameter method
  *
- * Aturan Kecocokan (Compatibility Rules)
- * Ini penting banget bro
+ * Lambda dapat digunakan pada beberapa tempat:
  *
- * Lambda HARUS cocok dengan method di interface:
+ * - Assignment variable.
+ * - Inisialisasi variable.
+ * - Return value method.
+ * - Parameter method.
  *
- * 1. Jumlah parameter harus sama
- * Kalau method:
- * int sum(int a, int b);
+ * Contoh:
+ *
+ *     calculate(() -> 100);
+ *
+ * Lambda dapat digunakan karena parameter method calculate()
+ * memiliki tipe functional interface.
+ *
+ * ==========================================================
+ *            ATURAN KECocokan LAMBDA
+ * ==========================================================
+ *
+ * Lambda harus sesuai dengan abstract method yang terdapat pada
+ * functional interface.
+ *
+ * Terdapat beberapa aturan penting:
+ *
+ * ----------------------------------------------------------
+ * 1. Jumlah Parameter Harus Sama
+ * ----------------------------------------------------------
+ *
+ * Jika interface:
+ *
+ *     int sum(int a, int b);
+ *
+ *
+ * Maka lambda:
+ *
+ *     (a, b) -> a + b
+ *
+ * valid.
+ *
+ * Lambda dengan jumlah parameter berbeda akan menyebabkan error.
+ *
+ * ----------------------------------------------------------
+ * 2. Tipe Parameter Harus Sesuai
+ * ----------------------------------------------------------
+ *
+ * Parameter dapat ditulis secara eksplisit:
+ *
+ *     (int a, int b) -> a + b
+ *
+ *
+ * Atau menggunakan type inference:
+ *
+ *     (a, b) -> a + b
+ *
+ *
+ * Java dapat menentukan tipe data secara otomatis berdasarkan
+ * functional interface.
+ *
+ * ----------------------------------------------------------
+ * 3. Return Type Harus Sesuai
+ * ----------------------------------------------------------
+ *
+ * Jika abstract method mengembalikan:
+ *
+ *     double calculate();
+ *
+ *
+ * Maka lambda harus menghasilkan nilai yang kompatibel dengan
+ * double.
+ *
+ * Contoh:
+ *
+ *     () -> 10.5
+ *
+ * valid.
+ *
+ * ----------------------------------------------------------
+ * 4. Exception Harus Sesuai
+ * ----------------------------------------------------------
+ *
+ * Jika abstract method tidak mendeklarasikan checked exception,
+ * maka lambda tidak boleh melempar checked exception tersebut.
+ *
+ * Lambda harus mengikuti aturan exception dari method interface.
+ *
+ * ==========================================================
+ *                       CARA KERJA LAMBDA
+ * ==========================================================
+ *
+ * Urutan konsep:
+ *
+ * 1. Membuat Functional Interface.
+ *
+ * 2. Interface memiliki satu abstract method.
+ *
+ * 3. Membuat reference dengan tipe interface tersebut.
+ *
+ * 4. Mengisi reference menggunakan lambda.
+ *
+ * 5. Memanggil method interface.
+ *
+ * 6. Logic lambda dijalankan.
+ *
+ * ==========================================================
+ *                       ANALOGI
+ * ==========================================================
+ *
+ * Bayangkan:
+ *
+ * Functional Interface = kontrak kerja.
+ *
+ * Abstract Method = tugas yang harus dilakukan.
+ *
+ * Lambda Expression = cara mengerjakan tugas tersebut.
+ *
+ * Contoh:
+ *
+ * Kontrak:
+ *
+ *     "Harus bisa menghitung nilai."
+ *
+ * Abstract method:
+ *
+ *     calculate()
  *
  * Lambda:
- * (a, b) -> a + b
  *
- * 2. Tipe parameter harus cocok
- * Bisa eksplisit:
- * (int a, int b) -> a + b
- * Atau implicit:
- * (a, b) -> a + b
+ *     "Cara menghitungnya menggunakan rumus tertentu."
  *
- * 3. Return type harus cocok
- * Kalau method return double
- * lambda juga harus return double
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
  *
- * 4. Exception harus sesuai
- * Kalau method gak izinkan exception tertentu
- * lambda juga gak boleh lempar sembarangan
+ * Functional Interface adalah interface dengan tepat satu
+ * abstract method yang menjadi target dari Lambda Expression.
  *
- * Kesimpulan Super Sederhana
- * Ringkasan:
+ * Inti konsep:
+ *
+ * - Functional Interface adalah wadah lambda.
+ * - Lambda Expression adalah implementasi abstract method.
+ * - Lambda tidak dapat digunakan tanpa target type.
+ * - Parameter lambda harus sesuai dengan method interface.
+ * - Return type harus sesuai.
+ * - Exception harus mengikuti aturan method interface.
+ *
+ * Hubungan yang harus selalu diingat:
  *
  * Functional Interface
- * Interface dengan 1 method abstract
- * Jadi target lambda
- *
+ *          |
+ *          v
+ * Menentukan kontrak method
+ *          |
+ *          v
  * Lambda Expression
- * Isi method dari interface
- * Tidak berdiri sendiri
+ *          |
+ *          v
+ * Mengisi implementasi method tersebut
  *
- * Cara kerja
- * Buat interface
- * Buat reference
- * Assign lambda
- * Panggil method → lambda jalan
- *
- * Aturan penting
- * Parameter harus cocok
- * Return type harus cocok
- * Harus ada target type
- *
- * Lambda expression = implementasi dari abstract method di functional interface
- * Jadi hubungan yang benar:
- * Functional Interface → tempat / wadah (punya 1 abstract method)
- * Lambda Expression → isi / implementasi method itu
- *
- * Analogi biar nempel:
- * Bayangin:
- * Functional Interface = kontrak kerja
- * Abstract method = tugas
- * Lambda = cara ngerjain tugas itu
- *
- * Lambda expression adalah implementasi dari abstract method dalam functional interface
+ * ==========================================================
  */
 
 // Functional interface (wadah)

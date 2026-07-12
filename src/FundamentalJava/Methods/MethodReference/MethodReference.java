@@ -1,165 +1,382 @@
 package FundamentalJava.Methods.MethodReference;
 
-/**
- * Apa itu Method Reference?
+/*
+ * ============================================================
+ * Method Reference Pada Java
+ * ============================================================
  *
- * Cara untuk mereferensikan method TANPA mengeksekusinya
+ * Method reference adalah fitur Java yang memungkinkan kita
+ * memberikan referensi terhadap sebuah method tanpa langsung
+ * menjalankan method tersebut.
  *
- * Hubungannya dengan lambda:
- * Method reference itu:
- * versi lebih singkat & clean dari lambda
+ * Method reference tidak melakukan pemanggilan method saat
+ * ditulis.
  *
- * Contoh konsep:
- * Lambda:
+ * Method tersebut baru akan digunakan ketika functional interface
+ * menjalankannya.
+ *
+ * Bentuk umum:
+ *
+ * ClassName::methodName
+ *
+ * atau:
+ *
+ * object::methodName
+ *
+ * atau:
+ *
+ * ClassName::new
+ *
+ * ------------------------------------------------------------
+ * Hubungan Method Reference Dengan Lambda
+ * ------------------------------------------------------------
+ *
+ * Method reference merupakan bentuk penulisan yang lebih singkat
+ * dari lambda expression ketika lambda hanya memanggil sebuah
+ * method.
+ *
+ * Contoh menggunakan lambda:
+ *
  * (str) -> MyStringOps.strReverse(str)
+ *
+ *
+ * Dapat ditulis menggunakan method reference:
+ *
+ * MyStringOps::strReverse
+ *
+ *
+ * Keduanya memiliki tujuan yang sama.
+ *
+ * Perbedaannya:
+ *
+ * Lambda:
+ *
+ * Menjelaskan proses yang dilakukan.
+ *
+ *
+ * Method reference:
+ *
+ * Langsung menunjuk method yang sudah tersedia.
+ *
+ * ------------------------------------------------------------
+ * Kenapa Method Reference Lebih Clean?
+ * ------------------------------------------------------------
+ *
+ * Jika lambda hanya meneruskan parameter ke method lain, maka
+ * method reference membuat kode lebih sederhana.
+ *
+ * Contoh:
+ *
+ * Lambda:
+ *
+ * (value) -> process(value)
+ *
+ *
+ * Method reference:
+ *
+ * this::process
+ *
+ *
+ * Keuntungan:
+ *
+ * - Lebih singkat.
+ * - Lebih mudah dibaca.
+ * - Lebih deklaratif.
+ *
+ * ------------------------------------------------------------
+ * Sintaks Dasar
+ * ------------------------------------------------------------
+ *
+ * Static Method Reference
+ *
+ * Bentuk:
+ *
+ * ClassName::staticMethodName
+ *
+ *
+ * Contoh:
+ *
+ * MyStringOps::strReverse
+ *
+ *
+ * Jika terdapat method:
+ *
+ * class MyStringOps {
+ *
+ *     static String strReverse(String str) {
+ *         return new StringBuilder(str)
+ *                 .reverse()
+ *                 .toString();
+ *     }
+ * }
+ *
+ *
+ * Maka:
+ *
+ * MyStringOps::strReverse
+ *
+ * sama dengan:
+ *
+ * str -> MyStringOps.strReverse(str)
+ *
+ * ------------------------------------------------------------
+ * Method Reference Membutuhkan Functional Interface
+ * ------------------------------------------------------------
+ *
+ * Method reference tidak dapat berdiri sendiri.
+ *
+ * Contoh:
+ *
+ * String::toUpperCase;
+ *
+ * Tidak valid.
+ *
+ * Compiler tidak tahu:
+ *
+ * - Parameter method apa?
+ * - Return type apa?
+ * - Method tersebut digunakan untuk apa?
+ *
+ *
+ * Java membutuhkan konteks berupa functional interface.
+ *
+ * Contoh:
+ *
+ * Function<String, String> converter =
+ *         String::toUpperCase;
+ *
+ *
+ * Sekarang Java mengetahui:
+ *
+ * Input:
+ *
+ * String
+ *
+ * Output:
+ *
+ * String
+ *
+ *
+ * Method reference tersebut setara dengan:
+ *
+ * str -> str.toUpperCase()
+ *
+ * ------------------------------------------------------------
+ * Apa Itu Target Type?
+ * ------------------------------------------------------------
+ *
+ * Target type adalah tipe yang memberikan konteks kepada lambda
+ * atau method reference.
+ *
+ * Contoh:
+ *
+ * Function<String, String> function =
+ *         String::toUpperCase;
+ *
+ *
+ * Target type:
+ *
+ * Function<String, String>
+ *
+ *
+ * Dari sini compiler mengetahui bahwa:
+ *
+ * Method harus menerima:
+ *
+ * String
+ *
+ * Dan menghasilkan:
+ *
+ * String
+ *
+ * ------------------------------------------------------------
+ * Analogi Lambda dan Method Reference
+ * ------------------------------------------------------------
+ *
+ * Lambda:
+ *
+ * (str) -> str.toUpperCase()
+ *
  *
  * Method Reference:
- * MyStringOps::strReverse
  *
- * Lebih clean 
- * 
- * -------------------------------------
- *
- * Sintaks Dasar
- * 
- * Static Method Reference
- * ClassName::methodName
- *
- * Contoh:
- * MyStringOps::strReverse
- *
- * Insight Mentor
- * 1. Method reference = lambda versi clean
- *
- * Gunakan kalau:
- * lambda cuma manggil method
- *
- * 2. Ini sering banget dipakai di dunia nyata
- *
- * Contoh:
- * list.forEach(System.out::println);
- *
- * 3. Ini bikin code lebih readable
- * Lambda:
- * (str) -> MyStringOps.strReverse(str)
- * Method reference:
- * MyStringOps::strReverse
- *
- * 4. Ini bukan cuma shortcut
- *
- * Tapi juga:
- * lebih deklaratif
- * lebih clean
- * lebih modern
- *
- * -----------------------------------------------
- * 
- * Jenis Method Reference (preview)
- * Static method
- * ClassName::methodName
- *
- * Yang akan datang:
- * instance method
- * constructor reference (::new)
- *
- * Kesimpulan Super Sederhana
- * 1. Method reference = referensi method
- * ClassName::methodName
- * 2. Lebih clean dari lambda
- * 3. Harus cocok dengan functional interface
- * 4. Tidak langsung dieksekusi
- * 5. Dipakai saat lambda cuma panggil method
- */
-
-/**
- * Method reference SELALU butuh functional interface
- * sama seperti lambda
- *
- * Kenapa harus?
- *
- * Karena:
- * Method reference itu bukan pemanggilan method
- * tapi “cara mengisi implementasi method abstract”
- *
- * Contoh:
  * String::toUpperCase
  *
- * ini belum jelas maksudnya kalau berdiri sendiri
  *
- * Java butuh konteks:
- * Function<String, String> f = String::toUpperCase;
+ * Keduanya memiliki arti:
  *
- * baru jelas:
- * input: String
- * output: String
+ * "Ambil sebuah String, lalu jalankan method
+ * toUpperCase()."
  *
- * Analogi biar nempel
- * Lambda:
- * (str) -> str.toUpperCase()
- * Method reference:
- * String::toUpperCase
  *
- * dua-duanya:
- * butuh “wadah” = functional interface
- */
-
-/**
- * Contoh VALID (pakai functional interface)
- * 
- * Contoh 1
- * import java.util.function.Function;
+ * Tetapi method reference lebih ringkas.
  *
- * Function<String, String> f = String::toUpperCase;
+ * ------------------------------------------------------------
+ * Contoh Valid Method Reference
+ * ------------------------------------------------------------
  *
- * System.out.println(f.apply("halo"));
+ * Contoh 1:
+ * Function<String, String> f =
+ *         String::toUpperCase;
  *
- * Contoh 2 (stream)
+ *
+ * Pemanggilan:
+ *
+ * System.out.println(
+ *         f.apply("halo")
+ * );
+ *
+ *
+ * Output:
+ *
+ * HALO
+ *
+ * ------------------------------------------------------------
+ *
+ * Contoh 2:
+ *
+ * Stream API
+ *
  * list.stream()
- *     .map(String::toUpperCase)
+ *     .map(String::toUpperCase);
  *
- * map() itu expect:
+ *
+ * Method map() membutuhkan:
  *
  * Function<T, R>
  *
- * Contoh TIDAK VALID 
- * String::toUpperCase;
  *
- * ERROR
+ * Sehingga:
  *
- * Kenapa?
- * gak ada functional interface sebagai target type
- *
- * Semua method reference butuh ini
- * Jenis	            Contoh	            Butuh FI?
- * Static	            Integer::parseInt	ya
- * Object	            obj::method	        ya
- * Class instance	    String::toUpperCase	ya
- * Constructor	        User::new	        ya
- *
- * ---------------------------------------
- * 
- * Insight penting (ini bikin lo naik level)
- * 
- * 1. Method reference bukan “function”
- * Java bukan functional language full
- *
- * 2. Dia cuma shortcut lambda
- * (str) -> str.toUpperCase()
- * jadi:
  * String::toUpperCase
  *
- * 3. Functional interface = “kontrak”
- * Tanpa itu:
- * Java gak tau:
- * parameter apa?
- * return apa?
+ * dapat digunakan sebagai implementasi Function.
  *
- * Kesimpulan Super Sederhana
- * Inti:
- * Method reference = versi singkat lambda
- * HARUS punya functional interface
- * tidak bisa berdiri sendiri
- * selalu butuh target type
+ * ------------------------------------------------------------
+ * Contoh Tidak Valid
+ * ------------------------------------------------------------
+ *
+ * String::toUpperCase;
+ *
+ *
+ * Error.
+ *
+ * Alasannya:
+ *
+ * Tidak ada functional interface yang menjadi target.
+ *
+ * Method reference hanya sebuah referensi, bukan object function
+ * yang berdiri sendiri.
+ *
+ * ------------------------------------------------------------
+ * Semua Jenis Method Reference Membutuhkan Functional Interface
+ * ------------------------------------------------------------
+ *
+ * Jenis Method Reference:
+ *
+ * 1. Static Method
+ *
+ * Contoh:
+ *
+ * Integer::parseInt
+ *
+ *
+ * Membutuhkan functional interface.
+ *
+ *
+ * 2. Instance Method Object Tertentu
+ *
+ * Contoh:
+ *
+ * object::method
+ *
+ *
+ * Membutuhkan functional interface.
+ *
+ *
+ * 3. Instance Method Class
+ *
+ * Contoh:
+ *
+ * String::toUpperCase
+ *
+ *
+ * Membutuhkan functional interface.
+ *
+ *
+ * 4. Constructor Reference
+ *
+ * Contoh:
+ *
+ * User::new
+ *
+ *
+ * Membutuhkan functional interface.
+ *
+ * ------------------------------------------------------------
+ * Insight Penting
+ * ------------------------------------------------------------
+ *
+ * 1. Method Reference Bukan Function
+ *
+ * Java bukan functional programming language murni.
+ *
+ * Method reference hanyalah cara untuk menyediakan perilaku
+ * kepada functional interface.
+ *
+ *
+ * 2. Method Reference Adalah Shortcut Lambda
+ *
+ * Contoh:
+ *
+ * Lambda:
+ *
+ * (str) -> str.toUpperCase()
+ *
+ *
+ * Method reference:
+ *
+ * String::toUpperCase
+ *
+ *
+ * 3. Functional Interface Adalah Kontrak
+ *
+ * Functional interface menentukan:
+ *
+ * - Parameter input.
+ * - Return value.
+ * - Bentuk method yang harus tersedia.
+ *
+ *
+ * Tanpa functional interface Java tidak tahu bagaimana method
+ * reference tersebut harus digunakan.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Method reference adalah fitur Java untuk mereferensikan method
+ * tanpa langsung mengeksekusinya.
+ *
+ * Konsep utama:
+ *
+ * - Method reference adalah versi singkat dari lambda expression.
+ * - Method reference tidak dapat berdiri sendiri.
+ * - Selalu membutuhkan functional interface sebagai target type.
+ * - Compiler menggunakan target type untuk menentukan parameter
+ *   dan return value.
+ *
+ * Prinsip sederhana:
+ *
+ * Lambda:
+ *
+ * "Bagaimana cara melakukan sesuatu."
+ *
+ *
+ * Method Reference:
+ *
+ * "Gunakan method yang sudah ada untuk melakukan sesuatu."
+ *
  */
 
 // Functional interface

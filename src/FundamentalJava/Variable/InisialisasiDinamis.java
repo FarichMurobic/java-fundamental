@@ -5,6 +5,7 @@ public class InisialisasiDinamis {
 
         /**
          * Inisialisasi Dinamis
+         * 
          * Meskipun contoh-contoh sebelumnya hanya menggunakan konstanta (angka tetap) sebagai
          * pengisi nilai awal, Java sebenarnya mengizinkan variabel untuk diinisialisasi secara dinamis.
          * Artinya, lo bisa pakai ekspresi apa pun yang valid pada saat variabel itu dideklarasikan.

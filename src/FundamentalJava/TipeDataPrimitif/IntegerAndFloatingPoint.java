@@ -4,6 +4,7 @@ public class IntegerAndFloatingPoint {
     
     /**
      * Integers (Bilangan Bulat)
+     * 
      * Java memiliki empat tipe data integer, semuanya bertanda (signed) yang berarti bisa
      * menyimpan nilai positif dan negatif. Java tidak memiliki tipe data integer tak bertanda (unsigned).
      *

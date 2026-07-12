@@ -1,100 +1,356 @@
 package FundamentalJava.Lambda;
 
-/**
- * Intinya:
+/* ==========================================================
+ *              VARIABLE ACCESS DALAM LAMBDA EXPRESSION
+ * ==========================================================
  *
- * Lambda bisa akses:
- * variable di luar dirinya (enclosing scope)
+ * Lambda Expression dapat mengakses variable yang berada di
+ * luar dirinya (enclosing scope).
+ *
+ * Konsep ini disebut:
+ *
+ *     Variable Capture
+ *
+ * Artinya:
+ *
+ * Lambda dapat "membawa" data dari scope luar dan menggunakannya
+ * ketika lambda dijalankan.
+ *
+ *
+ * Lambda dapat mengakses beberapa jenis variable:
+ *
+ * - Local variable.
+ * - Instance variable.
+ * - Static variable.
+ *
+ * Namun setiap jenis variable memiliki aturan yang berbeda.
+ *
+ * ==========================================================
+ *              LOCAL VARIABLE DALAM LAMBDA
+ * ==========================================================
  *
  * Contoh:
- * variable lokal
- * variable instance (object)
- * variable static
  *
- * Tapi ada aturan penting:
- * Kalau lambda pakai variable lokal
- * variable itu harus effectively final
+ *     public void test() {
  *
- * ------------------------------------
- * 
- * Apa itu effectively final?
- * Variable yang nilainya tidak berubah setelah di-set
+ *         int num = 10;
+ *
+ *         MyNumber value = () -> num;
+ *
+ *     }
+ *
+ *
+ * Lambda dapat membaca variable num karena num berada di
+ * enclosing scope.
+ *
+ * Tetapi ada aturan penting:
+ *
+ * Local variable yang digunakan oleh lambda harus:
+ *
+ *     effectively final
+ *
+ * ==========================================================
+ *              APA ITU EFFECTIVELY FINAL?
+ * ==========================================================
+ *
+ * Effectively final adalah variable yang nilainya tidak pernah
+ * berubah setelah diberikan nilai awal.
  *
  * Contoh:
- * int num = 10; // ini effectively final
  *
- * Kalau diubah:
- * num = 20; // sekarang TIDAK effectively final
- *
- * Maka:
- * tidak bisa dipakai di lambda
- */
-
-/**
- * Perbedaan penting (INI KRUSIAL)
- *
- * Local Variable
- * int num = 10;
- *
- * tidak boleh diubah
- *
- * Instance Variable
- * class Test {
  *     int num = 10;
- * }
  *
- * BOLEH diubah di lambda
  *
- * Static Variable
- * static int num = 10;
+ * Variable num dianggap:
  *
- * BOLEH diubah
+ *     effectively final
  *
- * Tentang this (bonus penting)
- * Di lambda:
- * this
  *
- * mengacu ke:
- * object dari class luar
+ * Karena setelah dibuat:
  *
- * BEDA dengan:
- * anonymous class (punya this sendiri)
+ *     num = 10;
  *
- * -------------------------------------------
- * 
- * Insight Mentor
- * 1. Lambda bukan scope baru seperti method
- * dia “numpang” ke scope luar
+ * Tidak ada perubahan nilai lagi.
  *
- * 2. Ini alasan kenapa ada restriction
- * untuk:
- * thread safety
- * konsistensi data
  *
- * 3. Ini sering kepake di:
- * Stream API
- * loop processing
- * filter/map
+ * Maka valid digunakan dalam lambda:
  *
- * 4. Ini konsep “closure”
- * lambda membawa:
- * code
- * data dari luar
+ *     MyNumber value = () -> num;
  *
- * -------------------------------------
- * 
- * Kesimpulan Super Sederhana
- * 1. Lambda bisa akses variable luar
  *
- * 2. Local variable harus effectively final
+ * ----------------------------------------------------------
  *
- * 3. Tidak boleh diubah
- * di dalam lambda
- * atau setelah lambda dibuat
+ * Contoh tidak valid:
  *
- * 4. Instance & static boleh diubah
+ *     int num = 10;
  *
- * 5. Ini disebut variable capture (closure)
+ *     num = 20;
+ *
+ *     MyNumber value = () -> num;
+ *
+ *
+ * Error karena:
+ *
+ * num sudah tidak effectively final.
+ *
+ * Java tidak mengizinkan lambda menangkap local variable yang
+ * nilainya berubah.
+ *
+ * ==========================================================
+ *              KENAPA LOCAL VARIABLE HARUS FINAL?
+ * ==========================================================
+ *
+ * Lambda dapat hidup lebih lama daripada method tempat variable
+ * tersebut dibuat.
+ *
+ * Contoh kasus:
+ *
+ * - Lambda dikirim ke thread.
+ * - Lambda disimpan untuk digunakan nanti.
+ * - Lambda dipakai dalam Stream API.
+ *
+ *
+ * Jika local variable boleh berubah bebas, maka akan muncul
+ * masalah konsistensi data.
+ *
+ *
+ * Dengan aturan effectively final:
+ *
+ * Lambda selalu bekerja dengan nilai yang stabil.
+ *
+ * ==========================================================
+ *              PERBEDAAN LOCAL, INSTANCE, STATIC VARIABLE
+ * ==========================================================
+ *
+ * Ini adalah bagian yang sangat penting.
+ *
+ * ----------------------------------------------------------
+ *
+ * 1. Local Variable
+ *
+ * Contoh:
+ *
+ *     void test() {
+ *
+ *         int num = 10;
+ *
+ *         lambda -> num;
+ *
+ *     }
+ *
+ *
+ * Aturan:
+ *
+ * HARUS effectively final.
+ *
+ * Tidak boleh:
+ *
+ *     num = 20;
+ *
+ *
+ * ----------------------------------------------------------
+ *
+ * 2. Instance Variable
+ *
+ * Contoh:
+ *
+ *     class Test {
+ *
+ *         int num = 10;
+ *
+ *         void method() {
+ *
+ *             MyNumber value = () -> num;
+ *
+ *         }
+ *     }
+ *
+ *
+ * Instance variable BOLEH diubah.
+ *
+ * Contoh:
+ *
+ *     num = 20;
+ *
+ *
+ * Mengapa?
+ *
+ * Karena instance variable berada di dalam object, bukan di
+ * stack local method.
+ *
+ * Lambda mengaksesnya melalui reference object.
+ *
+ * ----------------------------------------------------------
+ *
+ * 3. Static Variable
+ *
+ * Contoh:
+ *
+ *     class Test {
+ *
+ *         static int num = 10;
+ *
+ *     }
+ *
+ *
+ * Static variable juga BOLEH diubah.
+ *
+ * Contoh:
+ *
+ *     Test.num = 20;
+ *
+ *
+ * Karena static variable dimiliki oleh class, bukan local scope.
+ *
+ * ==========================================================
+ *                       TENTANG KEYWORD THIS
+ * ==========================================================
+ *
+ * Salah satu perbedaan penting antara Lambda dan Anonymous Class
+ * adalah penggunaan keyword this.
+ *
+ *
+ * Di dalam Lambda:
+ *
+ *     this
+ *
+ * mengacu kepada:
+ *
+ * object dari class luar (enclosing class).
+ *
+ *
+ * Lambda TIDAK membuat object baru untuk this.
+ *
+ *
+ * Berbeda dengan Anonymous Class:
+ *
+ * Anonymous class memiliki:
+ *
+ *     this
+ *
+ * sendiri yang mengacu kepada object anonymous class tersebut.
+ *
+ *
+ * Contoh konsep:
+ *
+ * Lambda:
+ *
+ *     this -> object class luar
+ *
+ *
+ * Anonymous class:
+ *
+ *     this -> object anonymous class
+ *
+ * ==========================================================
+ *                    LAMBDA SEBAGAI CLOSURE
+ * ==========================================================
+ *
+ * Kemampuan lambda membawa code dan data dari luar disebut:
+ *
+ *     Closure
+ *
+ *
+ * Lambda tidak hanya menyimpan instruksi:
+ *
+ *     "apa yang harus dilakukan"
+ *
+ *
+ * Tetapi juga dapat membawa:
+ *
+ *     "data yang dibutuhkan"
+ *
+ *
+ * Contoh:
+ *
+ *     int multiplier = 10;
+ *
+ *     x -> x * multiplier;
+ *
+ *
+ * Lambda membawa nilai multiplier dari scope luar.
+ *
+ * ==========================================================
+ *                    INSIGHT PENTING
+ * ==========================================================
+ *
+ * 1. Lambda bukan scope baru seperti method biasa.
+ *
+ * Lambda menggunakan scope dari luar.
+ *
+ *
+ * Artinya:
+ *
+ * Lambda "menumpang" pada enclosing scope.
+ *
+ *
+ * ----------------------------------------------------------
+ *
+ * 2. Restriction effectively final dibuat untuk keamanan.
+ *
+ * Terutama pada:
+ *
+ * - Multithreading.
+ * - Stream processing.
+ * - Parallel processing.
+ *
+ *
+ * ----------------------------------------------------------
+ *
+ * 3. Variable capture sering digunakan pada:
+ *
+ * - Stream API.
+ * - filter().
+ * - map().
+ * - forEach().
+ *
+ *
+ * Contoh:
+ *
+ *     int limit = 100;
+ *
+ *     list.stream()
+ *         .filter(x -> x > limit);
+ *
+ *
+ * Lambda menggunakan variable limit dari luar.
+ *
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
+ *
+ * Lambda Expression dapat mengakses variable dari luar dirinya,
+ * tetapi aturan tergantung jenis variable.
+ *
+ *
+ * Ringkasan:
+ *
+ * 1. Lambda dapat mengakses enclosing scope.
+ *
+ * 2. Local variable harus effectively final.
+ *
+ * 3. Local variable tidak boleh berubah setelah digunakan lambda.
+ *
+ * 4. Instance variable dan static variable boleh berubah.
+ *
+ * 5. Lambda memiliki konsep variable capture atau closure.
+ *
+ *
+ * Mental model:
+ *
+ * Lambda =
+ * Code + Data dari enclosing scope
+ *
+ *
+ * Tetapi:
+ *
+ * Local variable
+ * -> harus stabil (effectively final)
+ *
+ * Instance / Static variable
+ * -> dapat berubah karena berada di object/class scope.
+ *
+ * ==========================================================
  */
 
 // functional interface

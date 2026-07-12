@@ -1,119 +1,249 @@
 package FundamentalJava.Generics;
 
-/**
- * Generic Class Hierarchies
+/* ============================================================
+ *                GENERIC CLASS HIERARCHIES
+ * ============================================================
  *
- * Class generic bisa ikut sistem pewarisan (inheritance) kayak class biasa.
+ * Generic class dapat berpartisipasi dalam mekanisme inheritance
+ * (pewarisan) sebagaimana class biasa.
  *
- * Artinya:
- * Generic class bisa jadi parent (superclass)
- * Bisa juga jadi child (subclass)
- * 
- * Perbedaan penting:
- * Kalau parent-nya generic →
- * child WAJIB nerusin type parameter ke atas
+ * Artinya, generic class dapat berperan sebagai:
  *
- * Ini bagian paling penting:
+ * - Superclass (parent)
+ * - Subclass (child)
+ *
+ * Seluruh aturan inheritance di Java tetap berlaku, dengan
+ * tambahan aturan mengenai type parameter.
+ */
+
+
+/* ------------------------------------------------------------
+ * Generic Sebagai Parent dan Child
+ * ------------------------------------------------------------
+ *
+ * Misalnya terdapat class generic:
+ *
+ * class Gen<T> {
+ *     ...
+ * }
+ *
+ * Kemudian dibuat subclass:
+ *
+ * class Gen2<T> extends Gen<T> {
+ *     ...
+ * }
+ *
+ * Pada contoh tersebut, Gen2 juga memiliki type parameter T
+ * dan meneruskannya ke superclass Gen.
+ *
+ * Dengan demikian, parent dan child menggunakan tipe data
+ * yang sama untuk parameter T.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Type Parameter Harus Diteruskan?
+ * ------------------------------------------------------------
+ *
+ * Superclass Gen<T> membutuhkan informasi mengenai tipe
+ * yang akan digunakan sebagai T.
+ *
+ * Ketika subclass mewarisi Gen, informasi tersebut harus
+ * diteruskan agar compiler mengetahui tipe yang digunakan.
+ *
+ * Contoh:
+ *
  * class Gen2<T> extends Gen<T>
  *
- * Artinya:
- * Gen2 punya <T>
- * dan dia meneruskan T ke Gen
+ * Pada deklarasi di atas:
  *
- * Jadi:
- * Kalau lu buat:
+ * - T milik Gen2 diteruskan ke Gen.
+ * - Parent dan child berbagi type parameter yang sama.
  *
- * Gen2<Integer> num = new Gen2<Integer>(100);
+ * Jika type parameter tidak diteruskan (atau tidak ditentukan),
+ * maka compiler tidak memiliki informasi yang cukup mengenai
+ * tipe generic superclass.
  *
- * Maka:
+ * Catatan:
+ * Subclass memang dapat menggunakan raw type (extends Gen),
+ * tetapi praktik tersebut tidak direkomendasikan karena
+ * menghilangkan type safety dan akan menghasilkan warning.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Penggunaan
+ * ------------------------------------------------------------
+ *
+ * Gen2<Integer> number = new Gen2<>(100);
+ *
+ * Saat object dibuat:
+ *
  * T = Integer
- * otomatis di Gen juga jadi Integer
- * 
- * KENAPA HARUS DITERUSKAN?
  *
- * Karena:
- * Parent (Gen<T>) butuh tau tipe data apa
+ * Karena Gen2 meneruskan T ke superclass:
  *
- * Kalau child gak kasih:
- * Compiler bakal bingung
- * ERROR
+ * class Gen2<T> extends Gen<T>
  *
- * Struktur Otaknya
+ * maka pada object tersebut:
+ *
+ * Parent (Gen) menggunakan Integer.
+ * Child  (Gen2) juga menggunakan Integer.
+ *
+ * Seluruh object dalam hierarki inheritance tetap konsisten
+ * menggunakan type argument yang sama.
+ */
+
+
+/* ------------------------------------------------------------
+ * Subclass Dapat Menambahkan Type Parameter Baru
+ * ------------------------------------------------------------
+ *
+ * Subclass tidak harus memiliki jumlah type parameter
+ * yang sama dengan superclass.
+ *
+ * Contoh:
+ *
+ * class Gen<T> {
+ *     ...
+ * }
+ *
+ * class Gen2<T, V> extends Gen<T> {
+ *     ...
+ * }
+ *
+ * Pada contoh tersebut:
+ *
+ * T digunakan oleh parent dan child.
+ * V hanya dimiliki oleh Gen2.
+ *
+ * Hal ini sangat umum dijumpai pada library Java maupun
+ * framework modern.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Instansiasi
+ * ------------------------------------------------------------
+ *
+ * Gen2<String, Integer> obj =
+ *         new Gen2<>("Value is:", 99);
+ *
+ * Maka compiler menetapkan:
+ *
+ * T = String
+ * V = Integer
+ *
+ * Akibatnya:
+ *
+ * - Seluruh member bertipe T pada superclass Gen
+ *   menggunakan String.
+ *
+ * - Seluruh member bertipe V pada Gen2
+ *   menggunakan Integer.
+ */
+
+
+/* ------------------------------------------------------------
+ * Hubungan Type Parameter dalam Inheritance
+ * ------------------------------------------------------------
+ *
+ * Hierarki berikut:
+ *
  * Gen<T>
  *    ↑
  * Gen2<T, V>
  *
- * Artinya:
- * Gen cuma punya 1 tipe (T)
- * Gen2 punya 2 tipe:
- * T → dikirim ke parent
- * V → milik sendiri
- * 
- * Pas bikin object:
- * Gen2<String, Integer> x = new Gen2<>("Value is: ", 99);
+ * dapat dibaca sebagai:
  *
- * Maka:
- * T = String
- * V = Integer
+ * - Gen memiliki satu type parameter (T).
+ * - Gen2 memiliki dua type parameter (T dan V).
+ * - T diteruskan ke superclass.
+ * - V hanya digunakan oleh subclass.
  *
- * Di dalam object:
- * ob (dari Gen) = "Value is: "
- * ob2 (dari Gen2) = 99
+ * Dengan demikian, setiap object memiliki hubungan tipe
+ * yang tetap konsisten di seluruh hierarki inheritance.
+ */
+
+
+/* ------------------------------------------------------------
+ * Konsep-Konsep Penting
+ * ------------------------------------------------------------
  *
- * -------------------------------------------------------
- * 
- * KONSEP PENTING YANG WAJIB DIPAHAMI
- * 
- * 1. Generic tetap ikut inheritance
- * Sama kayak class biasa:
- * class A {}
- * class B extends A {}
+ * 1. Generic mengikuti aturan inheritance Java.
  *
- * 2. Type parameter HARUS diteruskan
- * class Gen2<T> extends Gen<T>
+ *    Generic class dapat diwariskan sebagaimana class biasa.
  *
- * Kalau gak:
- * ERROR
  *
- * 3. Subclass boleh nambah tipe
- * class Gen2<T, V>
- * ini sering banget dipakai di dunia kerja
+ * 2. Type parameter dapat diteruskan ke superclass.
  *
- * Contoh real:
+ *    Contoh:
+ *
+ *    class Gen2<T> extends Gen<T>
+ *
+ *    Hal ini menjaga konsistensi tipe antara parent
+ *    dan child.
+ *
+ *
+ * 3. Subclass dapat menambahkan type parameter baru.
+ *
+ *    Contoh:
+ *
+ *    class Gen2<T, V>
+ *
+ *    Pendekatan ini sering digunakan untuk menyimpan
+ *    lebih dari satu jenis data.
+ *
+ *
+ * 4. Parent dan child tetap saling terhubung melalui
+ *    type parameter yang sama.
+ *
+ *    Contoh:
+ *
+ *    Gen2<Integer, String>
+ *
+ *    berarti:
+ *
+ *    T = Integer  → digunakan oleh parent dan child.
+ *    V = String   → hanya digunakan oleh child.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh di Dunia Nyata
+ * ------------------------------------------------------------
+ *
+ * Pola seperti ini banyak digunakan pada class generic,
+ * misalnya:
+ *
  * Pair<K, V>
  * Map<K, V>
+ * Response<T>
+ * ApiResponse<T, E>
  *
- * 4. Parent & child nyatu tipe-nya
- * Kalau:
- * Gen2<Integer, String>
+ * Framework seperti Spring, Hibernate, Jakarta EE,
+ * maupun Android SDK juga banyak memanfaatkan pola
+ * inheritance pada generic class.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
  *
- * maka:
- * parent = Integer
- * child tambahan = String
+ * - Generic class dapat menjadi superclass maupun subclass.
  *
- * ---------------------------------------------------
- * 
- * KESIMPULAN
- * 
- * Generic bisa diwarisin (inheritance)
- * Subclass WAJIB terusin type ke parent
- * Subclass boleh tambah type baru
- * Semua tetap type-safe (aman dari error)
+ * - Type parameter dapat diteruskan ke superclass agar
+ *   parent dan child menggunakan tipe yang konsisten.
  *
- * REAL DI DUNIA KERJA
+ * - Subclass dapat menambahkan type parameter baru
+ *   sesuai kebutuhannya.
  *
- * Ini kepake banget bro, contoh:
- * class Response<T>
- * class ApiResponse<T, E>
- * class Pair<K, V>
- * class Map<K, V>
+ * - Seluruh mekanisme tersebut tetap diperiksa oleh compiler,
+ *   sehingga type safety tetap terjaga.
  *
- * Framework kayak:
- * Spring Boot
- * Hibernate
- * Android
- *
- * semuanya pake konsep ini
+ * - Inheritance dan generic merupakan kombinasi yang sangat
+ *   umum digunakan dalam pengembangan aplikasi Java modern.
  */
 
 // Class generics 

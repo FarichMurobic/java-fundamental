@@ -1,184 +1,378 @@
 package FundamentalJava.Methods;
 
-        /**
-         * Returning a Value (Method yang Mengembalikan Nilai)
-         *
-         * Method return value adalah method yang menghasilkan nilai lalu mengirimkannya kembali ke pemanggil method.
-         * Cara Memanggil Method yang Mengembalikan Nilai
-         *
-         * Di program:
-         * vol = mybox1.volume();
-         *
-         * Penjelasan:
-         * 1. mybox1.volume() dijalankan
-         * 2. method menghitung volume
-         * 3. hasil dikembalikan
-         * 4. disimpan ke vol
-         *
-         * Dua Aturan Penting Return Value
-         * 1. Tipe return harus sesuai
-         *
-         * Jika method:
-         * double volume()
-         * Maka return harus double.
-         *
-         * 2. Variabel penerima harus cocok
-         *
-         * Contoh:
-         * double volume()
-         * Maka penerima harus kompatibel.
-         * Benar
-         * double v = mybox1.volume();
-         * 
-         * Masih benar (casting otomatis)
-         * double v = mybox1.volume();
-         *
-         * ---------------------------------------------------------
-         * 
-         * Versi Lebih Efisien
-         * Buku bilang sebenarnya variabel vol tidak diperlukan.
-         * Program bisa langsung seperti ini:
-         * System.out.println("Volume is " + mybox1.volume());
-         *
-         * Penjelasan:
-         * Saat println dijalankan:
-         * 1- Java memanggil mybox1.volume()
-         * 2- method menghitung volume
-         * 3- nilai dikirim ke println
-         *
-         * Alur di Memory
-         * println()
-         *    ↑
-         * mybox1.volume()
-         *    ↑
-         * width * height * depth
-         *
-         * Kenapa Return Value Lebih Baik
-         * Misalnya ada method ini:
-         * Versi void
-         * void volume() {
-         *     System.out.println(panjang * lebar * tinggi);
-         * }
-         *
-         * Masalahnya:
-         * hasil tidak bisa dipakai lagi
-         *
-         * Versi return value
-         * double volume() {
-         *     return panjang * lebar * tinggi;
-         * }
-         *
-         * Sekarang hasilnya bisa dipakai:
-         * double v = box.volume();
-         * atau
-         * System.out.println(box.volume());
-         * atau
-         * double total = box1.volume() + box2.volume();
-         * Jadi lebih fleksibel.
-         *
-         * Return Menghentikan Method
-         * Ketika return dijalankan:
-         * method langsung berhenti
-         * Contoh:
-         * int cek(int x) {
-         *
-         *     if(x > 10)
-         *         return 1;
-         *
-         *     return 0;
-         * }
-         *
-         * Kalau x > 10:
-         * return 1
-         * method selesai
-         * Baris setelahnya tidak dijalankan.
-         *
-         * Return Harus Sesuai Tipe Data
-         * Contoh benar:
-         * int angka() {
-         *     return 5;
-         * }
-         *
-         * Contoh salah:
-         * int angka() {
-         *     return "hello"; // ERROR
-         * }
-         *
-         * Karena:
-         * int ≠ String
-         *
-         * Method Bisa Mengembalikan Banyak Tipe:
-         * int
-         * int umur() {
-         *     return 22;
-         * }
-         *
-         * double
-         * double luas() {
-         *     return 3.14 * 10 * 10;
-         * }
-         *
-         * boolean
-         * boolean dewasa(int usia) {
-         *     return usia >= 18;
-         * }
-         *
-         * String
-         * String nama() {
-         *     return "Farich";
-         * }
-         *
-         * Object
-         * Box buatBox() {
-         *     return new Box();
-         * }
-         *
-         * return Tanpa Variable
-         * Return bisa langsung:
-         * int tambah(int a, int b) {
-         *     return a + b;
-         * }
-         *
-         * Atau pakai variable:
-         * int tambah(int a, int b) {
-         *     int hasil = a + b;
-         *     return hasil;
-         * }
-         *
-         * Keduanya sama.
-         *
-         * Method Bisa Dipanggil Dalam Method Lain
-         * Contoh:
-         *
-         * int tambah(int a, int b) {
-         *     return a + b;
-         * }
-         *
-         * int kaliTambah(int x, int y) {
-         *     return tambah(x,y) * 2;
-         * }
-         *
-         * ringkasan Penting
-         * Method return value:
-         * menghasilkan nilai
-         * lalu mengirimkannya ke pemanggil
-         *
-         * Struktur:
-         * tipeData method() {
-         *     return nilai;
-         * }
-         *
-         * Perbedaan utama:
-         * void	                        return value
-         * tidak menghasilkan nilai	    menghasilkan nilai
-         * hanya aksi	                bisa dipakai di operasi lain
-         *
-         * Rule penting Java
-         * Kalau method punya tipe selain void:
-         * WAJIB ada return
-         * Kalau tidak:
-         * compiler error
-         */
+/*
+ * ============================================================
+ * Returning a Value (Method yang Mengembalikan Nilai)
+ * ============================================================
+ *
+ * Method return value adalah method yang menghasilkan sebuah nilai
+ * dan mengirimkan nilai tersebut kembali kepada kode yang
+ * memanggil method tersebut.
+ *
+ * Nilai yang dikembalikan dapat berupa:
+ *
+ * - Primitive type seperti int, double, boolean.
+ * - Reference type seperti String atau object dari sebuah class.
+ *
+ * Berbeda dengan method void, method return value dapat digunakan
+ * kembali dalam operasi lain karena menghasilkan sebuah nilai.
+ *
+ * ------------------------------------------------------------
+ * Cara Memanggil Method yang Mengembalikan Nilai
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * double vol = myBox.volume();
+ *
+ * Alur proses:
+ *
+ * 1. Object myBox memanggil method volume().
+ * 2. Method volume() menjalankan proses perhitungan.
+ * 3. Hasil perhitungan dikembalikan menggunakan return.
+ * 4. Nilai tersebut disimpan ke dalam variable vol.
+ *
+ * Flow:
+ *
+ * myBox.volume()
+ *        |
+ *        v
+ * perhitungan volume
+ *        |
+ *        v
+ * return nilai
+ *        |
+ *        v
+ * variable vol menerima hasil
+ *
+ * ------------------------------------------------------------
+ * Aturan Return Value
+ * ------------------------------------------------------------
+ *
+ * 1. Return Type Harus Sesuai
+ *
+ * Tipe nilai yang dikembalikan oleh return harus sesuai dengan
+ * return type yang ditentukan pada method.
+ *
+ * Contoh:
+ *
+ * double volume() {
+ *     return 10.5;
+ * }
+ *
+ * Method tersebut harus mengembalikan nilai bertipe double.
+ *
+ * Contoh salah:
+ *
+ * int angka() {
+ *     return "Hello";
+ * }
+ *
+ * Error:
+ *
+ * String tidak dapat dikembalikan oleh method yang memiliki
+ * return type int.
+ *
+ * Karena:
+ *
+ * int != String
+ *
+ * ------------------------------------------------------------
+ *
+ * 2. Variable Penerima Harus Kompatibel
+ *
+ * Nilai return harus dapat disimpan oleh variable yang menerima.
+ *
+ * Contoh benar:
+ *
+ * double volume() {
+ *     return 100.5;
+ * }
+ *
+ * double hasil = volume();
+ *
+ * Karena:
+ *
+ * return type  -> double
+ * variable     -> double
+ *
+ *
+ * Contoh widening conversion:
+ *
+ * int jumlah() {
+ *     return 10;
+ * }
+ *
+ * double nilai = jumlah();
+ *
+ * Java dapat melakukan konversi otomatis dari int ke double.
+ *
+ * Tetapi kebalikannya tidak diperbolehkan tanpa casting.
+ *
+ * ------------------------------------------------------------
+ * Return Value Tanpa Variable Penampung
+ * ------------------------------------------------------------
+ *
+ * Nilai return tidak selalu harus disimpan ke variable.
+ *
+ * Method dapat langsung digunakan sebagai bagian dari ekspresi.
+ *
+ * Contoh:
+ *
+ * System.out.println(myBox.volume());
+ *
+ * Alur:
+ *
+ * println()
+ *      |
+ *      v
+ * myBox.volume()
+ *      |
+ *      v
+ * width * height * depth
+ *      |
+ *      v
+ * nilai dikirim ke println()
+ *
+ * Java menjalankan method volume() terlebih dahulu, kemudian
+ * menggunakan hasil return sebagai parameter println().
+ *
+ * ------------------------------------------------------------
+ * Kenapa Return Value Lebih Fleksibel?
+ * ------------------------------------------------------------
+ *
+ * Contoh menggunakan void:
+ *
+ * void volume() {
+ *     System.out.println(width * height * depth);
+ * }
+ *
+ * Masalah:
+ *
+ * Hasil hanya dicetak dan tidak dapat digunakan kembali oleh
+ * program.
+ *
+ * ------------------------------------------------------------
+ *
+ * Contoh menggunakan return value:
+ *
+ * double volume() {
+ *     return width * height * depth;
+ * }
+ *
+ * Sekarang hasil dapat digunakan dalam berbagai kebutuhan.
+ *
+ * Contoh:
+ *
+ * double hasil = box.volume();
+ *
+ * Atau:
+ *
+ * System.out.println(box.volume());
+ *
+ * Atau:
+ *
+ * double total = box1.volume() + box2.volume();
+ *
+ * Return value membuat method lebih reusable dan fleksibel.
+ *
+ * ------------------------------------------------------------
+ * Return Menghentikan Eksekusi Method
+ * ------------------------------------------------------------
+ *
+ * Ketika keyword return dijalankan, method langsung berhenti
+ * dan mengirimkan nilai kembali kepada pemanggil.
+ *
+ * Contoh:
+ *
+ * int cekNilai(int angka) {
+ *
+ *     if (angka > 10) {
+ *         return 1;
+ *     }
+ *
+ *     return 0;
+ * }
+ *
+ * Jika angka lebih besar dari 10:
+ *
+ * - return 1 dijalankan.
+ * - Method langsung selesai.
+ * - Baris setelah return tidak akan dieksekusi.
+ *
+ * ------------------------------------------------------------
+ * Method Dengan Berbagai Return Type
+ * ------------------------------------------------------------
+ *
+ * Java memungkinkan method mengembalikan berbagai jenis data.
+ *
+ * Contoh:
+ *
+ * int:
+ *
+ * int umur() {
+ *     return 25;
+ * }
+ *
+ *
+ * double:
+ *
+ * double luas() {
+ *     return 3.14 * 10 * 10;
+ * }
+ *
+ *
+ * boolean:
+ *
+ * boolean sudahDewasa(int usia) {
+ *     return usia >= 18;
+ * }
+ *
+ *
+ * String:
+ *
+ * String nama() {
+ *     return "Java";
+ * }
+ *
+ *
+ * Object:
+ *
+ * Box buatBox() {
+ *     return new Box();
+ * }
+ *
+ * ------------------------------------------------------------
+ * Return Langsung Tanpa Variable Sementara
+ * ------------------------------------------------------------
+ *
+ * Return dapat langsung mengembalikan hasil ekspresi.
+ *
+ * Contoh:
+ *
+ * int tambah(int a, int b) {
+ *     return a + b;
+ * }
+ *
+ * Atau menggunakan variable:
+ *
+ * int tambah(int a, int b) {
+ *
+ *     int hasil = a + b;
+ *
+ *     return hasil;
+ * }
+ *
+ * Kedua cara tersebut menghasilkan output yang sama.
+ *
+ * Pemilihan cara tergantung kebutuhan:
+ *
+ * - Return langsung lebih ringkas.
+ * - Variable sementara dapat membantu debugging atau membuat
+ *   kode lebih mudah dibaca.
+ *
+ * ------------------------------------------------------------
+ * Method Return Dapat Digunakan Oleh Method Lain
+ * ------------------------------------------------------------
+ *
+ * Sebuah method dapat menggunakan hasil return dari method lain.
+ *
+ * Contoh:
+ *
+ * int tambah(int a, int b) {
+ *     return a + b;
+ * }
+ *
+ * int kaliTambah(int x, int y) {
+ *     return tambah(x, y) * 2;
+ * }
+ *
+ * Alur:
+ *
+ * kaliTambah()
+ *       |
+ *       v
+ * tambah()
+ *       |
+ *       v
+ * return hasil
+ *       |
+ *       v
+ * dikalikan 2
+ *
+ * ------------------------------------------------------------
+ * Aturan Compiler Java Pada Return
+ * ------------------------------------------------------------
+ *
+ * Jika sebuah method memiliki return type selain void, maka
+ * semua jalur eksekusi yang memungkinkan harus menghasilkan
+ * nilai return.
+ *
+ * Contoh salah:
+ *
+ * int cek(int nilai) {
+ *
+ *     if (nilai > 10) {
+ *         return 1;
+ *     }
+ *
+ * }
+ *
+ * Compiler akan memberikan error karena ketika kondisi tidak
+ * terpenuhi, method tidak mengembalikan nilai apapun.
+ *
+ * Perbaikan:
+ *
+ * int cek(int nilai) {
+ *
+ *     if (nilai > 10) {
+ *         return 1;
+ *     }
+ *
+ *     return 0;
+ * }
+ *
+ * ------------------------------------------------------------
+ * Ringkasan Penting
+ * ------------------------------------------------------------
+ *
+ * Method return value:
+ *
+ * - Menghasilkan sebuah nilai.
+ * - Mengirimkan nilai tersebut kembali ke pemanggil method.
+ * - Dapat digunakan kembali dalam operasi lain.
+ *
+ * Struktur dasar:
+ *
+ * returnType methodName(parameter) {
+ *     return value;
+ * }
+ *
+ * Perbedaan utama:
+ *
+ * void:
+ *
+ * - Tidak menghasilkan nilai.
+ * - Biasanya digunakan untuk melakukan suatu aksi.
+ *
+ *
+ * return value:
+ *
+ * - Menghasilkan nilai.
+ * - Nilainya dapat disimpan atau digunakan kembali.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Return value adalah konsep penting dalam Java karena membuat
+ * method lebih fleksibel dan reusable.
+ *
+ * Dengan return value, sebuah method tidak hanya melakukan aksi,
+ * tetapi juga dapat menghasilkan data yang dapat diproses oleh
+ * bagian program lainnya.
+ *
+ */
 
 
 public class MethodReturnValue {

@@ -1,50 +1,193 @@
 package FundamentalJava.JumpStatements;
 
+/* ==========================================================
+ *                        CONTINUE
+ * ==========================================================
+ *
+ * continue adalah salah satu jump statement di Java yang
+ * digunakan untuk melewati sisa kode pada iterasi saat ini
+ * dan langsung melanjutkan ke iterasi berikutnya.
+ *
+ * Berbeda dengan break yang menghentikan seluruh loop,
+ * continue hanya menghentikan eksekusi pada satu putaran loop
+ * tertentu.
+ *
+ * Artinya:
+ *
+ * - Loop tetap berjalan.
+ * - Statement setelah continue pada iterasi tersebut dilewati.
+ * - Program melanjutkan ke iterasi berikutnya.
+ *
+ * ==========================================================
+ *                  CARA KERJA CONTINUE
+ * ==========================================================
+ *
+ * Ketika statement continue dijalankan di dalam loop:
+ *
+ *     continue;
+ *
+ * maka semua kode yang berada setelah continue pada iterasi
+ * tersebut tidak akan dieksekusi.
+ *
+ * Setelah itu, program kembali ke mekanisme kontrol loop sesuai
+ * dengan jenis perulangan yang digunakan.
+ *
+ * ==========================================================
+ *              CONTINUE PADA while DAN do-while
+ * ==========================================================
+ *
+ * Pada loop while dan do-while, ketika continue dijalankan:
+ *
+ * - Program langsung kembali melakukan pengecekan kondisi loop.
+ * - Jika kondisi masih bernilai true, iterasi berikutnya
+ *   dijalankan.
+ * - Jika kondisi bernilai false, loop berhenti.
+ *
+ * Contoh alur:
+ *
+ *     proses iterasi
+ *          |
+ *          v
+ *     continue dijalankan
+ *          |
+ *          v
+ *     cek kondisi loop
+ *          |
+ *          v
+ *     lanjut / berhenti
+ *
+ * ==========================================================
+ *                 CONTINUE PADA for LOOP
+ * ==========================================================
+ *
+ * Pada loop for, mekanisme continue sedikit berbeda.
+ *
+ * Ketika continue dijalankan:
+ *
+ * - Semua kode setelah continue dilewati.
+ * - Program menuju bagian update expression.
+ * - Biasanya menjalankan increment atau decrement seperti:
+ *
+ *       i++
+ *
+ * - Setelah itu kondisi loop diperiksa kembali.
+ *
+ * Contoh struktur for:
+ *
+ *     for (initialization; condition; update) {
+ *
+ *         continue;
+ *
+ *     }
+ *
+ * Alur:
+ *
+ * initialization
+ *       |
+ *       v
+ * cek condition
+ *       |
+ *       v
+ * jalankan body
+ *       |
+ *       v
+ * continue
+ *       |
+ *       v
+ * update expression
+ *       |
+ *       v
+ * kembali cek condition
+ *
+ * ==========================================================
+ *                CONTOH PENGGUNAAN CONTINUE
+ * ==========================================================
+ *
+ * continue biasanya digunakan untuk melewati data atau kondisi
+ * tertentu tanpa menghentikan seluruh proses.
+ *
+ * Contoh penggunaan:
+ *
+ * - Melewati angka negatif.
+ * - Mengabaikan data yang tidak valid.
+ * - Melewati item tertentu dalam collection.
+ * - Memfilter data sebelum diproses lebih lanjut.
+ *
+ * Contoh konsep:
+ *
+ *     for (int number : numbers) {
+ *
+ *         if (number < 0) {
+ *             continue;
+ *         }
+ *
+ *         process(number);
+ *     }
+ *
+ * Pada contoh tersebut, angka negatif tidak diproses, tetapi
+ * loop tetap berjalan untuk memeriksa data berikutnya.
+ *
+ * ==========================================================
+ *                CONTINUE DAN CLEAN CODE
+ * ==========================================================
+ *
+ * Meskipun continue berguna, penggunaannya sebaiknya tetap
+ * diperhatikan.
+ *
+ * Penggunaan continue yang terlalu banyak dapat membuat alur
+ * program sulit dibaca karena logika tersebar di berbagai
+ * tempat dalam loop.
+ *
+ * Dalam banyak kasus, penggunaan kondisi if yang lebih jelas
+ * atau pemisahan logic ke method terpisah dapat menghasilkan
+ * kode yang lebih mudah dipelihara.
+ *
+ * Gunakan continue ketika memang membuat alur kode lebih jelas,
+ * bukan hanya untuk memperpendek penulisan.
+ *
+ * ==========================================================
+ *                 PERBEDAAN break DAN continue
+ * ==========================================================
+ *
+ * break:
+ *
+ * - Menghentikan seluruh loop.
+ * - Program keluar dari perulangan.
+ * - Digunakan ketika proses tidak perlu dilanjutkan.
+ *
+ * continue:
+ *
+ * - Tidak menghentikan loop.
+ * - Hanya melewati satu iterasi saat ini.
+ * - Digunakan ketika sebagian data ingin dilewati.
+ *
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
+ *
+ * continue digunakan untuk melewati sisa kode pada iterasi
+ * saat ini dan melanjutkan loop ke iterasi berikutnya.
+ *
+ * Inti konsep:
+ *
+ * continue =
+ * "Lewati proses yang sekarang, lanjutkan ke proses berikutnya."
+ *
+ * Statement ini berguna untuk:
+ *
+ * - Mengabaikan kondisi tertentu.
+ * - Melakukan filtering data.
+ * - Membuat proses looping lebih efisien.
+ *
+ * Namun, gunakan secara bijak agar kode tetap mudah dibaca dan
+ * dipelihara.
+ *
+ * ==========================================================
+ */
+
 public class Continue {
     public static void main(String[] args) {
         
-        /**
-         * Menggunakan continue
-         *
-         * Kadang kita ingin loop tetap berjalan, tetapi menghentikan sisa kode di iterasi saat ini.
-         * Artinya:
-         * loop tidak berhenti
-         * tetapi sisa kode dalam loop dilewati
-         * loop langsung lanjut ke iterasi berikutnya
-         * Statement continue melakukan hal tersebut.
-         *
-         * Perbedaannya tergantung jenis loop:
-         * Pada while dan do-while
-         * Ketika continue dijalankan:
-         * program langsung kembali ke pengecekan kondisi loop.
-         *
-         * Pada for
-         * Ketika continue dijalankan:
-         * program pergi ke bagian iterasi (i++)
-         * lalu mengecek kondisi loop
-         * Semua kode setelah continue dilewati.
-         *
-         * Penggunaan continue yang bagus cukup jarang.
-         *
-         * Kenapa?
-         * Karena Java sudah punya banyak jenis loop yang biasanya sudah cukup.
-         * Tetapi continue tetap berguna saat kita ingin:
-         * skip data tertentu
-         *
-         * Contoh:
-         * melewati angka negatif
-         * melewati data invalid
-         * skip item tertentu di list
-         *
-         * -----------------------------
-         * 
-         * Kesimpulan penting
-         *
-         * continue artinya:
-         * skip sisa kode di iterasi ini
-         * lanjut iterasi berikutnya
-         */
-
         // Contoh sederhana
         for(int i=0;i<5;i++){
             if(i==2) // ketika i = 2

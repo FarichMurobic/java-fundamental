@@ -1,80 +1,318 @@
 package FundamentalJava.Methods.MethodReference;
 
-/**
- * Intinya:
+/*
+ * ============================================================
+ * Comparator dan Method Reference Pada Java
+ * ============================================================
  *
- * Untuk cari nilai terbesar di collection → pakai Collections.max()
- * Tapi BUTUH:
+ * Ketika kita ingin mencari nilai terbesar atau melakukan sorting
+ * pada collection yang berisi object, Java membutuhkan aturan
+ * bagaimana object tersebut dibandingkan.
+ *
+ * Untuk tujuan tersebut Java menyediakan interface:
+ *
  * Comparator<T>
  *
- * Comparator itu apa?
- * Interface buat ngebandingin 2 object
+ * Comparator digunakan untuk menentukan cara membandingkan dua
+ * object.
  *
- * Method-nya:
- * compare(a, b)
+ * ------------------------------------------------------------
+ * Collections.max()
+ * ------------------------------------------------------------
  *
- * Return:
- * 0 → a lebih besar
- * = 0 → sama
- * < 0 → b lebih besar
+ * Method:
  *
- * Cara lama (sebelum Java 8)
+ * Collections.max()
  *
- * Harus:
- * bikin class implement Comparator
- * buat object
- * kirim ke max()
+ * digunakan untuk mencari object dengan nilai terbesar dalam
+ * sebuah collection.
  *
- * Cara baru (Java 8+)
+ * Contoh:
  *
- * cukup:
- * Collections.max(list, ClassName::method)
+ * Collections.max(list, comparator);
  *
- * langsung beres
  *
- * Insight DALAM
- * 1. Ini contoh nyata:
- * “Method reference otomatis jadi Comparator”
+ * Parameter kedua membutuhkan:
  *
- * 2. Lo gak perlu bikin class lagi
+ * Comparator<T>
  *
- * Dulu:
- * class MyComparator implements Comparator<MyClass>
+ *
+ * Karena Java perlu tahu:
+ *
+ * "Bagaimana cara menentukan object mana yang lebih besar?"
+ *
+ * ------------------------------------------------------------
+ * Apa Itu Comparator?
+ * ------------------------------------------------------------
+ *
+ * Comparator adalah functional interface yang digunakan untuk
+ * membandingkan dua object.
+ *
+ * Bentuk method utamanya:
+ *
+ * int compare(T a, T b)
+ *
+ *
+ * Method ini harus mengembalikan nilai integer.
+ *
+ * Aturan return:
+ *
+ * Jika:
+ *
+ * a.compareTo(b) < 0
+ *
+ * Artinya:
+ *
+ * a dianggap lebih kecil dari b.
+ *
+ *
+ * Jika:
+ *
+ * a.compareTo(b) == 0
+ *
+ * Artinya:
+ *
+ * a dianggap sama dengan b.
+ *
+ *
+ * Jika:
+ *
+ * a.compareTo(b) > 0
+ *
+ * Artinya:
+ *
+ * a dianggap lebih besar dari b.
+ *
+ *
+ * Jadi:
+ *
+ * nilai negatif  -> a lebih kecil
+ * nilai nol      -> sama
+ * nilai positif  -> a lebih besar
+ *
+ * ------------------------------------------------------------
+ * Cara Lama Sebelum Java 8
+ * ------------------------------------------------------------
+ *
+ * Sebelum Java 8, biasanya kita membuat class Comparator sendiri.
+ *
+ * Contoh:
+ *
+ * class MyComparator implements Comparator<MyClass> {
+ *
+ *     @Override
+ *     public int compare(MyClass a, MyClass b) {
+ *         return a.value - b.value;
+ *     }
+ * }
+ *
+ *
+ * Kemudian:
+ *
+ * Collections.max(list, new MyComparator());
+ *
+ *
+ * Kekurangan:
+ *
+ * - Banyak kode tambahan.
+ * - Harus membuat class baru.
+ * - Kurang praktis untuk perbandingan sederhana.
+ *
+ * ------------------------------------------------------------
+ * Cara Modern Java 8+
+ * ------------------------------------------------------------
+ *
+ * Java 8 memperkenalkan:
+ *
+ * - Lambda expression.
+ * - Method reference.
+ *
+ *
+ * Sehingga Comparator dapat dibuat lebih singkat.
+ *
+ * Contoh:
+ *
+ * Collections.max(
+ *     list,
+ *     MyClass::compareMC
+ * );
+ *
+ *
+ * Method reference:
+ *
+ * MyClass::compareMC
+ *
+ *
+ * secara otomatis digunakan sebagai implementasi Comparator.
+ *
+ * ------------------------------------------------------------
+ * Kenapa Method Reference Bisa Menjadi Comparator?
+ * ------------------------------------------------------------
+ *
+ * Karena Comparator adalah functional interface.
+ *
+ * Comparator memiliki satu abstract method:
+ *
+ * compare(T a, T b)
+ *
+ *
+ * Jika kita memiliki method dengan bentuk:
+ *
+ * static int compareMC(MyClass a, MyClass b)
+ *
+ *
+ * Maka:
+ *
+ * MyClass::compareMC
+ *
+ *
+ * cocok dengan:
+ *
+ * (a, b) -> MyClass.compareMC(a, b)
+ *
+ *
+ * Sehingga Java dapat menggunakannya sebagai Comparator.
+ *
+ * ------------------------------------------------------------
+ * Insight Penting
+ * ------------------------------------------------------------
+ *
+ * Dahulu:
+ *
+ * Membuat class Comparator manual.
+ *
  *
  * Sekarang:
- * UseMethodRef::compareMC
  *
- * 3. Ini bikin code:
- * lebih pendek
- * lebih clean
- * lebih modern
+ * Gunakan lambda atau method reference.
  *
- * -------------------------
- * 
- * Versi Lebih Modern (REAL PROJECT)
  *
- * Biasanya di dunia kerja gak bikin method sendiri
+ * Contoh:
  *
- * Pakai Comparator bawaan
- * MyClass max = Collections.max(list,
- *         Comparator.comparing(MyClass::getVal));
+ * Comparator<MyClass> comparator =
+ *         MyClass::compareMC;
  *
- * Ini artinya:
- * (a, b) -> a.getVal() - b.getVal()
  *
- * Versi Stream (lebih modern lagi)
- * MyClass max = list.stream()
- *         .max(Comparator.comparing(MyClass::getVal))
+ * Lebih:
+ *
+ * - Singkat.
+ * - Mudah dibaca.
+ * - Mengurangi boilerplate code.
+ *
+ * ------------------------------------------------------------
+ * Cara Modern Yang Lebih Sering Dipakai
+ * ------------------------------------------------------------
+ *
+ * Dalam project nyata, biasanya kita tidak membuat method
+ * compare sendiri.
+ *
+ * Java sudah menyediakan:
+ *
+ * Comparator.comparing()
+ *
+ *
+ * Contoh:
+ *
+ * MyClass max =
+ *     Collections.max(
+ *         list,
+ *         Comparator.comparing(MyClass::getVal)
+ *     );
+ *
+ *
+ * Artinya:
+ *
+ * "Bandingkan object berdasarkan nilai yang dikembalikan oleh
+ * getVal()."
+ *
+ *
+ * Lambda yang setara:
+ *
+ * (a, b) ->
+ *     a.getVal().compareTo(b.getVal())
+ *
+ *
+ * Untuk object angka:
+ *
+ * Comparator.comparingInt(MyClass::getVal)
+ *
+ * lebih disarankan.
+ *
+ * ------------------------------------------------------------
+ * Menggunakan Stream API
+ * ------------------------------------------------------------
+ *
+ * Pada Java modern, sering digunakan bersama Stream API.
+ *
+ * Contoh:
+ *
+ * MyClass max =
+ *     list.stream()
+ *         .max(
+ *             Comparator.comparing(MyClass::getVal)
+ *         )
  *         .orElse(null);
  *
- * ===============================================
- * 
- * Kesimpulan Super Sederhana
- * Inti:
- * Comparator = cara bandingin object
- * Collections.max() butuh comparator
- * Method reference bisa jadi comparator
- * Gak perlu bikin class manual lagi
+ *
+ * Alur:
+ *
+ * List
+ *  |
+ *  v
+ * Stream
+ *  |
+ *  v
+ * max()
+ *  |
+ *  v
+ * Comparator menentukan object terbesar
+ *
+ * ------------------------------------------------------------
+ * Contoh Dunia Nyata
+ * ------------------------------------------------------------
+ *
+ * Misalnya terdapat list User:
+ *
+ * List<User> users;
+ *
+ *
+ * Mencari user dengan umur terbesar:
+ *
+ * User oldest =
+ *     users.stream()
+ *          .max(
+ *              Comparator.comparing(User::getAge)
+ *          )
+ *          .orElse(null);
+ *
+ *
+ * Java akan:
+ *
+ * - Memanggil getAge() setiap object.
+ * - Membandingkan hasilnya.
+ * - Mengambil object dengan nilai terbesar.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Comparator adalah aturan untuk membandingkan object.
+ *
+ * Konsep penting:
+ *
+ * - Collections.max() membutuhkan Comparator.
+ * - Comparator menentukan object mana yang lebih besar.
+ * - Method reference dapat digunakan sebagai Comparator karena
+ *   Comparator adalah functional interface.
+ * - Java 8+ mengurangi kebutuhan membuat class Comparator manual.
+ * - Comparator.comparing() adalah gaya yang umum digunakan dalam
+ *   project modern.
+ *
+ * Prinsip sederhana:
+ *
+ * "Berikan Java cara membandingkan object,
+ * lalu Java yang menangani proses pencarian atau sorting."
+ *
  */
 
 import java.util.*;

@@ -1,53 +1,93 @@
 package FundamentalJava.InputOutputIO;
 
 /**
- * Reading Strings
+ * ============================================================
+ *                     Reading Strings
+ * ============================================================
  *
- * Untuk membaca string (teks) dari keyboard, gunakan method:
- * String readLine() throws IOException
+ * Untuk membaca teks dari console, BufferedReader menyediakan
+ * method:
  *
- * Method ini:
- * bagian dari BufferedReader
- * mengembalikan object String
+ *     String readLine() throws IOException
  *
- * Method ini:
- * bagian dari BufferedReader
- * mengembalikan object String
+ * Method ini membaca satu baris teks dari input dan
+ * mengembalikannya sebagai object String.
  *
- * Program contoh 1
+ * Pembacaan akan selesai setelah pengguna menekan tombol Enter.
  *
- * Program ini:
- * membaca baris teks dari user
- * menampilkan kembali
- * berhenti kalau user mengetik "stop"
+ * Karena proses I/O dapat mengalami kegagalan, method ini
+ * mendeklarasikan throws IOException sehingga exception tersebut
+ * harus ditangani atau diteruskan oleh pemanggil.
  *
- * Program contoh 2
+ * ------------------------------------------------------------
  *
- * Program ini:
- * seperti text editor sederhana
- * menyimpan input ke array
- * maksimal 100 baris
- * berhenti kalau "stop"
+ * Cara Kerja readLine()
  *
- * Perbedaan penting dari sebelumnya
- * Sebelumnya:
+ * Ketika method readLine() dipanggil, alur yang terjadi adalah:
+ *
+ * 1. Pengguna mengetikkan teks pada console.
+ * 2. Pengguna menekan tombol Enter.
+ * 3. Seluruh baris teks dibaca oleh BufferedReader.
+ * 4. Hasil pembacaan dikembalikan sebagai sebuah String.
+ *
+ * Contoh:
+ *
+ * String input = br.readLine();
+ *
+ * Jika pengguna mengetik:
+ *
+ * Hello Java
+ *
+ * kemudian menekan Enter, maka nilai variabel input adalah:
+ *
+ * "Hello Java"
+ *
+ * ------------------------------------------------------------
+ *
+ * Perbedaan read() dan readLine()
+ *
+ * BufferedReader menyediakan dua method utama untuk membaca
+ * input dari character stream:
+ *
  * read()
- * baca 1 karakter
+ *     Membaca satu karakter dan mengembalikan nilai bertipe int.
  *
- * Sekarang:
  * readLine()
- * baca 1 baris penuh
+ *     Membaca satu baris teks dan mengembalikannya sebagai
+ *     object String.
  *
- * Kenapa ini jauh lebih penting?
+ * Dalam kebanyakan aplikasi console, readLine() lebih praktis
+ * karena pengguna umumnya memasukkan data dalam bentuk baris,
+ * bukan karakter satu per satu.
  *
- * Karena:
- * manusia input → biasanya per baris
- * bukan per karakter
+ * ------------------------------------------------------------
  *
- * jadi ini jauh lebih realistis
+ * Contoh Penggunaan
  *
- * Cara kerja readLine()
- * User ngetik → tekan ENTER → readLine() ambil seluruh baris
+ * Program sederhana yang menggunakan readLine() umumnya
+ * melakukan hal-hal berikut:
+ *
+ * - Membaca satu baris teks dari pengguna.
+ * - Menampilkan kembali teks yang dimasukkan.
+ * - Mengulangi proses hingga kondisi tertentu terpenuhi,
+ *   misalnya ketika pengguna mengetik "stop".
+ *
+ * readLine() juga sering digunakan untuk membuat aplikasi
+ * console sederhana seperti editor teks, menu interaktif,
+ * maupun utilitas command-line.
+ *
+ * ------------------------------------------------------------
+ *
+ * Ringkasan
+ *
+ * - readLine() merupakan method milik BufferedReader.
+ * - Method ini membaca satu baris teks dari console.
+ * - Nilai yang dikembalikan bertipe String.
+ * - Pembacaan selesai setelah pengguna menekan Enter.
+ * - Method ini dapat melempar IOException sehingga harus
+ *   ditangani dengan tepat.
+ * - Untuk input teks, readLine() umumnya lebih sesuai
+ *   dibandingkan read() karena bekerja per baris.
  */
 
 import java.io.*;

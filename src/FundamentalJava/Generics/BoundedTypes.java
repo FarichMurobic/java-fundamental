@@ -1,117 +1,251 @@
 package FundamentalJava.Generics;
 
 /**
- * Kondisi awal
+ * Bounded Types (Bounded Type Parameters)
  *
- * Kita punya generic:
- * class Stats<T>
+ * Secara default, parameter generic dapat merepresentasikan tipe apa pun.
+ *
+ * Contoh:
+ * class Box<T> { }
  *
  * Artinya:
- * T bisa jadi apa aja
+ * T bisa berupa:
+ * - Integer
+ * - Double
+ * - String
+ * - Object
+ * - atau class apa pun.
  *
- * Masalah:
- * Lu mau bikin method:
- * hitung rata-rata angka
+ * Fleksibel memang, tetapi kadang justru terlalu bebas.
  *
- * Tapi
- * Kalau T bebas:
- * bisa Integer 
- * bisa Double 
- * bisa String (ini masalah)
+ * ------------------------------------------------------------
  *
- * Java jadi bingung:
- * "ini T isinya angka atau bukan?"
+ * Masalah Generic Tanpa Batas
  *
- * Kenapa error?
- * Baris ini:
+ * Misalkan kita membuat class:
+ *
+ * class Stats<T> {
+ *     T[] nums;
+ * }
+ *
+ * Tujuan class ini adalah menghitung rata-rata angka.
+ *
+ * Misalnya:
+ * Integer[]
+ * Double[]
+ * Float[]
+ *
+ * Namun karena T bebas, compiler juga mengizinkan:
+ *
+ * Stats<String>
+ * Stats<Object>
+ *
+ * Padahal String bukan angka.
+ *
+ * ------------------------------------------------------------
+ *
+ * Kenapa Terjadi Error?
+ *
+ * Misalnya di dalam method kita menulis:
+ *
  * nums[i].doubleValue();
  *
- * Java bilang:
- * "T gak punya method doubleValue()!"
+ * Compiler akan menolak.
  *
- * Padahal:
- * Integer punya doubleValue()
- * Double punya doubleValue()
+ * Alasannya sederhana:
  *
- * Tapi:
- * Java gak tau itu
+ * Java hanya tahu bahwa nums[i] bertipe T.
  *
- * Karena:
- * T = bebas (bisa String juga)
+ * Sedangkan T bisa berupa apa saja.
  *
- * --------------------------------
- * 
- * SOLUSI: BOUNDED TYPES
- * 
- * Konsepnya
+ * Bisa Integer:
+ * Integer punya method doubleValue().
  *
- * Kita kasih batas:
- * "T cuma boleh tipe tertentu"
+ * Bisa Double:
+ * Double juga punya doubleValue().
  *
- * Syntax
- * // T harus turunan dari superclass
+ * Tapi bisa juga:
+ * String
+ *
+ * String tidak memiliki method doubleValue().
+ *
+ * Jadi compiler tidak bisa menjamin method tersebut selalu ada.
+ *
+ * ------------------------------------------------------------
+ *
+ * Solusinya: Bounded Type
+ *
+ * Kita bisa memberi batas pada generic menggunakan keyword extends.
+ *
+ * Bentuk umum:
+ *
  * <T extends SuperClass>
  *
  * Artinya:
- * T cuma boleh:
- * SuperClass
- * turunannya
+ * parameter generic T hanya boleh berupa:
+ * - SuperClass
+ * - subclass dari SuperClass
  *
- * BEDAH PENTING (INI YANG HARUS MASUK OTAK)
+ * ------------------------------------------------------------
  *
- * 1. Ini bagian kunci
- * class Stats<T extends Number>
+ * Contoh
  *
- * Artinya:
- * T HARUS:
- * Number atau turunannya
+ * class Stats<T extends Number> {
+ *     T[] nums;
+ * }
  *
- * Contoh valid:
- * Integer 
- * Double 
- * Float 
+ * Sekarang compiler mengetahui bahwa:
  *
- * Contoh tidak valid:
- * String 
- * Object 
+ * T pasti merupakan turunan Number.
  *
- * Kenapa sekarang bisa?
- * Karena:
- * Java tahu T pasti punya:
+ * Karena Number memiliki method:
+ *
  * doubleValue()
+ * intValue()
+ * floatValue()
+ * longValue()
  *
- * Bonus besar
- * Selain fix error:
- * juga mencegah salah tipe
+ * maka seluruh subclass Number juga memilikinya.
  *
- * Ini sekarang ditolak:
- * Stats<String> obj = new Stats<>(...);
+ * Akibatnya kode berikut sekarang valid:
  *
- * OUTPUT
- * iob average is 3.0
- * dob average is 3.3
+ * nums[i].doubleValue();
  *
- * --------------------------------------------------
- * 
- * KESIMPULAN 
- * 
- * 1. Bounded type = membatasi generic
+ * ------------------------------------------------------------
  *
- * 2. Syntax:
- * <T extends Something>
+ * Contoh Tipe yang Diizinkan
  *
- * 3. Keuntungan:
- * bisa pakai method tertentu
- * lebih aman
- * mencegah error
+ * Dengan:
  *
- * 4. Contoh penting:
  * <T extends Number>
  *
- * hanya angka
+ * maka tipe berikut valid:
  *
- * 5. Bisa multi bound:
- * <T extends A & B>
+ * - Byte
+ * - Short
+ * - Integer
+ * - Long
+ * - Float
+ * - Double
+ * - BigInteger
+ * - BigDecimal
+ * - atau subclass lain dari Number
+ *
+ * Sedangkan ini tidak valid:
+ *
+ * - String
+ * - Object
+ * - Character
+ * - Boolean
+ *
+ * Karena bukan turunan Number.
+ *
+ * ------------------------------------------------------------
+ *
+ * Keuntungan Bounded Type
+ *
+ * 1. Bisa memanggil method tertentu
+ *
+ * Compiler tahu bahwa semua T mempunyai method milik superclass.
+ *
+ * Contoh:
+ *
+ * doubleValue()
+ *
+ * 2. Type Safety
+ *
+ * Mencegah programmer menggunakan tipe yang tidak sesuai.
+ *
+ * Contoh:
+ *
+ * Stats<String> stats = new Stats<>();
+ *
+ * Compile-time error.
+ *
+ * Kesalahan langsung diketahui saat kompilasi,
+ * bukan saat program dijalankan.
+ *
+ * 3. API Lebih Jelas
+ *
+ * Dengan membaca deklarasi:
+ *
+ * <T extends Number>
+ *
+ * programmer langsung tahu bahwa class tersebut memang hanya
+ * dirancang untuk bekerja dengan tipe numerik.
+ *
+ * ------------------------------------------------------------
+ *
+ * Multiple Bounds
+ *
+ * Generic juga bisa memiliki lebih dari satu batas.
+ *
+ * Bentuk umum:
+ *
+ * <T extends ClassA & InterfaceB & InterfaceC>
+ *
+ * Aturannya:
+ *
+ * - Maksimal hanya satu class.
+ * - Jika ada class, harus ditulis paling depan.
+ * - Sisanya harus berupa interface.
+ *
+ * Contoh:
+ *
+ * class Demo<T extends Number & Comparable<T>> { }
+ *
+ * Artinya:
+ *
+ * T harus:
+ * - merupakan turunan Number
+ * - sekaligus mengimplementasikan Comparable
+ *
+ * ------------------------------------------------------------
+ *
+ * Aturan Penting
+ *
+ * Keyword yang digunakan selalu extends.
+ *
+ * Bahkan ketika membatasi interface.
+ *
+ * Contoh:
+ *
+ * <T extends Comparable<T>>
+ *
+ * Bukan:
+ *
+ * <T implements Comparable<T>> // ERROR
+ *
+ * Pada generic, keyword implements tidak digunakan.
+ *
+ * ------------------------------------------------------------
+ *
+ * Analogi
+ *
+ * Tanpa bounded type:
+ *
+ * T = "siapa saja boleh masuk"
+ *
+ * Dengan bounded type:
+ *
+ * T = "hanya anggota tertentu yang boleh masuk"
+ *
+ * Karena semua anggota memenuhi syarat yang sama,
+ * compiler tahu kemampuan apa yang pasti dimiliki setiap T.
+ *
+ * ------------------------------------------------------------
+ *
+ * Ringkasan
+ *
+ * • Secara default, generic dapat menerima tipe apa pun.
+ * • Bounded type digunakan untuk membatasi tipe generic.
+ * • Bentuk umumnya:
+ *      <T extends SuperClass>
+ * • Compiler menjadi tahu method apa yang tersedia pada T.
+ * • Meningkatkan type safety dan mencegah penggunaan tipe yang salah.
+ * • Multiple bounds didukung menggunakan operator '&'.
+ * • Pada generic selalu menggunakan keyword extends,
+ *   baik untuk class maupun interface.
  */
 
 // KODE SALAH jika belum extends

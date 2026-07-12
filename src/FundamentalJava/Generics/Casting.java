@@ -1,158 +1,268 @@
 package FundamentalJava.Generics;
 
-/**
- * Lu bisa casting antar generic class
- * TAPI dengan syarat:
+/* ============================================================
+ *             CASTING PADA CLASS GENERIC
+ * ============================================================
  *
- * Syarat WAJIB:
- * Class-nya harus compatible (punya hubungan inheritance)
- * Type argument HARUS SAMA
+ * Casting antar class generic diperbolehkan, tetapi terdapat aturan
+ * yang harus dipenuhi agar tetap menjaga type safety.
  *
- * CONTOH 
- * VALID (boleh)
- * (Gen<Integer>) iOb2
+ * Dua syarat utama adalah:
  *
- * Kenapa boleh?
+ * 1. Class harus memiliki hubungan inheritance.
+ * 2. Type argument harus sama.
  *
- * Karena:
- * iOb2 adalah Gen2<Integer>
- * Gen2 itu turunan dari Gen
- * dan type-nya sama: Integer
+ * Jika salah satu syarat tersebut tidak terpenuhi,
+ * compiler akan menolak proses casting.
+ */
+
+
+/* ------------------------------------------------------------
+ * Syarat 1 : Class Harus Compatible
+ * ------------------------------------------------------------
  *
- * Jadi:
- * Gen2<Integer> → Gen<Integer> 
+ * Misalnya terdapat hierarki berikut:
  *
- * TIDAK VALID
- * (Gen<Long>) iOb2
- *
- * Kenapa error?
- *
- * Karena:
- * iOb2 isinya Integer
- * lu maksa jadi Long
- *
- * Jadi:
- * Integer ≠ Long 
- *
- * -----------------------------------------
- * 
- * PENJELASAN 
- * 
- * Struktur class kita:
  * Gen<T>
  *    ↑
  * Gen2<T>
  *
- * Object:
- * Gen2<Integer> iOb2 = new Gen2<>(99);
+ * Karena Gen2 merupakan subclass dari Gen,
+ * maka casting dari child ke parent diperbolehkan,
+ * sama seperti inheritance pada class biasa.
+ */
+
+
+/* ------------------------------------------------------------
+ * Syarat 2 : Type Argument Harus Sama
+ * ------------------------------------------------------------
  *
- * Maka:
- * T = Integer
+ * Selain hubungan inheritance, type argument juga harus identik.
  *
- * KASUS 1 (AMAN)
- * Gen<Integer> g = (Gen<Integer>) iOb2;
+ * Contoh:
  *
- * Ini aman karena:
- * child → parent (boleh)
- * type sama (Integer)
+ * Gen2<Integer> obj = new Gen2<>(99);
  *
- * KASUS 2 (BAHAYA)
- * Gen<Long> g = (Gen<Long>) iOb2;
+ * Maka object tersebut bertipe:
  *
- * Ini ditolak karena:
- * type beda
- * Java menjaga type safety
+ * Gen2<Integer>
  *
- * -------------------------------------------
- * 
- * HUBUNGAN DENGAN ERASURE (DALAM BANGET)
- * 
- * Lu mungkin mikir:
- * "kan generic dihapus di runtime?"
+ * Bukan:
  *
- * BETUL
+ * Gen2<Long>
+ * Gen2<Number>
+ * Gen2<Object>
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Casting yang Valid
+ * ------------------------------------------------------------
  *
- * Tapi:
- * Compiler tetap ngecek di compile-time
+ * Gen2<Integer> obj = new Gen2<>(99);
  *
- * Jadi:
- * Runtime: gak tau <Integer>
- * Compile-time: tau banget
+ * Gen<Integer> ref = (Gen<Integer>) obj;
  *
- * Maka:
- * (Gen<Long>) iOb2
+ * Casting di atas valid karena:
  *
- * ditolak dari awal (compile error)
+ * - Gen2 merupakan subclass dari Gen.
+ * - Keduanya menggunakan type argument Integer.
  *
- * -------------------------------
- * 
- * ANALOGI BIAR NGERTI
+ * Secara konsep:
  *
- * Bayangin:
+ * Gen2<Integer>
+ *        ↓
+ * Gen<Integer>
+ *
+ * Sama seperti melakukan upcasting pada inheritance biasa.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Casting yang Tidak Valid
+ * ------------------------------------------------------------
+ *
+ * Gen2<Integer> obj = new Gen2<>(99);
+ *
+ * Gen<Long> ref = (Gen<Long>) obj;
+ *
+ * Casting tersebut tidak diperbolehkan karena:
+ *
+ * - Type argument sumber adalah Integer.
+ * - Type argument tujuan adalah Long.
+ *
+ * Integer dan Long merupakan tipe yang berbeda sehingga
+ * compiler akan menolak proses casting.
+ *
+ * Java menjaga agar type argument generic tidak dapat diubah
+ * secara sembarangan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Compiler Menolaknya?
+ * ------------------------------------------------------------
+ *
+ * Compiler harus menjamin bahwa seluruh operasi generic
+ * tetap type-safe.
+ *
+ * Jika casting seperti berikut diperbolehkan:
+ *
+ * Gen<Integer> → Gen<Long>
+ *
+ * maka program berpotensi menghasilkan kesalahan tipe data
+ * yang sulit dideteksi.
+ *
+ * Oleh karena itu compiler menghentikan proses tersebut
+ * sejak tahap compile-time.
+ */
+
+
+/* ------------------------------------------------------------
+ * Hubungan dengan Type Erasure
+ * ------------------------------------------------------------
+ *
+ * Mungkin muncul pertanyaan:
+ *
+ * "Bukankah generic dihapus saat runtime?"
+ *
+ * Jawabannya: benar.
+ *
+ * Java menerapkan type erasure sehingga informasi generic
+ * tidak lagi tersedia pada sebagian besar proses runtime.
+ *
+ * Namun sebelum type erasure dilakukan,
+ * compiler telah memverifikasi seluruh penggunaan generic.
+ *
+ * Artinya:
+ *
+ * - Compile-time mengetahui bahwa tipe adalah Integer.
+ * - Runtime tidak lagi menyimpan informasi tersebut.
+ *
+ * Karena pengecekan dilakukan sebelum program dijalankan,
+ * casting yang tidak valid sudah ditolak sejak proses kompilasi.
+ */
+
+
+/* ------------------------------------------------------------
+ * Analogi
+ * ------------------------------------------------------------
+ *
+ * Bayangkan terdapat dua kotak:
+ *
  * Kotak<Integer>
  * Kotak<Long>
  *
- * Walaupun bentuknya sama
- * Tapi isi beda
+ * Bentuk kedua kotak mungkin sama,
+ * tetapi isi yang boleh disimpan berbeda.
  *
- * Lu gak bisa bilang:
- * Kotak apel → Kotak jeruk 
+ * Kotak<Integer> tidak dapat dianggap sebagai
+ * Kotak<Long>, meskipun keduanya berasal dari class yang sama.
  *
- * PERBEDAAN DENGAN NON-GENERIC
- * 
- * Tanpa generics:
+ * Generic menjaga agar isi setiap "kotak"
+ * tetap sesuai dengan tipe yang telah ditentukan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Perbedaan dengan Casting Tanpa Generic
+ * ------------------------------------------------------------
+ *
+ * Tanpa generic:
+ *
  * Object obj = "Hello";
- * Integer x = (Integer) obj; // lolos compile, crash runtime
- * bahaya
+ * Integer value = (Integer) obj;
  *
- * Dengan generics:
- * Gen<Integer> a
- * Gen<String> b
+ * Kode tersebut berhasil dikompilasi,
+ * tetapi akan menghasilkan ClassCastException saat runtime.
  *
- * a = (Gen<Integer>) b; // compile error
- * aman dari awal
+ * Dengan generic:
  *
- * RULE PALING PENTING
- * BOLEH:
+ * Gen<Integer> a;
+ * Gen<String> b;
+ *
+ * a = (Gen<Integer>) b;
+ *
+ * Compiler langsung menolak kode tersebut,
+ * sehingga kesalahan dapat ditemukan lebih awal.
+ *
+ * Inilah salah satu keuntungan utama penggunaan generic,
+ * yaitu mendeteksi kesalahan tipe sejak compile-time.
+ */
+
+
+/* ------------------------------------------------------------
+ * Aturan Penting
+ * ------------------------------------------------------------
+ *
+ * Diperbolehkan:
+ *
  * Child<T> → Parent<T>
- * GAK BOLEH:
+ *
+ * Contoh:
+ *
+ * Gen2<Integer> → Gen<Integer>
+ *
+ * Tidak diperbolehkan:
+ *
  * Child<Integer> → Parent<Long>
  *
- * -------------------------------------------
- * 
- * CONTOH TAMBAHAN BIAR NGENA
- * 
+ * meskipun class-nya masih memiliki hubungan inheritance.
+ *
+ * Type argument harus tetap sama.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Lain
+ * ------------------------------------------------------------
+ *
  * Gen2<String> str = new Gen2<>("Hi");
  *
- * // ini boleh
+ * Valid:
+ *
  * Gen<String> g1 = (Gen<String>) str;
  *
- * // ini ERROR
+ * Tidak valid:
+ *
  * Gen<Integer> g2 = (Gen<Integer>) str;
  *
- * KESIMPULAN SUPER SIMPLE
+ * Compiler menolak karena String dan Integer
+ * merupakan type argument yang berbeda.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
  *
- * Casting generic hanya boleh kalau:
+ * Casting antar class generic hanya diperbolehkan jika:
  *
- * class compatible ✔
- * type sama ✔
+ * - Class memiliki hubungan inheritance.
+ * - Type argument sama.
  *
- * Kalau type beda:
- * compile error (langsung ketangkep)
+ * Jika type argument berbeda,
+ * compiler akan menghasilkan compile-time error.
  *
- * Ini bikin generics:
- * type-safe banget
+ * Aturan ini merupakan bagian dari mekanisme type safety
+ * yang menjadi salah satu keunggulan utama generic di Java.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
  *
- * REAL DI DUNIA KERJA
+ * Aturan ini sangat sering dijumpai ketika bekerja dengan:
  *
- * Ini sering kejadian di:
+ * - Java Collections Framework
+ * - Generic API
+ * - DTO dan Entity Mapping
+ * - Framework seperti Spring dan Hibernate
  *
- * Collections
- * API response
- * DTO mapping
- *
- * Makanya generics:
- * mencegah bug sebelum program jalan
+ * Dengan memverifikasi tipe sejak compile-time,
+ * generic membantu mencegah banyak bug yang sebelumnya
+ * baru diketahui ketika program dijalankan.
  */
 
 class Satu<T> {

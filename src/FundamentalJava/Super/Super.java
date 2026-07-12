@@ -1,188 +1,214 @@
 package FundamentalJava.Super;
 
-    /**
-     * Di contoh sebelumnya, BoxWeight belum dibuat dengan efisien.
-     * Kenapa?
-     * Karena:
-     * Dia ngisi ulang width, height, depth sendiri
-     *
-     * Padahal itu sudah ada di superclass (Box)
-     * Ini bikin:
-     * - duplikasi kode 
-     * - tidak efisien 
-     * - melanggar encapsulation 
-     *
-     * Masalah sebelumnya:
-     * width = w;
-     * height = h;
-     * depth = d;
-     *
-     * Ini seharusnya tugas Box, bukan BoxWeight
-     *
-     * SOLUSI: super
-     * Java menyediakan keyword super untuk:
-     * Mengakses superclass dari subclass
-     *
-     * Ada 2 fungsi super
-     * 1. Panggil constructor superclass
-     * super(arg);
-     * 2. Akses member superclass
-     *
-     * --------------------------------
-     * 
-     * ATURAN PALING PENTING
-     * super() HARUS jadi baris pertama di constructor
-     *
-     * CONTOH PERBAIKAN (VERSI BENAR)
-     * class BoxWeight extends Box {
-     *   double weight;
-     *
-     *   BoxWeight(double w, double h, double d, double m) {
-     *     super(w, h, d); // panggil constructor Box
-     *     weight = m;     // hanya isi yang unik
-     *   }
-     * }
-     *
-     * Ini yang terjadi:
-     * super(w,h,d)
-     * ↓
-     * masuk ke constructor Box
-     * ↓
-     * width, height, depth di-set di sana
-     *
-     * Jadi:
-     * BoxWeight TIDAK perlu set ulang
-     *
-     * KEUNTUNGAN super
-     * 1. Tidak duplikasi kode
-     * 2. Lebih bersih
-     * 3. Mendukung encapsulation
-     *
-     * ALUR KERJA super()
-     * Contoh:
-     * BoxWeight mybox = new BoxWeight(10,20,15,34.3);
-     * Step-by-step:
-     * Masuk constructor BoxWeight
-     * Langsung:
-     * super(10,20,15);
-     * Masuk constructor Box
-     * Set:
-     * width, height, depth
-     * Balik ke BoxWeight
-     * Set:
-     * weight
-     *
-     * Kalau superclass tidak punya default constructor:
-     * HARUS pakai super(...)
-     *
-     * RINGKASAN SUPER INTI
-     * Fungsi utama super:
-     * 1. Panggil constructor superclass
-     * 2. Hindari duplikasi kode
-     * 3. Jaga encapsulation
-     *
-     * Aturan emas:
-     * super() HARUS di baris pertama
-     * Insight penting:
-     * Subclass tidak perlu tahu detail superclass
-     *
-     * Ini inti OOP yang bener.
-     */
-
-    /**
-     * Bentuk kedua dari super digunakan seperti ini:
-     * super.member
-     * Di mana member bisa berupa:
-     * variabel
-     * method
-     *
-     * Penggunaan ini dipakai ketika:
-     * Subclass punya nama variabel/method yang SAMA dengan superclass
-     *
-     * Ini disebut:
-     * name hiding (penyembunyian nama)
-     *
-     * Masalahnya:
-     * Kalau subclass punya nama yang sama:
-     *
-     * class A {
-     *     int i;
-     * }
-     *
-     * class B extends A {
-     *     int i; // ❗ menimpa (hide) i dari A
-     * }
-     *
-     * Sekarang ada 2 variabel i:
-     * i milik A
-     * i milik B
-     *
-     * Pertanyaannya:
-     * Kalau di B kita tulis:
-     * i
-     *
-     * Itu yang mana?
-     * Jawab:
-     * Yang di B (subclass)
-     *
-     * Nah di sinilah super dipakai
-     * super.i
-     *
-     * Artinya:
-     * Ambil i dari superclass (A)
-     *
-     * class A {
-     *   int i;
-     * }
-     *
-     * class B extends A {
-     *   int i; // ini menutupi i dari A
-     *
-     *   B(int a, int b) {
-     *     super.i = a; // isi i milik A
-     *     i = b;       // isi i milik B
-     *   }
-     *
-     *   void show() {
-     *     System.out.println("i in superclass: " + super.i);
-     *     System.out.println("i in subclass: " + i);
-     *   }
-     * }
-     *
-     * class UseSuper {
-     *   public static void main(String args[]) {
-     *     B subOb = new B(1, 2);
-     *     subOb.show();
-     *   }
-     * }
-     *
-     * ALUR PROGRAM
-     * 1. Buat object
-     * B subOb = new B(1, 2);
-     * 2. Masuk constructor B
-     * super.i = 1; // i di A = 1
-     * i = 2;       // i di B = 2
-     * 3. Output
-     * i in superclass: 1
-     * i in subclass: 2
-     *
-     * PERBEDAAN super() vs super.member
-     * Bentuk	        Fungsi
-     * super()	        panggil constructor
-     * super.x	        akses variabel parent
-     * super.method()	panggil method parent
-     *
-     * INTI PALING PENTING
-     * super = akses ke versi superclass
-     * Insight dalam:
-     * Subclass bisa punya "versi sendiri"
-     * tapi superclass tetap ada di dalam object
-     *
-     * KAPAN super.member DIPAKAI?
-     * Biasanya dipakai kalau:
-     * nama sama (override/hiding)
-     * mau akses versi parent
-     */
+/**
+ * ------------------------------------------------------------------------
+ * KEYWORD SUPER
+ * ------------------------------------------------------------------------
+ * 
+ * Java menyediakan keyword super untuk:
+ * Mengakses superclass dari subclass.
+ * 
+ * Ada 2 fungsi utama super:
+ * 1. Memanggil constructor superclass → super()
+ * 2. Mengakses member superclass → super.member
+ * 
+ * ------------------------------------------------------------------------
+ * MASALAH SEBELUMNYA (TANPA SUPER)
+ * ------------------------------------------------------------------------
+ * 
+ * Pada contoh sebelumnya, BoxWeight dibuat dengan cara yang tidak efisien.
+ * 
+ *     class BoxWeight extends Box {
+ *         double weight;
+ * 
+ *         BoxWeight(double w, double h, double d, double m) {
+ *             width = w;      // ❌ Duplikasi!
+ *             height = h;     // ❌ Duplikasi!
+ *             depth = d;      // ❌ Duplikasi!
+ *             weight = m;
+ *         }
+ *     }
+ * 
+ * Kenapa ini buruk?
+ * - Duplikasi kode (width, height, depth diisi ulang)
+ * - Tidak efisien
+ * - Melanggar encapsulation
+ * - Superclass seharusnya bertanggung jawab atas member-nya sendiri
+ * 
+ * Seharusnya tugas Box, bukan BoxWeight.
+ * 
+ * ------------------------------------------------------------------------
+ * SOLUSI: super() UNTUK MEMANGGIL CONSTRUCTOR SUPERCLASS
+ * ------------------------------------------------------------------------
+ * 
+ *     class BoxWeight extends Box {
+ *         double weight;
+ * 
+ *         BoxWeight(double w, double h, double d, double m) {
+ *             super(w, h, d);  // ✅ Panggil constructor Box
+ *             weight = m;      // ✅ Hanya isi yang unik
+ *         }
+ *     }
+ * 
+ * ATURAN PALING PENTING:
+ * super() HARUS menjadi baris PERTAMA di constructor.
+ * 
+ * ------------------------------------------------------------------------
+ * ALUR KERJA super()
+ * ------------------------------------------------------------------------
+ * 
+ * Contoh:
+ *     BoxWeight mybox = new BoxWeight(10, 20, 15, 34.3);
+ * 
+ * Step-by-step:
+ * 
+ * 1. Masuk constructor BoxWeight
+ * 2. Langsung jalankan: super(10, 20, 15)
+ * 3. Masuk constructor Box
+ * 4. Set: width = 10, height = 20, depth = 15
+ * 5. Kembali ke BoxWeight
+ * 6. Set: weight = 34.3
+ * 
+ * Keuntungan:
+ * - Tidak duplikasi kode
+ * - Lebih bersih
+ * - Mendukung encapsulation
+ * - Subclass tidak perlu tahu detail superclass
+ * 
+ * ------------------------------------------------------------------------
+ * SUPERCLASS TANPA DEFAULT CONSTRUCTOR
+ * ------------------------------------------------------------------------
+ * 
+ * Jika superclass tidak memiliki default constructor (constructor tanpa parameter),
+ * maka subclass HARUS memanggil super() secara eksplisit.
+ * 
+ *     class Box {
+ *         double width, height, depth;
+ * 
+ *         // Hanya ada constructor dengan parameter
+ *         Box(double w, double h, double d) {
+ *             width = w;
+ *             height = h;
+ *             depth = d;
+ *         }
+ *     }
+ * 
+ *     class BoxWeight extends Box {
+ *         double weight;
+ * 
+ *         BoxWeight(double w, double h, double d, double m) {
+ *             super(w, h, d);  // WAJIB! Karena Box tidak punya default constructor
+ *             weight = m;
+ *         }
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * BENTUK KEDUA: super.member UNTUK AKSES MEMBER SUPERCLASS
+ * ------------------------------------------------------------------------
+ * 
+ * Bentuk kedua dari super digunakan seperti ini:
+ *     super.member
+ * 
+ * Di mana member bisa berupa:
+ * - Variabel
+ * - Method
+ * 
+ * Penggunaan ini dipakai ketika:
+ * Subclass punya nama variabel/method yang SAMA dengan superclass.
+ * 
+ * Ini disebut:
+ * name hiding (penyembunyian nama)
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH NAME HIDING
+ * ------------------------------------------------------------------------
+ * 
+ *     class A {
+ *         int i;
+ *     }
+ * 
+ *     class B extends A {
+ *         int i;  // ❗ Menutupi (hide) i dari A
+ * 
+ *         B(int a, int b) {
+ *             super.i = a;  // Isi i milik A
+ *             i = b;        // Isi i milik B
+ *         }
+ * 
+ *         void show() {
+ *             System.out.println("i in superclass: " + super.i);
+ *             System.out.println("i in subclass: " + i);
+ *         }
+ *     }
+ * 
+ *     public class UseSuper {
+ *         public static void main(String[] args) {
+ *             B subOb = new B(1, 2);
+ *             subOb.show();
+ *         }
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * ALUR PROGRAM
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Buat object:
+ *     B subOb = new B(1, 2);
+ * 
+ * 2. Masuk constructor B:
+ *     super.i = 1;  // i di A = 1
+ *     i = 2;        // i di B = 2
+ * 
+ * 3. Output:
+ *     i in superclass: 1
+ *     i in subclass: 2
+ * 
+ * ------------------------------------------------------------------------
+ * PERBEDAAN super() vs super.member
+ * ------------------------------------------------------------------------
+ * 
+ * Bentuk           | Fungsi
+ * -----------------|------------------------------------------
+ * super()          | Memanggil constructor superclass
+ * super.variabel   | Mengakses variabel superclass
+ * super.method()   | Memanggil method superclass
+ * 
+ * ------------------------------------------------------------------------
+ * INTI PALING PENTING
+ * ------------------------------------------------------------------------
+ * 
+ * super = akses ke versi superclass
+ * 
+ * Insight dalam:
+ * - Subclass bisa punya "versi sendiri" dari variabel/method
+ * - Tapi superclass tetap ada di dalam object
+ * - super memungkinkan kita mengakses versi superclass
+ * 
+ * ------------------------------------------------------------------------
+ * KAPAN super.member DIGUNAKAN?
+ * ------------------------------------------------------------------------
+ * 
+ * Biasanya dipakai ketika:
+ * - Nama sama (override/hiding)
+ * - Ingin mengakses versi parent, bukan versi child
+ * 
+ * Contoh kasus:
+ * - Method overriding: ingin memanggil method parent
+ * - Name hiding: ingin akses variabel parent yang tertutupi
+ * 
+ * ------------------------------------------------------------------------
+ * RINGKASAN SUPER
+ * ------------------------------------------------------------------------
+ * 
+ * 1. super() → panggil constructor superclass (WAJIB di baris pertama)
+ * 2. super.member → akses member superclass
+ * 3. Menghindari duplikasi kode
+ * 4. Menjaga encapsulation
+ * 5. Subclass tidak perlu tahu detail superclass
+ * 6. Ini adalah inti OOP yang benar
+ * 
+ * ------------------------------------------------------------------------
+ */
 
 class Box {
     private double width;

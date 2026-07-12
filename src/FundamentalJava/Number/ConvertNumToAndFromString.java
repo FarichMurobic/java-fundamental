@@ -1,49 +1,141 @@
 package FundamentalJava.Number;
 
 /**
- * Converting Numbers to and from Strings
- * Salah satu pekerjaan paling umum dalam pemrograman adalah mengubah representasi angka dalam bentuk string menjadi format biner internal.
- *
- * Untungnya, Java menyediakan cara yang mudah untuk melakukan hal ini.
- *
- * Class:
- * Byte
- * Short
- * Integer
- * Long
- *
- * menyediakan method:
- * parseByte()
- * parseShort()
- * parseInt()
- * parseLong()
- *
- * Method-method ini akan mengembalikan nilai angka (byte, short, int, long) dari string yang diberikan.
- * (Method serupa juga ada untuk Float dan Double.)
- *
+ * ------------------------------------------------------------------------
+ * CONVERTING NUMBERS TO AND FROM STRINGS
+ * ------------------------------------------------------------------------
+ * 
+ * Salah satu pekerjaan paling umum dalam pemrograman adalah mengubah
+ * representasi angka dalam bentuk string menjadi format biner internal
+ * yang bisa diproses oleh program.
+ * 
+ * Untungnya, Java menyediakan cara yang mudah dan terstandarisasi
+ * untuk melakukan konversi ini.
+ * 
+ * ------------------------------------------------------------------------
+ * KONVERSI STRING → NUMBER
+ * ------------------------------------------------------------------------
+ * 
+ * Class-wrapper untuk tipe data primitif menyediakan method parsing:
+ * 
+ * Class       | Method Parsing       | Return Type
+ * ------------|----------------------|-------------
+ * Byte        | parseByte()          | byte
+ * Short       | parseShort()         | short
+ * Integer     | parseInt()           | int
+ * Long        | parseLong()          | long
+ * Float       | parseFloat()         | float
+ * Double      | parseDouble()        | double
+ * 
+ * Method-method ini akan mengembalikan nilai numerik dari string yang diberikan.
+ * 
+ * Contoh:
+ * 
+ *     int angka = Integer.parseInt("123");
+ *     double desimal = Double.parseDouble("45.67");
+ *     long besar = Long.parseLong("9999999999");
+ * 
+ * ------------------------------------------------------------------------
+ * KONVERSI NUMBER → STRING
+ * ------------------------------------------------------------------------
+ * 
+ * Mengubah number menjadi string bisa dilakukan dengan beberapa cara:
+ * 
+ * 1. Menggunakan method toString() dari class wrapper:
+ * 
+ *     String str = Integer.toString(123);    // "123"
+ *     String str = Double.toString(45.67);   // "45.67"
+ * 
+ * 2. Menggunakan method valueOf():
+ * 
+ *     String str = String.valueOf(123);      // "123"
+ *     String str = String.valueOf(45.67);    // "45.67"
+ * 
+ * 3. Menggunakan string concatenation (otomatis):
+ * 
+ *     String str = "" + 123;                 // "123" (tidak disarankan)
+ * 
+ * ------------------------------------------------------------------------
+ * KONVERSI DENGAN FORMAT LAIN
+ * ------------------------------------------------------------------------
+ * 
+ * Integer dan Long menyediakan method untuk konversi ke format lain:
+ * 
+ *     // Desimal ke biner
+ *     String biner = Integer.toBinaryString(10);   // "1010"
+ * 
+ *     // Desimal ke heksadesimal
+ *     String hex = Integer.toHexString(255);       // "ff"
+ * 
+ *     // Desimal ke oktal
+ *     String octal = Integer.toOctalString(8);     // "10"
+ * 
+ *     // String biner ke desimal
+ *     int desimal = Integer.parseInt("1010", 2);   // 10
+ * 
+ * ------------------------------------------------------------------------
  * KESIMPULAN SEDERHANA
- *
+ * ------------------------------------------------------------------------
+ * 
  * Intinya:
- * Input user = String
- * Program butuh = Number
- * Solusi = parseXXX()
- *
- * WAJIB LO INGAT:
- * parseInt() → string ke int
- * toString() → int ke string
- * selalu pakai try-catch
- * format lain: binary, hex, octal
- *
+ * - Input dari user biasanya berupa String
+ * - Program membutuhkan data dalam bentuk Number
+ * - Solusi: gunakan method parseXXX()
+ * 
+ * WAJIB DIINGAT:
+ * - parseInt()   → String ke int
+ * - toString()   → int ke String
+ * - Selalu gunakan try-catch
+ * - Ada format lain: binary, hex, octal
+ * 
+ * ------------------------------------------------------------------------
  * REAL TALK (INI YANG KEPAKE BANGET)
- * Di backend:
- * Semua request:
- *
- * {
- *   "age": "25"
- * }
- *
- * Harus diubah ke:
- * int age = Integer.parseInt("25");
+ * ------------------------------------------------------------------------
+ * 
+ * Di backend development:
+ * 
+ * Semua request dari client berupa JSON:
+ * 
+ *     {
+ *         "age": "25",
+ *         "salary": "7500000",
+ *         "rating": "4.5"
+ *     }
+ * 
+ * Semua nilai datang sebagai String.
+ * Harus diubah ke tipe data yang sesuai:
+ * 
+ *     int age = Integer.parseInt("25");
+ *     long salary = Long.parseLong("7500000");
+ *     double rating = Double.parseDouble("4.5");
+ * 
+ * ------------------------------------------------------------------------
+ * PENANGANAN EXCEPTION (WAJIB)
+ * ------------------------------------------------------------------------
+ * 
+ * Method parsing bisa melempar NumberFormatException
+ * jika string tidak mengandung angka yang valid.
+ * 
+ * SELALU gunakan try-catch:
+ * 
+ *     try {
+ *         int umur = Integer.parseInt(inputUser);
+ *         System.out.println("Umur: " + umur);
+ *     } catch (NumberFormatException e) {
+ *         System.out.println("Input tidak valid! Harus berupa angka.");
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * RINGKASAN SUPER PADAT
+ * ------------------------------------------------------------------------
+ * 
+ * - parseXXX()   = String → Number (harus try-catch)
+ * - toString()   = Number → String
+ * - valueOf()    = Number → String (alternatif)
+ * - toBinaryString() / toHexString() / toOctalString() = format lain
+ * - parseInt(String, radix) = parsing dengan basis tertentu
+ * 
+ * ------------------------------------------------------------------------
  */
 
 /**
@@ -86,7 +178,7 @@ public class ConvertNumToAndFromString {
         } while (i != 0); // berhenti kalau user input 0
 
         /**
-         * PENJELASAN DALAM
+         * PENJELASAN:
          * 
          * 1. Masalah utama di dunia nyata
          * User input itu SELALU:
@@ -153,7 +245,8 @@ public class ConvertNumToAndFromString {
         // Mengubah angka ke format heksadesimal (basis 16)
 
         /**
-         * OUTPUT
+         * OUTPUT:
+         * 
          * 19648 in binary: 100110011000000
          * 19648 in octal: 46300
          * 19648 in hexadecimal: 4cc0

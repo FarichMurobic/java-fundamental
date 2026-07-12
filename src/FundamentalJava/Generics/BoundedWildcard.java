@@ -1,126 +1,410 @@
 package FundamentalJava.Generics;
 
-/**
- * INTI KONSEP BESAR
+/* ============================================================
+ *                    BOUNDED WILDCARDS
+ * ============================================================
  *
- * Sebelumnya lu udah tau:
- * Stats<?>
+ * Sebelumnya kita telah mengenal wildcard:
  *
- * artinya:
- * bebas tipe apa aja
+ * <?>
  *
- * Masalahnya:
- * Kadang kita gak mau terlalu bebas
+ * Wildcard tanpa batas (unbounded wildcard) dapat merepresentasikan
+ * generic dengan tipe apa pun.
  *
- * kita mau:
- * fleksibel 
- * tapi tetap dibatasi 
+ * Contoh:
  *
- * Solusi:
- * Bounded Wildcard
+ * Coords<TwoD>
+ * Coords<ThreeD>
+ * Coords<FourD>
  *
- * CONTOH STRUKTUR KELAS DIBAWAH
- * 
- * Artinya:
- * TwoD → x, y
- * ThreeD → x, y, z
- * FourD → x, y, z, t
+ * Seluruhnya dapat direferensikan sebagai:
  *
- * GENERIC CLASS
- * Artinya:
- * T minimal harus TwoD
- * atau turunannya
- *
- * METHOD PERTAMA (WILDCARD BIASA)
- * 
- * Kenapa ini aman?
- * Karena:
- * semua turunan TwoD pasti punya:
- * X, Y
- *
- * Jadi:
- * Coords<TwoD> 
- * Coords<ThreeD> 
- * Coords<FourD> 
- *
- * MASALAH BARU
- * Kita mau bikin:
- * tampilkan X, Y, Z
- *
- * Masalah:
- * TwoD gak punya z
- *
- * Jadi gak bisa pakai:
  * Coords<?>
  *
- * SOLUSI: BOUNDED WILDCARD (extends)
+ * Wildcard biasa memberikan fleksibilitas yang sangat tinggi.
+ * Namun, pada kondisi tertentu fleksibilitas tersebut terlalu luas,
+ * karena kita hanya ingin menerima kelompok tipe tertentu.
+ *
+ * Untuk mengatasi kebutuhan tersebut, Java menyediakan
+ * bounded wildcard.
+ */
+
+
+/* ------------------------------------------------------------
+ * Upper Bounded Wildcard
+ * ------------------------------------------------------------
+ *
+ * Bentuk umum:
+ *
+ * <? extends T>
+ *
  * Artinya:
+ *
+ * Generic dapat menerima:
+ * - T
+ * - Seluruh subclass dari T
+ *
+ * Contoh:
+ *
+ * <? extends Number>
+ *
+ * Dapat menerima:
+ *
+ * Integer
+ * Double
+ * Float
+ * Long
+ *
+ * Namun tidak dapat menerima:
+ *
+ * String
+ * Object
+ *
+ * karena keduanya bukan turunan dari Number.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh Hierarki Class
+ * ------------------------------------------------------------
+ *
+ * class TwoD {
+ *     int x, y;
+ * }
+ *
+ * class ThreeD extends TwoD {
+ *     int z;
+ * }
+ *
+ * class FourD extends ThreeD {
+ *     int t;
+ * }
+ *
+ * Generic:
+ *
+ * class Coords<T extends TwoD> {
+ *     T[] coords;
+ * }
+ *
+ * Batas:
+ *
+ * <T extends TwoD>
+ *
+ * menjamin bahwa seluruh object bertipe T minimal memiliki
+ * seluruh member milik TwoD, yaitu:
+ *
+ * x
+ * y
+ *
+ * Compiler dapat memverifikasi hal tersebut pada saat compile-time.
+ */
+
+
+/* ------------------------------------------------------------
+ * Method showXY()
+ * ------------------------------------------------------------
+ *
+ * Misalnya terdapat method:
+ *
+ * static void showXY(Coords<? extends TwoD> c)
+ *
+ * Method tersebut aman karena compiler mengetahui bahwa seluruh
+ * object yang diterima minimal merupakan turunan TwoD.
+ *
+ * Artinya seluruh object pasti memiliki:
+ *
+ * x
+ * y
+ *
+ * Oleh karena itu method dapat menerima:
+ *
+ * Coords<TwoD>
+ * Coords<ThreeD>
+ * Coords<FourD>
+ *
+ * dan seluruh field x serta y dapat diakses tanpa casting.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ketika Upper Bound Terlalu Umum
+ * ------------------------------------------------------------
+ *
+ * Misalkan dibuat method:
+ *
+ * showXYZ()
+ *
+ * yang ingin mengakses:
+ *
+ * x
+ * y
+ * z
+ *
+ * Jika parameter masih menggunakan:
+ *
+ * <? extends TwoD>
+ *
+ * compiler tidak dapat menjamin bahwa field z tersedia,
+ * karena class TwoD memang tidak memiliki field tersebut.
+ *
+ * Walaupun beberapa subclass memiliki field z,
+ * compiler hanya mengetahui batas minimalnya, yaitu TwoD.
+ */
+
+
+/* ------------------------------------------------------------
+ * Solusi: Upper Bound yang Lebih Spesifik
+ * ------------------------------------------------------------
+ *
+ * Gunakan:
+ *
  * <? extends ThreeD>
  *
- * "boleh tipe apa aja ASAL:
+ * Artinya parameter hanya dapat berupa:
+ *
  * ThreeD
- * atau turunannya"
+ * atau subclass dari ThreeD.
  *
- * Jadi yang boleh:
- * Coords<ThreeD> 
- * Coords<FourD> 
+ * Dengan demikian compiler mengetahui bahwa setiap object
+ * pasti memiliki:
  *
- * Yang gak boleh:
- * Coords<TwoD> 
+ * x
+ * y
+ * z
  *
- * METHOD PALING SPESIFIK
- * hanya:
- * Coords<FourD> 
+ * Method sekarang dapat menerima:
  *
- * INTI PALING PENTING (WAJIB NGENA)
- * 
- * 1. ? extends X
+ * Coords<ThreeD>
+ * Coords<FourD>
  *
- * artinya:
- * X atau turunannya
+ * tetapi tidak dapat menerima:
  *
- * 2. Digunakan saat:
- * kita mau AKSES data (read)
+ * Coords<TwoD>
  *
- * 3. Semakin ke bawah:
- * makin spesifik
- * makin terbatas
- *
- * Method	    Batas	    Bisa pakai
- * showXY	    bebas	    semua
- * showXYZ	    ThreeD	    3D & 4D
- * showAll	    FourD	    hanya 4D
- *
- * -----------------------------------------------------
- * 
- * ANALOGI PALING GAMPANG
- *
- * Bayangin:
- * Tanpa batas
- * semua koordinat
- *
- * extends ThreeD
- * hanya koordinat yang punya Z
- *
- * extends FourD
- * hanya koordinat yang punya T
- *
- * KESIMPULAN 
- * 
- * 1. Wildcard bisa dibatasi
- * 2. Upper bound:
- *    <? extends Class>
- *    ambil data (read)
- *
- * 3. Lower bound:
- *    <? super Class>
- *    isi data (write)
- *
- * 4. Ini dipakai di dunia kerja banget
- * Contoh real:
- * List<? extends Number>
- * List<? super Integer>
+ * karena TwoD belum memiliki field z.
  */
+
+
+/* ------------------------------------------------------------
+ * Method yang Lebih Spesifik
+ * ------------------------------------------------------------
+ *
+ * Jika sebuah method membutuhkan seluruh field:
+ *
+ * x
+ * y
+ * z
+ * t
+ *
+ * maka gunakan:
+ *
+ * <? extends FourD>
+ *
+ * Karena hanya FourD dan turunannya yang dijamin memiliki
+ * seluruh field tersebut.
+ *
+ * Pada contoh hierarki ini, method hanya dapat menerima:
+ *
+ * Coords<FourD>
+ */
+
+
+/* ------------------------------------------------------------
+ * Tingkat Spesifikasi Upper Bound
+ * ------------------------------------------------------------
+ *
+ * Semakin spesifik upper bound yang digunakan,
+ * semakin sedikit tipe generic yang dapat diterima.
+ *
+ * ------------------------------------------------------------
+ * Method      Parameter                  Menerima
+ * ------------------------------------------------------------
+ * showXY()    <? extends TwoD>           TwoD, ThreeD, FourD
+ * showXYZ()   <? extends ThreeD>         ThreeD, FourD
+ * showAll()   <? extends FourD>          FourD
+ * ------------------------------------------------------------
+ */
+
+
+/* ------------------------------------------------------------
+ * Upper Bound Bersifat Producer (Read)
+ * ------------------------------------------------------------
+ *
+ * Wildcard:
+ *
+ * <? extends T>
+ *
+ * umumnya digunakan ketika object hanya akan dibaca (read).
+ *
+ * Compiler mengetahui bahwa setiap elemen minimal bertipe T,
+ * sehingga seluruh member milik T dapat diakses dengan aman.
+ *
+ * Sebaliknya, compiler tidak mengetahui tipe konkret dari object,
+ * sehingga penambahan elemen baru tidak diperbolehkan
+ * (kecuali null).
+ *
+ * Oleh karena itu:
+ *
+ * <? extends T>
+ *
+ * dikenal sebagai:
+ *
+ * Producer (Read Only)
+ *
+ * Artinya object menghasilkan (produce) data untuk dibaca,
+ * bukan untuk diisi.
+ */
+
+
+/* ------------------------------------------------------------
+ * Lower Bounded Wildcard
+ * ------------------------------------------------------------
+ *
+ * Bentuk umum:
+ *
+ * <? super T>
+ *
+ * Artinya generic dapat menerima:
+ *
+ * T
+ * atau superclass dari T.
+ *
+ * Contoh:
+ *
+ * <? super Integer>
+ *
+ * dapat menerima:
+ *
+ * List<Integer>
+ * List<Number>
+ * List<Object>
+ *
+ * tetapi tidak dapat menerima:
+ *
+ * List<Double>
+ * List<String>
+ *
+ * karena keduanya bukan superclass dari Integer.
+ */
+
+
+/* ------------------------------------------------------------
+ * Lower Bound Bersifat Consumer (Write)
+ * ------------------------------------------------------------
+ *
+ * Wildcard:
+ *
+ * <? super T>
+ *
+ * biasanya digunakan ketika collection akan diisi (write).
+ *
+ * Compiler menjamin bahwa object bertipe T dapat dimasukkan
+ * dengan aman ke dalam collection tersebut.
+ *
+ * Namun ketika membaca data kembali, compiler hanya dapat
+ * menjamin bahwa hasilnya bertipe Object, karena tipe konkret
+ * collection tidak diketahui.
+ *
+ * Oleh karena itu:
+ *
+ * <? super T>
+ *
+ * dikenal sebagai:
+ *
+ * Consumer (Write)
+ *
+ * Artinya object menerima (consume) data untuk disimpan.
+ */
+
+
+/* ------------------------------------------------------------
+ * Prinsip PECS
+ * ------------------------------------------------------------
+ *
+ * Dalam penggunaan generic terdapat prinsip yang sangat terkenal,
+ * yaitu:
+ *
+ * PECS
+ *
+ * Producer Extends
+ * Consumer Super
+ *
+ * Artinya:
+ *
+ * - <? extends T> digunakan ketika data hanya dibaca (read).
+ *
+ * - <? super T> digunakan ketika data akan ditulis (write).
+ *
+ * Prinsip ini merupakan best practice dalam merancang API
+ * yang menggunakan generic di Java.
+ */
+
+
+/* ------------------------------------------------------------
+ * Analogi
+ * ------------------------------------------------------------
+ *
+ * Hierarki koordinat:
+ *
+ * TwoD
+ * ├── x
+ * └── y
+ *
+ * ThreeD
+ * ├── x
+ * ├── y
+ * └── z
+ *
+ * FourD
+ * ├── x
+ * ├── y
+ * ├── z
+ * └── t
+ *
+ * Maka:
+ *
+ * <? extends TwoD>
+ * menjamin minimal memiliki x dan y.
+ *
+ * <? extends ThreeD>
+ * menjamin minimal memiliki x, y, dan z.
+ *
+ * <? extends FourD>
+ * menjamin memiliki x, y, z, dan t.
+ *
+ * Semakin tinggi batas (bound), semakin banyak member yang dapat
+ * digunakan secara aman oleh compiler.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Unbounded wildcard (<?>) menerima semua tipe generic.
+ *
+ * - Upper bounded wildcard (<? extends T>) menerima T beserta
+ *   seluruh subclass-nya.
+ *
+ * - Lower bounded wildcard (<? super T>) menerima T beserta
+ *   seluruh superclass-nya.
+ *
+ * - <? extends T> cocok digunakan untuk operasi membaca (read).
+ *
+ * - <? super T> cocok digunakan untuk operasi menulis (write).
+ *
+ * - Semakin spesifik upper bound, semakin sedikit tipe yang dapat
+ *   diterima oleh generic.
+ *
+ * - Ingat prinsip PECS:
+ *
+ *      Producer Extends
+ *      Consumer Super
+ *
+ * Prinsip ini merupakan pedoman utama dalam penggunaan bounded
+ * wildcard di Java.
+ */
+
 
 // CONTOH PENGGUNAAN BOUNDED WILDCARD
 // Koordinat 2 dimensi

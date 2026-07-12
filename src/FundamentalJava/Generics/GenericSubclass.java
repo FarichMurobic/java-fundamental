@@ -1,98 +1,226 @@
 package FundamentalJava.Generics;
 
-/**
- * Class biasa (non-generic) BOLEH jadi parent dari class generic
+/* ============================================================
+ *          GENERIC SUBCLASS DARI NON-GENERIC SUPERCLASS
+ * ============================================================
+ *
+ * Sebuah generic class dapat mewarisi (extends) class biasa
+ * yang tidak menggunakan generic.
  *
  * Artinya:
- * Parent: biasa aja (gak ada <T>)
- * Child: boleh generic (<T>)
  *
- * Ini kebalik dari sebelumnya (yang parent generic)
+ * - Superclass tidak memiliki type parameter.
+ * - Subclass memiliki satu atau lebih type parameter.
  *
- * ---------------------------------------------
- * 
- * PENJELASAN DALAM 
- * 
- * Struktur class
- * NonGen   (biasa)
- *    ↑
- * Gen<T>   (generic)
+ * Seluruh mekanisme inheritance tetap bekerja sebagaimana
+ * inheritance pada class biasa.
+ */
+
+
+/* ------------------------------------------------------------
+ * Struktur Inheritance
+ * ------------------------------------------------------------
  *
- * Parent: gak tau apa-apa soal generics
- * Child: punya generic sendiri
+ * Contoh:
  *
- * Perhatikan ini:
+ * class NonGen {
+ *     ...
+ * }
+ *
+ * class Gen<T> extends NonGen {
+ *     ...
+ * }
+ *
+ * Pada contoh tersebut:
+ *
+ * - NonGen merupakan non-generic superclass.
+ * - Gen<T> merupakan generic subclass.
+ *
+ * Type parameter T hanya dimiliki oleh Gen
+ * dan tidak berhubungan dengan superclass.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Superclass Tidak Memiliki <T>?
+ * ------------------------------------------------------------
+ *
+ * Perhatikan deklarasi berikut:
+ *
  * class Gen<T> extends NonGen
  *
- * Kenapa gak ada <T> di NonGen?
+ * NonGen bukan generic class,
+ * sehingga tidak memiliki type parameter.
  *
- * Karena:
- * NonGen bukan generic
- * Jadi gak bisa dikasih tipe
+ * Oleh karena itu, superclass tidak dapat dituliskan sebagai:
  *
- * Ini beda sama kasus sebelumnya:
- * class Gen2<T> extends Gen<T>
+ * NonGen<T>
  *
- * ALUR DATA DI OBJECT
- * Gen<String> w = new Gen<>("Hello", 47);
+ * karena deklarasi tersebut memang tidak tersedia.
  *
- * Maka:
+ * Generic hanya berlaku pada class yang memang
+ * mendeklarasikan type parameter.
+ */
+
+
+/* ------------------------------------------------------------
+ * Alur Type Parameter
+ * ------------------------------------------------------------
+ *
+ * Misalnya dibuat object:
+ *
+ * Gen<String> obj = new Gen<>("Hello", 47);
+ *
+ * Compiler menetapkan:
+ *
  * T = String
- * ob = "Hello"
+ *
+ * Akibatnya:
+ *
+ * ob  = "Hello"
  * num = 47
  *
- * Saat dipanggil:
- * w.getob()   → "Hello"
- * w.getnum()  → 47
+ * Ketika dipanggil:
  *
- * KENAPA INI VALID?
+ * obj.getOb();   // Mengembalikan "Hello"
+ * obj.getNum();  // Mengembalikan 47
  *
- * Karena:
- * Generic cuma milik class itu sendiri
+ * Type parameter T hanya memengaruhi member yang
+ * dideklarasikan di dalam Gen.
  *
- * Parent:
- * gak peduli tipe apa
+ * Superclass tetap tidak mengetahui keberadaan T.
+ */
+
+
+/* ------------------------------------------------------------
+ * Mengapa Hal Ini Valid?
+ * ------------------------------------------------------------
  *
- * Child:
- * bebas punya generic sendiri
+ * Generic merupakan fitur yang dimiliki oleh class yang
+ * mendeklarasikan type parameter.
  *
- * ------------------------------------------
- * 
- * PERBEDAAN DUA KASUS (WAJIB PAHAM)
+ * Karena superclass tidak memiliki generic,
+ * maka superclass tidak memiliki kewajiban untuk mengetahui
+ * ataupun menggunakan type parameter milik subclass.
  *
- * CASE 1: Parent Generic
- * class A<T>
- * class B<T> extends A<T>
+ * Dengan kata lain:
  *
- * WAJIB terusin <T>
+ * - Superclass hanya menyediakan perilaku umum.
+ * - Subclass dapat menambahkan kemampuan generic
+ *   sesuai kebutuhannya.
+ */
+
+
+/* ------------------------------------------------------------
+ * Perbedaan dengan Generic Superclass
+ * ------------------------------------------------------------
  *
- * CASE 2: Parent NON-Generic
- * class A
- * class B<T> extends A
+ * Kasus 1:
  *
- * GAK PERLU <T> di parent
+ * class A<T> { }
  *
- * ------------------------------------------------
- * 
- * KESIMPULAN 
- * 
- * Generic class bisa turunan dari class biasa
- * Parent gak perlu tau soal <T>
- * Generic cuma berlaku di subclass
- * Inheritance tetap jalan normal
+ * class B<T> extends A<T> { }
  *
- * REAL DI DUNIA KERJA
- * Ini sering banget bro
+ * Karena superclass memiliki type parameter,
+ * subclass harus menentukan atau meneruskan
+ * type argument yang digunakan oleh superclass.
  *
- * Contoh real:
- * class BaseEntity { int id; }
+ *
+ * Kasus 2:
+ *
+ * class A { }
+ *
+ * class B<T> extends A { }
+ *
+ * Karena superclass bukan generic,
+ * subclass tidak perlu meneruskan type parameter apa pun.
+ *
+ * Type parameter hanya berlaku di dalam subclass.
+ */
+
+
+/* ------------------------------------------------------------
+ * Kapan Pola Ini Digunakan?
+ * ------------------------------------------------------------
+ *
+ * Pola ini umum digunakan ketika superclass berisi
+ * perilaku atau data yang bersifat umum,
+ * sedangkan subclass membutuhkan fleksibilitas
+ * melalui generic.
+ *
+ * Contohnya:
+ *
+ * - Superclass menyimpan informasi dasar.
+ * - Subclass menambahkan data dengan tipe yang dapat
+ *   ditentukan saat object dibuat.
+ */
+
+
+/* ------------------------------------------------------------
+ * Contoh di Dunia Nyata
+ * ------------------------------------------------------------
+ *
+ * Misalnya:
+ *
+ * class BaseEntity {
+ *     int id;
+ * }
  *
  * class Response<T> extends BaseEntity {
  *     T data;
  * }
  *
- * Parent: common data
- * Child: flexible data (generic)
+ * Pada contoh tersebut:
+ *
+ * BaseEntity menangani data umum,
+ * seperti id atau informasi dasar lainnya.
+ *
+ * Response<T> menambahkan data yang fleksibel
+ * menggunakan generic.
+ *
+ * Pendekatan seperti ini banyak digunakan pada
+ * framework dan aplikasi enterprise.
+ */
+
+
+/* ------------------------------------------------------------
+ * Ringkasan
+ * ------------------------------------------------------------
+ *
+ * - Generic class dapat mewarisi non-generic superclass.
+ *
+ * - Superclass tidak perlu mengetahui adanya
+ *   type parameter milik subclass.
+ *
+ * - Type parameter hanya berlaku pada class yang
+ *   mendeklarasikannya.
+ *
+ * - Aturan inheritance Java tetap berlaku seperti biasa.
+ *
+ * - Pola ini sangat umum digunakan untuk memisahkan
+ *   data umum pada superclass dan data fleksibel
+ *   pada subclass.
+ */
+
+
+/* ------------------------------------------------------------
+ * Insight
+ * ------------------------------------------------------------
+ *
+ * Kombinasi antara non-generic superclass dan generic subclass
+ * banyak dijumpai dalam pengembangan aplikasi Java modern.
+ *
+ * Contohnya dapat ditemukan pada:
+ *
+ * - Response<T>
+ * - Result<T>
+ * - ApiResponse<T>
+ * - BaseEntity dan turunannya
+ * - Berbagai framework seperti Spring dan Hibernate
+ *
+ * Pendekatan ini memungkinkan perilaku umum diwariskan
+ * melalui superclass, sementara subclass tetap fleksibel
+ * dalam menentukan tipe data yang digunakan.
  */
 
 // superclass biasa

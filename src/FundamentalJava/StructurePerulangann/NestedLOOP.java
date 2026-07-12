@@ -1,43 +1,242 @@
 package FundamentalJava.StructurePerulangann;
 
+/**
+ * ------------------------------------------------------------------------
+ * NESTED LOOPS (LOOP BERSARANG)
+ * ------------------------------------------------------------------------
+ * 
+ * Seperti bahasa pemrograman lainnya, Java mengizinkan loop di dalam loop.
+ * Ini disebut nested loop.
+ * 
+ * Artinya:
+ * Satu loop berada di dalam loop lain.
+ * 
+ * Semua jenis loop di Java bisa dimasukkan ke dalam loop lain:
+ * - for di dalam for
+ * - for di dalam while
+ * - while di dalam do-while
+ * - for-each di dalam for
+ * - Dan kombinasi lainnya
+ * 
+ * ------------------------------------------------------------------------
+ * SEMUA LOOP BISA DI-NESTED DI JAVA
+ * ------------------------------------------------------------------------
+ * 
+ * Loop         | Bisa Nested
+ * -------------|------------------------------------------
+ * for          | YA
+ * for-each     | YA
+ * while        | YA
+ * do-while     | YA
+ * 
+ * Yang membuat nested loop bukan jenis loop-nya,
+ * tapi struktur logikanya:
+ * 
+ * Loop LUAR → mengontrol siklus BESAR
+ * Loop DALAM → mengontrol DETAIL di dalamnya
+ * 
+ * ------------------------------------------------------------------------
+ * STRUKTUR NESTED LOOP
+ * ------------------------------------------------------------------------
+ * 
+ * Ada 2 loop:
+ * 1. Loop luar (outer loop)
+ * 2. Loop dalam (inner loop)
+ * 
+ * Bentuk umum:
+ * 
+ *     for (int i = 0; i < 5; i++) {          // Loop LUAR
+ *         // ...
+ * 
+ *         for (int j = 0; j < 3; j++) {      // Loop DALAM
+ *             // ...
+ *         }
+ * 
+ *         // ...
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * CARA KERJA NESTED LOOP
+ * ------------------------------------------------------------------------
+ * 
+ * Urutan eksekusi:
+ * 
+ * 1. Loop luar: i = 0
+ * 2.     Loop dalam: j = 0, 1, 2 (sampai selesai)
+ * 3. Loop luar: i = 1
+ * 4.     Loop dalam: j = 0, 1, 2 (sampai selesai)
+ * 5. Loop luar: i = 2
+ * 6.     Loop dalam: j = 0, 1, 2 (sampai selesai)
+ * 7. Dan seterusnya...
+ * 
+ * Intinya:
+ * Setiap 1 iterasi loop luar,
+ * loop dalam dijalankan dari awal sampai selesai.
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH SEDERHANA
+ * ------------------------------------------------------------------------
+ * 
+ *     // Mencetak pola bintang persegi
+ *     for (int i = 0; i < 5; i++) {        // Loop luar: baris
+ * 
+ *         for (int j = 0; j < 5; j++) {    // Loop dalam: kolom
+ *             System.out.print("* ");
+ *         }
+ * 
+ *         System.out.println();            // Pindah baris
+ *     }
+ * 
+ *     // Output:
+ *     // * * * * *
+ *     // * * * * *
+ *     // * * * * *
+ *     // * * * * *
+ *     // * * * * *
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH SEGITIGA BINTANG
+ * ------------------------------------------------------------------------
+ * 
+ *     for (int i = 1; i <= 5; i++) {        // Loop luar: baris
+ * 
+ *         for (int j = 1; j <= i; j++) {    // Loop dalam: kolom (sesuai baris)
+ *             System.out.print("* ");
+ *         }
+ * 
+ *         System.out.println();
+ *     }
+ * 
+ *     // Output:
+ *     // *
+ *     // * *
+ *     // * * *
+ *     // * * * *
+ *     // * * * * *
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH TABEL PERKALIAN
+ * ------------------------------------------------------------------------
+ * 
+ *     for (int i = 1; i <= 10; i++) {        // Loop luar: baris
+ * 
+ *         for (int j = 1; j <= 10; j++) {    // Loop dalam: kolom
+ *             System.out.printf("%4d", i * j);
+ *         }
+ * 
+ *         System.out.println();
+ *     }
+ * 
+ *     // Output (sebagian):
+ *     //    1   2   3   4   5   6   7   8   9  10
+ *     //    2   4   6   8  10  12  14  16  18  20
+ *     //    3   6   9  12  15  18  21  24  27  30
+ *     // ...
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH DENGAN WHILE DAN DO-WHILE
+ * ------------------------------------------------------------------------
+ * 
+ * 1. for di dalam while
+ * 
+ *     int i = 0;
+ *     while (i < 3) {
+ *         System.out.println("Baris " + (i + 1));
+ * 
+ *         for (int j = 0; j < 3; j++) {
+ *             System.out.print("  Kolom " + (j + 1));
+ *         }
+ * 
+ *         System.out.println();
+ *         i++;
+ *     }
+ * 
+ * 2. do-while di dalam for
+ * 
+ *     for (int i = 0; i < 3; i++) {
+ *         int j = 0;
+ *         do {
+ *             System.out.print(j + " ");
+ *             j++;
+ *         } while (j < 3);
+ *         System.out.println();
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH KASUS NYATA
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Matriks (2D Array)
+ * 
+ *     int[][] matrix = {
+ *         {1, 2, 3},
+ *         {4, 5, 6},
+ *         {7, 8, 9}
+ *     };
+ * 
+ *     for (int i = 0; i < matrix.length; i++) {        // Baris
+ *         for (int j = 0; j < matrix[i].length; j++) { // Kolom
+ *             System.out.print(matrix[i][j] + " ");
+ *         }
+ *         System.out.println();
+ *     }
+ * 
+ * 2. Mencari Duplikat di Array
+ * 
+ *     int[] arr = {1, 2, 3, 2, 4, 5, 1};
+ * 
+ *     for (int i = 0; i < arr.length; i++) {
+ *         for (int j = i + 1; j < arr.length; j++) {
+ *             if (arr[i] == arr[j]) {
+ *                 System.out.println("Duplikat: " + arr[i]);
+ *             }
+ *         }
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * ISTILAH PENTING
+ * ------------------------------------------------------------------------
+ * 
+ * Outer Loop      = Loop yang berada di luar (loop utama)
+ * Inner Loop      = Loop yang berada di dalam (loop bawahan)
+ * Nested Loop     = Loop di dalam loop
+ * 
+ * ------------------------------------------------------------------------
+ * KOMPLEKSITAS WAKTU (TIME COMPLEXITY)
+ * ------------------------------------------------------------------------
+ * 
+ * Nested loop mempengaruhi performa program.
+ * 
+ * Jika loop luar berjalan n kali,
+ * dan loop dalam berjalan m kali,
+ * maka total iterasi = n × m
+ * 
+ * Contoh:
+ * for (i = 0; i < 100; i++) {     // 100 kali
+ *     for (j = 0; j < 100; j++) { // 100 kali
+ *         // total = 100 × 100 = 10.000 iterasi
+ *     }
+ * }
+ * 
+ * Waspadai nested loop yang terlalu dalam,
+ * bisa membuat program berjalan lambat.
+ * 
+ * ------------------------------------------------------------------------
+ * RINGKASAN WAJIB
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Nested loop = loop di dalam loop
+ * 2. Semua jenis loop bisa di-nested (for, while, do-while, for-each)
+ * 3. Loop luar mengontrol siklus besar, loop dalam mengontrol detail
+ * 4. Setiap 1 iterasi loop luar, loop dalam berjalan dari awal sampai selesai
+ * 5. Total iterasi = iterasi luar × iterasi dalam
+ * 6. Hati-hati dengan performa jika terlalu dalam
+ * 
+ * ------------------------------------------------------------------------
+ */
+
 public class NestedLOOP {
     public static void main(String[] args) {
-
-        /**
-         * Nested Loops
-         *
-         * Seperti bahasa pemrograman lainnya, Java mengizinkan loop di dalam loop. Ini disebut nested loop.
-         * Artinya:
-         * satu loop berada di dalam loop lain
-         *
-         * while dan do-while juga bisa di-nested.
-         * Semua jenis loop di Java bisa dimasukkan ke dalam loop lain.
-         *
-         * Struktur Nested Loop
-         * Ada 2 loop.
-         * Loop luar
-         * Loop dalam
-         *
-         * Semua loop bisa di nested di java
-         * Rule Sederhana Supaya Mudah Ingat
-         * Loop	        Bisa Nested
-         * for	        YA
-         * for-each	    YA
-         * while	    YA
-         * do-while	    YA
-         *
-         * Semua bisa di-nested.
-         * Yang membuat nested loop bukan jenis loopnya, tapi struktur logikanya:
-         *
-         * loop luar → mengontrol siklus besar
-         * loop dalam → mengontrol detail di dalamnya
-         *
-         * Misalnya:
-         * baris × kolom
-         * hari × jam
-         * player × item
-         * matrix × element
-         */
 
         // Contoh program sederhana
         int i, j;

@@ -1,138 +1,186 @@
 package FundamentalJava.TransientAndVolatile;
 
 /**
- * The transient and volatile Modifiers
- *
- * Java punya dua modifier yang cukup unik:
+ * ------------------------------------------------------------------------
+ * THE transient AND volatile MODIFIERS
+ * ------------------------------------------------------------------------
+ * 
+ * Java memiliki dua modifier yang cukup unik:
  * transient dan volatile
- *
+ * 
  * Modifier ini dipakai untuk kondisi khusus.
- *
+ * 
+ * PENTING:
  * transient dan volatile
  * HANYA bisa dipakai di variabel (field / instance variable)
- *
- * Tidak bisa dipakai di:
- * class
- * method
- * constructor
- *
- * Kenapa?
- * Karena transient cuma berkaitan dengan penyimpanan object (serialization)
- * Jadi cuma masuk akal buat data (variabel)
- *
- * Kenapa?
- * Karena volatile cuma berkaitan dengan:
- * perubahan nilai variabel di multithread
- * Jadi cuma relevan buat variabel
- *
- * transient
- * Kalau sebuah instance variable dikasih transient, maka:
- * nilainya tidak akan disimpan saat object disimpan (diserialisasi)
- *
- * Contoh:
- * class T {
- *   transient int a; // tidak akan disimpan
- *   int b; // akan disimpan
- * }
- *
- * Artinya:
- * a tidak ikut disimpan
- * b ikut disimpan
- *
- * volatile
- * volatile memberi tahu compiler:
- * variabel bisa berubah secara tiba-tiba oleh bagian lain program
- *
- * Biasanya terjadi di:
- * multithreading
- *
- * Dalam program multithread:
- * Beberapa thread bisa pakai variabel yang sama
- * Setiap thread bisa punya salinan sendiri (private copy)
- *
- * Masalahnya:
- * salinan ini bisa tidak sinkron 
- *
- * Solusinya:
- * Kalau pakai volatile:
- * semua thread harus pakai versi asli (master copy)
- * Atau:
- * kalau ada salinan → harus selalu update ke versi asli
- *
- * Tambahan penting:
- * Akses ke variabel volatile harus sesuai urutan (tidak boleh kacau)
- *
- * 1. transient = "Jangan disimpan"
- *
- * Bayangin:
- * Lu punya object → mau disimpan ke file / database
- * Tapi ada data yang gak penting disimpan
- *
- * Contoh real:
- * password sementara
- * cache
- * session data
- *
- * 2. volatile = "Selalu pakai data terbaru"
- *
- * Ini penting banget di multithreading
- * Masalah Tanpa volatile
- *
- * Bayangin:
- * Thread A ubah nilai jadi 10
- * Thread B masih baca nilai lama (misal 5)
- *
- * Jadi kacau 
- *
- * Analogi Biar Kebayang
- * transient
- * Kayak catatan di papan tulis
- * ditulis → ada
- * dihapus / disimpan → hilang
- *
- * volatile
- * Kayak papan skor live
- * semua orang lihat data yang sama dan terbaru
- * gak boleh ada versi lama
- *
- * Kesimpulan Santai
- * transient
- * Dipakai buat serialization
- * Data tidak ikut disimpan
- * Cocok untuk:
- * password
- * cache
- * data sementara
- *
- * volatile
- * Dipakai di multithreading
- * Biar semua thread lihat data terbaru
- * Hindari bug aneh karena data gak sinkron
- *
- * Insight Penting (Level Naik)
- * volatile ≠ synchronized
- * volatile → cuma jaga visibility
- * synchronized → jaga safety + locking
- *
- * Bedah Perbedaannya
- * Tanpa volatile
- * Thread 1 → baca dari cache
- * Thread 2 → ubah di memory utama
- *
- * gak ketemu
  * 
- * Dengan volatile
- * Thread 1 → baca dari memory utama
- * Thread 2 → nulis ke memory utama
- *
- * sinkron
- *
- * Insight Penting (INI YANG DALAM)
+ * TIDAK BISA dipakai di:
+ * - Class
+ * - Method
+ * - Constructor
+ * 
+ * Kenapa transient hanya di variabel?
+ * Karena transient berkaitan dengan penyimpanan object (serialization).
+ * Jadi hanya masuk akal untuk data (variabel).
+ * 
+ * Kenapa volatile hanya di variabel?
+ * Karena volatile berkaitan dengan perubahan nilai variabel di multithread.
+ * Jadi hanya relevan untuk variabel.
+ * 
+ * ------------------------------------------------------------------------
+ * TRANSIENT
+ * ------------------------------------------------------------------------
+ * 
+ * transient artinya: "Jangan disimpan"
+ * 
+ * Jika sebuah instance variable diberi transient, maka:
+ * nilainya TIDAK akan disimpan saat object disimpan (diserialisasi).
+ * 
+ * Contoh:
+ * 
+ *     class UserData implements Serializable {
+ *         transient String password;    // Tidak ikut disimpan
+ *         String username;              // Ikut disimpan
+ *         int age;                      // Ikut disimpan
+ *     }
+ * 
+ * Artinya:
+ * - password tidak ikut disimpan ke file/database
+ * - username dan age ikut disimpan
+ * 
+ * KEGUNAAN TRANSIENT:
+ * 
+ * Bayangkan:
+ * Kamu punya object → mau disimpan ke file / database
+ * Tapi ada data yang TIDAK PENTING disimpan
+ * 
+ * Contoh real:
+ * - Password sementara (tidak aman disimpan)
+ * - Cache data (bisa di-rebuild)
+ * - Session data (tidak perlu permanen)
+ * - Data yang bisa dihitung ulang
+ * 
+ * ------------------------------------------------------------------------
+ * VOLATILE
+ * ------------------------------------------------------------------------
+ * 
+ * volatile artinya: "Selalu pakai data terbaru"
+ * 
+ * volatile memberi tahu compiler:
+ * "Variabel ini bisa berubah secara tiba-tiba oleh bagian lain program"
+ * 
+ * Biasanya terjadi di:
+ * MULTITHREADING
+ * 
+ * MASALAH TANPA VOLATILE:
+ * 
+ * Dalam program multithread:
+ * - Beberapa thread bisa menggunakan variabel yang sama
+ * - Setiap thread bisa memiliki salinan sendiri (private copy)
+ * - Salinan ini bisa TIDAK SINKRON
+ * 
+ * Bayangkan:
+ * Thread A ubah nilai menjadi 10
+ * Thread B masih baca nilai lama (misal 5)
+ * 
+ * Hasilnya KACAU!
+ * 
+ * SOLUSI DENGAN VOLATILE:
+ * 
+ * Jika pakai volatile:
+ * - Semua thread harus pakai versi ASLI (master copy)
+ * - Atau: jika ada salinan → harus selalu update ke versi asli
+ * - Akses ke variabel volatile harus sesuai urutan (tidak boleh kacau)
+ * 
+ * ------------------------------------------------------------------------
+ * PERBANDINGAN VISUAL
+ * ------------------------------------------------------------------------
+ * 
+ * TANPA volatile:
+ * 
+ *     Thread 1 → baca dari cache (mungkin nilai lama)
+ *     Thread 2 → ubah di memory utama
+ *     
+ *     Keduanya tidak ketemu (data tidak sinkron)
+ * 
+ * DENGAN volatile:
+ * 
+ *     Thread 1 → baca dari memory utama (nilai terbaru)
+ *     Thread 2 → tulis ke memory utama (update langsung)
+ *     
+ *     Sinkron! Semua thread lihat data terbaru
+ * 
+ * ------------------------------------------------------------------------
+ * ANALOGI BIAR KEBAYANG
+ * ------------------------------------------------------------------------
+ * 
+ * transient:
+ * Kayak catatan di papan tulis
+ * - Ditulis → ada
+ * - Dihapus / disimpan → hilang
+ * 
+ * volatile:
+ * Kayak papan skor LIVE
+ * - Semua orang lihat data yang SAMA dan TERBARU
+ * - Tidak boleh ada versi lama
+ * 
+ * ------------------------------------------------------------------------
+ * INSIGHT PENTING: volatile ≠ synchronized
+ * ------------------------------------------------------------------------
+ * 
+ * volatile                    | synchronized
+ * ----------------------------|---------------------------------------------
+ * Cuma jaga VISIBILITY        | Jaga VISIBILITY + LOCKING
+ * (semua thread lihat update) | (hanya 1 thread akses dalam satu waktu)
+ * Tidak ada locking           | Ada locking (mutual exclusion)
+ * Lebih ringan                | Lebih berat (overhead)
+ * 
  * volatile menjamin:
- * Visibility (keterlihatan)
- * Semua thread lihat nilai terbaru
- * Order (urutan eksekusi)
- * Tidak diacak sama compiler / CPU
+ * 1. VISIBILITY (Keterlihatan)
+ *    - Semua thread melihat nilai terbaru
+ * 
+ * 2. ORDER (Urutan Eksekusi)
+ *    - Tidak diacak oleh compiler / CPU
+ *    - Operasi baca/tulis terjadi secara berurutan
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH KODE VOLATILE
+ * ------------------------------------------------------------------------
+ * 
+ *     class SharedData {
+ *         private volatile boolean running = true;
+ * 
+ *         public void stop() {
+ *             running = false;  // Thread lain akan langsung melihat perubahan
+ *         }
+ * 
+ *         public void run() {
+ *             while (running) {
+ *                 // Lakukan sesuatu...
+ *             }
+ *         }
+ *     }
+ * 
+ * Tanpa volatile, thread yang menjalankan run()
+ * mungkin tidak pernah melihat perubahan running menjadi false
+ * karena thread tersebut bisa menyimpan salinan running di cache-nya.
+ * 
+ * ------------------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------------------
+ * 
+ * TRANSIENT:
+ * - Dipakai untuk serialization
+ * - Data TIDAK ikut disimpan
+ * - Cocok untuk: password sementara, cache, data sementara
+ * 
+ * VOLATILE:
+ * - Dipakai di multithreading
+ * - Semua thread lihat data TERBARU
+ * - Hindari bug aneh karena data tidak sinkron
+ * - BUKAN pengganti synchronized!
+ * 
+ * ------------------------------------------------------------------------
  */
 
 import java.io.*;

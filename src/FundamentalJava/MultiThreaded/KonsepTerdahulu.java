@@ -1,212 +1,510 @@
 package FundamentalJava.MultiThreaded;
 
-/**
-     * KONSEP BESAR DULU
-     * 
-     * Problem utama:
-     * Dulu Java punya:
-     * suspend()
-     * resume()
-     * stop()
-     *
-     * Kedengerannya enak kan?
-     * Tapi ternyata BERBAHAYA BANGET
-     *
-     * Kenapa suspend() bahaya?
-     * Bayangin:
-     *
-     * Thread A:
-     * - lagi pegang lock data penting
-     * - tiba-tiba disuspend 
-     *
-     * Masalah:
-     * lock nggak dilepas
-     * thread lain nunggu lock itu
-     *
-     * HASIL:
-     * DEADLOCK
-     *
-     * Kenapa stop() bahaya?
-     * Thread lagi ubah data (belum selesai)
-     * → tiba-tiba di-stop 
-     *
-     * Data jadi:
-     * setengah jadi
-     * rusak (corrupted)
-     *
-     * SOLUSI MODERN (WAJIB PAHAM)
-     * Jangan pakai method itu
-     * Tapi:
-     * Thread harus mengontrol dirinya sendiri
-     *
-     * Ide utamanya:
-     * Gunakan flag (variabel kontrol)
-     *
-     * boolean suspendFlag;
-     *
-     * Artinya:
-     * Flag	    Arti
-     * false	jalan terus
-     * true	    pause
-     */
-
-    /**
-     * BEDAH KODE DALAM (PELAAAN)
-     *
-     * CLASS NewThread
-     * boolean suspendFlag;
-     *
-     * Ini “saklar” thread
-     *
-     * Constructor
-     * t = new Thread(this, name);
-     * suspendFlag = false;
-     * t.start();
-     *
-     * Artinya:
-     * thread langsung jalan
-     * awalnya tidak disuspend
-     *
-     * BAGIAN PALING PENTING: run()
-     * for(int i = 15; i > 0; i--)
-     *
-     * Thread kerja: countdown
-     *
-     * STEP PER ITERASI
-     * 1. Print
-     * System.out.println(name + ": " + i);
-     *
-     * 2. Delay
-     * Thread.sleep(200);
-     * biar keliatan prosesnya
-     *
-     * 3. MASUK BLOK KRUSIAL
-     * synchronized(this)
-     *
-     * Kenapa?
-     * karena pakai wait() nanti
-     * wait() HARUS dalam synchronized
-     *
-     * 4. CEK FLAG
-     * while(suspendFlag)
-     * Kalau true:
-     * berarti harus pause
-     *
-     * 5. PAUSE
-     * wait();
-     *
-     * Ini penting:
-     * thread tidur
-     * lepas lock
-     * Jadi alurnya:
-     * loop →
-     * cek suspendFlag →
-     * kalau true → tidur →
-     * kalau false → lanjut
-     *
-     * METHOD CONTROL
-     * mysuspend()
-     * suspendFlag = true;
-     *
-     * Artinya:
-     * "Thread, nanti kalau cek, lu harus berhenti ya"
-     *
-     * Dia TIDAK langsung berhenti!
-     * Tapi berhenti di loop berikutnya
-     *
-     * myresume()
-     * suspendFlag = false;
-     * notify();
-     *
-     * Artinya:
-     * ubah flag jadi jalan lagi
-     * bangunin thread
-     */
-
-    /**
-     * SIMULASI REAL (STEP BY STEP)
-     *
-     * Awal
-     * Main:
-     * NewThread ob1 = new NewThread("One");
-     * NewThread ob2 = new NewThread("Two");
-     *
-     * 2 thread jalan bersamaan
-     *
-     * Kedua thread mulai:
-     * One: 15
-     * Two: 15
-     * One: 14
-     * Two: 14
-     * ...
-     *
-     * STEP: Suspend Thread One
-     * ob1.mysuspend();
-     *
-     * Yang terjadi:
-     * suspendFlag = true
-     * Thread BELUM berhenti sekarang
-     * Dia lanjut sampai:
-     *
-     * while(suspendFlag)
-     * Masuk wait()
-     * Thread tidur total
-     *
-     * Jadi:
-     * One → berhenti
-     * Two → lanjut sendiri
-     *
-     * STEP: Resume Thread One
-     * ob1.myresume();
-     *
-     * Yang terjadi:
-     *
-     * suspendFlag = false
-     * notify() → bangunin thread
-     * Thread lanjut dari wait()
-     *
-     * Sama untuk thread Two
-     *
-     * PART 4 — INTUISI DALAM
-     * Ini BEDA BANGET sama suspend() lama
-     * Cara lama	                Cara sekarang
-     * Thread dipaksa berhenti	    Thread berhenti sendiri
-     * Bahaya	                    Aman
-     * Tidak terkontrol	            Terstruktur
-     *
-     * Konsep penting:
-     * Thread harus cooperative
-     *
-     * Bukan:
-     * "Eh berhenti sekarang!"
-     *
-     * Tapi:
-     * "Kalau lu lihat flag ini, berhenti ya"
-     *
-     * DETAIL KRUSIAL (LEVEL LANJUT)
-     * 1. Kenapa while, bukan if?
-     * while(suspendFlag)
-     *
-     * karena:
-     * bisa ada spurious wakeup
-     * harus cek ulang
-     *
-     * 2. Kenapa notify() cukup?
-     * Karena:
-     * cuma 1 thread yang nunggu
-     *
-     * 3. Kenapa synchronized(this)?
-     * Karena:
-     * wait() dan notify() kerja di object monitor
-     *
-     * RINGKASAN SUPER DALAM
-     * suspend()/resume()/stop() → deprecated (bahaya)
-     * pakai flag + wait/notify
-     * thread:
-     * cek kondisi sendiri
-     * pause dengan wait()
-     * lanjut dengan notify()
-     */
+/*
+ * ============================================================
+ * Mengontrol Thread: suspend(), resume(), stop() vs Cara Modern
+ * ============================================================
+ *
+ * Dalam multithreading, terkadang kita perlu mengontrol thread:
+ *
+ * - Menjeda sementara.
+ * - Melanjutkan kembali.
+ * - Menghentikan pekerjaan.
+ *
+ * Java pernah menyediakan:
+ *
+ * suspend()
+ * resume()
+ * stop()
+ *
+ *
+ * Tetapi method tersebut sekarang sudah deprecated karena memiliki
+ * masalah desain yang serius.
+ *
+ * ------------------------------------------------------------
+ * Masalah Pada suspend()
+ * ------------------------------------------------------------
+ *
+ * suspend() digunakan untuk menghentikan sementara sebuah thread.
+ *
+ * Kedengarannya sederhana:
+ *
+ * "Pause thread sekarang."
+ *
+ *
+ * Tetapi masalahnya:
+ *
+ * Thread dapat dihentikan ketika sedang memegang lock.
+ *
+ *
+ * Contoh:
+ *
+ * Thread A:
+ *
+ * mendapatkan lock object Data
+ *
+ *        |
+ *        v
+ *
+ * suspend()
+ *
+ *
+ * Akibatnya:
+ *
+ * Lock tetap dimiliki Thread A.
+ *
+ *
+ * Thread lain yang membutuhkan Data:
+ *
+ * harus menunggu selamanya.
+ *
+ *
+ * Hasil:
+ *
+ * DEADLOCK
+ *
+ * ------------------------------------------------------------
+ * Masalah Pada stop()
+ * ------------------------------------------------------------
+ *
+ * stop() menghentikan thread secara paksa.
+ *
+ *
+ * Masalah:
+ *
+ * Thread mungkin sedang:
+ *
+ * - Mengubah data.
+ * - Menulis file.
+ * - Memproses transaksi.
+ *
+ *
+ * Jika dihentikan tiba-tiba:
+ *
+ * Data dapat berada pada kondisi tidak lengkap.
+ *
+ *
+ * Contoh:
+ *
+ * Sebelum selesai:
+ *
+ * saldo = saldo - transfer
+ *
+ *
+ * Thread dihentikan.
+ *
+ *
+ * Data menjadi tidak konsisten.
+ *
+ * ------------------------------------------------------------
+ * Masalah Utama Method Lama
+ * ------------------------------------------------------------
+ *
+ * Metode lama menggunakan pendekatan:
+ *
+ * "Paksa thread berhenti."
+ *
+ *
+ * Masalahnya:
+ *
+ * Thread tidak diberi kesempatan untuk:
+ *
+ * - Membersihkan resource.
+ * - Melepaskan lock.
+ * - Menyelesaikan pekerjaan aman.
+ *
+ *
+ * Karena itu Java menggunakan pendekatan baru:
+ *
+ * Cooperative Thread Control
+ *
+ * ------------------------------------------------------------
+ * Konsep Modern: Thread Mengontrol Dirinya Sendiri
+ * ------------------------------------------------------------
+ *
+ * Ide utamanya:
+ *
+ * Thread tidak dipaksa berhenti dari luar.
+ *
+ *
+ * Thread diberi tanda atau sinyal,
+ * kemudian thread tersebut mengecek kondisinya sendiri.
+ *
+ *
+ * Contoh menggunakan flag:
+ *
+ * boolean suspendFlag;
+ *
+ *
+ * Arti flag:
+ *
+ * false:
+ *
+ * Thread berjalan normal.
+ *
+ *
+ * true:
+ *
+ * Thread harus berhenti sementara.
+ *
+ * ------------------------------------------------------------
+ * Cara Kerja Flag Control
+ * ------------------------------------------------------------
+ *
+ * Alur:
+ *
+ * Thread bekerja
+ *
+ *       |
+ *       v
+ *
+ * Mengecek flag
+ *
+ *       |
+ *       v
+ *
+ * Jika false:
+ *
+ * lanjut bekerja
+ *
+ *
+ * Jika true:
+ *
+ * tunggu
+ *
+ *
+ * Jadi thread memiliki kontrol terhadap dirinya sendiri.
+ *
+ * ------------------------------------------------------------
+ * Analisis Kode NewThread
+ * ------------------------------------------------------------
+ *
+ * Variable:
+ *
+ * boolean suspendFlag;
+ *
+ *
+ * Berfungsi sebagai saklar kontrol thread.
+ *
+ *
+ * Constructor:
+ *
+ * t = new Thread(this, name);
+ *
+ * suspendFlag = false;
+ *
+ * t.start();
+ *
+ *
+ * Artinya:
+ *
+ * - Membuat object Thread.
+ * - Kondisi awal thread aktif.
+ * - Thread langsung mulai menjalankan run().
+ *
+ * ------------------------------------------------------------
+ * Method run()
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * for(int i = 15; i > 0; i--)
+ *
+ *
+ * Thread menjalankan pekerjaan berupa countdown.
+ *
+ *
+ * Setiap iterasi:
+ *
+ * 1. Menampilkan nilai.
+ *
+ * System.out.println(name + ": " + i);
+ *
+ *
+ * 2. Memberikan delay.
+ *
+ * Thread.sleep(200);
+ *
+ *
+ * sleep() hanya digunakan agar proses terlihat.
+ *
+ *
+ * sleep() bukan mekanisme komunikasi thread.
+ *
+ * ------------------------------------------------------------
+ * Bagian Penting: synchronized dan wait()
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * synchronized(this)
+ *
+ *
+ * Dibutuhkan karena:
+ *
+ * wait() dan notify()
+ *
+ * bekerja melalui object monitor.
+ *
+ *
+ * Tanpa synchronized:
+ *
+ * IllegalMonitorStateException
+ *
+ * dapat terjadi.
+ *
+ * ------------------------------------------------------------
+ * Mengecek Flag
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * while(suspendFlag) {
+ *
+ *     wait();
+ *
+ * }
+ *
+ *
+ * Artinya:
+ *
+ * Jika flag bernilai true:
+ *
+ * Thread masuk kondisi menunggu.
+ *
+ *
+ * Jika flag berubah menjadi false:
+ *
+ * Thread dapat melanjutkan.
+ *
+ *
+ * Kenapa while?
+ *
+ * Karena:
+ *
+ * - Mengantisipasi spurious wakeup.
+ * - Kondisi harus selalu dicek ulang.
+ *
+ * ------------------------------------------------------------
+ * Method mysuspend()
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * mysuspend()
+ *
+ *
+ * Mengubah:
+ *
+ * suspendFlag = true;
+ *
+ *
+ * Artinya:
+ *
+ * "Saat thread melakukan pengecekan berikutnya,
+ * thread harus berhenti sementara."
+ *
+ *
+ * Penting:
+ *
+ * Method ini TIDAK langsung menghentikan thread.
+ *
+ *
+ * Thread berhenti ketika mencapai:
+ *
+ * while(suspendFlag)
+ *
+ *
+ * ------------------------------------------------------------
+ * Method myresume()
+ * ------------------------------------------------------------
+ *
+ * Contoh:
+ *
+ * myresume()
+ *
+ *
+ * Mengubah:
+ *
+ * suspendFlag = false;
+ *
+ *
+ * Kemudian:
+ *
+ * notify()
+ *
+ *
+ * Artinya:
+ *
+ * - Mengubah status agar thread boleh berjalan.
+ * - Memberikan sinyal kepada thread yang menunggu.
+ *
+ *
+ * Thread kemudian mendapatkan lock kembali dan melanjutkan.
+ *
+ * ------------------------------------------------------------
+ * Simulasi Eksekusi
+ * ------------------------------------------------------------
+ *
+ * Awal:
+ *
+ * Thread One
+ * Thread Two
+ *
+ *
+ * Berjalan bersamaan:
+ *
+ * One: 15
+ * Two: 15
+ *
+ * One: 14
+ * Two: 14
+ *
+ *
+ * Kemudian:
+ *
+ * ob1.mysuspend();
+ *
+ *
+ * Yang terjadi:
+ *
+ * suspendFlag = true
+ *
+ *
+ * Thread One tidak langsung berhenti.
+ *
+ *
+ * Ketika pengecekan berikutnya:
+ *
+ * while(suspendFlag)
+ *
+ *
+ * Thread One:
+ *
+ * masuk wait()
+ *
+ *
+ * Hasil:
+ *
+ * One berhenti sementara.
+ *
+ * Two tetap berjalan.
+ *
+ *
+ * ------------------------------------------------------------
+ * Resume Thread
+ * ------------------------------------------------------------
+ *
+ * Pemanggilan:
+ *
+ * ob1.myresume();
+ *
+ *
+ * Yang terjadi:
+ *
+ * suspendFlag = false
+ *
+ * notify()
+ *
+ *
+ * Thread One dibangunkan.
+ *
+ *
+ * Setelah mendapatkan lock:
+ *
+ * Thread One melanjutkan pekerjaan.
+ *
+ * ------------------------------------------------------------
+ * Perbandingan Pendekatan Lama dan Modern
+ * ------------------------------------------------------------
+ *
+ * suspend()/resume()/stop()
+ *
+ * - Thread dipaksa berhenti.
+ * - Berbahaya.
+ * - Dapat menyebabkan deadlock.
+ * - Dapat merusak data.
+ *
+ *
+ * Cooperative Control
+ *
+ * - Thread berhenti berdasarkan kondisi.
+ * - Lebih aman.
+ * - Lebih terkontrol.
+ *
+ *
+ * ------------------------------------------------------------
+ * Konsep Modern Java: Interrupt
+ * ------------------------------------------------------------
+ *
+ * Dalam Java modern, penghentian thread sering menggunakan:
+ *
+ * Thread.interrupt()
+ *
+ *
+ * Interrupt bukan mematikan thread secara paksa.
+ *
+ *
+ * Interrupt hanya memberikan sinyal:
+ *
+ * "Thread, kalau memungkinkan berhentilah."
+ *
+ *
+ * Thread kemudian memutuskan bagaimana menangani sinyal tersebut.
+ *
+ *
+ * Ini memiliki konsep yang sama:
+ *
+ * Cooperative Thread Control.
+ *
+ * ------------------------------------------------------------
+ * Penggunaan Dunia Nyata
+ * ------------------------------------------------------------
+ *
+ * Konsep ini digunakan pada:
+ *
+ * - Background worker.
+ * - Task processing.
+ * - Thread pool.
+ * - Server application.
+ * - Job scheduler.
+ *
+ *
+ * Pada aplikasi modern biasanya memakai:
+ *
+ * - ExecutorService.
+ * - Future.
+ * - CompletableFuture.
+ * - BlockingQueue.
+ *
+ * ------------------------------------------------------------
+ * Kesimpulan
+ * ------------------------------------------------------------
+ *
+ * Method:
+ *
+ * suspend()
+ * resume()
+ * stop()
+ *
+ *
+ * sudah deprecated karena berbahaya.
+ *
+ *
+ * Pendekatan yang benar:
+ *
+ * - Thread mengontrol dirinya sendiri.
+ * - Gunakan flag atau interrupt sebagai sinyal.
+ * - Gunakan wait() untuk menunggu kondisi.
+ * - Gunakan notify() untuk memberi tahu thread lain.
+ *
+ *
+ * Prinsip utama:
+ *
+ * "Thread yang baik tidak dipaksa berhenti,
+ * tetapi diberikan sinyal agar dapat berhenti dengan aman."
+ *
+ */
 
 class NewThread2 implements Runnable {
     String name; // nama thread

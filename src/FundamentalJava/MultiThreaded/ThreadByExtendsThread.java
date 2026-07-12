@@ -1,42 +1,129 @@
 package FundamentalJava.MultiThreaded;
 
 /**
-     * Extending Thread (Mewarisi Thread)
-     *
-     * Cara kedua membuat thread adalah:
-     * membuat class baru yang extends Thread
-     * lalu membuat object dari class tersebut
-     *
-     * Class ini harus:
-     * override method run() → sebagai titik awal thread
-     * memanggil start() → untuk mulai eksekusi
-     *
-     * Di contoh ini:
-     * NewThread sekarang bukan Runnable lagi
-     * tapi langsung jadi Thread itu sendiri
-     *
-     * ---------------------------------
-     * 
-     * Perbedaan Konsep (INI INTI BANGET)
-     * 
-     * Sebelumnya (Runnable)
-     * class NewThread implements Runnable
-     *
-     * Lu bikin pekerjaan
-     * lalu kasih ke Thread
-     *
-     * Sekarang (Thread)
-     * class NewThread extends Thread
-     *
-     * Lu bikin thread itu sendiri
-     *
-     * Perbedaan KRITIS (Runnable vs Thread)
-     * Aspek	            Runnable	                Extends Thread
-     * Desain	            Pisah tugas & thread	    Jadi satu
-     * Fleksibilitas	    Tinggi 	                    Rendah 
-     * Inheritance	        Bisa extend class lain	    Gak bisa 
-     * Best Practice	    disarankan	                jarang dipakai
-     */
+ * ------------------------------------------------------------------------
+ * EXTENDING THREAD (MEWARISI THREAD)
+ * ------------------------------------------------------------------------
+ * 
+ * Cara kedua untuk membuat thread adalah:
+ * - Membuat class baru yang extends Thread
+ * - Lalu membuat objek dari class tersebut
+ * 
+ * Class ini harus:
+ * - Meng-override method run() → sebagai titik awal eksekusi thread
+ * - Memanggil start() → untuk memulai eksekusi
+ * 
+ * Pada pendekatan ini:
+ * NewThread bukan lagi berupa Runnable,
+ * tapi langsung menjadi Thread itu sendiri.
+ * 
+ * ------------------------------------------------------------------------
+ * PERBEDAAN KONSEP (INI INTI BANGET)
+ * ------------------------------------------------------------------------
+ * 
+ * Sebelumnya (dengan Runnable):
+ *     class NewThread implements Runnable
+ * 
+ * Kamu membuat tugas (pekerjaan),
+ * lalu menyerahkannya ke Thread untuk dijalankan.
+ * 
+ * Sekarang (dengan Thread):
+ *     class NewThread extends Thread
+ * 
+ * Kamu membuat thread itu sendiri secara langsung.
+ * 
+ * ------------------------------------------------------------------------
+ * PERBEDAAN KRITIS (Runnable vs Extends Thread)
+ * ------------------------------------------------------------------------
+ * 
+ * Aspek               | Runnable                     | Extends Thread
+ * --------------------|------------------------------|-----------------------
+ * Desain              | Memisahkan tugas dan thread  | Menyatukan menjadi satu
+ * Fleksibilitas       | Tinggi                       | Rendah
+ * Inheritance         | Bisa extends class lain      | Tidak bisa (sudah extends Thread)
+ * Best Practice       | Disarankan                   | Jarang dipakai
+ * 
+ * ------------------------------------------------------------------------
+ * KENAPA RUNNABLE LEBIH DISARANKAN?
+ * ------------------------------------------------------------------------
+ * 
+ * 1. Java hanya mendukung single inheritance.
+ *    Jika class sudah extends Thread, maka tidak bisa extends class lain.
+ * 
+ * 2. Runnable memisahkan tugas (task) dari mekanisme eksekusi (thread).
+ *    Ini sesuai dengan prinsip separation of concerns.
+ * 
+ * 3. Runnable lebih fleksibel karena bisa digunakan dengan:
+ *    - Thread biasa
+ *    - ExecutorService
+ *    - Thread pool
+ * 
+ * 4. Pendekatan Runnable mendukung pola desain yang lebih baik
+ *    untuk aplikasi skala besar.
+ * 
+ * ------------------------------------------------------------------------
+ * KAPAN MENGGUNAKAN EXTENDS THREAD?
+ * ------------------------------------------------------------------------
+ * 
+ * Hanya dalam kasus tertentu, seperti:
+ * - Membuat thread dengan perilaku yang sangat spesifik
+ * - Butuh meng-override method lain dari Thread selain run()
+ * - Pembuatan aplikasi sederhana atau edukasi
+ * 
+ * ------------------------------------------------------------------------
+ * CONTOH IMPLEMENTASI
+ * ------------------------------------------------------------------------
+ * 
+ *     class NewThread extends Thread {
+ *         
+ *         NewThread() {
+ *             super("Demo Thread");
+ *             System.out.println("Child thread: " + this);
+ *             start();
+ *         }
+ *         
+ *         public void run() {
+ *             try {
+ *                 for (int i = 5; i > 0; i--) {
+ *                     System.out.println("Child Thread: " + i);
+ *                     Thread.sleep(500);
+ *                 }
+ *             } catch (InterruptedException e) {
+ *                 System.out.println("Child interrupted.");
+ *             }
+ *             System.out.println("Exiting child thread.");
+ *         }
+ *     }
+ * 
+ *     public class Main {
+ *         public static void main(String[] args) {
+ *             new NewThread();
+ *             
+ *             try {
+ *                 for (int i = 5; i > 0; i--) {
+ *                     System.out.println("Main Thread: " + i);
+ *                     Thread.sleep(1000);
+ *                 }
+ *             } catch (InterruptedException e) {
+ *                 System.out.println("Main thread interrupted.");
+ *             }
+ *             System.out.println("Main thread exiting.");
+ *         }
+ *     }
+ * 
+ * ------------------------------------------------------------------------
+ * KESIMPULAN
+ * ------------------------------------------------------------------------
+ * 
+ * Extends Thread adalah cara membuat thread dengan mewarisi class Thread
+ * secara langsung. Namun, pendekatan ini kurang fleksibel dibandingkan
+ * dengan Runnable karena keterbatasan single inheritance di Java.
+ * 
+ * Untuk pengembangan aplikasi nyata, pendekatan Runnable atau
+ * Callable + ExecutorService jauh lebih direkomendasikan.
+ * 
+ * ------------------------------------------------------------------------
+ */
 
 // extends Thread
 class NewThread1 extends Thread {

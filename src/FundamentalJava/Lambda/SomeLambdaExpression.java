@@ -1,91 +1,371 @@
 package FundamentalJava.Lambda;
 
-/**
- * Beberapa Contoh Lambda Expression
+/* ==========================================================
+ *              CONTOH-CONTOH LAMBDA EXPRESSION
+ * ==========================================================
  *
- * Dengan penjelasan sebelumnya, sekarang kita lihat contoh sederhana.
- * Contoh ini menggabungkan:
- * functional interface
- * lambda expression
- * assignment
- * eksekusi
+ * Setelah memahami Functional Interface dan konsep dasar Lambda,
+ * sekarang kita dapat melihat bagaimana Lambda digunakan dalam
+ * program nyata.
  *
- * 1. Ini alur yang terjadi
- * MyNumber myNum;
+ * Contoh ini menggabungkan beberapa konsep utama:
  *
- * Lo bikin “wadah” (interface reference)
+ * - Functional Interface.
+ * - Lambda Expression.
+ * - Assignment ke interface reference.
+ * - Eksekusi method melalui lambda.
  *
- * myNum = () -> 123.45;
+ * ==========================================================
+ *              CONTOH FUNCTIONAL INTERFACE
+ * ==========================================================
+ *
+ * Misalkan terdapat interface:
+ *
+ *     @FunctionalInterface
+ *     interface MyNumber {
+ *
+ *         double getValue();
+ *
+ *     }
+ *
+ *
+ * Penjelasan:
+ *
+ * Method:
+ *
+ *     getValue()
+ *
+ * memiliki:
+ *
+ * Input:
+ *     tidak ada parameter
+ *
+ * Output:
+ *     double
+ *
+ *
+ * Maka lambda yang digunakan harus:
+ *
+ * - Tidak memiliki parameter.
+ * - Menghasilkan nilai double.
+ *
+ * ==========================================================
+ *                  ASSIGN LAMBDA KE VARIABLE
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     MyNumber myNum;
+ *
+ *
+ * Pada kode tersebut:
+ *
+ * myNum adalah reference variable dengan tipe MyNumber.
+ *
+ * Namun saat ini:
+ *
+ * myNum belum memiliki implementasi.
+ *
+ *
+ * Kemudian:
+ *
+ *     myNum = () -> 123.45;
+ *
  *
  * Yang terjadi:
- * Java bikin object secara otomatis
- * implement MyNumber
- * isi getValue() dengan lambda
  *
- * Secara konsep setara dengan:
- * // Versi manual (tanpa lambda)
- * MyNumber myNum = new MyNumber() {
- *     @Override
- *     public double getValue() {
- *         return 123.45;
- *     }
- * };
+ * - Lambda diberikan kepada reference myNum.
+ * - Java membuat object yang mengimplementasikan MyNumber.
+ * - Method getValue() diisi menggunakan lambda tersebut.
  *
- * 2. Kenapa random beda-beda?
- * myNum = () -> Math.random() * 100;
+ *
+ * Secara konsep, kode tersebut sama dengan:
+ *
+ *     MyNumber myNum = new MyNumber() {
+ *
+ *         @Override
+ *         public double getValue() {
+ *             return 123.45;
+ *         }
+ *
+ *     };
+ *
+ *
+ * Perbedaannya:
+ *
+ * Anonymous class membutuhkan banyak kode.
+ *
+ * Lambda memberikan cara yang lebih singkat untuk menulis
+ * implementasi method tersebut.
+ *
+ * ==========================================================
+ *                  MENJALANKAN LAMBDA
+ * ==========================================================
+ *
+ * Ketika dipanggil:
+ *
+ *     myNum.getValue();
+ *
+ *
+ * Java menjalankan:
+ *
+ *     () -> 123.45
+ *
+ *
+ * Hasil:
+ *
+ *     123.45
+ *
+ *
+ * Lambda bukan hanya disimpan sebagai data.
+ *
+ * Lambda berisi behavior atau logic yang akan dijalankan ketika
+ * method abstract interface dipanggil.
+ *
+ * ==========================================================
+ *                  LAMBDA DENGAN RANDOM VALUE
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     myNum = () -> Math.random() * 100;
+ *
+ *
+ * Berbeda dengan:
+ *
+ *     () -> 123.45
+ *
+ * Lambda ini tidak mengembalikan nilai tetap.
  *
  * Setiap kali:
- * myNum.getValue();
  *
- * Lambda dijalankan ulang
+ *     myNum.getValue();
  *
- * Makanya:
- * hasil beda terus
+ * dipanggil, lambda akan dieksekusi ulang.
  *
- * 3. Kenapa yang String error?
- * // myNum = () -> "123.03";
+ *
+ * Alurnya:
+ *
+ * getValue()
+ *      |
+ *      v
+ * Jalankan lambda
+ *      |
+ *      v
+ * Math.random()
+ *      |
+ *      v
+ * Hasil baru
+ *
+ *
+ * Karena Math.random() menghasilkan nilai berbeda setiap
+ * eksekusi, maka hasil yang dikembalikan juga berbeda.
+ *
+ * ==========================================================
+ *              BEHAVIOR OBJECT DAPAT BERUBAH
+ * ==========================================================
+ *
+ * Perhatikan:
+ *
+ *     myNum = () -> 123.45;
+ *
+ * Kemudian:
+ *
+ *     myNum = () -> Math.random() * 100;
+ *
+ *
+ * Reference myNum tetap sama.
+ *
+ * Tetapi behavior yang dimilikinya berubah.
+ *
+ * Sebelumnya:
+ *
+ * Mengembalikan nilai tetap.
+ *
+ * Setelah diganti:
+ *
+ * Menghasilkan nilai random.
+ *
+ *
+ * Ini menunjukkan bahwa Lambda memungkinkan object memiliki
+ * behavior yang dinamis.
+ *
+ * ==========================================================
+ *                 LAMBDA HARUS SESUAI TYPE
+ * ==========================================================
+ *
+ * Contoh salah:
+ *
+ *     myNum = () -> "123.03";
+ *
+ *
+ * Mengapa error?
  *
  * Karena:
- * getValue() harus return double
- * lambda return String
  *
- * Tidak cocok → ERROR
+ * Interface:
  *
- * ----------------------------------------------
- * 
- * Ini aturan penting banget:
- * Lambda HARUS sesuai dengan method di interface
+ *     double getValue();
  *
- * Insight Mentor (Ini yang bikin lo naik level)
- * 1. Lambda itu bukan sekali jalan
  *
- * Dia dieksekusi setiap kali method dipanggil
+ * Membutuhkan return:
  *
- * 2. Lambda bisa diganti-ganti
- * myNum = () -> 123.45;
- * myNum = () -> Math.random() * 100;
+ *     double
  *
- * Behavior object bisa berubah
  *
- * 3. Ini konsep powerful:
- * “Object dengan behavior dinamis”
+ * Tetapi lambda memberikan:
  *
- * 4. Ini awal dari:
- * Strategy pattern versi simpel
- * Functional programming style di Java
+ *     String
  *
- * -----------------------------------------
- * 
- * Kesimpulan Super Sederhana
- * 1. Lambda jadi isi method
- * myNum = () -> 123.45;
  *
- * 2. Setiap call = lambda dijalankan
- * myNum.getValue();
+ * Maka terjadi ketidaksesuaian tipe.
  *
- * 3. Harus cocok tipe
- * return type harus sama
- * parameter harus sama
+ * Compiler akan menolak kode tersebut.
+ *
+ * ==========================================================
+ *              ATURAN KOMPATIBILITAS LAMBDA
+ * ==========================================================
+ *
+ * Lambda HARUS cocok dengan abstract method pada Functional
+ * Interface.
+ *
+ * Yang harus sesuai:
+ *
+ * 1. Jumlah parameter.
+ *
+ * 2. Tipe parameter.
+ *
+ * 3. Return type.
+ *
+ * 4. Aturan exception.
+ *
+ *
+ * Contoh:
+ *
+ * Interface:
+ *
+ *     double getValue();
+ *
+ *
+ * Valid:
+ *
+ *     () -> 100.5
+ *
+ *
+ * Tidak valid:
+ *
+ *     () -> "Hello"
+ *
+ *
+ * Karena return type berbeda.
+ *
+ * ==========================================================
+ *                    INSIGHT PENTING
+ * ==========================================================
+ *
+ * 1. Lambda bukan kode yang langsung dijalankan saat dibuat.
+ *
+ * Lambda baru berjalan ketika abstract method dipanggil.
+ *
+ *
+ * Contoh:
+ *
+ *     myNum = () -> Math.random();
+ *
+ *
+ * Belum menjalankan Math.random().
+ *
+ * Baru berjalan saat:
+ *
+ *     myNum.getValue();
+ *
+ *
+ * ----------------------------------------------------------
+ *
+ * 2. Lambda dapat diganti-ganti
+ *
+ * Satu reference dapat memiliki behavior berbeda.
+ *
+ * Contoh:
+ *
+ *     myNum = () -> 123.45;
+ *
+ *     myNum = () -> Math.random() * 100;
+ *
+ *
+ * Reference sama.
+ *
+ * Behavior berbeda.
+ *
+ *
+ * ----------------------------------------------------------
+ *
+ * 3. Lambda adalah object dengan behavior dinamis
+ *
+ * Lambda memungkinkan object memiliki kemampuan untuk mengganti
+ * logic tanpa membuat class baru.
+ *
+ * Konsep ini menjadi dasar:
+ *
+ * - Functional programming style.
+ * - Strategy pattern sederhana.
+ * - Callback mechanism.
+ *
+ * ==========================================================
+ *              HUBUNGAN DENGAN STRATEGY PATTERN
+ * ==========================================================
+ *
+ * Strategy Pattern tradisional:
+ *
+ * Membuat beberapa class berbeda untuk setiap behavior.
+ *
+ * Contoh:
+ *
+ *     AdditionStrategy
+ *     SubtractionStrategy
+ *     MultiplicationStrategy
+ *
+ *
+ * Dengan Lambda:
+ *
+ * Behavior dapat dikirim langsung.
+ *
+ * Contoh:
+ *
+ *     calculate(a, b, (x, y) -> x + y);
+ *
+ *
+ * Lebih sederhana dan fleksibel.
+ *
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
+ *
+ * Lambda Expression adalah implementasi dari abstract method
+ * pada Functional Interface.
+ *
+ * Poin penting:
+ *
+ * - Lambda dapat diberikan ke interface reference.
+ * - Lambda dijalankan ketika method dipanggil.
+ * - Lambda dapat diganti dengan behavior berbeda.
+ * - Return type dan parameter harus sesuai dengan interface.
+ * - Lambda membuat object memiliki behavior yang fleksibel.
+ *
+ * Mental model:
+ *
+ * Functional Interface
+ *          |
+ *          v
+ * Menentukan kontrak method
+ *          |
+ *          v
+ * Lambda Expression
+ *          |
+ *          v
+ * Memberikan implementasi behavior
+ *
+ * ==========================================================
  */
 
 interface Number {

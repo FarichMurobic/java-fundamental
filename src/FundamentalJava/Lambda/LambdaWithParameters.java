@@ -1,252 +1,457 @@
 package FundamentalJava.Lambda;
 
-/**
- * Contoh Lambda dengan Parameter
+/* ==========================================================
+ *             LAMBDA EXPRESSION DENGAN PARAMETER
+ * ==========================================================
  *
- * Contoh ini nunjukin lambda yang punya parameter.
+ * Lambda Expression tidak hanya dapat digunakan untuk method
+ * tanpa parameter.
  *
- * Interface baru:
- * interface NumericTest {
- *     boolean test(int n);
- * }
+ * Lambda juga dapat menerima parameter sebagai input untuk
+ * menjalankan sebuah logic tertentu.
  *
- * Artinya:
- * method test(int n)
- * return boolean
+ * Bentuk dasar:
  *
- * Lambda pertama: cek genap
- * (n) -> (n % 2) == 0
+ *     parameter -> expression
  *
- * Artinya:
- * kalau n genap → true
- * kalau ganjil → false
+ * Parameter pada lambda harus sesuai dengan parameter yang
+ * didefinisikan oleh abstract method pada Functional Interface.
  *
- * Lambda kedua: cek non-negatif
- * (n) -> n >= 0
+ * ==========================================================
+ *              CONTOH LAMBDA SATU PARAMETER
+ * ==========================================================
  *
- * Artinya:
- * kalau n ≥ 0 → true
- * kalau < 0 → false
+ * Functional Interface:
  *
- * ------------------------------------------
- * 
- * Penjelasan Mendalam
- * 
- * 1. Perhatikan ini:
- * NumericTest isEven = (n) -> (n % 2) == 0;
+ *     @FunctionalInterface
+ *     interface NumericTest {
  *
- * Artinya:
- * NumericTest = target type
- * test(int n) = method target
- * lambda = isi method itu
+ *         boolean test(int n);
  *
- * 2. Type inference (ini penting banget)
- * (n) -> (n % 2) == 0
- *
- * Kenapa gak ada int n?
- *
- * Karena Java nebak otomatis dari:
- * boolean test(int n);
- *
- * Jadi:
- * n = int
- * return = boolean
- *
- * Versi eksplisit:
- * (int n) -> (n % 2) == 0
- *
- * Ini juga valid
- *
- * 3. Lambda bisa beda behavior
- * NumericTest isEven
- * NumericTest isNonNeg
- *
- * Dua lambda beda:
- * satu cek genap
- * satu cek positif
- *
- * Tapi:
- * Keduanya tetap bisa dipakai karena:
- * sama-sama cocok dengan test(int n)
- *
- * Insight penting:
- * 1 interface → bisa dipakai banyak lambda berbeda
- *
- * 4. Cara eksekusi
- * isEven.test(10)
- *
- * Yang jalan:
- * lambda (n) -> (n % 2) == 0
- *
- * 5. Parentheses opsional
- * (n) -> ...
- *
- * bisa jadi:
- * n -> ...
- *
- * Tapi:
- * kalau lebih dari 1 parameter → WAJIB pakai ()
- *
- * Insight Mentor (Ini bikin lo naik level)
- * 1. Lambda = behavior
- * isEven
- * isNonNeg
- *
- * bukan data
- * tapi aksi/logika
- *
- * 2. Functional interface reusable
- * Satu interface:
- * boolean test(int n);
- *
- * bisa:
- * cek genap
- * cek negatif
- * cek > 100
- * dll
- *
- * 3. Ini konsep powerful banget:
- * "Passing logic sebagai variable"
- *
- * 4. Ini bakal kepake di:
- * filter data
- * validasi input
- * stream API
- *
- * ---------------------------------
- * 
- * Kesimpulan Super Sederhana
- * 
- * 1. Lambda bisa punya parameter
- *    (n) -> n >= 0
- * 2. Tipe bisa di-skip (auto infer)
- *    (n) -> ...
- * 3. Bisa banyak lambda untuk 1 interface
- *    isEven
- *    isNonNeg
- * 4. Bisa dipanggil lewat method
- *    isEven.test(10)
- * 5. Kurung opsional (1 parameter)
- *    n -> n % 2 == 0
- */
-
-/**
- * Lambda dengan Dua Parameter
- *
- * Contoh ini nunjukin lambda yang punya 2 parameter.
- *
- * Interface:
- * interface NumericTest2 {
- *   boolean test(int n, int d);
- * }
- *
- * Artinya:
- * method test punya 2 input
- * n
- * d
- * return boolean
- *
- * Lambda:
- * (n, d) -> (n % d) == 0
- *
- * Artinya:
- * cek apakah n habis dibagi d
- * kalau iya → true
- * kalau tidak → false
- *
- * Penjelasan Mendalam
- * 1. Perhatikan method di interface
- * boolean test(int n, int d);
- *
- * Ini penting banget:
- * ada 2 parameter
- * maka lambda juga harus punya 2 parameter
- *
- * 2. Bentuk lambda
- * (n, d) -> (n % d) == 0
+ *     }
  *
  * Penjelasan:
- * n = angka utama
- * d = pembagi
- * % = sisa bagi
+ *
+ * Method test():
+ *
+ * Input:
+ *     int n
+ *
+ * Output:
+ *     boolean
+ *
+ * Artinya:
+ *
+ * Lambda yang digunakan harus:
+ *
+ * - Menerima satu parameter bertipe int.
+ * - Menghasilkan nilai boolean.
+ *
+ * ==========================================================
+ *                  LAMBDA CEK BILANGAN GENAP
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     NumericTest isEven =
+ *             (n) -> (n % 2) == 0;
+ *
+ * Penjelasan:
+ *
+ * n:
+ * parameter input.
+ *
+ * n % 2:
+ * menghitung sisa pembagian dengan 2.
+ *
+ * Jika hasilnya 0:
+ * berarti angka tersebut genap.
+ *
+ * Contoh:
+ *
+ *     10 % 2 == 0
+ *
+ * hasil:
+ *
+ *     true
+ *
+ *
+ *     7 % 2 == 0
+ *
+ * hasil:
+ *
+ *     false
+ *
+ * ==========================================================
+ *             LAMBDA CEK NILAI NON-NEGATIF
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     NumericTest isNonNeg =
+ *             (n) -> n >= 0;
  *
  * Logika:
- * Kalau:
- * 10 % 2 == 0 
- * 10 % 3 != 0 
  *
- * 3. Cara kerja eksekusi
- * isFactor.test(10, 2);
+ * Jika:
+ *
+ *     n >= 0
+ *
+ * maka:
+ *
+ *     true
+ *
+ * Jika:
+ *
+ *     n < 0
+ *
+ * maka:
+ *
+ *     false
+ *
+ * ==========================================================
+ *                  CARA MEMBACA LAMBDA
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     NumericTest isEven =
+ *             (n) -> (n % 2) == 0;
+ *
+ *
+ * Bagian-bagiannya:
+ *
+ * NumericTest:
+ * Target type dari lambda.
+ *
+ * test(int n):
+ * Method abstract yang akan diimplementasikan.
+ *
+ * (n) ->:
+ * Parameter lambda.
+ *
+ * (n % 2) == 0:
+ * Logic yang dijalankan.
+ *
+ * ==========================================================
+ *                    TYPE INFERENCE
+ * ==========================================================
+ *
+ * Perhatikan:
+ *
+ *     (n) -> (n % 2) == 0
+ *
+ * Tidak ada penulisan:
+ *
+ *     (int n)
+ *
+ * Mengapa?
+ *
+ * Karena Java dapat mengetahui tipe parameter dari Functional
+ * Interface.
+ *
+ * Interface:
+ *
+ *     boolean test(int n);
+ *
+ * Memberitahu compiler bahwa:
+ *
+ * n adalah int.
+ *
+ * Kemampuan Java menebak tipe secara otomatis disebut:
+ *
+ * Type Inference.
+ *
+ * ==========================================================
+ *             PENULISAN TIPE SECARA EKSPLISIT
+ * ==========================================================
+ *
+ * Lambda juga dapat menulis tipe parameter secara langsung.
+ *
+ * Contoh:
+ *
+ *     (int n) -> (n % 2) == 0
+ *
+ * Kode ini valid.
+ *
+ * Namun dalam praktik Java modern, penulisan implicit lebih
+ * sering digunakan karena lebih ringkas.
+ *
+ * ==========================================================
+ *             SATU INTERFACE, BANYAK PERILAKU
+ * ==========================================================
+ *
+ * Salah satu kekuatan Lambda adalah satu Functional Interface
+ * dapat memiliki banyak implementasi berbeda.
+ *
+ * Contoh:
+ *
+ *     NumericTest isEven =
+ *             n -> n % 2 == 0;
+ *
+ *
+ *     NumericTest isNonNeg =
+ *             n -> n >= 0;
+ *
+ *
+ * Kedua lambda tersebut berbeda behavior:
+ *
+ * isEven:
+ * mengecek angka genap.
+ *
+ * isNonNeg:
+ * mengecek angka non-negatif.
+ *
+ * Tetapi keduanya tetap valid karena memiliki bentuk yang sama:
+ *
+ *     boolean test(int n)
+ *
+ * ==========================================================
+ *                  EKSEKUSI LAMBDA
+ * ==========================================================
+ *
+ * Ketika method dipanggil:
+ *
+ *     isEven.test(10);
  *
  * Yang terjadi:
- * n = 10
- * d = 2
- * lambda jalan → hasil true
  *
- * 4. Aturan multiple parameter
- * Kalau lebih dari 1 parameter:
- * (n, d) -> ...
+ * 10 masuk sebagai nilai parameter n.
  *
- * WAJIB:
- * pakai tanda kurung ()
- * dipisah koma
+ * Lambda menjalankan:
  *
- * 5. Aturan tipe data (INI PENTING BANGET)
+ *     (n) -> (n % 2) == 0
+ *
+ * Hasil:
+ *
+ *     true
+ *
+ * Lambda bekerja seperti implementasi method biasa.
+ *
+ * ==========================================================
+ *              PARAMETER SATU DAN PARENTHESES
+ * ==========================================================
+ *
+ * Untuk satu parameter, tanda kurung bersifat opsional.
+ *
+ * Contoh:
+ *
+ *     (n) -> n >= 0
+ *
+ * Sama dengan:
+ *
+ *     n -> n >= 0
+ *
+ * Keduanya valid.
+ *
+ * Namun jika parameter lebih dari satu, tanda kurung wajib
+ * digunakan.
+ *
+ * ==========================================================
+ *          LAMBDA DENGAN DUA PARAMETER
+ * ==========================================================
+ *
+ * Functional Interface:
+ *
+ *     @FunctionalInterface
+ *     interface NumericTest2 {
+ *
+ *         boolean test(int n, int d);
+ *
+ *     }
+ *
+ * Method test() memiliki:
+ *
+ * Parameter:
+ *
+ *     n
+ *     d
+ *
+ * Return:
+ *
+ *     boolean
+ *
+ *
+ * Maka lambda harus memiliki dua parameter.
+ *
+ * ==========================================================
+ *              CONTOH LAMBDA DUA PARAMETER
+ * ==========================================================
+ *
+ * Contoh:
+ *
+ *     NumericTest2 isFactor =
+ *             (n, d) -> (n % d) == 0;
+ *
+ * Penjelasan:
+ *
+ * n:
+ * angka utama.
+ *
+ * d:
+ * angka pembagi.
+ *
+ * Operator %:
+ * Menghasilkan sisa pembagian.
+ *
+ * Contoh:
+ *
+ *     10 % 2 == 0
+ *
+ * hasil:
+ *
+ *     true
+ *
+ *
+ *     10 % 3 == 0
+ *
+ * hasil:
+ *
+ *     false
+ *
+ * ==========================================================
+ *                  CARA EKSEKUSI
+ * ==========================================================
+ *
+ * Ketika dipanggil:
+ *
+ *     isFactor.test(10, 2);
+ *
+ * Nilai parameter:
+ *
+ *     n = 10
+ *     d = 2
+ *
+ * Lambda menjalankan:
+ *
+ *     (10 % 2) == 0
+ *
+ * Hasil:
+ *
+ *     true
+ *
+ * ==========================================================
+ *              ATURAN MULTIPLE PARAMETER
+ * ==========================================================
+ *
+ * Jika lambda memiliki lebih dari satu parameter:
+ *
+ *     (n, d) -> ...
+ *
+ * Maka:
+ *
+ * - Harus menggunakan tanda kurung.
+ * - Parameter dipisahkan dengan koma.
+ *
+ * Tidak valid:
+ *
+ *     n, d -> ...
+ *
+ * ==========================================================
+ *              ATURAN TIPE DATA PARAMETER
+ * ==========================================================
+ *
+ * Jika ingin menulis tipe data secara eksplisit, semua
+ * parameter harus diberikan tipe.
+ *
  * Benar:
- * (int n, int d) -> (n % d) == 0
+ *
+ *     (int n, int d) ->
+ *             (n % d) == 0
+ *
+ *
  * Salah:
- * (int n, d) -> (n % d) == 0
  *
- * Kenapa salah?
- * Karena:
- * kalau 1 parameter dikasih tipe
- * semua parameter harus dikasih tipe
+ *     (int n, d) ->
+ *             (n % d) == 0
  *
- * Rule penting:
- * "Kalau mau eksplisit, harus semuanya eksplisit"
  *
- * ==========================================
- * 
- * Insight Mentor (Level Up)
- * 
- * 1. Lambda sekarang udah kayak function real
- * (n, d) -> ...
+ * Alasannya:
  *
- * Ini udah:
- * punya input
- * punya output
- * punya logic
+ * Java tidak mengizinkan pencampuran parameter typed dan
+ * untyped dalam lambda.
  *
- * 2. Bisa bikin logic reusable
- * NumericTest2 isFactor
+ * Rule:
  *
- * bisa dipakai di mana aja:
- * validasi
- * filter
- * kalkulasi
+ * "Kalau satu parameter diberikan tipe, semua parameter harus
+ * diberikan tipe."
  *
- * 3. Ini fondasi ke:
- * BiPredicate (Java built-in)
- * Stream API (filter dengan 2 kondisi)
- * Functional programming style
+ * ==========================================================
+ *                    INSIGHT PENTING
+ * ==========================================================
  *
- * 4. Ini konsep penting:
- * “Passing multiple inputs ke behavior”
+ * Lambda Expression dapat dianggap sebagai function kecil yang
+ * memiliki:
  *
- * Kesimpulan Super Sederhana
- * Inti:
- * 1. Lambda bisa punya banyak parameter
- *    (n, d) -> ...
+ * - Input.
+ * - Logic.
+ * - Output.
  *
- * 2. Harus sesuai dengan method interface
- *    boolean test(int n, int d);
+ * Contoh:
  *
- * 3. Kalau eksplisit → semua harus diketik
- *    (int n, int d) -> ...
- *    Tidak boleh campur
- *    (int n, d) -> ... // ERROR
+ *     (n, d) -> (n % d) == 0
  *
- * 4. Wajib pakai kurung kalau >1 parameter
+ * Input:
+ *     n dan d
+ *
+ * Logic:
+ *     operasi modulo
+ *
+ * Output:
+ *     boolean
+ *
+ * ==========================================================
+ *                 KONSEP LANJUTAN
+ * ==========================================================
+ *
+ * Konsep lambda dengan parameter menjadi dasar untuk:
+ *
+ * - Predicate<T>.
+ * - BiPredicate<T, U>.
+ * - Stream API filter().
+ * - Validasi data.
+ * - Functional programming style.
+ *
+ * Konsep utamanya:
+ *
+ * "Passing behavior sebagai nilai."
+ *
+ * Artinya:
+ *
+ * Kita dapat mengirim logic sebagai object untuk digunakan
+ * oleh bagian program lain.
+ *
+ * ==========================================================
+ *                       KESIMPULAN
+ * ==========================================================
+ *
+ * Lambda Expression dapat memiliki satu atau lebih parameter.
+ *
+ * Poin penting:
+ *
+ * - Parameter lambda harus sesuai dengan abstract method.
+ * - Tipe parameter dapat ditentukan otomatis oleh Java.
+ * - Satu Functional Interface dapat memiliki banyak lambda
+ *   dengan behavior berbeda.
+ * - Satu parameter boleh tanpa ().
+ * - Lebih dari satu parameter wajib menggunakan ().
+ * - Jika tipe parameter ditulis manual, semua parameter harus
+ *   ditulis tipenya.
+ *
+ * Hubungan konsep:
+ *
+ * Functional Interface
+ *          |
+ *          v
+ * Menentukan bentuk parameter dan return
+ *          |
+ *          v
+ * Lambda Expression
+ *          |
+ *          v
+ * Memberikan behavior atau logic
+ *
+ * ==========================================================
  */
 
 interface Something {
