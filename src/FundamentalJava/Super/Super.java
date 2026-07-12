@@ -22,9 +22,9 @@ package FundamentalJava.Super;
  *         double weight;
  * 
  *         BoxWeight(double w, double h, double d, double m) {
- *             width = w;      // ❌ Duplikasi!
- *             height = h;     // ❌ Duplikasi!
- *             depth = d;      // ❌ Duplikasi!
+ *             width = w;      // Duplikasi!
+ *             height = h;     // Duplikasi!
+ *             depth = d;      // Duplikasi!
  *             weight = m;
  *         }
  *     }
@@ -45,8 +45,8 @@ package FundamentalJava.Super;
  *         double weight;
  * 
  *         BoxWeight(double w, double h, double d, double m) {
- *             super(w, h, d);  // ✅ Panggil constructor Box
- *             weight = m;      // ✅ Hanya isi yang unik
+ *             super(w, h, d);  // Panggil constructor Box
+ *             weight = m;      // Hanya isi yang unik
  *         }
  *     }
  * 
@@ -128,7 +128,7 @@ package FundamentalJava.Super;
  *     }
  * 
  *     class B extends A {
- *         int i;  // ❗ Menutupi (hide) i dari A
+ *         int i;  // Menutupi (hide) i dari A
  * 
  *         B(int a, int b) {
  *             super.i = a;  // Isi i milik A

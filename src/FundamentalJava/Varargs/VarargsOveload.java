@@ -84,8 +84,8 @@ package FundamentalJava.Varargs;
  *     }
  * 
  *     // Panggilan:
- *     test(10);     // ✅ Non-varargs (lebih spesifik)
- *     test(1, 2, 3); // ✅ Varargs
+ *     test(10);      // Non-varargs (lebih spesifik)
+ *     test(1, 2, 3); // Varargs
  * 
  * Java akan memilih method yang PALING SPESIFIK.
  * 
