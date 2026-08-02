@@ -226,7 +226,6 @@ public class VarargsOveload {
 
         /**
          * Kadang overloading + varargs bisa bikin error karena ambiguity (membingungkan compiler).
-         * 
          * Java gak bisa menentukan method mana yang harus dipanggil.
          *
          * static void vaTest(int ... v) {
@@ -259,6 +258,8 @@ public class VarargsOveload {
          * boolean... juga bisa kosong
          * Java bingung → ERROR
          *
+         * ------------------------------------------------
+         * 
          * KONSEP DALAM (INI KUNCI)
          * Varargs bisa kosong
          * int ... v
@@ -291,6 +292,8 @@ public class VarargsOveload {
          * → v = {}
          *
          * Dua-duanya valid → ERROR
+         * 
+         * ------------------------------------------------
          *
          * JENIS-JENIS AMBIGUITY
          * 1. Kosong (no argument)
@@ -304,6 +307,8 @@ public class VarargsOveload {
          *
          * 3. Banyak kemungkinan interpretasi
          * Java gak bisa pilih yang “paling benar”
+         * 
+         * -----------------------------------------------
          *
          * KENAPA JAVA GAK MILIH SENDIRI?
          * Karena:
