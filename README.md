@@ -18,21 +18,17 @@ This repository documents my Java learning journey starting from fundamental con
 
 ## Objective
 
-Learning Documentation
-
-Skill Improvement
-
-Git Familiarity
-
-Career Preparation
+- Learning Documentation
+- Skill Improvement
+- Git Familiarity
+- Career Preparation
 
 ---
 
 ## Notes
 
-Repository ini akan terus diperbarui sesuai dengan progres pembelajaran.
-
-Setiap folder berisi implementasi konsep Java yang dipelajari secara bertahap.
+- Repository ini akan terus diperbarui sesuai dengan progres pembelajaran.
+- Setiap folder berisi implementasi konsep Java yang dipelajari secara bertahap.
 
 ---
 
