@@ -7,7 +7,7 @@ package FundamentalJava.ExceptionHandling;
  *
  * Saat exception terjadi, alur eksekusi program dapat berubah secara
  * tiba-tiba. Akibatnya, kode setelah titik terjadinya exception
- * mungkin tidak pernah dijalankan.
+ * mungkin tidak pernah dijalankan..
  *
  * Contoh:
  * - File sudah dibuka
@@ -41,13 +41,13 @@ package FundamentalJava.ExceptionHandling;
  * Bentuk umum:
  *
  * try {
- *     // kode yang berpotensi menghasilkan exception
+ * // kode yang berpotensi menghasilkan exception
  * }
  * catch (Exception e) {
- *     // penanganan exception
+ * // penanganan exception
  * }
  * finally {
- *     // cleanup resource
+ * // cleanup resource
  * }
  *
  * ------------------------------------------------------------
@@ -65,11 +65,11 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * static int test() {
- *     try {
- *         return 10;
- *     } finally {
- *         System.out.println("finally dijalankan");
- *     }
+ * try {
+ * return 10;
+ * } finally {
+ * System.out.println("finally dijalankan");
+ * }
  * }
  *
  * Output:
@@ -101,27 +101,27 @@ package FundamentalJava.ExceptionHandling;
  * Kasus 1 - Tidak ada exception:
  *
  * try
- *   ↓
+ * ↓
  * finally
- *   ↓
+ * ↓
  * lanjut program
  *
  * Kasus 2 - Exception ditangkap:
  *
  * try
- *   ↓
+ * ↓
  * catch
- *   ↓
+ * ↓
  * finally
- *   ↓
+ * ↓
  * lanjut program
  *
  * Kasus 3 - Exception tidak ditangkap:
  *
  * try
- *   ↓
+ * ↓
  * finally
- *   ↓
+ * ↓
  * exception diteruskan ke caller
  *
  * ------------------------------------------------------------
@@ -136,12 +136,12 @@ package FundamentalJava.ExceptionHandling;
  * FileInputStream fis = null;
  *
  * try {
- *     fis = new FileInputStream("data.txt");
+ * fis = new FileInputStream("data.txt");
  * }
  * finally {
- *     if (fis != null) {
- *         fis.close();
- *     }
+ * if (fis != null) {
+ * fis.close();
+ * }
  * }
  *
  * Sejak Java 7, pendekatan yang lebih direkomendasikan adalah:
@@ -153,9 +153,9 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * try (FileInputStream fis =
- *          new FileInputStream("data.txt")) {
+ * new FileInputStream("data.txt")) {
  *
- *     // gunakan file
+ * // gunakan file
  *
  * }
  *
@@ -166,7 +166,7 @@ package FundamentalJava.ExceptionHandling;
  * Java modern:
  * - Utamakan try-with-resources untuk resource management
  * - Gunakan finally untuk cleanup umum yang tidak bisa
- *   ditangani oleh try-with-resources
+ * ditangani oleh try-with-resources
  *
  * ------------------------------------------------------------
  * KAPAN MENGGUNAKAN FINALLY?
@@ -207,11 +207,11 @@ package FundamentalJava.ExceptionHandling;
  * - finally dijalankan setelah try dan/atau catch selesai.
  * - finally tetap berjalan meskipun terdapat return.
  * - finally sangat berguna untuk memastikan resource
- *   dibersihkan dengan benar.
+ * dibersihkan dengan benar.
  * - Pada Java modern, penutupan resource sebaiknya
- *   menggunakan try-with-resources.
+ * menggunakan try-with-resources.
  * - finally tetap penting untuk operasi cleanup umum
- *   yang harus selalu dieksekusi.
+ * yang harus selalu dieksekusi.
  */
 
 public class Finally {
@@ -258,7 +258,7 @@ public class Finally {
             procA();
         } catch (Exception e) {
             System.out.println("Exception caught");
-        } 
+        }
 
         System.out.println();
 
@@ -300,6 +300,6 @@ public class Finally {
          *
          * tetap dieksekusi
          */
-       
+
     }
 }
