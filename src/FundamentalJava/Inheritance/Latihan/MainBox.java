@@ -1,8 +1,10 @@
 package FundamentalJava.Inheritance.Latihan;
 
 /**
- * Sekarang kita lihat contoh yang lebih praktis untuk menunjukkan kekuatan inheritance.
- * Di sini, class Box dari chapter sebelumnya akan diperluas dengan menambahkan komponen keempat yaitu weight (berat).
+ * Sekarang kita lihat contoh yang lebih praktis untuk menunjukkan kekuatan
+ * inheritance.
+ * Di sini, class Box dari chapter sebelumnya akan diperluas dengan menambahkan
+ * komponen keempat yaitu weight (berat)...
  * Jadi class baru akan punya:
  * width (lebar)
  * height (tinggi)
@@ -104,10 +106,10 @@ class BoxWeight extends Box {
 
 public class MainBox {
     public static void main(String[] args) {
-        
+
         // MEMBUAT objek clas Boxweight
-        BoxWeight myBox1 = new BoxWeight(10,20,15,34.3);
-        BoxWeight myBox2 = new BoxWeight(2,3,4,0.076);
+        BoxWeight myBox1 = new BoxWeight(10, 20, 15, 34.3);
+        BoxWeight myBox2 = new BoxWeight(2, 3, 4, 0.076);
 
         double vol;
 
@@ -139,9 +141,11 @@ public class MainBox {
          * Bisa lanjut:
          * Box → BoxWeight → BoxShipping → dll
          *
-         * Keuntungan besar dari inheritance adalah setelah kita membuat superclass yang mendefinisikan atribut umum,
+         * Keuntungan besar dari inheritance adalah setelah kita membuat superclass yang
+         * mendefinisikan atribut umum,
          * kita bisa membuat banyak subclass yang lebih spesifik.
-         * Setiap subclass bisa menambahkan fitur uniknya sendiri. Inilah inti dari inheritance.
+         * Setiap subclass bisa menambahkan fitur uniknya sendiri. Inilah inti dari
+         * inheritance.
          *
          * ----------------------------------------------------------------------
          * 
@@ -154,7 +158,8 @@ public class MainBox {
          */
 
         /**
-         * Variabel referensi dari superclass bisa menyimpan referensi ke objek subclass.
+         * Variabel referensi dari superclass bisa menyimpan referensi ke objek
+         * subclass.
          * 
          * Artinya:
          * Superclass ref = object subclass
@@ -223,15 +228,15 @@ public class MainBox {
          * plainbox → menunjuk ke object BoxWeight
          *
          * 3. Akses method
-         * plainbox.volume(); 
-         * plainbox.weight 
+         * plainbox.volume();
+         * plainbox.weight
          *
          * -------------------------------------
          * 
          * RINGKASAN SUPER INTI
          *
          * Rumus yang harus lo inget:
-         * Superclass ref = Subclass object 
+         * Superclass ref = Subclass object
          * Yang bisa diakses = milik superclass
          *
          * INTI PALING DALAM
