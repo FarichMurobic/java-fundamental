@@ -7,7 +7,7 @@ package FundamentalJava.Assert;
  *
  * Assert adalah keyword di Java yang digunakan untuk memverifikasi
  * bahwa suatu kondisi yang dianggap benar oleh programmer memang
- * benar saat program dijalankan.
+ * benar saat program dijalankan..
  *
  * Assert umumnya digunakan selama proses:
  *
@@ -18,13 +18,13 @@ package FundamentalJava.Assert;
  *
  * Jika kondisi yang diperiksa bernilai:
  *
- * - true  -> Program berjalan normal.
+ * - true -> Program berjalan normal.
  * - false -> JVM melempar AssertionError.
  *
  * Flow:
  * Assert Dijalankan
  * -> Kondisi Diperiksa
- * -> true  -> Program Lanjut
+ * -> true -> Program Lanjut
  * -> false -> AssertionError
  *
  * ---------------------------------------------------------------------------
@@ -135,8 +135,8 @@ package FundamentalJava.Assert;
  * Sebelum menggunakan assert, programmer sering menulis:
  *
  * if (n < 0) {
- *     System.out.println("n is negative!");
- *     return;
+ * System.out.println("n is negative!");
+ * return;
  * }
  *
  * Dengan assert:
@@ -359,8 +359,8 @@ package FundamentalJava.Assert;
  * Case 4:
  *
  * java -da:com.app.service...
- *      -ea:com.app.service.UserService
- *      MyApp
+ * -ea:com.app.service.UserService
+ * MyApp
  *
  * Hasil:
  *
@@ -429,7 +429,7 @@ public class Assert {
     }
 
     public static void main(String[] args) {
-        
+
         int n;
 
         for (int i = 0; i < 10; i++) {
