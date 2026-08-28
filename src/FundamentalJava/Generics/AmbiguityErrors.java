@@ -8,7 +8,7 @@ package FundamentalJava.Generics;
  * parameter bertipe generic yang berbeda.
  *
  * Penyebab utamanya adalah:
- * Type Erasure.
+ * Type Erasure..
  *
  * ------------------------------------------------------------
  *
@@ -16,16 +16,16 @@ package FundamentalJava.Generics;
  *
  * class MyGenClass<T, V> {
  *
- *     T ob1;
- *     V ob2;
+ * T ob1;
+ * V ob2;
  *
- *     void set(T value) {
- *         ob1 = value;
- *     }
+ * void set(T value) {
+ * ob1 = value;
+ * }
  *
- *     void set(V value) {
- *         ob2 = value;
- *     }
+ * void set(V value) {
+ * ob2 = value;
+ * }
  * }
  *
  * Sekilas terlihat valid karena:
@@ -57,16 +57,16 @@ package FundamentalJava.Generics;
  *
  * class MyGenClass {
  *
- *     Object ob1;
- *     Object ob2;
+ * Object ob1;
+ * Object ob2;
  *
- *     void set(Object value) {
- *         ob1 = value;
- *     }
+ * void set(Object value) {
+ * ob1 = value;
+ * }
  *
- *     void set(Object value) {
- *         ob2 = value;
- *     }
+ * void set(Object value) {
+ * ob2 = value;
+ * }
  * }
  *
  * Sekarang terlihat masalahnya:
@@ -115,9 +115,9 @@ package FundamentalJava.Generics;
  *
  * class MyGenClass<T, V extends Number> {
  *
- *     void set(T value) { }
+ * void set(T value) { }
  *
- *     void set(V value) { }
+ * void set(V value) { }
  * }
  *
  * Setelah type erasure,
@@ -172,18 +172,18 @@ package FundamentalJava.Generics;
  * misalnya:
  *
  * void setFirst(T value) {
- *     ob1 = value;
+ * ob1 = value;
  * }
  *
  * void setSecond(V value) {
- *     ob2 = value;
+ * ob2 = value;
  * }
  *
  * atau gunakan satu method:
  *
  * void set(T first, V second) {
- *     ob1 = first;
- *     ob2 = second;
+ * ob1 = first;
+ * ob2 = second;
  * }
  *
  * Pendekatan ini lebih jelas,
@@ -224,15 +224,15 @@ package FundamentalJava.Generics;
  * - Overloading ditentukan berdasarkan method signature.
  * - Generic tidak ikut menentukan overload.
  * - Setelah type erasure, parameter generic biasanya menjadi
- *   Object atau bound type.
+ * Object atau bound type.
  * - Jika dua method memiliki signature yang sama setelah erasure,
- *   compiler akan menghasilkan name clash.
+ * compiler akan menghasilkan name clash.
  * - Gunakan nama method yang berbeda apabila method menerima
- *   parameter generic yang berbeda untuk menghindari konflik.
+ * parameter generic yang berbeda untuk menghindari konflik.
  */
 
 public class AmbiguityErrors {
     public static void main(String[] args) {
-        
+
     }
 }
