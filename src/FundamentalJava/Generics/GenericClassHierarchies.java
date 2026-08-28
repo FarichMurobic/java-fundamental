@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Generic class dapat berpartisipasi dalam mekanisme inheritance
- * (pewarisan) sebagaimana class biasa.
+ * (pewarisan) sebagaimana class biasa..
  *
  * Artinya, generic class dapat berperan sebagai:
  *
@@ -15,7 +15,6 @@ package FundamentalJava.Generics;
  * Seluruh aturan inheritance di Java tetap berlaku, dengan
  * tambahan aturan mengenai type parameter.
  */
-
 
 /* ------------------------------------------------------------
  * Generic Sebagai Parent dan Child
@@ -39,7 +38,6 @@ package FundamentalJava.Generics;
  * Dengan demikian, parent dan child menggunakan tipe data
  * yang sama untuk parameter T.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Type Parameter Harus Diteruskan?
@@ -70,7 +68,6 @@ package FundamentalJava.Generics;
  * menghilangkan type safety dan akan menghasilkan warning.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh Penggunaan
  * ------------------------------------------------------------
@@ -93,7 +90,6 @@ package FundamentalJava.Generics;
  * Seluruh object dalam hierarki inheritance tetap konsisten
  * menggunakan type argument yang sama.
  */
-
 
 /* ------------------------------------------------------------
  * Subclass Dapat Menambahkan Type Parameter Baru
@@ -121,7 +117,6 @@ package FundamentalJava.Generics;
  * framework modern.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh Instansiasi
  * ------------------------------------------------------------
@@ -143,7 +138,6 @@ package FundamentalJava.Generics;
  *   menggunakan Integer.
  */
 
-
 /* ------------------------------------------------------------
  * Hubungan Type Parameter dalam Inheritance
  * ------------------------------------------------------------
@@ -164,7 +158,6 @@ package FundamentalJava.Generics;
  * Dengan demikian, setiap object memiliki hubungan tipe
  * yang tetap konsisten di seluruh hierarki inheritance.
  */
-
 
 /* ------------------------------------------------------------
  * Konsep-Konsep Penting
@@ -208,7 +201,6 @@ package FundamentalJava.Generics;
  *    V = String   → hanya digunakan oleh child.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh di Dunia Nyata
  * ------------------------------------------------------------
@@ -225,7 +217,6 @@ package FundamentalJava.Generics;
  * maupun Android SDK juga banyak memanfaatkan pola
  * inheritance pada generic class.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -284,13 +275,13 @@ class Child2<T, V> extends Parent<T> {
 
 public class GenericClassHierarchies {
     public static void main(String[] args) {
-        
+
         Child<String> name = new Child("Farich Murobic");
         System.out.println(name.getObjek());
 
         Child2<String, Integer> biodata = new Child2("JaneRa F.M", 22);
         System.out.println(biodata.getObjek()); // Dari Parent
-        System.out.println(biodata.getOb2());   // Dari Child2
+        System.out.println(biodata.getOb2()); // Dari Child2
     }
 
 }
