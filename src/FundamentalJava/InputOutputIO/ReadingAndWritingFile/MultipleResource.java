@@ -41,7 +41,7 @@ public class MultipleResource {
          * fin ditutup
          * fout ditutup
          *
-         * otomatis semua.
+         * otomatis semua...
          *
          * --------------------------------
          * 
