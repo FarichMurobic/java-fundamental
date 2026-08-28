@@ -8,7 +8,7 @@ package FundamentalJava.ClassAndObject;
  * Class merupakan konsep paling fundamental dalam Java.
  *
  * Seluruh program Java dibangun menggunakan class karena class
- * menjadi dasar dari paradigma Object-Oriented Programming (OOP).
+ * menjadi dasar dari paradigma Object-Oriented Programming (OOP)..
  *
  * Secara sederhana:
  *
@@ -24,12 +24,12 @@ package FundamentalJava.ClassAndObject;
  *
  * Hubungan antara class dan object sering dijelaskan sebagai:
  *
- * Class  -> Blueprint / Cetakan
+ * Class -> Blueprint / Cetakan
  * Object -> Hasil yang dibuat dari blueprint tersebut
  *
  * Analogi dunia nyata:
  *
- * Class  -> Cetakan Mobil
+ * Class -> Cetakan Mobil
  * Object -> Mobil Avanza
  * Object -> Mobil BMW
  * Object -> Mobil Tesla
@@ -40,7 +40,7 @@ package FundamentalJava.ClassAndObject;
  *
  * Analogi dalam Java:
  *
- * Class  -> Car
+ * Class -> Car
  * Object -> car1
  * Object -> car2
  * Object -> car3
@@ -100,16 +100,16 @@ package FundamentalJava.ClassAndObject;
  *
  * class ClassName {
  *
- *     type instanceVariable1;
- *     type instanceVariable2;
+ * type instanceVariable1;
+ * type instanceVariable2;
  *
- *     returnType method1(parameterList) {
- *         // isi method
- *     }
+ * returnType method1(parameterList) {
+ * // isi method
+ * }
  *
- *     returnType method2(parameterList) {
- *         // isi method
- *     }
+ * returnType method2(parameterList) {
+ * // isi method
+ * }
  * }
  *
  * Sebuah class umumnya terdiri dari:
@@ -126,8 +126,8 @@ package FundamentalJava.ClassAndObject;
  * Contoh:
  *
  * class Car {
- *     int speed;
- *     int gear;
+ * int speed;
+ * int gear;
  * }
  *
  * Pada contoh di atas:
@@ -150,7 +150,7 @@ package FundamentalJava.ClassAndObject;
  * Contoh:
  *
  * void accelerate() {
- *     speed = speed + 10;
+ * speed = speed + 10;
  * }
  *
  * Method di atas bertugas menambah kecepatan object.
@@ -179,12 +179,12 @@ package FundamentalJava.ClassAndObject;
  *
  * class Car {
  *
- *     int speed;     // Class Member
- *     int gear;      // Class Member
+ * int speed; // Class Member
+ * int gear; // Class Member
  *
- *     void accelerate() {   // Class Member
- *         speed++;
- *     }
+ * void accelerate() { // Class Member
+ * speed++;
+ * }
  * }
  *
  * Jadi:
@@ -226,9 +226,9 @@ package FundamentalJava.ClassAndObject;
  * Contoh class sederhana:
  *
  * class Box {
- *     double width;
- *     double height;
- *     double depth;
+ * double width;
+ * double height;
+ * double depth;
  * }
  *
  * Class Box memiliki tiga instance variable:
@@ -252,9 +252,9 @@ package FundamentalJava.ClassAndObject;
  * Contoh:
  *
  * class Box {
- *     double width;
- *     double height;
- *     double depth;
+ * double width;
+ * double height;
+ * double depth;
  * }
  *
  * Kode di atas hanya membuat blueprint atau template.
@@ -302,9 +302,9 @@ package FundamentalJava.ClassAndObject;
  *
  * Object Box:
  *
- * width  = 0.0
+ * width = 0.0
  * height = 0.0
- * depth  = 0.0
+ * depth = 0.0
  *
  * Nilai default diberikan secara otomatis oleh Java.
  *
@@ -352,15 +352,15 @@ package FundamentalJava.ClassAndObject;
  *
  * class Car {
  *
- *     private String brand;
+ * private String brand;
  *
- *     public Car(String brand) {
- *         this.brand = brand;
- *     }
+ * public Car(String brand) {
+ * this.brand = brand;
+ * }
  *
- *     public void start() {
- *         System.out.println("Car started");
- *     }
+ * public void start() {
+ * System.out.println("Car started");
+ * }
  * }
  *
  * Namun konsep dasarnya tetap sama:
@@ -406,9 +406,9 @@ package FundamentalJava.ClassAndObject;
  * teknologi Java lainnya.
  */
 
-class Car {    // Deklarasi class
+class Car { // Deklarasi class
     int speed; // instance variabel
-    int gear;  // instance variabel
+    int gear; // instance variabel
 
     void accelerate() { // Method
         speed = speed + 10;
@@ -417,10 +417,10 @@ class Car {    // Deklarasi class
     // Instance variabel dan methode adalah member dari clas
 }
 
-class Box {         // Deklarasi class
+class Box { // Deklarasi class
     double panjang; // instance variabel
-    double lebar;   // instance variabel
-    double tinggi;  // instance variabel
+    double lebar; // instance variabel
+    double tinggi; // instance variabel
 
     void volumeDimensi() { // Method
         // Rumus volume barang di JNE
@@ -452,6 +452,6 @@ public class ClassJava { // Deklarasi class
         box.tinggi = 78.2;
 
         box.volumeDimensi(); // 31.267488000000004
-        
+
     }
 }
