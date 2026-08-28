@@ -1,5 +1,7 @@
 package FundamentalJava.Enum.Latihan;
 
+// Latihan
+
 public class AskMe {
 
     // Method untuk menampilkan jawaban
@@ -27,7 +29,7 @@ public class AskMe {
     }
 
     public static void main(String[] args) {
-        
+
         // Buat objek Question
         Question question = new Question();
 
@@ -38,7 +40,7 @@ public class AskMe {
         answer(question.ask());
 
         /**
-         * CEMUNGUTTTTTTTTTTT!!!!!!!!!  @Haaaaa
+         * CEMUNGUTTTTTTTTTTT!!!!!!!!! @Haaaaa
          * 
          * ALUR PROGRAM
          * 
@@ -68,7 +70,7 @@ public class AskMe {
          * 
          * -------------------------------------
          *
-         * KONSEP PENTING 
+         * KONSEP PENTING
          *
          * 1. Enum sebagai return type
          * Answers ask()
