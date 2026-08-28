@@ -9,7 +9,7 @@ package FundamentalJava.Constructor;
  * (current object).
  *
  * Setiap object memiliki reference this sendiri yang secara otomatis
- * disediakan oleh Java.
+ * disediakan oleh Java..
  *
  * Ketika sebuah method dipanggil melalui object, keyword this akan
  * mengacu pada object yang memanggil method tersebut.
@@ -73,11 +73,11 @@ package FundamentalJava.Constructor;
  *
  * class Box {
  *
- *     double width;
+ * double width;
  *
- *     Box(double width) {
- *         this.width = width;
- *     }
+ * Box(double width) {
+ * this.width = width;
+ * }
  * }
  *
  * Pada contoh di atas:
@@ -99,11 +99,11 @@ package FundamentalJava.Constructor;
  *
  * class Box {
  *
- *     double width;
+ * double width;
  *
- *     Box(double width) {
- *         width = width;
- *     }
+ * Box(double width) {
+ * width = width;
+ * }
  * }
  *
  * Sekilas terlihat benar, tetapi sebenarnya salah.
@@ -140,15 +140,15 @@ package FundamentalJava.Constructor;
  *
  * class Test {
  *
- *     int a;
+ * int a;
  *
- *     void setA(int a) {
- *         this.a = a;
- *     }
+ * void setA(int a) {
+ * this.a = a;
+ * }
  *
- *     void tampilkan() {
- *         System.out.println(this.a);
- *     }
+ * void tampilkan() {
+ * System.out.println(this.a);
+ * }
  * }
  *
  * Pada praktiknya, penulisan this.a di dalam method sering kali
@@ -175,19 +175,19 @@ package FundamentalJava.Constructor;
  *
  * class Box {
  *
- *     double width;
- *     double height;
- *     double depth;
+ * double width;
+ * double height;
+ * double depth;
  *
- *     Box() {
- *         this(0, 0, 0);
- *     }
+ * Box() {
+ * this(0, 0, 0);
+ * }
  *
- *     Box(double w, double h, double d) {
- *         width = w;
- *         height = h;
- *         depth = d;
- *     }
+ * Box(double w, double h, double d) {
+ * width = w;
+ * height = h;
+ * depth = d;
+ * }
  * }
  *
  * Flow:
@@ -213,13 +213,13 @@ package FundamentalJava.Constructor;
  *
  * class Test {
  *
- *     void show() {
- *         display(this);
- *     }
+ * void show() {
+ * display(this);
+ * }
  *
- *     void display(Test obj) {
- *         // proses object
- *     }
+ * void display(Test obj) {
+ * // proses object
+ * }
  * }
  *
  * Flow:
@@ -239,9 +239,9 @@ package FundamentalJava.Constructor;
  *
  * class Test {
  *
- *     Test getObject() {
- *         return this;
- *     }
+ * Test getObject() {
+ * return this;
+ * }
  * }
  *
  * Teknik ini banyak digunakan dalam:
@@ -253,25 +253,25 @@ package FundamentalJava.Constructor;
  * Contoh modern:
  *
  * builder
- *     .setName("Farich")
- *     .setAge(20)
- *     .build();
+ * .setName("Farich")
+ * .setAge(20)
+ * .build();
  *
  * ------------------------------------------------------------------------
  * ISTILAH PENTING
  * ------------------------------------------------------------------------
  *
  * - Current Object
- *   Object yang sedang menjalankan method.
+ * Object yang sedang menjalankan method.
  *
  * - Instance Variable
- *   Variabel yang dimiliki oleh setiap object.
+ * Variabel yang dimiliki oleh setiap object.
  *
  * - Parameter
- *   Variabel penerima nilai pada method atau constructor.
+ * Variabel penerima nilai pada method atau constructor.
  *
  * - Argument
- *   Nilai yang dikirim saat method atau constructor dipanggil.
+ * Nilai yang dikirim saat method atau constructor dipanggil.
  *
  * ------------------------------------------------------------------------
  * KESIMPULAN
@@ -285,10 +285,10 @@ package FundamentalJava.Constructor;
  * - Mengakses instance variable milik object saat ini.
  *
  * - Membedakan instance variable dengan parameter yang memiliki
- *   nama yang sama.
+ * nama yang sama.
  *
  * - Memanggil constructor lain dalam class yang sama melalui
- *   this(...).
+ * this(...).
  *
  * - Mengirim current object sebagai argument method.
  *
@@ -318,16 +318,19 @@ public class ThisJava {
      * This(double w, double h, double d) {
      *
      * this menunjuk ke object yang sedang dibuat
-     * this disini sebenarnya redudant, Tanpa this. Java tetap mengerti bahwa width adalah instance variable.
+     * this disini sebenarnya redudant, Tanpa this. Java tetap mengerti bahwa width
+     * adalah instance variable.
      * this.width = w;
      * this.height = h;
      * this.depth = d;
      * }
      */
 
-    // Contoh this yang benar, saat nama variabel instance dan nama variabel parameter sama.
+    // Contoh this yang benar, saat nama variabel instance dan nama variabel
+    // parameter sama.
     ThisJava(double width, double height, double depth) {
-        // artinya this disini merujuk instance. meskipun namanya sama dengan nama parameter
+        // artinya this disini merujuk instance. meskipun namanya sama dengan nama
+        // parameter
         this.width = width;
         this.height = height;
         this.depth = depth;
@@ -340,21 +343,20 @@ public class ThisJava {
      * Box box1 = new Box(5,6,7);
      * Saat constructor berjalan:
      * Parameter:
-     * width  = 5
+     * width = 5
      * height = 6
-     * depth  = 7
+     * depth = 7
      *
      * this menunjuk ke object:
      * box1
      *
      * Eksekusi:
-     * this.width  = width  → box1.width = 5
+     * this.width = width → box1.width = 5
      * this.height = height → box1.height = 6
-     * this.depth  = depth  → box1.depth = 7
+     * this.depth = depth → box1.depth = 7
      *
      * Object selesai dibuat.
      */
-
 
     double volume() {
         return width * height * depth;
@@ -388,9 +390,9 @@ public class ThisJava {
          *
          * Memory object:
          * mybox1
-         *  ├── width  = 10
-         *  ├── height = 20
-         *  └── depth  = 30
+         * ├── width = 10
+         * ├── height = 20
+         * └── depth = 30
          *
          * Saat constructor berjalan:
          * this → object mybox1
