@@ -1,16 +1,51 @@
-# VS Code
-.vscode/
+# ============ INTELLIJ IDEA ============
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+target/
+build/
 
-# Java compiled files
+# ============ VS CODE ============
+.vscode/
+*.code-workspace
+*.log
+
+# ============ JAVA COMPILED ============
 *.class
 
-# Build output
+# ============ BUILD OUTPUT ============
 bin/
 out/
 target/
+build/
+classes/
+dependency-reduced-pom.xml
 
-# Libraries
+# ============ LIBRARIES ============
 lib/
+libs/
+*.jar
+*.war
+*.ear
 
-# Data
+# ============ DATA FILES ============
 data/
+*.db
+*.sqlite
+*.csv
+*.xlsx
+*.xls
+
+# ============ LOGS & TEMP ============
+logs/
+*.log
+temp/
+tmp/
+*.tmp
+
+# ============ OS FILES ============
+.DS_Store
+Thumbs.db
+desktop.ini
