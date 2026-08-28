@@ -5,13 +5,12 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Meskipun generics memberikan fleksibilitas dan type safety,
- * terdapat beberapa batasan dalam penggunaannya.
+ * terdapat beberapa batasan dalam penggunaannya...
  *
  * Sebagian besar batasan tersebut berasal dari mekanisme
  * type erasure, yaitu proses penghapusan informasi generic
  * setelah program selesai dikompilasi.
  */
-
 
 /* ============================================================
  * 1. TYPE PARAMETER TIDAK DAPAT DI-INSTANTIATE
@@ -47,7 +46,6 @@ package FundamentalJava.Generics;
  * Setelah type erasure, T tidak lagi tersedia sebagai tipe
  * konkret sehingga proses instansiasi menjadi mustahil.
  */
-
 
 /* ------------------------------------------------------------
  * Solusi
@@ -87,7 +85,6 @@ package FundamentalJava.Generics;
  * memang diketahui saat runtime.
  */
 
-
 /* ============================================================
  * 2. STATIC TIDAK DAPAT MENGGUNAKAN TYPE PARAMETER CLASS
  * ============================================================
@@ -120,7 +117,6 @@ package FundamentalJava.Generics;
  * sehingga penggunaan T menjadi ambigu.
  */
 
-
 /* ------------------------------------------------------------
  * Solusi
  * ------------------------------------------------------------
@@ -140,7 +136,6 @@ package FundamentalJava.Generics;
  * bukan milik class, sehingga aman digunakan.
  */
 
-
 /* ============================================================
  * 3. TIDAK DAPAT MEMBUAT ARRAY DARI TYPE PARAMETER
  * ============================================================
@@ -158,7 +153,6 @@ package FundamentalJava.Generics;
  * Akibatnya, JVM tidak mengetahui tipe nyata
  * yang harus digunakan untuk membuat array.
  */
-
 
 /* ------------------------------------------------------------
  * Solusi
@@ -179,7 +173,6 @@ package FundamentalJava.Generics;
  * sehingga aman digunakan.
  */
 
-
 /* ============================================================
  * 4. TIDAK DAPAT MEMBUAT ARRAY DARI PARAMETERIZED TYPE
  * ============================================================
@@ -197,7 +190,6 @@ package FundamentalJava.Generics;
  * dimasukkan ke dalam array tersebut.
  */
 
-
 /* ------------------------------------------------------------
  * Solusi
  * ------------------------------------------------------------
@@ -212,7 +204,6 @@ package FundamentalJava.Generics;
  * object Gen dengan type argument apa pun,
  * tanpa mengorbankan type safety.
  */
-
 
 /* ============================================================
  * 5. GENERIC CLASS TIDAK DAPAT MEWARISI Throwable
@@ -237,7 +228,6 @@ package FundamentalJava.Generics;
  * oleh type erasure.
  */
 
-
 /* ------------------------------------------------------------
  * Solusi
  * ------------------------------------------------------------
@@ -249,7 +239,6 @@ package FundamentalJava.Generics;
  * class MyException extends Exception {
  * }
  */
-
 
 /* ============================================================
  * Ringkasan
@@ -267,7 +256,6 @@ package FundamentalJava.Generics;
  * Seluruh batasan tersebut merupakan konsekuensi dari
  * mekanisme type erasure.
  */
-
 
 /* ============================================================
  * Insight
