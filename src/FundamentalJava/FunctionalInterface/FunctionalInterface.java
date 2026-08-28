@@ -4,7 +4,7 @@ package FundamentalJava.FunctionalInterface;
  * Functional Interface
  *
  * Functional Interface adalah interface yang hanya memiliki
- * SATU abstract method (Single Abstract Method / SAM).
+ * SATU abstract method (Single Abstract Method / SAM)..
  *
  * Functional interface merupakan fondasi utama fitur:
  * - Lambda Expression
@@ -365,7 +365,7 @@ import java.util.function.Supplier;
 
 public class FunctionalInterface {
     public static void main(String[] args) {
-        
+
         // FUNCTION INTERFACE
 
         // Function<T, R>
@@ -373,7 +373,7 @@ public class FunctionalInterface {
         // R = output
         Function<Integer, Integer> factorial = n -> {
             int result = -1;
-            
+
             for (int i = 1; i <= n; i++) {
                 result = i * result;
             }
@@ -400,7 +400,7 @@ public class FunctionalInterface {
          * Bandingkan dengan Cara Lama
          * Cara lama:
          * interface NumericFunc {
-         *     int func(int n);
+         * int func(int n);
          * }
          * 
          * Cara modern:
@@ -422,7 +422,7 @@ public class FunctionalInterface {
         printer.accept("Hello bro!");
 
         // CASE: Supplier
-        Supplier<Double> random =() -> Math.random();
+        Supplier<Double> random = () -> Math.random();
         System.out.println(random.get()); // 0.2165845578942216
 
         /**
