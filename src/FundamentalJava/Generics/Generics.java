@@ -9,7 +9,7 @@ package FundamentalJava.Generics;
  * secara fleksibel tanpa mengorbankan type safety.
  *
  * Generics diperkenalkan pada JDK 5 dan menjadi salah satu
- * fitur terpenting dalam perkembangan Java modern.
+ * fitur terpenting dalam perkembangan Java modern..
  *
  * Konsep utama generics adalah:
  *
@@ -18,7 +18,6 @@ package FundamentalJava.Generics;
  * yaitu menjadikan tipe data sebagai parameter sehingga
  * kode yang sama dapat digunakan untuk berbagai jenis data.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Generics Dibutuhkan?
@@ -45,7 +44,6 @@ package FundamentalJava.Generics;
  * compiler tidak dapat memverifikasi tipe data yang sebenarnya.
  */
 
-
 /* ------------------------------------------------------------
  * Masalah Sebelum Generics
  * ------------------------------------------------------------
@@ -69,7 +67,6 @@ package FundamentalJava.Generics;
  * Pendekatan seperti ini berisiko karena bug tidak terdeteksi
  * sejak proses kompilasi.
  */
-
 
 /* ------------------------------------------------------------
  * Solusi: Generics
@@ -95,7 +92,6 @@ package FundamentalJava.Generics;
  * sehingga seluruh operasi menjadi lebih aman.
  */
 
-
 /* ------------------------------------------------------------
  * Fungsi Generics
  * ------------------------------------------------------------
@@ -115,7 +111,6 @@ package FundamentalJava.Generics;
  *
  * tanpa perlu membuat implementasi terpisah untuk setiap tipe data.
  */
-
 
 /* ------------------------------------------------------------
  * Satu Implementasi untuk Banyak Tipe
@@ -138,7 +133,6 @@ package FundamentalJava.Generics;
  *
  * Pendekatan ini mengurangi duplikasi kode secara signifikan.
  */
-
 
 /* ------------------------------------------------------------
  * Dampak Besar pada Collections Framework
@@ -165,7 +159,6 @@ package FundamentalJava.Generics;
  *
  * Compiler akan menolak penambahan tipe yang tidak sesuai.
  */
-
 
 /* ------------------------------------------------------------
  * Generics = Parameterized Type
@@ -197,7 +190,6 @@ package FundamentalJava.Generics;
  * T → String
  */
 
-
 /* ------------------------------------------------------------
  * Type Safety
  * ------------------------------------------------------------
@@ -223,7 +215,6 @@ package FundamentalJava.Generics;
  * program dijalankan.
  */
 
-
 /* ------------------------------------------------------------
  * Tidak Perlu Casting Manual
  * ------------------------------------------------------------
@@ -241,7 +232,6 @@ package FundamentalJava.Generics;
  *
  * Kode menjadi lebih bersih dan lebih mudah dibaca.
  */
-
 
 /* ------------------------------------------------------------
  * Autoboxing dan Generics
@@ -270,7 +260,6 @@ package FundamentalJava.Generics;
  * sehingga penggunaan generic menjadi lebih nyaman.
  */
 
-
 /* ------------------------------------------------------------
  * Type Erasure
  * ------------------------------------------------------------
@@ -290,7 +279,6 @@ package FundamentalJava.Generics;
  * Meskipun demikian, type safety tetap terjaga karena
  * seluruh pengecekan telah dilakukan pada compile-time.
  */
-
 
 /* ------------------------------------------------------------
  * Analogi Sederhana
@@ -318,7 +306,6 @@ package FundamentalJava.Generics;
  * selama program dikompilasi.
  */
 
-
 /* ------------------------------------------------------------
  * Keuntungan Generics
  * ------------------------------------------------------------
@@ -337,7 +324,6 @@ package FundamentalJava.Generics;
  *
  * - Sangat cocok untuk struktur data dan library umum.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -361,7 +347,6 @@ package FundamentalJava.Generics;
  * - Generics merupakan fondasi penting bagi Collections
  *   Framework dan banyak library Java modern.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -390,7 +375,7 @@ class Gen<T> {
     T ob; // Mendeklarasikan objek dengan type T
 
     // Constructor menerima objek bertipe T
-    Gen(T o) { 
+    Gen(T o) {
         ob = o;
     }
 
@@ -407,7 +392,7 @@ class Gen<T> {
 
 public class Generics {
     public static void main(String[] args) {
-        
+
         // Membuat reference Gen untuk Integer
         Gen<Integer> iob;
 
@@ -452,14 +437,14 @@ public class Generics {
          *
          * 3. Constructor
          * Gen(T o) {
-         *   ob = o;
+         * ob = o;
          * }
          *
          * Input dan isi harus tipe yang sama
          *
          * 4. Method getob
          * T getob() {
-         *   return ob;
+         * return ob;
          * }
          *
          * Return sesuai tipe T
