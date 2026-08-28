@@ -1,6 +1,6 @@
 package FundamentalJava.InputOutputIO.Latihan;
 
-// Latihan
+// Latihan.
 
 import java.io.FileInputStream;
 import java.io.IOException;
