@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Generic constructor adalah constructor yang memiliki
- * type parameter sendiri.
+ * type parameter sendiri..
  *
  * Berbeda dengan generic class, type parameter pada generic
  * constructor hanya berlaku di dalam constructor tersebut.
@@ -13,7 +13,6 @@ package FundamentalJava.Generics;
  * Oleh karena itu, sebuah class tidak harus menjadi generic
  * untuk memiliki generic constructor.
  */
-
 
 /* ------------------------------------------------------------
  * Bentuk Umum
@@ -33,7 +32,6 @@ package FundamentalJava.Generics;
  * Type parameter tersebut hanya berlaku pada constructor,
  * bukan pada keseluruhan class.
  */
-
 
 /* ------------------------------------------------------------
  * Generic Constructor dengan Bound
@@ -64,7 +62,6 @@ package FundamentalJava.Generics;
  * karena String bukan turunan dari Number.
  */
 
-
 /* ------------------------------------------------------------
  * Type Inference pada Generic Constructor
  * ------------------------------------------------------------
@@ -90,7 +87,6 @@ package FundamentalJava.Generics;
  * dari argumen yang diberikan.
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Menggunakan Generic Constructor?
  * ------------------------------------------------------------
@@ -103,7 +99,6 @@ package FundamentalJava.Generics;
  * berbagai tipe data yang masih memenuhi batas (bound)
  * yang telah ditentukan.
  */
-
 
 /* ------------------------------------------------------------
  * Perbedaan dengan Constructor Biasa
@@ -129,7 +124,6 @@ package FundamentalJava.Generics;
  * dalam library maupun framework Java.
  */
 
-
 /* ------------------------------------------------------------
  * Kapan Generic Constructor Digunakan?
  * ------------------------------------------------------------
@@ -145,7 +139,6 @@ package FundamentalJava.Generics;
  * - Constructor melakukan proses inisialisasi yang bergantung
  *   pada parameter generic.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -171,7 +164,6 @@ package FundamentalJava.Generics;
  *   menjaga type safety selama proses compile-time.
  */
 
-
 /* ------------------------------------------------------------
  * Insight
  * ------------------------------------------------------------
@@ -189,9 +181,9 @@ package FundamentalJava.Generics;
 class GenCons {
     private double val;
 
-    // Constructor Generic 
+    // Constructor Generic
     // Menerima semua tipe turunan NUMBER
-    <T extends Number> GenCons(T arg) { 
+    <T extends Number> GenCons(T arg) {
         val = arg.doubleValue();
     }
 
@@ -202,10 +194,10 @@ class GenCons {
 
 public class GenericConstructor {
     public static void main(String[] args) {
-        
+
         // Test kirim integer
         GenCons test = new GenCons(180);
-        
+
         // Test kirim float
         GenCons testing = new GenCons(10.0F);
 
@@ -213,13 +205,12 @@ public class GenericConstructor {
         test.showVal();
         testing.showVal();
 
-
         // Testing String
         // ERROR WKWK
         // GenCons testString = new GenCons("JANERA"); // UNDEFINED
 
         // Test char
-        // ERROR 
+        // ERROR
         // GenCons cons = new GenCons('J'); // UNDEFINED
     }
 
