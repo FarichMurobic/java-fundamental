@@ -7,7 +7,7 @@ package FundamentalJava.ExceptionHandling;
  *
  * Java menyediakan banyak exception bawaan (built-in exceptions)
  * yang dapat digunakan langsung tanpa perlu membuat class
- * exception sendiri.
+ * exception sendiri..
  *
  * Sebagian besar exception bawaan berada dalam package:
  *
@@ -668,15 +668,15 @@ package FundamentalJava.ExceptionHandling;
  * Compiler akan memaksa kita:
  *
  * try {
- *     Thread.sleep(1000);
+ * Thread.sleep(1000);
  * } catch (InterruptedException e) {
- *     e.printStackTrace();
+ * e.printStackTrace();
  * }
  *
  * atau:
  *
  * void pause() throws InterruptedException {
- *     Thread.sleep(1000);
+ * Thread.sleep(1000);
  * }
  *
  * ------------------------------------------------------------
@@ -743,7 +743,7 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * Field field =
- *     clazz.getDeclaredField("name");
+ * clazz.getDeclaredField("name");
  *
  * field.get(obj);
  *
@@ -862,10 +862,10 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * try {
- *     // reflection code
+ * // reflection code
  * }
  * catch (ReflectiveOperationException e) {
- *     e.printStackTrace();
+ * e.printStackTrace();
  * }
  *
  * ------------------------------------------------------------
@@ -1015,13 +1015,13 @@ package FundamentalJava.ExceptionHandling;
  * - Checked Exception diperiksa oleh compiler.
  * - Wajib ditangani atau dideklarasikan menggunakan throws.
  * - Biasanya berkaitan dengan kondisi eksternal,
- *   reflection, resource, atau concurrency.
+ * reflection, resource, atau concurrency.
  * - Exception seperti InterruptedException,
- *   ClassNotFoundException, dan NoSuchMethodException
- *   termasuk kategori Checked Exception.
+ * ClassNotFoundException, dan NoSuchMethodException
+ * termasuk kategori Checked Exception.
  * - Dalam Java modern, banyak Checked Exception
- *   diteruskan ke layer yang lebih tinggi agar
- *   penanganan error tetap terpusat dan rapi.
+ * diteruskan ke layer yang lebih tinggi agar
+ * penanganan error tetap terpusat dan rapi.
  */
 
 public class JavaBuiltInException {
@@ -1031,7 +1031,7 @@ public class JavaBuiltInException {
         // Runtime Exception
         int a = 100;
         int b = 0 / a;
-        int c = 10 / (a -a);
+        int c = 10 / (a - a);
 
         // CONTOH KODE - INTERRUPTED EXCEPTION
         // CHECKED EXCEPTION
@@ -1043,7 +1043,7 @@ public class JavaBuiltInException {
         }
 
         /**
-         * Kesimpulan Penting 
+         * Kesimpulan Penting
          *
          * Ini inti kerasnya:
          * Checked Exception = WAJIB ditangani
@@ -1061,11 +1061,11 @@ public class JavaBuiltInException {
          * tangkap spesifik:
          * catch (InterruptedException e)
          *
-         * Ringkasan 
+         * Ringkasan
          * 
          * Checked Exception = harus ditangani (try-catch / throws)
          * RuntimeException = tidak wajib (bug programmer)
          */
-            
+
     }
 }
