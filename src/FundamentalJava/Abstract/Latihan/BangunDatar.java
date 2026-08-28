@@ -1,5 +1,7 @@
 package FundamentalJava.Abstract.Latihan;
 
+// Latihan
+
 public abstract class BangunDatar {
 
     double dimensi1;
@@ -42,7 +44,7 @@ class Segitiga extends BangunDatar {
 
 class MainBangunDatar {
     public static void main(String[] args) {
-        
+
         PersegiPanjang persegiPanjang = new PersegiPanjang(10, 10);
         System.out.println(persegiPanjang.luas());
 
