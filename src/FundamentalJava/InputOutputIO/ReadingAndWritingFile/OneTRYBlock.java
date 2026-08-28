@@ -1,6 +1,6 @@
 package FundamentalJava.InputOutputIO.ReadingAndWritingFile;
 
-// Farich Murobic
+// Farich Murobic.
 
 import java.io.*;
 
