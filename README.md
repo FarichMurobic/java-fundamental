@@ -2,18 +2,6 @@
   <img src="documentation/Javaa.png" alt="Java Fundamental" width="80%">
 </p>
 
-<p align="center">
-  <span>
-    <img src="https://img.shields.io/github/license/FarichMurobic/java-fundamental?color=red" alt="License">
-  </span>
-  <span>
-    <img src="https://img.shields.io/badge/Java-Fundamental-blue" alt="Java Fundamental">
-  </span>
-  <span>
-    <img src="https://img.shields.io/github/last-commit/FarichMurobic/java-fundamental?color=green" alt="Last Commit">
-  </span>
-</p>
-
 # Java Fundamental Learning
 
 <div style="font-style: italic; padding-left: 16px; border-left: 4px solid #ccc;" class="text-xs sm:text-base text-neutral-700 dark:text-neutral-300 border-neutral-300 dark:border-neutral-600">
