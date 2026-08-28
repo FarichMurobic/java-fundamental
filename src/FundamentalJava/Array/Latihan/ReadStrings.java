@@ -1,5 +1,7 @@
 package FundamentalJava.Array.Latihan;
 
+// Latihan
+
 import java.util.Scanner;
 
 public class ReadStrings {
@@ -14,12 +16,13 @@ public class ReadStrings {
 
         while (in.hasNextLine()) {
             String oneLine = in.nextLine();
-            if (oneLine.equals("")) 
+            if (oneLine.equals(""))
                 break;
             if (itemsRead == array.length)
-                array = resize(array, array.length * 2); 
+                array = resize(array, array.length * 2);
             array[itemsRead++] = oneLine;
-        } return resize(array, itemsRead);
+        }
+        return resize(array, itemsRead);
     }
 
     // Resize a String[] array; return new array
@@ -34,7 +37,7 @@ public class ReadStrings {
     }
 
     public static void main(String[] args) {
-        
+
         String[] array = getStrings();
         for (int i = 0; i < array.length; i++)
             System.out.println(array[i]);
