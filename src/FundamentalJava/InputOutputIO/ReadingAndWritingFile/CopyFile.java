@@ -67,7 +67,7 @@ public class CopyFile {
          * Kenapa 2 try saat close?
          *
          * supaya:
-         * kalau satu gagal → yang lain tetap ditutup.
+         * kalau satu gagal → yang lain tetap ditutup...
          *
          * ------------------------------
          * 
