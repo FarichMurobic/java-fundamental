@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Generic class dideklarasikan dengan menambahkan
- * satu atau lebih type parameter setelah nama class.
+ * satu atau lebih type parameter setelah nama class..
  *
  * Bentuk umum:
  *
@@ -16,7 +16,6 @@ package FundamentalJava.Generics;
  * Type parameter berfungsi sebagai placeholder yang akan
  * diganti dengan tipe data sebenarnya saat object dibuat.
  */
-
 
 /* ------------------------------------------------------------
  * Deklarasi Generic Class
@@ -47,7 +46,6 @@ package FundamentalJava.Generics;
  * N  = Number
  */
 
-
 /* ------------------------------------------------------------
  * Generic Class dengan Banyak Type Parameter
  * ------------------------------------------------------------
@@ -69,7 +67,6 @@ package FundamentalJava.Generics;
  * ketika object dibuat.
  */
 
-
 /* ------------------------------------------------------------
  * Membuat Object dari Generic Class
  * ------------------------------------------------------------
@@ -88,7 +85,6 @@ package FundamentalJava.Generics;
  *     Nilai yang diteruskan ke constructor.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh dengan Satu Type Parameter
  * ------------------------------------------------------------
@@ -103,7 +99,6 @@ package FundamentalJava.Generics;
  * sehingga seluruh member yang menggunakan T
  * akan bertipe Integer.
  */
-
 
 /* ------------------------------------------------------------
  * Contoh dengan Dua Type Parameter
@@ -122,7 +117,6 @@ package FundamentalJava.Generics;
  * Semua penggunaan T menjadi Integer.
  * Semua penggunaan V menjadi String.
  */
-
 
 /* ------------------------------------------------------------
  * Diamond Operator
@@ -146,7 +140,6 @@ package FundamentalJava.Generics;
  * pada Java modern.
  */
 
-
 /* ------------------------------------------------------------
  * Pola Dasar Generic Class
  * ------------------------------------------------------------
@@ -165,7 +158,6 @@ package FundamentalJava.Generics;
  * Pola ini merupakan dasar penggunaan seluruh
  * generic class di Java.
  */
-
 
 /* ------------------------------------------------------------
  * Hal Penting yang Perlu Diperhatikan
@@ -194,7 +186,6 @@ package FundamentalJava.Generics;
  *         new Gen<>(10);
  */
 
-
 /* ------------------------------------------------------------
  * Jumlah dan Urutan Type Argument
  * ------------------------------------------------------------
@@ -221,7 +212,6 @@ package FundamentalJava.Generics;
  * apabila urutan tipe yang diharapkan berbeda.
  */
 
-
 /* ------------------------------------------------------------
  * Ringkasan
  * ------------------------------------------------------------
@@ -246,7 +236,6 @@ package FundamentalJava.Generics;
  *   memanfaatkan type inference sehingga penulisan
  *   menjadi lebih ringkas.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -280,7 +269,7 @@ class Animal<F, U> {
 
     // SETTER
     public void setInisial() {
-        System.out.println("Inisial " + inisial.getClass().getName()); 
+        System.out.println("Inisial " + inisial.getClass().getName());
         System.out.println("Usia " + usia.getClass().getName());
     }
 
@@ -297,7 +286,7 @@ class Animal<F, U> {
 
 public class GenericSyntax {
     public static void main(String[] args) {
-        
+
         Animal<String, Integer> name = new Animal<String, Integer>("Janera", 22);
         name.setInisial();
 
