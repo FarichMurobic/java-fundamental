@@ -6,7 +6,7 @@ package FundamentalJava.ExceptionHandling;
  * ------------------------------------------------------------
  *
  * Java mengizinkan sebuah blok try ditempatkan
- * di dalam blok try lainnya.
+ * di dalam blok try lainnya...
  *
  * Teknik ini disebut:
  *
@@ -20,12 +20,12 @@ package FundamentalJava.ExceptionHandling;
  *
  * try {
  *
- *     try {
- *         // inner try
- *     }
+ * try {
+ * // inner try
+ * }
  *
  * } catch(Exception e) {
- *     // outer catch
+ * // outer catch
  * }
  *
  * ------------------------------------------------------------
@@ -39,11 +39,11 @@ package FundamentalJava.ExceptionHandling;
  * Artinya:
  *
  * Inner try
- *     ↓
+ * ↓
  * Outer try
- *     ↓
+ * ↓
  * Method pemanggil
- *     ↓
+ * ↓
  * JVM Default Exception Handler
  *
  * Java selalu mencari dari level terdalam
@@ -61,39 +61,39 @@ package FundamentalJava.ExceptionHandling;
  *
  * try {
  *
- *     try {
- *         int a = 10 / 0;
- *     }
+ * try {
+ * int a = 10 / 0;
+ * }
  *
- *     catch(ArrayIndexOutOfBoundsException e) {
- *         System.out.println("Array Error");
- *     }
+ * catch(ArrayIndexOutOfBoundsException e) {
+ * System.out.println("Array Error");
+ * }
  *
  * }
  *
  * catch(ArithmeticException e) {
- *     System.out.println("Divide By Zero");
+ * System.out.println("Divide By Zero");
  * }
  *
  * Yang terjadi:
  *
  * 1. Exception muncul:
  *
- *    ArithmeticException
+ * ArithmeticException
  *
  * 2. Java cek inner catch:
  *
- *    ArrayIndexOutOfBoundsException
+ * ArrayIndexOutOfBoundsException
  *
- *    Tidak cocok.
+ * Tidak cocok.
  *
  * 3. Exception diteruskan ke outer try.
  *
  * 4. Java cek outer catch:
  *
- *    ArithmeticException
+ * ArithmeticException
  *
- *    Cocok.
+ * Cocok.
  *
  * 5. Outer catch dijalankan.
  *
@@ -117,11 +117,11 @@ package FundamentalJava.ExceptionHandling;
  * Alurnya:
  *
  * Inner Try
- *      ↓
+ * ↓
  * Outer Try
- *      ↓
+ * ↓
  * Calling Method
- *      ↓
+ * ↓
  * JVM Handler
  *
  * Exception akan terus "naik"
@@ -156,13 +156,13 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * main()
- *    ↓
+ * ↓
  * methodA()
- *    ↓
+ * ↓
  * methodB()
- *    ↓
+ * ↓
  * methodC()
- *    ↓
+ * ↓
  * Exception
  *
  * Jika methodC tidak menangani:
@@ -195,18 +195,18 @@ package FundamentalJava.ExceptionHandling;
  *
  * try {
  *
- *     // koneksi database
+ * // koneksi database
  *
- *     try {
- *         // parsing data
- *     }
- *     catch(NumberFormatException e) {
- *         // tangani parsing
- *     }
+ * try {
+ * // parsing data
+ * }
+ * catch(NumberFormatException e) {
+ * // tangani parsing
+ * }
  *
  * }
  * catch(SQLException e) {
- *     // tangani database
+ * // tangani database
  * }
  *
  * Dengan cara ini:
@@ -224,12 +224,12 @@ package FundamentalJava.ExceptionHandling;
  * Contoh buruk:
  *
  * try {
- *     try {
- *         try {
- *             try {
- *             }
- *         }
- *     }
+ * try {
+ * try {
+ * try {
+ * }
+ * }
+ * }
  * }
  *
  * Kode seperti ini:
@@ -274,15 +274,15 @@ package FundamentalJava.ExceptionHandling;
  * - try dapat berada di dalam try lain.
  * - Java selalu mencari catch dari level terdalam.
  * - Jika inner try tidak bisa menangani exception,
- *   exception akan diteruskan ke outer try.
+ * exception akan diteruskan ke outer try.
  * - Proses naiknya exception disebut:
- *   Exception Propagation.
+ * Exception Propagation.
  * - Jika tidak ada handler yang cocok,
- *   JVM akan menjalankan Default Exception Handler.
+ * JVM akan menjalankan Default Exception Handler.
  * - Nested try berguna untuk penanganan error
- *   yang bertingkat.
+ * yang bertingkat.
  * - Hindari nested try yang terlalu dalam karena
- *   membuat kode sulit dibaca dan dipelihara.
+ * membuat kode sulit dibaca dan dipelihara.
  *
  * Mindset OOP:
  *
@@ -297,20 +297,20 @@ public class NestedTryStatements {
     static void nesttry(int a) {
         try {
             if (a == 1) {
-                a = a / (a -a); // ERROR
+                a = a / (a - a); // ERROR
             }
 
             if (a == 2) {
-                int[] c = {1};
+                int[] c = { 1 };
                 c[42] = 99; // ERROR
             }
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Array error: " + e);
         }
     }
-    
+
     public static void main(String[] args) {
-        
+
         // OUTER try
         try {
             int a = args.length; // 0
@@ -325,7 +325,7 @@ public class NestedTryStatements {
                 }
 
                 if (a == 2) {
-                    int[] c = {1};
+                    int[] c = { 1 };
                     // Error index out of boundss
                     c[42] = 99;
                 }
@@ -370,9 +370,9 @@ public class NestedTryStatements {
          * Inner try → gak bisa handle → naik ke outer try
          * Alur lengkap
          * try dalam → catch cocok? → ya → selesai
-         *                          → tidak → lempar ke luar
+         * → tidak → lempar ke luar
          * outer try → catch cocok? → ya → selesai
-         *                          → tidak → lanjut keluar
+         * → tidak → lanjut keluar
          */
 
         // Nested via Method (Lebih Dalam Lagi)
@@ -393,7 +393,7 @@ public class NestedTryStatements {
          *
          * ----------------------------------
          * 
-         * Kesimpulan Penting 
+         * Kesimpulan Penting
          *
          * Ini inti kerasnya:
          * try bisa di dalam try
