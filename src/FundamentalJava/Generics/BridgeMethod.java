@@ -10,9 +10,8 @@ package FundamentalJava.Generics;
  *
  * Bridge method tidak pernah ditulis secara manual oleh programmer.
  * Method ini hanya ada di bytecode (.class) dan digunakan oleh JVM
- * saat program dijalankan.
+ * saat program dijalankan..
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Bridge Method Diperlukan?
@@ -56,7 +55,6 @@ package FundamentalJava.Generics;
  * membuat bridge method.
  */
 
-
 /* ------------------------------------------------------------
  * Bridge Method yang Dibuat Compiler
  * ------------------------------------------------------------
@@ -75,7 +73,6 @@ package FundamentalJava.Generics;
  * Dengan demikian, kontrak inheritance tetap terjaga meskipun
  * generic telah dihapus melalui type erasure.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Bridge Method Penting?
@@ -101,7 +98,6 @@ package FundamentalJava.Generics;
  * meskipun tipe generic telah dihapus.
  */
 
-
 /* ------------------------------------------------------------
  * Analogi Sederhana
  * ------------------------------------------------------------
@@ -119,7 +115,6 @@ package FundamentalJava.Generics;
  *
  * Dengan demikian parent dan child tetap kompatibel.
  */
-
 
 /* ------------------------------------------------------------
  * Hal Penting yang Perlu Diketahui
@@ -143,7 +138,6 @@ package FundamentalJava.Generics;
  * String getObj();
  * Object getObj();   // Bridge Method
  */
-
 
 /* ------------------------------------------------------------
  * Hubungan dengan Type Erasure
@@ -169,7 +163,6 @@ package FundamentalJava.Generics;
  * agar inheritance dan polymorphism tetap bekerja sebagaimana mestinya.
  */
 
-
 /* ------------------------------------------------------------
  * Alur Eksekusi di JVM
  * ------------------------------------------------------------
@@ -188,7 +181,6 @@ package FundamentalJava.Generics;
  * Seluruh proses ini terjadi secara otomatis tanpa campur tangan
  * programmer.
  */
-
 
 /* ------------------------------------------------------------
  * Kesimpulan
@@ -209,7 +201,6 @@ package FundamentalJava.Generics;
  * - Bridge method merupakan implementasi internal compiler dan tidak
  *   pernah ditulis secara langsung oleh programmer.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -254,7 +245,7 @@ class Kedua extends Utama<String> {
 
 public class BridgeMethod {
     public static void main(String[] args) {
-        
+
         Kedua objek1 = new Kedua("Hello");
 
         // panggil langsung
