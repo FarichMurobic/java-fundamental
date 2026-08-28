@@ -5,7 +5,7 @@ package FundamentalJava.InputOutputIO;
  * ============================================================
  *
  * PrintWriter adalah class Character Stream yang digunakan
- * untuk menghasilkan output teks.
+ * untuk menghasilkan output teks..
  *
  * Class ini berada dalam package java.io dan merupakan salah
  * satu pilihan utama ketika bekerja dengan output berbasis
@@ -20,7 +20,6 @@ package FundamentalJava.InputOutputIO;
  *
  * sehingga sangat nyaman digunakan untuk menghasilkan output.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Menggunakan PrintWriter?
@@ -43,7 +42,6 @@ package FundamentalJava.InputOutputIO;
  * Writer.
  */
 
-
 /* ------------------------------------------------------------
  * System.out vs PrintWriter
  * ------------------------------------------------------------
@@ -65,7 +63,6 @@ package FundamentalJava.InputOutputIO;
  * Namun, PrintWriter lebih sesuai ketika aplikasi memang
  * bekerja dengan Character Stream.
  */
-
 
 /* ------------------------------------------------------------
  * Constructor yang Sering Digunakan
@@ -96,7 +93,6 @@ package FundamentalJava.InputOutputIO;
  *   atau saat stream ditutup.
  */
 
-
 /* ------------------------------------------------------------
  * Membuat Object PrintWriter
  * ------------------------------------------------------------
@@ -115,7 +111,6 @@ package FundamentalJava.InputOutputIO;
  * memanggil flush() secara manual setelah println(),
  * printf(), atau format().
  */
-
 
 /* ------------------------------------------------------------
  * Tentang flush()
@@ -137,7 +132,6 @@ package FundamentalJava.InputOutputIO;
  * - Otomatis saat stream ditutup menggunakan close().
  */
 
-
 /* ------------------------------------------------------------
  * Kapan Menggunakan PrintWriter?
  * ------------------------------------------------------------
@@ -150,7 +144,6 @@ package FundamentalJava.InputOutputIO;
  * - Membuat laporan atau log berbasis teks.
  * - Aplikasi yang memproses data Unicode.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -176,7 +169,7 @@ import java.io.*;
 
 public class PrintWritter {
     public static void main(String[] args) {
-        
+
         PrintWriter printWriter = new PrintWriter(System.out, true);
         printWriter.println("Hello UNIVERSE!");
 
@@ -233,11 +226,11 @@ public class PrintWritter {
          * Semua object bisa diprint selama punya toString()
          *
          * PERBANDINGAN DALAM
-         * Aspek	        PrintStream (System.out)	        PrintWriter
-         * Tipe	            byte stream	                        character stream
-         * Encoding 	    terbatas	                        lebih fleksibel
-         * International	kurang cocok	                    lebih cocok
-         * Real-world	    jarang	                            lebih disarankan
+         * Aspek PrintStream (System.out) PrintWriter
+         * Tipe byte stream character stream
+         * Encoding terbatas lebih fleksibel
+         * International kurang cocok lebih cocok
+         * Real-world jarang lebih disarankan
          *
          * KENAPA PrintWriter LEBIH BAGUS?
          * Karena dia:
