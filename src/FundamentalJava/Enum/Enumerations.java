@@ -11,7 +11,7 @@ package FundamentalJava.Enum;
  * - final variable
  * - static final constant
  *
- * Namun pendekatan tersebut kurang aman dan kurang ekspresif.
+ * Namun pendekatan tersebut kurang aman dan kurang ekspresif..
  *
  * Mulai JDK 5, Java memperkenalkan enum sebagai tipe data khusus
  * untuk merepresentasikan sekumpulan konstanta yang saling
@@ -23,11 +23,11 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * enum Apple {
- *     Jonathan,
- *     GoldenDel,
- *     RedDel,
- *     Winesap,
- *     Cortland
+ * Jonathan,
+ * GoldenDel,
+ * RedDel,
+ * Winesap,
+ * Cortland
  * }
  *
  * ------------------------------------------------------------
@@ -55,9 +55,9 @@ package FundamentalJava.Enum;
  * Flow:
  *
  * Enum Declaration
- *      ↓
+ * ↓
  * Enum Constants Dibuat Otomatis
- *      ↓
+ * ↓
  * Program Menggunakan Constant Tersebut
  *
  * ------------------------------------------------------------
@@ -67,11 +67,11 @@ package FundamentalJava.Enum;
  * Pada contoh:
  *
  * enum Apple {
- *     Jonathan,
- *     GoldenDel,
- *     RedDel,
- *     Winesap,
- *     Cortland
+ * Jonathan,
+ * GoldenDel,
+ * RedDel,
+ * Winesap,
+ * Cortland
  * }
  *
  * Semua nilai berikut:
@@ -116,8 +116,8 @@ package FundamentalJava.Enum;
  *
  * Bukan:
  *
- * ap = 10;          // ERROR
- * ap = "RedDel";    // ERROR
+ * ap = 10; // ERROR
+ * ap = "RedDel"; // ERROR
  *
  * Karena tipe data variabel tersebut adalah Apple.
  *
@@ -153,7 +153,7 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * if(ap == Apple.GoldenDel) {
- *     ...
+ * ...
  * }
  *
  * Ini aman karena setiap constant enum hanya memiliki satu
@@ -172,11 +172,11 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * switch(ap) {
- *     case Jonathan:
- *         break;
+ * case Jonathan:
+ * break;
  *
- *     case Winesap:
- *         break;
+ * case Winesap:
+ * break;
  * }
  *
  * Perhatikan:
@@ -231,7 +231,7 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * for (Apple a : Apple.values()) {
- *     System.out.println(a);
+ * System.out.println(a);
  * }
  *
  * Output:
