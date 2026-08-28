@@ -44,7 +44,7 @@ public class CleanVersion {
          * Kenapa pakai finally?
          *
          * supaya:
-         * file tetap ditutup walaupun error.
+         * file tetap ditutup walaupun error...
          */
     }
 
