@@ -1,14 +1,16 @@
 package FundamentalJava.Array.Latihan;
 
+// Latihan
+
 public class ManajemenGudang {
     public static void main(String[] args) {
-        
+
         System.out.println("----- Laporan Stock Gudang -----");
 
-        // Bagian 1 
+        // Bagian 1
         // Array 1 dimensi - untuk menyimpan total stock satu jenis produk
         // Misalnya 3 stok buku di 3 gudang berbeda
-        int[] stokTotalBuku = {150, 200, 180};
+        int[] stokTotalBuku = { 150, 200, 180 };
 
         System.out.println("\n[ID Array] Total stok buku di setiap gudang; ");
         System.out.println("Gudang 1: " + stokTotalBuku[0] + " unit.");
@@ -16,12 +18,13 @@ public class ManajemenGudang {
         System.out.println("Gudang 3: " + stokTotalBuku[2] + " unit.");
 
         // Bagian 2
-        // Array 2 dimensi untuk menyimpan data stok 3 jenis produk (baris) di 3 gudang berbeda (kolom)
-        String[] namaProduk = {"Pensil", "Pulpen", "Buku"};
+        // Array 2 dimensi untuk menyimpan data stok 3 jenis produk (baris) di 3 gudang
+        // berbeda (kolom)
+        String[] namaProduk = { "Pensil", "Pulpen", "Buku" };
         int[][] stokSemuaProduk = {
-            {100, 120, 90},   // stok pensil digudang 1,2,3
-            {250, 180, 220},  // stok pulpen di gudang 1,2,3
-            {150, 200, 180}   // stok buku di gudang 1,2,3
+                { 100, 120, 90 }, // stok pensil digudang 1,2,3
+                { 250, 180, 220 }, // stok pulpen di gudang 1,2,3
+                { 150, 200, 180 } // stok buku di gudang 1,2,3
         };
 
         System.out.println("\n[2D Array] stok setiap produk di setiap gudang:");
@@ -38,12 +41,13 @@ public class ManajemenGudang {
 
         // Bagian 3
         // Array tidak beraturan
-        // Kita pakai array ini untuk detail produk, dimana setiap kategori punya jumlah barang yang berbeda. ini nunjukin fleksibilitas java
+        // Kita pakai array ini untuk detail produk, dimana setiap kategori punya jumlah
+        // barang yang berbeda. ini nunjukin fleksibilitas java
         String[][] detailKategori = new String[3][];
 
         // Alokasi baris pertama: 2 barang
         detailKategori[0] = new String[2];
-        
+
         detailKategori[0][0] = "Laptop X";
         detailKategori[0][0] = "Monitor Y";
 
@@ -60,7 +64,8 @@ public class ManajemenGudang {
 
         System.out.println("\n[Array of Arrays] Detail kategori Produk:");
         System.out.println("Kategori Komputer: " + detailKategori[0][0] + ", " + detailKategori[0][1]);
-        System.out.println("Kategori Periferal: " + detailKategori[1][0] + ", " + detailKategori[1][1] + ", " + detailKategori[1][2]);
+        System.out.println("Kategori Periferal: " + detailKategori[1][0] + ", " + detailKategori[1][1] + ", "
+                + detailKategori[1][2]);
         System.out.println("Kategori Jaringan: " + detailKategori[2][0]);
     }
 }
