@@ -1,6 +1,18 @@
+<p align="center">
+  <img src="documentation/images/thumbnail/Java.png" alt="Java Fundamental" width="100%" style="border-radius: 20px;">
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/github/license/FarichMurobic/java-fundamental?color=red" alt="License">
+  <img src="https://img.shields.io/badge/Java-Fundamental-blue" alt="Java Fundamental">
+  <img src="https://img.shields.io/github/last-commit/FarichMurobic/java-fundamental?color=green" alt="Last Commit">
+</p>
+
 # Java Fundamental Learning
 
-This repository documents my Java learning journey starting from fundamental concepts to Object-Oriented Programming (OOP). The focus is on hands-on practice, problem solving, and building a strong understanding of core Java concepts.
+<div style="font-style: italic; padding-left: 16px; border-left: 4px solid #ccc;" class="text-xs sm:text-base text-neutral-700 dark:text-neutral-300 border-neutral-300 dark:border-neutral-600">
+  <p class="mt2- font-bold">This repository documents my Java learning journey starting from fundamental concepts to Object-Oriented Programming (OOP). The focus is on hands-on practice, problem solving, and building a strong understanding of core Java concepts.</p>
+</div>
 
 ---
 
@@ -16,24 +28,15 @@ This repository documents my Java learning journey starting from fundamental con
 
 ---
 
-## Objective
-
-- Learning Documentation
-- Skill Improvement
-- Git Familiarity
-- Career Preparation
-
----
-
 ## Notes
 
-- Repository ini akan terus diperbarui sesuai dengan progres pembelajaran.
-- Setiap folder berisi implementasi konsep Java yang dipelajari secara bertahap.
+<div style="font-style: italic; padding-left: 16px; border-left: 4px solid #ccc;" class="text-xs sm:text-base text-neutral-700 dark:text-neutral-300 border-neutral-300 dark:border-neutral-600">
+  <p class="mt2- font-bold">Repository ini akan terus diperbarui sesuai dengan progres pembelajaran.</p>
+  <p class="mt2- font-bold">Setiap folder berisi implementasi konsep Java yang dipelajari secara bertahap.</p>
+</div>
 
 ---
 
 ## License
 
-This project is licensed under the MIT License.
-
-
+> This project is licensed under the MIT License.
