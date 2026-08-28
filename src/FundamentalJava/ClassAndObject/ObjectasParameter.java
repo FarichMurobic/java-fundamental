@@ -6,7 +6,7 @@ package FundamentalJava.ClassAndObject;
  * ---------------------------------------------------------------------------
  *
  * Sejauh ini kita sering menggunakan tipe data sederhana
- * (primitive types) sebagai parameter method.
+ * (primitive types) sebagai parameter method..
  *
  * Contoh:
  *
@@ -41,13 +41,13 @@ package FundamentalJava.ClassAndObject;
  * Contoh parameter primitive:
  *
  * void tambah(int a) {
- *     ...
+ * ...
  * }
  *
  * Contoh parameter object:
  *
  * void compare(Test t) {
- *     ...
+ * ...
  * }
  *
  * Pada parameter object, yang sebenarnya dikirim bukan object
@@ -153,15 +153,15 @@ package FundamentalJava.ClassAndObject;
  *
  * class Box {
  *
- *     double width;
- *     double height;
- *     double depth;
+ * double width;
+ * double height;
+ * double depth;
  *
- *     Box(Box ob) {
- *         width = ob.width;
- *         height = ob.height;
- *         depth = ob.depth;
- *     }
+ * Box(Box ob) {
+ * width = ob.width;
+ * height = ob.height;
+ * depth = ob.depth;
+ * }
  *
  * }
  *
@@ -286,7 +286,7 @@ package FundamentalJava.ClassAndObject;
  *
  * Copy Constructor
  * -> Constructor yang menerima object sejenis
- *    untuk menyalin data.
+ * untuk menyalin data.
  *
  * Call-by-Value
  * -> Mekanisme pengiriman parameter di Java.
@@ -351,7 +351,7 @@ class Bok {
 
     // Konstruktor dengan parameter objek
     // COPY CONSTRUCTOR
-    Bok(Bok ob) {   // Objek as parameter
+    Bok(Bok ob) { // Objek as parameter
         panjang = ob.panjang;
         lebar = ob.lebar;
         tinggi = ob.tinggi;
@@ -384,7 +384,7 @@ class Bok {
 
 public class ObjectasParameter {
     public static void main(String[] args) {
-        
+
         // Membuat object
         Objek objek1 = new Objek(10, 22);
         Objek objek2 = new Objek(10, 22);
@@ -408,7 +408,7 @@ public class ObjectasParameter {
          * 
          * class Test {
          *
-         *   int a, b;
+         * int a, b;
          *
          * Class memiliki dua variabel:
          * a
@@ -502,5 +502,3 @@ public class ObjectasParameter {
          */
     }
 }
-
-
