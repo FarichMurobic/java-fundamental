@@ -19,7 +19,7 @@ package FundamentalJava.Annotasi;
  * Type Annotation
  *
  * Fitur ini memungkinkan annotation ditempelkan langsung pada
- * penggunaan tipe data (type usage), bukan hanya pada deklarasi.
+ * penggunaan tipe data (type usage), bukan hanya pada deklarasi..
  *
  * ---------------------------------------------------------------------------
  * PERBEDAAN SEBELUM DAN SESUDAH JAVA 8
@@ -319,7 +319,8 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE_USE)
 // Buat ke type data method
 // Buat ke casting
-@interface MyType {}
+@interface MyType {
+}
 
 // Annotation untuk TYPE_PARAMETER (generic)
 // Buat parameter class (Generic)
@@ -332,46 +333,52 @@ import java.lang.annotation.*;
 // Buat constructor
 // bUAT DI Creation object
 @Target(ElementType.TYPE_USE)
-@interface Unique {}
+@interface Unique {
+}
 
 // Merker annotasi untuk type-use
-// Buat type String 
+// Buat type String
 // Buat ke THIS (Receiver)
 // Buat ke RETURN TYPE
-// Buat ke Throws 
+// Buat ke Throws
 // Buat ke Element type array
 // Buat di Generic type argumen
 // Buat di casting
 // Buat di INHERITANCE + TYPE AND
 @Target(ElementType.TYPE_USE)
-@interface TypeAnno {}
+@interface TypeAnno {
+}
 
 // Annotation untuk FIELD
 // Buat ke Field String test;
 // @Target(ElementType.FIELD)
- @interface EmptyOk {}
+@interface EmptyOk {
+}
 
- // Annotation untuk METHOD
- // Buat ke Method
+// Annotation untuk METHOD
+// Buat ke Method
 @Target(ElementType.METHOD)
-@interface Recomended {}
+@interface Recomended {
+}
 
 // Marker annotation lain untuk TYPE_USE
 // Buat di array level
 @Target(ElementType.TYPE_USE)
-@interface NotZerolen {}
+@interface NotZerolen {
+}
 
 // Annotation dengan parameter untuk TYPE_USE
 // Buat di array level
 @Target(ElementType.TYPE_USE)
 @interface Maxlen {
-        int value();
+    int value();
 }
 
 public class TypeAnnotations<@InGeneric(description = "Generic data type") T> {
 
     // Constructor dengan type annotation
-    public @Unique TypeAnnotations() {}
+    public @Unique TypeAnnotations() {
+    }
 
     // Annotation ke TYPE (String)
     @TypeAnno
@@ -404,7 +411,7 @@ public class TypeAnnotations<@InGeneric(description = "Generic data type") T> {
     }
 
     // Annotation di ARRAY LEVEL
-    String @Maxlen(10)[] @NotZerolen[] data;
+    String @Maxlen(10) [] @NotZerolen [] data;
 
     // Annotation ke ELEMENT TYPE array
     @TypeAnno
@@ -414,12 +421,11 @@ public class TypeAnnotations<@InGeneric(description = "Generic data type") T> {
     public static void myMeth(int i) {
 
         // Annotation di GENERIC TYPE ARGUMENT
-        TypeAnnotations<@TypeAnno Integer> objct = new 
-        TypeAnnotations<@TypeAnno Integer>();
+        TypeAnnotations<@TypeAnno Integer> objct = new TypeAnnotations<@TypeAnno Integer>();
 
         // Annotation di OBJECT CREATION
-        @Unique TypeAnnotations<Integer> object2 = new 
-        TypeAnnotations<>();
+        @Unique
+        TypeAnnotations<Integer> object2 = new TypeAnnotations<>();
 
         Object x = Integer.valueOf(10);
         Integer y;
@@ -429,7 +435,7 @@ public class TypeAnnotations<@InGeneric(description = "Generic data type") T> {
         System.out.println("Nilai y: " + y);
     }
 
-    // Annotation ke tipe data method 
+    // Annotation ke tipe data method
     public @MyType String test() {
         return "Hello";
     }
@@ -469,14 +475,15 @@ public class TypeAnnotations<@InGeneric(description = "Generic data type") T> {
      * static analysis
      *
      * Contoh real:
+     * 
      * @NonNull String name;
      *
-     * tool bisa ngecek:
-     * tidak boleh null
+     *          tool bisa ngecek:
+     *          tidak boleh null
      */
 
     public static void main(String[] args) {
-        
+
         // Method static
         myMeth(10);
 
@@ -484,7 +491,7 @@ public class TypeAnnotations<@InGeneric(description = "Generic data type") T> {
         TypeAnnotations<Integer> demo = new TypeAnnotations<>();
 
         // Testing method biasa
-        System.out.println("f2: " + demo.f2(5,3));
+        System.out.println("f2: " + demo.f2(5, 3));
         System.out.println("f3: " + demo.f3("hello"));
 
         // Test exception
@@ -496,6 +503,7 @@ public class TypeAnnotations<@InGeneric(description = "Generic data type") T> {
     }
 
     // INHERITANCE + TYPE AND
-    class SomeClass extends @TypeAnno TypeAnnotations<Boolean> {}
+    class SomeClass extends @TypeAnno TypeAnnotations<Boolean> {
+    }
 
 }
