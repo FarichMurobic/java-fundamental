@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Raw type adalah penggunaan generic class tanpa
- * menyertakan type argument.
+ * menyertakan type argument...
  *
  * Contoh:
  *
@@ -21,7 +21,6 @@ package FundamentalJava.Generics;
  * Dengan cara ini, compiler mengetahui bahwa object
  * hanya boleh bekerja dengan tipe Double.
  */
-
 
 /* ------------------------------------------------------------
  * Apa yang Terjadi pada Raw Type?
@@ -45,7 +44,6 @@ package FundamentalJava.Generics;
  * menjadi berkurang.
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Raw Type Ada?
  * ------------------------------------------------------------
@@ -65,7 +63,6 @@ package FundamentalJava.Generics;
  * backward compatibility.
  */
 
-
 /* ------------------------------------------------------------
  * Dampak Menggunakan Raw Type
  * ------------------------------------------------------------
@@ -84,7 +81,6 @@ package FundamentalJava.Generics;
  * Oleh karena itu, raw type sebaiknya dihindari
  * pada kode Java modern.
  */
-
 
 /* ------------------------------------------------------------
  * Raw Type Bukan Deprecated
@@ -110,7 +106,6 @@ package FundamentalJava.Generics;
  * agar type safety tetap terjaga.
  */
 
-
 /* ------------------------------------------------------------
  * Hubungan dengan Type Erasure
  * ------------------------------------------------------------
@@ -128,7 +123,6 @@ package FundamentalJava.Generics;
  * Inilah alasan mengapa parameterized type jauh lebih
  * aman dibandingkan raw type.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -152,7 +146,6 @@ package FundamentalJava.Generics;
  *   agar compiler dapat melakukan pemeriksaan tipe
  *   secara maksimal.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -180,11 +173,11 @@ class GenericsA<T> {
     T getOb() {
         return ob;
     }
-} 
+}
 
 public class RawType {
     public static void main(String[] args) {
-        
+
         // Generic normal aman
         GenericsA<Integer> iob = new GenericsA<Integer>(88);
         GenericsA<String> sob = new GenericsA<String>("Farich JANERA");
