@@ -6,7 +6,7 @@ package FundamentalJava.Array;
  * ---------------------------------------------------------------------------
  *
  * Di Java, array bukan sekadar kumpulan data seperti pada beberapa
- * bahasa pemrograman lainnya.
+ * bahasa pemrograman lainnya..
  *
  * Array merupakan object yang dibuat secara otomatis oleh JVM.
  *
@@ -98,7 +98,7 @@ package FundamentalJava.Array;
  * Contoh:
  *
  * for (int i = 0; i < numbers.length; i++) {
- *     System.out.println(numbers[i]);
+ * System.out.println(numbers[i]);
  * }
  *
  * Keuntungan:
@@ -134,22 +134,22 @@ package FundamentalJava.Array;
  *
  * Array:
  * -> Struktur data yang menyimpan banyak nilai bertipe sama
- *    dalam satu object.
+ * dalam satu object.
  *
  * length:
  * -> Property bawaan array yang menunjukkan ukuran atau
- *    kapasitas array.
+ * kapasitas array.
  *
  * Capacity (Kapasitas):
  * -> Jumlah elemen maksimum yang dapat ditampung array.
  *
  * Overflow:
  * -> Kondisi ketika data yang ingin dimasukkan melebihi
- *    kapasitas yang tersedia.
+ * kapasitas yang tersedia.
  *
  * Underflow:
  * -> Kondisi ketika mengambil data dari struktur data yang
- *    kosong.
+ * kosong.
  *
  * Catatan:
  *
@@ -187,8 +187,8 @@ package FundamentalJava.Array;
 
 public class ArrayLength {
     public static void main(String[] args) {
-        
-        int number[] = {1,2,3,4,5,6,7,8,9,10};
+
+        int number[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
         System.out.println(number.length);
 
@@ -201,7 +201,7 @@ public class ArrayLength {
 
         // Tampilkan nilai array pake for each
         // For each gak perlu pake .length
-        for (int i : number) { 
+        for (int i : number) {
             System.out.print(i);
         }
     }
