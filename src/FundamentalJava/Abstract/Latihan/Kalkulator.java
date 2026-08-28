@@ -1,5 +1,7 @@
 package FundamentalJava.Abstract.Latihan;
 
+// Latihan
+
 public abstract class Kalkulator {
 
     double a;
