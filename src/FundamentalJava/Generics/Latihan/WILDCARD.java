@@ -1,5 +1,7 @@
 package FundamentalJava.Generics.Latihan;
 
+// Latihan
+
 class ObjekNilai<T extends Number> {
     T[] dataNilai;
 
@@ -30,14 +32,14 @@ class ObjekNilai<T extends Number> {
 
 public class WILDCARD {
     public static void main(String[] args) {
-        
-        Integer dataInteger[] = {45,58,85,57,97,48,57,65};
+
+        Integer dataInteger[] = { 45, 58, 85, 57, 97, 48, 57, 65 };
         ObjekNilai<Integer> objekInteger = new ObjekNilai<>(dataInteger);
 
-        Double dataDouble[] = {1.5, 4.8, 7.5, 7.9, 7.7, 8.7, 9.5};
+        Double dataDouble[] = { 1.5, 4.8, 7.5, 7.9, 7.7, 8.7, 9.5 };
         ObjekNilai<Double> objekDouble = new ObjekNilai<>(dataDouble);
 
-        Float dataFloat[] = {45.0f, 58.0f, 85.0f, 57.0f, 97.0f, 48.0f, 57.0f, 65.0f};
+        Float dataFloat[] = { 45.0f, 58.0f, 85.0f, 57.0f, 97.0f, 48.0f, 57.0f, 65.0f };
         ObjekNilai<Float> objekFloat = new ObjekNilai<>(dataFloat);
 
         double nilaiInteger = objekInteger.nilaiAverage();
