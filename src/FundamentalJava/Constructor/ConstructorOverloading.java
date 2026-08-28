@@ -7,7 +7,7 @@ package FundamentalJava.Constructor;
  *
  * Selain method biasa, constructor juga dapat di-overload.
  * Bahkan, dalam pengembangan aplikasi nyata, penggunaan beberapa
- * constructor dalam satu class merupakan praktik yang sangat umum.
+ * constructor dalam satu class merupakan praktik yang sangat umum..
  *
  * Constructor Overloading memungkinkan sebuah class memiliki
  * lebih dari satu constructor dengan parameter yang berbeda.
@@ -62,23 +62,23 @@ package FundamentalJava.Constructor;
  *
  * class Box {
  *
- *     double width;
- *     double height;
- *     double depth;
+ * double width;
+ * double height;
+ * double depth;
  *
- *     Box() {
- *         width = height = depth = 0;
- *     }
+ * Box() {
+ * width = height = depth = 0;
+ * }
  *
- *     Box(double len) {
- *         width = height = depth = len;
- *     }
+ * Box(double len) {
+ * width = height = depth = len;
+ * }
  *
- *     Box(double w, double h, double d) {
- *         width = w;
- *         height = h;
- *         depth = d;
- *     }
+ * Box(double w, double h, double d) {
+ * width = w;
+ * height = h;
+ * depth = d;
+ * }
  * }
  *
  * Cara penggunaan:
@@ -228,7 +228,8 @@ public class ConstructorOverloading {
 
     public static void main(String[] args) {
 
-        // Membuat objek dan Konstruktor berbeda. ini yang disebut (Konstruktor Overload).
+        // Membuat objek dan Konstruktor berbeda. ini yang disebut (Konstruktor
+        // Overload).
         ConstructorOverloading box1 = new ConstructorOverloading(10, 20, 15);
         ConstructorOverloading box2 = new ConstructorOverloading();
         ConstructorOverloading box3 = new ConstructorOverloading(7);
