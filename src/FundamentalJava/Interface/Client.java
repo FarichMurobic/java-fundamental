@@ -1,6 +1,6 @@
 package FundamentalJava.Interface;
 
-// CLASS ini "tanda tangan kontrak".
+// CLASS ini "tanda tangan kontrak"...
 public class Client implements Callback {
 
     // IMPLEMENT DARI INTERFACE CALLBACK
