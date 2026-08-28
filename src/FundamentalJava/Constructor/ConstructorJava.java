@@ -5,7 +5,7 @@ package FundamentalJava.Constructor;
  * ------------------------------------------------------------
  *
  * Constructor adalah member khusus dalam sebuah class yang
- * dijalankan secara otomatis ketika object dibuat.
+ * dijalankan secara otomatis ketika object dibuat..
  *
  * Tujuan utama constructor adalah menginisialisasi keadaan
  * awal (initial state) dari object sehingga object tersebut
