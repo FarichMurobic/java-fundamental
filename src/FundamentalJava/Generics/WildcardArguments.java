@@ -6,7 +6,7 @@ package FundamentalJava.Generics;
  *
  * Wildcard digunakan ketika suatu operasi tidak bergantung
  * pada type argument tertentu, tetapi tetap ingin menerima
- * object generic dengan berbagai type argument.
+ * object generic dengan berbagai type argument...
  *
  * Wildcard ditulis menggunakan tanda:
  *
@@ -14,7 +14,6 @@ package FundamentalJava.Generics;
  *
  * yang berarti "tipe tidak diketahui" (unknown type).
  */
-
 
 /* ============================================================
  * Mengapa Wildcard Diperlukan?
@@ -35,7 +34,6 @@ package FundamentalJava.Generics;
  * merupakan subclass dari Number.
  */
 
-
 /* ------------------------------------------------------------
  * Tujuan
  * ------------------------------------------------------------
@@ -53,7 +51,6 @@ package FundamentalJava.Generics;
  * Method seharusnya dapat membandingkan kedua object,
  * meskipun type argument-nya berbeda.
  */
-
 
 /* ============================================================
  * Pendekatan yang Kurang Tepat
@@ -90,7 +87,6 @@ package FundamentalJava.Generics;
  * batasan T extends Number.
  */
 
-
 /* ============================================================
  * Solusi: Wildcard
  * ============================================================
@@ -115,7 +111,6 @@ package FundamentalJava.Generics;
  * tanpa bergantung pada tipe angka tertentu.
  */
 
-
 /* ------------------------------------------------------------
  * Cara Kerja
  * ------------------------------------------------------------
@@ -136,7 +131,6 @@ package FundamentalJava.Generics;
  *
  * Hal ini membuat method menjadi jauh lebih fleksibel.
  */
-
 
 /* ============================================================
  * Konsep Penting
@@ -179,7 +173,6 @@ package FundamentalJava.Generics;
  * yang sudah ditetapkan pada generic class.
  */
 
-
 /* ============================================================
  * Analogi
  * ============================================================
@@ -197,7 +190,6 @@ package FundamentalJava.Generics;
  * Selama seluruh kotak mengikuti aturan
  * T extends Number, operasi tetap aman dilakukan.
  */
-
 
 /* ============================================================
  * Ringkasan
@@ -218,7 +210,6 @@ package FundamentalJava.Generics;
  *   seluruh constraint yang telah ditentukan
  *   tetap berlaku.
  */
-
 
 /* ============================================================
  * Insight
@@ -268,20 +259,20 @@ class Statee<T extends Number> {
 
 public class WildcardArguments {
     public static void main(String[] args) {
-        
-        Integer inums[] = {1,2,3,4,5};
+
+        Integer inums[] = { 1, 2, 3, 4, 5 };
         Statee<Integer> iob = new Statee<Integer>(inums);
 
         double v = iob.average();
         System.out.println("iob average is: " + v);
 
-        Double dnums[] = {1.1, 2.2, 3.3, 4.4, 5.5};
+        Double dnums[] = { 1.1, 2.2, 3.3, 4.4, 5.5 };
         Statee<Double> dob = new Statee<Double>(dnums);
 
         double w = dob.average();
         System.out.println("dob average is: " + w);
 
-        Float fnums[] = {1.0f, 2.0f, 3.0f, 4.0f, 5.0f};
+        Float fnums[] = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f };
         Statee<Float> fob = new Statee<Float>(fnums);
 
         double x = fob.average();
