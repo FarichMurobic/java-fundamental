@@ -6,7 +6,7 @@ package FundamentalJava.ClassAndObject;
  * ---------------------------------------------------------------------------
  *
  * Object adalah wujud nyata (instance) yang dibuat berdasarkan
- * sebuah class.
+ * sebuah class..
  *
  * Jika class diibaratkan sebagai blueprint atau cetakan,
  * maka object adalah hasil nyata yang dibuat dari blueprint
@@ -156,12 +156,12 @@ package FundamentalJava.ClassAndObject;
  * Diagram:
  *
  * mybox
- *    |
- *    v
+ * |
+ * v
  * [ Box Object ]
- *    width
- *    height
- *    depth
+ * width
+ * height
+ * depth
  *
  * ---------------------------------------------------------------------------
  * APA ITU OBJECT REFERENCE?
@@ -198,16 +198,16 @@ package FundamentalJava.ClassAndObject;
  * Stack Memory
  * -------------------------
  * mybox
- *    |
- *    | reference
- *    v
+ * |
+ * | reference
+ * v
  *
  * Heap Memory
  * -------------------------
  * Box Object
- * width  = 10
+ * width = 10
  * height = 20
- * depth  = 30
+ * depth = 30
  *
  * Kesimpulan:
  *
@@ -269,10 +269,10 @@ package FundamentalJava.ClassAndObject;
  *
  * Contoh:
  *
- * int      -> Integer
- * double   -> Double
- * char     -> Character
- * boolean  -> Boolean
+ * int -> Integer
+ * double -> Double
+ * char -> Character
+ * boolean -> Boolean
  *
  * ---------------------------------------------------------------------------
  * MEMORY DAN RUNTIME
@@ -286,7 +286,7 @@ package FundamentalJava.ClassAndObject;
  * Contoh:
  *
  * for (int i = 0; i < 100; i++) {
- *     Box b = new Box();
+ * Box b = new Box();
  * }
  *
  * Saat program berjalan:
@@ -345,12 +345,12 @@ package FundamentalJava.ClassAndObject;
  *
  * class Mobil {
  *
- *     void buatMesin() {
+ * void buatMesin() {
  *
- *         Mesin m = new Mesin();
+ * Mesin m = new Mesin();
  *
- *         System.out.println("Object Mesin Dibuat");
- *     }
+ * System.out.println("Object Mesin Dibuat");
+ * }
  *
  * }
  *
@@ -369,18 +369,18 @@ package FundamentalJava.ClassAndObject;
  *
  * class Test {
  *
- *     int a;
+ * int a;
  *
- *     Test(int a) {
- *         this.a = a;
- *     }
+ * Test(int a) {
+ * this.a = a;
+ * }
  *
- *     Test tambahSepuluh() {
+ * Test tambahSepuluh() {
  *
- *         Test temp = new Test(a + 10);
+ * Test temp = new Test(a + 10);
  *
- *         return temp;
- *     }
+ * return temp;
+ * }
  *
  * }
  *
@@ -399,7 +399,7 @@ package FundamentalJava.ClassAndObject;
  *
  * public static void main(String[] args) {
  *
- *     Test t = new Test(5);
+ * Test t = new Test(5);
  *
  * }
  *
@@ -416,11 +416,11 @@ package FundamentalJava.ClassAndObject;
  *
  * class A {
  *
- *     B b;
+ * B b;
  *
- *     A() {
- *         b = new B();
- *     }
+ * A() {
+ * b = new B();
+ * }
  *
  * }
  *
@@ -437,13 +437,13 @@ package FundamentalJava.ClassAndObject;
  * RINGKASAN TEMPAT MEMBUAT OBJECT
  * ---------------------------------------------------------------------------
  *
- * Tempat                     Bisa Membuat Object
+ * Tempat Bisa Membuat Object
  *
- * main()                     Ya
- * Method void                Ya
- * Method return value        Ya
- * Constructor                Ya
- * Static Method              Ya
+ * main() Ya
+ * Method void Ya
+ * Method return value Ya
+ * Constructor Ya
+ * Static Method Ya
  *
  * Syarat utamanya:
  *
@@ -466,8 +466,8 @@ package FundamentalJava.ClassAndObject;
  * Visualisasi:
  *
  * ob (Reference)
- *        |
- *        v
+ * |
+ * v
  * Test Object (Heap)
  *
  * Yang benar:
@@ -566,7 +566,7 @@ class Boxx {
 
 public class ObjectJava {
     public static void main(String[] args) {
-        
+
         // MEMBUAT OBJEK
         Boxx box = new Boxx(17.1, 44.7, 78.9);
         // PANGGIL METHOD
