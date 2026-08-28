@@ -1,6 +1,6 @@
 package FundamentalJava.Interface;
 
-// Farich Murobic
+// Farich Murobic.
 
 public class AnotherClass implements Callback {
 
