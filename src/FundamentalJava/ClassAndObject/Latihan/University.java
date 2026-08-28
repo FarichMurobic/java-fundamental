@@ -1,5 +1,7 @@
 package FundamentalJava.ClassAndObject.Latihan;
 
+// Latihan
+
 public class University {
 
     String nama;
@@ -40,6 +42,6 @@ public class University {
         // Akses Inner class
         University.Mahasiswa innerMahasiswa = university.new Mahasiswa("-", 0);
         innerMahasiswa.state();
-        
+
     }
 }
