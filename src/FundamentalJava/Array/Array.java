@@ -6,7 +6,7 @@ package FundamentalJava.Array;
  * ---------------------------------------------------------------------------
  *
  * Array adalah sekumpulan variabel yang memiliki tipe data yang
- * sama dan dikelompokkan di bawah satu nama.
+ * sama dan dikelompokkan di bawah satu nama..
  *
  * Setiap data yang disimpan di dalam array disebut elemen
  * (element).
