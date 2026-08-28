@@ -5,7 +5,7 @@ package FundamentalJava.InputOutputIO;
  * ============================================================
  *
  * Input/Output (I/O) adalah mekanisme yang digunakan program
- * untuk menerima data (input) dan menghasilkan data (output).
+ * untuk menerima data (input) dan menghasilkan data (output)..
  *
  * Contoh input:
  *
@@ -23,7 +23,6 @@ package FundamentalJava.InputOutputIO;
  * berinteraksi dengan pengguna, sistem, atau aplikasi lain.
  */
 
-
 /* ------------------------------------------------------------
  * I/O pada Materi Sebelumnya
  * ------------------------------------------------------------
@@ -38,7 +37,6 @@ package FundamentalJava.InputOutputIO;
  * tertuju pada konsep dasar bahasa Java tanpa terdistraksi
  * oleh kompleksitas mekanisme I/O.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Tidak Banyak Menggunakan Console I/O?
@@ -68,7 +66,6 @@ package FundamentalJava.InputOutputIO;
  * dalam berbagai skenario pengembangan.
  */
 
-
 /* ------------------------------------------------------------
  * Console I/O di Java
  * ------------------------------------------------------------
@@ -85,7 +82,6 @@ package FundamentalJava.InputOutputIO;
  * konsistensi, dan kemampuan untuk menangani berbagai
  * sumber data dengan antarmuka yang seragam.
  */
-
 
 /* ------------------------------------------------------------
  * Kekuatan Sistem I/O Java
@@ -107,7 +103,6 @@ package FundamentalJava.InputOutputIO;
  * pembelajaran dan pengembangan aplikasi.
  */
 
-
 /* ------------------------------------------------------------
  * Ringkasan
  * ------------------------------------------------------------
@@ -127,7 +122,6 @@ package FundamentalJava.InputOutputIO;
  *   dan konsisten untuk berbagai sumber data,
  *   seperti file, network, dan media lainnya.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -162,7 +156,6 @@ package FundamentalJava.InputOutputIO;
  * Secara sederhana, stream dapat diartikan sebagai aliran data.
  */
 
-
 /* ------------------------------------------------------------
  * Apa Itu Stream?
  * ------------------------------------------------------------
@@ -179,7 +172,6 @@ package FundamentalJava.InputOutputIO;
  * konsisten untuk melakukan operasi I/O tanpa perlu
  * memperhatikan secara langsung media yang digunakan.
  */
-
 
 /* ------------------------------------------------------------
  * Konsep Abstraksi Stream
@@ -205,7 +197,6 @@ package FundamentalJava.InputOutputIO;
  * tetap konsisten.
  */
 
-
 /* ------------------------------------------------------------
  * Keuntungan Menggunakan Stream
  * ------------------------------------------------------------
@@ -225,7 +216,6 @@ package FundamentalJava.InputOutputIO;
  * Hal ini membuat kode menjadi lebih mudah dipelajari,
  * digunakan kembali (reusable), dan dipelihara (maintainable).
  */
-
 
 /* ------------------------------------------------------------
  * Package yang Menyediakan Stream
@@ -247,7 +237,6 @@ package FundamentalJava.InputOutputIO;
  * dan operasi non-blocking.
  */
 
-
 /* ============================================================
  *                BYTE STREAM vs CHARACTER STREAM
  * ============================================================
@@ -255,7 +244,6 @@ package FundamentalJava.InputOutputIO;
  * Java menyediakan dua kelompok utama stream berdasarkan jenis
  * data yang diproses.
  */
-
 
 /* ------------------------------------------------------------
  * 1. Byte Stream
@@ -275,7 +263,6 @@ package FundamentalJava.InputOutputIO;
  * Seluruh data diperlakukan sebagai byte tanpa proses
  * konversi karakter.
  */
-
 
 /* ------------------------------------------------------------
  * 2. Character Stream
@@ -297,7 +284,6 @@ package FundamentalJava.InputOutputIO;
  * yang sesuai.
  */
 
-
 /* ------------------------------------------------------------
  * Sejarah Singkat
  * ------------------------------------------------------------
@@ -314,7 +300,6 @@ package FundamentalJava.InputOutputIO;
  * - Gunakan Character Stream untuk data teks.
  */
 
-
 /* ------------------------------------------------------------
  * Fakta Penting
  * ------------------------------------------------------------
@@ -329,7 +314,6 @@ package FundamentalJava.InputOutputIO;
  * Dengan demikian, developer dapat bekerja langsung dengan
  * karakter tanpa harus mengelola proses encoding secara manual.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -355,7 +339,6 @@ package FundamentalJava.InputOutputIO;
  *   byte, sedangkan Character Stream bertugas melakukan konversi
  *   antara byte dan karakter secara otomatis.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -392,7 +375,6 @@ package FundamentalJava.InputOutputIO;
  * memproses data dalam bentuk byte (8 bit).
  */
 
-
 /* ------------------------------------------------------------
  * Hierarki Byte Stream
  * ------------------------------------------------------------
@@ -409,7 +391,6 @@ package FundamentalJava.InputOutputIO;
  * mengimplementasikan perilaku spesifik sesuai sumber atau tujuan
  * data.
  */
-
 
 /* ------------------------------------------------------------
  * Class-Class Byte Stream
@@ -479,7 +460,6 @@ package FundamentalJava.InputOutputIO;
  *   seolah-olah menjadi satu stream.
  */
 
-
 /* ------------------------------------------------------------
  * Method Penting pada Byte Stream
  * ------------------------------------------------------------
@@ -498,7 +478,6 @@ package FundamentalJava.InputOutputIO;
  * Kedua operasi ini didefinisikan pada abstract class induknya
  * dan diimplementasikan oleh subclass sesuai perilaku masing-masing.
  */
-
 
 /* ------------------------------------------------------------
  * Konsep Penting
@@ -519,7 +498,6 @@ package FundamentalJava.InputOutputIO;
  * mudah dikembangkan.
  */
 
-
 /* ------------------------------------------------------------
  * Byte Stream vs Character Stream
  * ------------------------------------------------------------
@@ -533,7 +511,6 @@ package FundamentalJava.InputOutputIO;
  * - Memproses data dalam bentuk karakter Unicode.
  * - Cocok untuk data teks seperti file .txt, .java, atau .xml.
  */
-
 
 /* ------------------------------------------------------------
  * Hal yang Perlu Diperhatikan
@@ -552,7 +529,6 @@ package FundamentalJava.InputOutputIO;
  *   diproses secara utuh.
  */
 
-
 /* ------------------------------------------------------------
  * Penggunaan di Dunia Nyata
  * ------------------------------------------------------------
@@ -570,7 +546,6 @@ package FundamentalJava.InputOutputIO;
  * memanfaatkan konsep stream.
  */
 
-
 /* ============================================================
  *                 CHARACTER STREAM CLASSES
  * ============================================================
@@ -583,7 +558,6 @@ package FundamentalJava.InputOutputIO;
  * - Reader
  * - Writer
  */
-
 
 /* ------------------------------------------------------------
  * Hierarki Character Stream
@@ -598,7 +572,6 @@ package FundamentalJava.InputOutputIO;
  * Character Stream menangani proses konversi antara byte dan
  * karakter secara otomatis menggunakan character encoding.
  */
-
 
 /* ------------------------------------------------------------
  * Class-Class Character Stream
@@ -660,7 +633,6 @@ package FundamentalJava.InputOutputIO;
  * - Menulis karakter ke objek String.
  */
 
-
 /* ------------------------------------------------------------
  * Method Penting pada Character Stream
  * ------------------------------------------------------------
@@ -676,7 +648,6 @@ package FundamentalJava.InputOutputIO;
  * Seluruh subclass Reader dan Writer mengimplementasikan
  * operasi dasar tersebut sesuai fungsinya masing-masing.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Character Stream Penting?
@@ -697,7 +668,6 @@ package FundamentalJava.InputOutputIO;
  * karena proses konversi karakter ditangani secara otomatis.
  */
 
-
 /* ------------------------------------------------------------
  * InputStreamReader & OutputStreamWriter
  * ------------------------------------------------------------
@@ -715,7 +685,6 @@ package FundamentalJava.InputOutputIO;
  * dan decoding karakter menggunakan charset tertentu
  * (misalnya UTF-8).
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -751,7 +720,6 @@ package FundamentalJava.InputOutputIO;
  * operasi Input/Output (I/O).
  */
 
-
 /* ------------------------------------------------------------
  * Class System
  * ------------------------------------------------------------
@@ -770,7 +738,6 @@ package FundamentalJava.InputOutputIO;
  * stream yang dimiliki oleh class System.
  */
 
-
 /* ------------------------------------------------------------
  * Tiga Standard Stream
  * ------------------------------------------------------------
@@ -785,7 +752,6 @@ package FundamentalJava.InputOutputIO;
  * Ketiganya dibuat oleh JVM saat program dijalankan sehingga
  * dapat langsung digunakan tanpa membuat object sendiri.
  */
-
 
 /* ------------------------------------------------------------
  * 1. System.out
@@ -806,7 +772,6 @@ package FundamentalJava.InputOutputIO;
  * - Debug sederhana
  */
 
-
 /* ------------------------------------------------------------
  * 2. System.in
  * ------------------------------------------------------------
@@ -823,7 +788,6 @@ package FundamentalJava.InputOutputIO;
  * lebih nyaman digunakan saat membaca teks.
  */
 
-
 /* ------------------------------------------------------------
  * 3. System.err
  * ------------------------------------------------------------
@@ -839,7 +803,6 @@ package FundamentalJava.InputOutputIO;
  * System.err dipisahkan dari System.out sehingga keduanya
  * dapat diarahkan (redirect) ke tujuan yang berbeda.
  */
-
 
 /* ------------------------------------------------------------
  * Tipe Data Standard Stream
@@ -858,7 +821,6 @@ package FundamentalJava.InputOutputIO;
  *   yang merupakan turunan dari OutputStream.
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa System.out Bisa Menampilkan Teks?
  * ------------------------------------------------------------
@@ -873,7 +835,6 @@ package FundamentalJava.InputOutputIO;
  * Hal ini karena PrintStream secara otomatis melakukan konversi
  * karakter menjadi byte menggunakan character encoding yang sesuai.
  */
-
 
 /* ------------------------------------------------------------
  * Stream Redirection
@@ -892,7 +853,6 @@ package FundamentalJava.InputOutputIO;
  * Contohnya, output yang biasanya tampil di console dapat
  * diarahkan ke sebuah file tanpa mengubah logika program.
  */
-
 
 /* ------------------------------------------------------------
  * Membungkus System.in dengan Character Stream
@@ -916,7 +876,6 @@ package FundamentalJava.InputOutputIO;
  * menggunakan Scanner, meskipun BufferedReader tetap banyak
  * digunakan karena lebih efisien pada kondisi tertentu.
  */
-
 
 /* ============================================================
  *            BYTE STREAM vs CHARACTER STREAM
@@ -943,7 +902,6 @@ package FundamentalJava.InputOutputIO;
  * proses encoding serta decoding karakter secara otomatis.
  */
 
-
 /* ------------------------------------------------------------
  * Penggunaan di Dunia Nyata
  * ------------------------------------------------------------
@@ -958,7 +916,6 @@ package FundamentalJava.InputOutputIO;
  * - Aplikasi command-line (CLI)
  * - Backend server
  */
-
 
 /* ------------------------------------------------------------
  * Mindset yang Perlu Diingat
@@ -976,7 +933,6 @@ package FundamentalJava.InputOutputIO;
  * - Gunakan Byte Stream untuk data biner.
  * - Gunakan Character Stream untuk data teks.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -1012,7 +968,7 @@ import java.io.InputStreamReader;
 
 public class InputOutput {
     public static void main(String[] args) {
-        
+
         // BYTE STREAM (BACA FILE)
         try {
             // BUKA FILE
@@ -1020,7 +976,7 @@ public class InputOutput {
             // Nampung data per byte
             int data;
 
-            // BACA TERUS SAMPAI EOF 
+            // BACA TERUS SAMPAI EOF
             while ((data = fis.read()) != -1) {
                 // CASTING BYTE KE CHARACTER
                 System.out.print((char) data);
