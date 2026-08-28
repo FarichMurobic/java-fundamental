@@ -6,7 +6,7 @@ package FundamentalJava.Constructor;
  * ------------------------------------------------------------------------
  *
  * Pada contoh sebelumnya, constructor tanpa parameter (Default
- * Constructor) memang dapat menginisialisasi object Box.
+ * Constructor) memang dapat menginisialisasi object Box..
  *
  * Namun pendekatan tersebut memiliki keterbatasan karena setiap
  * object yang dibuat akan memiliki nilai awal yang sama.
@@ -14,9 +14,9 @@ package FundamentalJava.Constructor;
  * Contoh:
  *
  * Box() {
- *     width = 10;
- *     height = 10;
- *     depth = 10;
+ * width = 10;
+ * height = 10;
+ * depth = 10;
  * }
  *
  * Akibatnya:
@@ -46,9 +46,9 @@ package FundamentalJava.Constructor;
  * Contoh:
  *
  * Box(double w, double h, double d) {
- *     width = w;
- *     height = h;
- *     depth = d;
+ * width = w;
+ * height = h;
+ * depth = d;
  * }
  *
  * Pada constructor di atas:
@@ -256,7 +256,7 @@ package FundamentalJava.Constructor;
  * - Class menjadi lebih fleksibel dan reusable.
  *
  * - Object dapat langsung berada dalam kondisi yang siap
- *   digunakan setelah dibuat.
+ * digunakan setelah dibuat.
  *
  * Konsep penting yang harus dipahami:
  *
@@ -303,7 +303,8 @@ public class ParameterConstructor {
         vol = myBox2.volume();
         System.out.println(vol); // 48600.0
 
-        // untuk mengetahui nilai variabel vol di objek kedua setelah dipake objek pertama
+        // untuk mengetahui nilai variabel vol di objek kedua setelah dipake objek
+        // pertama
         System.out.println(100 * 9 * 54); // 48600
 
     }
