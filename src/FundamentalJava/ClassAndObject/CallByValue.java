@@ -6,7 +6,7 @@ package FundamentalJava.ClassAndObject;
  * ---------------------------------------------------------------------------
  *
  * Saat sebuah method dipanggil, nilai yang diberikan pada method
- * tersebut disebut argument.
+ * tersebut disebut argument..
  *
  * Contoh:
  *
@@ -126,7 +126,7 @@ package FundamentalJava.ClassAndObject;
  * Method:
  *
  * void change(int value) {
- *     value = 100;
+ * value = 100;
  * }
  *
  * Hasil:
@@ -270,7 +270,7 @@ package FundamentalJava.ClassAndObject;
  * Banyak yang mengira kode berikut dapat mengganti object asli:
  *
  * void change(Test o) {
- *     o = new Test();
+ * o = new Test();
  * }
  *
  * Ini salah.
@@ -400,7 +400,7 @@ class CallValuePrimitive {
 
 // CONTOH OBJECT
 class CallValueObject {
-    
+
     int a, b;
 
     CallValueObject(int i, int j) {
@@ -420,7 +420,7 @@ class CallValueObject {
 
 public class CallByValue {
     public static void main(String[] args) {
-        
+
         // CONTOH PRIMITIVE
         CallValuePrimitive typePrimitive = new CallValuePrimitive();
 
