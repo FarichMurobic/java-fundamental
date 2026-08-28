@@ -11,7 +11,7 @@ package FundamentalJava.ExceptionHandling;
  *
  * Tujuannya:
  * agar informasi error tidak hilang saat exception
- * diteruskan ke layer lain dalam aplikasi.
+ * diteruskan ke layer lain dalam aplikasi..
  *
  * ------------------------------------------------------------
  * KENAPA CHAINED EXCEPTION DIBUTUHKAN?
@@ -20,11 +20,11 @@ package FundamentalJava.ExceptionHandling;
  * Bayangkan ada alur seperti ini:
  *
  * File dibaca
- *      ↓
+ * ↓
  * IOException
- *      ↓
+ * ↓
  * Service Layer
- *      ↓
+ * ↓
  * DataProcessingException
  *
  * Jika IOException langsung diganti dengan
@@ -34,7 +34,7 @@ package FundamentalJava.ExceptionHandling;
  * Dengan Chained Exception:
  *
  * DataProcessingException
- *      ↓
+ * ↓
  * cause = IOException
  *
  * sehingga root cause tetap bisa ditelusuri.
@@ -53,14 +53,14 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * throw new RuntimeException(
- *         "Gagal memproses data",
- *         ioException
+ * "Gagal memproses data",
+ * ioException
  * );
  *
  * Di sini:
  *
  * message = "Gagal memproses data"
- * cause   = ioException
+ * cause = ioException
  *
  * ------------------------------------------------------------
  * METHOD PENTING
@@ -107,19 +107,19 @@ package FundamentalJava.ExceptionHandling;
  * ------------------------------------------------------------
  *
  * Exception Utama
- *        ↓
+ * ↓
  * Cause
- *        ↓
+ * ↓
  * Cause Berikutnya
- *        ↓
+ * ↓
  * Root Cause
  *
  * Contoh:
  *
  * ServiceException
- *        ↓
+ * ↓
  * RepositoryException
- *        ↓
+ * ↓
  * SQLException
  *
  * Root cause:
@@ -134,10 +134,10 @@ package FundamentalJava.ExceptionHandling;
  * - Cocok untuk aplikasi berlapis (layered architecture).
  * - Error dapat dibungkus (wrapped) tanpa kehilangan root cause.
  * - Sangat umum digunakan di framework modern:
- *   Spring Framework
- *   Spring Boot
- *   Hibernate
- *   Jakarta EE
+ * Spring Framework
+ * Spring Boot
+ * Hibernate
+ * Jakarta EE
  *
  * ------------------------------------------------------------
  * BEST PRACTICE MODERN JAVA
@@ -147,7 +147,7 @@ package FundamentalJava.ExceptionHandling;
  * lebih disarankan menggunakan constructor:
  *
  * public MyException(String message, Throwable cause) {
- *     super(message, cause);
+ * super(message, cause);
  * }
  *
  * daripada menggunakan initCause().
@@ -167,7 +167,7 @@ package FundamentalJava.ExceptionHandling;
  * SALAH:
  *
  * catch(IOException e) {
- *     throw new RuntimeException("Gagal");
+ * throw new RuntimeException("Gagal");
  * }
  *
  * Karena root cause hilang.
@@ -175,7 +175,7 @@ package FundamentalJava.ExceptionHandling;
  * BENAR:
  *
  * catch(IOException e) {
- *     throw new RuntimeException("Gagal", e);
+ * throw new RuntimeException("Gagal", e);
  * }
  *
  * ------------------------------------------------------------
@@ -201,7 +201,7 @@ package FundamentalJava.ExceptionHandling;
  * mempertahankan root cause agar proses
  * debugging dan maintenance menjadi lebih mudah.
  */
-    
+
 class ChainException {
     static void demoProc() {
         // Buat exception utama
@@ -217,7 +217,7 @@ class ChainException {
 
 public class ChainedException {
     public static void main(String[] args) {
-        
+
         // Menangkap method error yang dilempar
         try {
             // Panggil method berpotensi error
