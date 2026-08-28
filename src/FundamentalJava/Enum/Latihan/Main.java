@@ -1,5 +1,7 @@
 package FundamentalJava.Enum.Latihan;
 
+// Latihan
+
 enum Coin {
     HEAD, TAIL
 }
