@@ -1,5 +1,7 @@
 package FundamentalJava.ExceptionHandling.Latihan;
 
+// Latihan
+
 public class InfoError {
 
     // Unchecked Exception
@@ -20,7 +22,7 @@ public class InfoError {
     }
 
     public static void main(String[] args) {
-        
+
         try {
             infoErrorUnchecked();
         } catch (NullPointerException e) {
