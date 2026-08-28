@@ -24,7 +24,7 @@ package FundamentalJava.Abstract;
  * Rectangle -> Menggunakan rumus luas persegi panjang
  *
  * Karena itu, superclass hanya mendefinisikan kontrak method
- * yang nantinya dapat diimplementasikan oleh subclass.
+ * yang nantinya dapat diimplementasikan oleh subclass..
  *
  * ============================================================
  * ABSTRACT METHOD
@@ -355,7 +355,7 @@ package FundamentalJava.Abstract;
  * Contoh:
  *
  * abstract class A {
- *     abstract void x();
+ * abstract void x();
  * }
  *
  * Catatan:
@@ -375,109 +375,110 @@ package FundamentalJava.Abstract;
  * Contoh:
  *
  * abstract class A {
- *     abstract void x();
+ * abstract void x();
  * }
  *
  * Implementasi:
  *
  * class B extends A {
- *     @Override
- *     void x() {
- *         // implementasi
- *     }
- * }
+ * 
+ * @Override
+ *           void x() {
+ *           // implementasi
+ *           }
+ *           }
  *
- * Jika B tidak mengimplementasikan x(), maka B harus
- * dideklarasikan sebagai abstract class.
+ *           Jika B tidak mengimplementasikan x(), maka B harus
+ *           dideklarasikan sebagai abstract class.
  *
- * Flow:
- * Abstract Class -> Abstract Method -> Implementasi Subclass
- * atau -> Subclass Tetap Abstract
+ *           Flow:
+ *           Abstract Class -> Abstract Method -> Implementasi Subclass
+ *           atau -> Subclass Tetap Abstract
  *
- * ============================================================
- * 4. METHOD SIGNATURE HARUS SESUAI
- * ============================================================
+ *           ============================================================
+ *           4. METHOD SIGNATURE HARUS SESUAI
+ *           ============================================================
  *
- * Saat mengimplementasikan abstract method, method signature
- * harus tetap sesuai dengan method yang diwariskan.
+ *           Saat mengimplementasikan abstract method, method signature
+ *           harus tetap sesuai dengan method yang diwariskan.
  *
- * Contoh:
+ *           Contoh:
  *
- * abstract class A {
- *     abstract void test(int a);
- * }
+ *           abstract class A {
+ *           abstract void test(int a);
+ *           }
  *
- * class B extends A {
- *     @Override
- *     void test(int a) {
- *         System.out.println(a);
- *     }
- * }
+ *           class B extends A {
+ * @Override
+ *           void test(int a) {
+ *           System.out.println(a);
+ *           }
+ *           }
  *
- * Hal yang harus sesuai:
- * - Nama method
- * - Jumlah parameter
- * - Tipe parameter
- * - Urutan parameter
+ *           Hal yang harus sesuai:
+ *           - Nama method
+ *           - Jumlah parameter
+ *           - Tipe parameter
+ *           - Urutan parameter
  *
- * Return type juga harus kompatibel dengan method induknya.
+ *           Return type juga harus kompatibel dengan method induknya.
  *
- * ============================================================
- * 5. ABSTRACT DAN STATIC TIDAK DAPAT DIGABUNGKAN
- * ============================================================
+ *           ============================================================
+ *           5. ABSTRACT DAN STATIC TIDAK DAPAT DIGABUNGKAN
+ *           ============================================================
  *
- * Contoh:
+ *           Contoh:
  *
- * abstract static void test();
+ *           abstract static void test();
  *
- * Tidak valid karena:
+ *           Tidak valid karena:
  *
- * - Abstract method membutuhkan implementasi dari subclass.
- * - Static method milik class, bukan milik object.
+ *           - Abstract method membutuhkan implementasi dari subclass.
+ *           - Static method milik class, bukan milik object.
  *
- * Kedua konsep tersebut saling bertentangan sehingga tidak dapat
- * digunakan secara bersamaan.
+ *           Kedua konsep tersebut saling bertentangan sehingga tidak dapat
+ *           digunakan secara bersamaan.
  *
- * ============================================================
- * 6. ABSTRACT DAN FINAL TIDAK DAPAT DIGABUNGKAN
- * ============================================================
+ *           ============================================================
+ *           6. ABSTRACT DAN FINAL TIDAK DAPAT DIGABUNGKAN
+ *           ============================================================
  *
- * Contoh:
+ *           Contoh:
  *
- * abstract final void test();
+ *           abstract final void test();
  *
- * Tidak valid karena:
+ *           Tidak valid karena:
  *
- * - Abstract method harus dapat dioverride.
- * - Final method tidak boleh dioverride.
+ *           - Abstract method harus dapat dioverride.
+ *           - Final method tidak boleh dioverride.
  *
- * Kedua aturan tersebut saling bertentangan sehingga compiler
- * akan menghasilkan error.
+ *           Kedua aturan tersebut saling bertentangan sehingga compiler
+ *           akan menghasilkan error.
  *
- * ============================================================
- * RINGKASAN
- * ============================================================
+ *           ============================================================
+ *           RINGKASAN
+ *           ============================================================
  *
- * - Abstract method tidak memiliki body.
- * - Abstract method dapat memiliki parameter.
- * - Abstract method dapat dideklarasikan di abstract class
- *   maupun interface.
- * - Subclass konkret wajib mengimplementasikan abstract method.
- * - Method signature harus sesuai saat implementasi.
- * - Abstract method tidak dapat digabung dengan static.
- * - Abstract method tidak dapat digabung dengan final.
+ *           - Abstract method tidak memiliki body.
+ *           - Abstract method dapat memiliki parameter.
+ *           - Abstract method dapat dideklarasikan di abstract class
+ *           maupun interface.
+ *           - Subclass konkret wajib mengimplementasikan abstract method.
+ *           - Method signature harus sesuai saat implementasi.
+ *           - Abstract method tidak dapat digabung dengan static.
+ *           - Abstract method tidak dapat digabung dengan final.
  *
- * ============================================================
- * KESIMPULAN
- * ============================================================
+ *           ============================================================
+ *           KESIMPULAN
+ *           ============================================================
  *
- * Abstract method digunakan untuk mendefinisikan kontrak perilaku
- * yang wajib dipenuhi oleh class turunannya.
+ *           Abstract method digunakan untuk mendefinisikan kontrak perilaku
+ *           yang wajib dipenuhi oleh class turunannya.
  *
- * Dengan aturan-aturan tersebut, Java dapat memastikan bahwa
- * setiap implementasi mengikuti struktur yang konsisten dan
- * sesuai dengan desain yang telah ditentukan oleh superclass
- * atau interface.
+ *           Dengan aturan-aturan tersebut, Java dapat memastikan bahwa
+ *           setiap implementasi mengikuti struktur yang konsisten dan
+ *           sesuai dengan desain yang telah ditentukan oleh superclass
+ *           atau interface.
  */
 
 @Anotasi("Anotasi")
@@ -498,7 +499,7 @@ abstract class A {
     @Anotasi("Method Abstract")
     // Method abstract tidak punya body/isi
     abstract void display();
-    
+
     @Anotasi("Method Biasa dalam Class Abstract")
     // Class abstract bisa punya method biasa
     void methodBiasa() {
@@ -551,6 +552,6 @@ public class AbstractJava {
          * class Abstract bisa punya method biasa!
          * Ini method biasa class B
          */
-        
+
     }
 }
