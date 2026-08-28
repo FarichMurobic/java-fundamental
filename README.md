@@ -1,11 +1,17 @@
 <p align="center">
-  <img src="documentation/images/header/Javaa.png" alt="Java Fundamental" width="80%">
+  <img src="documentation/Javaa.png" alt="Java Fundamental" width="80%">
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/FarichMurobic/java-fundamental?color=red" alt="License">
-  <img src="https://img.shields.io/badge/Java-Fundamental-blue" alt="Java Fundamental">
-  <img src="https://img.shields.io/github/last-commit/FarichMurobic/java-fundamental?color=green" alt="Last Commit">
+  <span>
+    <img src="https://img.shields.io/github/license/FarichMurobic/java-fundamental?color=red" alt="License">
+  </span>
+  <span>
+    <img src="https://img.shields.io/badge/Java-Fundamental-blue" alt="Java Fundamental">
+  </span>
+  <span>
+    <img src="https://img.shields.io/github/last-commit/FarichMurobic/java-fundamental?color=green" alt="Last Commit">
+  </span>
 </p>
 
 # Java Fundamental Learning
@@ -16,15 +22,22 @@
 
 ---
 
-## Learning Method
+## Learning Roadmap
 
-| Tahap | Metode             | Deskripsi                                                            |
-| ----- | ------------------ | -------------------------------------------------------------------- |
-| 1     | Fundamental Theory | Mempelajari dasar Java seperti variable, data type, operator         |
-| 2     | Practice Coding    | Latihan langsung menggunakan kode sederhana                          |
-| 3     | Problem Solving    | Menerapkan konsep ke kasus kecil                                     |
-| 4     | OOP Concept        | Class, Object, Inheritance, Polymorphism, Encapsulation, Abstraction |
-| 5     | Documentation      | Menyimpan seluruh progress di GitHub                                 |
+| Tahap | Metode                          | Deskripsi                                                                                                                         |
+| ----- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 1     | **Fundamental Theory**          | Mempelajari dasar-dasar Java: variable, data type, operator, control flow (if-else, switch, loop), array, dan string manipulation |
+| 2     | **Practice Coding**             | Latihan menulis kode sederhana: input-output, perhitungan, kondisi, dan perulangan                                                |
+| 3     | **Methods & Functions**         | Memahami method, parameter, return value, method overloading, dan recursion                                                       |
+| 4     | **Problem Solving**             | Menerapkan konsep ke kasus nyata: algoritma sorting, searching, dan manipulasi data                                               |
+| 5     | **Object-Oriented Programming** | Class, Object, Constructor, Inheritance, Polymorphism, Encapsulation, Abstraction, Interface                                      |
+| 6     | **Exception Handling**          | Try-catch-finally, throws, throw, custom exception, dan error handling                                                            |
+| 7     | **Collections Framework**       | ArrayList, LinkedList, HashMap, HashSet, Iterator, dan generics                                                                   |
+| 8     | **File I/O**                    | Baca dan tulis file: FileReader, FileWriter, BufferedReader, BufferedWriter, Scanner                                              |
+| 9     | **Java 8+ Features**            | Lambda expression, Stream API, Functional Interface, Optional class                                                               |
+| 10    | **Database Connectivity**       | JDBC: koneksi ke database, CRUD operations, PreparedStatement, ResultSet                                                          |
+| 11    | **Testing & Debugging**         | Unit testing dengan JUnit, debugging, logging                                                                                     |
+| 12    | **Documentation**               | Menyimpan seluruh progress di GitHub, menulis README, dokumentasi kode dengan JavaDoc                                             |
 
 ---
 
