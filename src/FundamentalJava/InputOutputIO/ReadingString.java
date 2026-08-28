@@ -11,7 +11,7 @@ package FundamentalJava.InputOutputIO;
  *     String readLine() throws IOException
  *
  * Method ini membaca satu baris teks dari input dan
- * mengembalikannya sebagai object String..
+ * mengembalikannya sebagai object String...
  *
  * Pembacaan akan selesai setelah pengguna menekan tombol Enter.
  *
