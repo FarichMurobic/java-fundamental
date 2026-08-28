@@ -6,7 +6,7 @@ package FundamentalJava.Generics;
  *
  * Sebelum Java 7, saat membuat object dari generic class,
  * type argument harus ditulis secara lengkap pada kedua sisi
- * assignment.
+ * assignment...
  *
  * Sejak Java 7, compiler dapat menyimpulkan (infer)
  * type argument secara otomatis berdasarkan konteks.
@@ -16,7 +16,6 @@ package FundamentalJava.Generics;
  * - Type Inference
  * - Diamond Operator (<>)
  */
-
 
 /* ------------------------------------------------------------
  * Sebelum Java 7
@@ -35,7 +34,6 @@ package FundamentalJava.Generics;
  * Penulisan ini benar, tetapi cukup verbose
  * (terlalu panjang dan repetitif).
  */
-
 
 /* ------------------------------------------------------------
  * Sejak Java 7
@@ -56,7 +54,6 @@ package FundamentalJava.Generics;
  * berdasarkan type argument yang terdapat
  * pada sisi kiri assignment.
  */
-
 
 /* ------------------------------------------------------------
  * Cara Kerja Diamond Operator
@@ -80,7 +77,6 @@ package FundamentalJava.Generics;
  * tidak perlu ditulis kembali.
  */
 
-
 /* ------------------------------------------------------------
  * Type Inference pada Method
  * ------------------------------------------------------------
@@ -99,7 +95,6 @@ package FundamentalJava.Generics;
  * penulisan type argument secara eksplisit tidak diperlukan.
  */
 
-
 /* ------------------------------------------------------------
  * Hubungan dengan Type Erasure
  * ------------------------------------------------------------
@@ -115,7 +110,6 @@ package FundamentalJava.Generics;
  * - Compile-time  → compiler mengetahui type argument.
  * - Runtime       → type argument sudah tidak tersedia.
  */
-
 
 /* ------------------------------------------------------------
  * Praktik Terbaik
@@ -133,7 +127,6 @@ package FundamentalJava.Generics;
  * Tujuan utamanya bukan sekadar menyingkat kode,
  * tetapi menjaga keterbacaan (readability).
  */
-
 
 /* ------------------------------------------------------------
  * Contoh Penggunaan pada Java Collections Framework
@@ -154,7 +147,6 @@ package FundamentalJava.Generics;
  * dalam pengembangan aplikasi Java modern.
  */
 
-
 /* ------------------------------------------------------------
  * Ringkasan
  * ------------------------------------------------------------
@@ -172,7 +164,6 @@ package FundamentalJava.Generics;
  * - Sangat umum digunakan pada generic class maupun
  *   Java Collections Framework.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -212,7 +203,7 @@ class BedRoom<T, V> {
 
 public class TypeInference {
     public static void main(String[] args) {
-        
+
         // Cara lama panjang
         BedRoom<Integer, String> objek1 = new BedRoom<Integer, String>(10, "Hello");
         // cara baru lebih clean
