@@ -1,6 +1,6 @@
 package FundamentalJava.Interface.Latihan;
 
-// Latihan
+// Latihan..
 
 public class DynStack implements InStack {
 
