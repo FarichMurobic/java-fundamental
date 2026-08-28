@@ -6,7 +6,7 @@ package FundamentalJava.ClassAndObject;
  * ---------------------------------------------------------------------------
  *
  * Java memungkinkan sebuah class didefinisikan di dalam class
- * lainnya.
+ * lainnya..
  *
  * Class yang didefinisikan di dalam class lain disebut:
  *
@@ -19,8 +19,8 @@ package FundamentalJava.ClassAndObject;
  *
  * class Outer {
  *
- *     class Inner {
- *     }
+ * class Inner {
+ * }
  *
  * }
  *
@@ -61,15 +61,15 @@ package FundamentalJava.ClassAndObject;
  *
  * class Outer {
  *
- *     private int data = 100;
+ * private int data = 100;
  *
- *     class Inner {
+ * class Inner {
  *
- *         void show() {
- *             System.out.println(data);
- *         }
+ * void show() {
+ * System.out.println(data);
+ * }
  *
- *     }
+ * }
  * }
  *
  * Pada contoh tersebut:
@@ -99,14 +99,14 @@ package FundamentalJava.ClassAndObject;
  *
  * class Outer {
  *
- *     class Inner {
- *         int value = 10;
- *     }
+ * class Inner {
+ * int value = 10;
+ * }
  *
- *     void test() {
- *         Inner in = new Inner();
- *         System.out.println(in.value);
- *     }
+ * void test() {
+ * Inner in = new Inner();
+ * System.out.println(in.value);
+ * }
  * }
  *
  * Jadi:
@@ -137,8 +137,8 @@ package FundamentalJava.ClassAndObject;
  *
  * class Outer {
  *
- *     static class Inner {
- *     }
+ * static class Inner {
+ * }
  *
  * }
  *
@@ -162,16 +162,16 @@ package FundamentalJava.ClassAndObject;
  *
  * class Outer {
  *
- *     int x = 10;
+ * int x = 10;
  *
- *     static class Inner {
+ * static class Inner {
  *
- *         void show() {
- *             // ERROR
- *             // System.out.println(x);
- *         }
+ * void show() {
+ * // ERROR
+ * // System.out.println(x);
+ * }
  *
- *     }
+ * }
  * }
  *
  * Mengapa?
@@ -196,7 +196,7 @@ package FundamentalJava.ClassAndObject;
  * - Tidak dapat mengakses member instance secara langsung.
  * - Dapat mengakses member static Outer.
  * - Cocok untuk helper class yang hanya berhubungan dengan
- *   outer class.
+ * outer class.
  *
  * ---------------------------------------------------------------------------
  * INNER CLASS (NON-STATIC NESTED CLASS)
@@ -209,8 +209,8 @@ package FundamentalJava.ClassAndObject;
  *
  * class Outer {
  *
- *     class Inner {
- *     }
+ * class Inner {
+ * }
  *
  * }
  *
@@ -229,15 +229,15 @@ package FundamentalJava.ClassAndObject;
  *
  * class Outer {
  *
- *     private int data = 100;
+ * private int data = 100;
  *
- *     class Inner {
+ * class Inner {
  *
- *         void show() {
- *             System.out.println(data);
- *         }
+ * void show() {
+ * System.out.println(data);
+ * }
  *
- *     }
+ * }
  *
  * }
  *
@@ -320,8 +320,8 @@ package FundamentalJava.ClassAndObject;
  *
  * void test() {
  *
- *     class LocalClass {
- *     }
+ * class LocalClass {
+ * }
  *
  * }
  *
@@ -455,14 +455,15 @@ class InnerDemo {
 
 public class InnerClass {
     public static void main(String[] args) {
-        
+
         // Membuat object class luar
         InnerDemo outer = new InnerDemo(); // Buat object outer
         outer.test(); // Method outer
 
         // Cara membuat objek inner class didalam kelas yang berbeda
-        // HARUS dalam konteks outer. classLuar.ClassDalam - typeReferenceOuter.new ClassDalam();
-        InnerDemo.Inner inner = outer.new Inner("JANERA"); 
+        // HARUS dalam konteks outer. classLuar.ClassDalam - typeReferenceOuter.new
+        // ClassDalam();
+        InnerDemo.Inner inner = outer.new Inner("JANERA");
         inner.display(); // jalankan method inner class
 
     }
