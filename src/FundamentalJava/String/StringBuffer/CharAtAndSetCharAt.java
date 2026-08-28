@@ -192,7 +192,7 @@ package FundamentalJava.String.StringBuffer;
  * penggunaan emoji dan karakter internasional di aplikasi modern.
  * 
  * Untuk aplikasi berbasis teks internasional, selalu pertimbangkan
- * apakah charAt() cukup atau perlu menggunakan codePointAt().
+ * apakah charAt() cukup atau perlu menggunakan codePointAt()..
  * 
  * ================================================================
  */
