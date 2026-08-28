@@ -6,7 +6,7 @@ package FundamentalJava.Annotasi;
  * ---------------------------------------------------------------------------
  *
  * Marker Annotation adalah jenis annotation yang tidak memiliki
- * member (elemen) sama sekali.
+ * member (elemen) sama sekali..
  *
  * Tujuan utamanya adalah untuk memberikan tanda (marker) pada
  * suatu elemen program tanpa menyimpan informasi tambahan.
@@ -153,7 +153,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.*;
 
 @Retention(RetentionPolicy.RUNTIME)
-@interface Merker {} // tanpa isi
+@interface Merker {
+} // tanpa isi
 
 public class MerkerAnnotation {
 
@@ -164,7 +165,7 @@ public class MerkerAnnotation {
             // Ambil method
             Method method = ma.getClass().getMethod("myMeth");
             // Cek apakah anotasi ada
-            if (method.isAnnotationPresent(Merker.class)) 
+            if (method.isAnnotationPresent(Merker.class))
                 System.out.println("Merker is present");
 
             // Ambil value anotasi
@@ -176,8 +177,8 @@ public class MerkerAnnotation {
     }
 
     public static void main(String[] args) {
-        
-        myMeth(); 
+
+        myMeth();
 
     }
 }
