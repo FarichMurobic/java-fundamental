@@ -12,7 +12,7 @@ package FundamentalJava.ExceptionHandling;
  * - IllegalArgumentException
  *
  * Namun pada aplikasi nyata sering kali dibutuhkan jenis exception
- * yang lebih spesifik sesuai kebutuhan domain aplikasi.
+ * yang lebih spesifik sesuai kebutuhan domain aplikasi..
  *
  * Untuk itu Java memungkinkan kita membuat custom exception,
  * yaitu exception yang didefinisikan sendiri oleh programmer.
@@ -255,7 +255,7 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * DatabaseException
- *     -> SQLException
+ * -> SQLException
  *
  * Dengan getCause() kita dapat mengetahui penyebab aslinya.
  *
@@ -368,13 +368,13 @@ package FundamentalJava.ExceptionHandling;
  * Ringkasan Method Penting
  * ------------------------------------------------------------
  *
- * Method                 Kegunaan
+ * Method Kegunaan
  * ------------------------------------------------------------
- * getMessage()           Ambil pesan error
- * printStackTrace()      Tampilkan detail error
- * getCause()             Ambil penyebab error
- * getStackTrace()        Ambil stack trace
- * toString()             Representasi string exception
+ * getMessage() Ambil pesan error
+ * printStackTrace() Tampilkan detail error
+ * getCause() Ambil penyebab error
+ * getStackTrace() Ambil stack trace
+ * toString() Representasi string exception
  *
  * ------------------------------------------------------------
  * Kesimpulan
@@ -419,21 +419,21 @@ class MyException extends Throwable {
 
     // Override toString untuk costum output
     @Override
-        public String toString() {
-            return "MyException[" + detail + "]";
-        }
+    public String toString() {
+        return "MyException[" + detail + "]";
+    }
 
-        /**
-         * PENJELASAN
-         * 
-         * Kenapa toString() di override?
-         * Default:
-         * MyException: null
-         *
-         * Custom:
-         * MyException[20]
-         * lebih clean & controlled
-         */
+    /**
+     * PENJELASAN
+     * 
+     * Kenapa toString() di override?
+     * Default:
+     * MyException: null
+     *
+     * Custom:
+     * MyException[20]
+     * lebih clean & controlled
+     */
 }
 
 public class BikinExceptionSendiri {
@@ -443,15 +443,15 @@ public class BikinExceptionSendiri {
 
         System.out.println("Called Compute(" + a + ")");
         // KONDISI ERROR
-        if (a > 10) 
+        if (a > 10)
             // MyException Error yang kita but
             throw new MyException(a); // Lempar error
-        
-            System.out.println("Normal Exit...");
+
+        System.out.println("Normal Exit...");
     }
 
     public static void main(String[] args) {
-        
+
         // HANDLE THROWS
         try {
             compute(1); // aman
