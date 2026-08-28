@@ -1,13 +1,15 @@
 package FundamentalJava.Enum.Latihan;
 
+// Latihan
+
 enum Bulan {
-    January, February, March, April, Mei, June, 
+    January, February, March, April, Mei, June,
     July, August, September, October, November, Desember
 }
 
 public class MainAPP {
     public static void main(String[] args) {
-        
+
         Bulan bulan;
         bulan = Bulan.June;
 
