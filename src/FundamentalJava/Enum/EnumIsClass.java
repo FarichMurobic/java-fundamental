@@ -9,7 +9,7 @@ package FundamentalJava.Enum;
  *
  * Enum sebenarnya adalah sebuah class khusus yang disediakan oleh
  * Java untuk merepresentasikan sekumpulan nilai tetap yang saling
- * berhubungan.
+ * berhubungan..
  *
  * Karena enum merupakan class, enum dapat memiliki:
  *
@@ -34,11 +34,11 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * enum Apple {
- *     Jonathan,
- *     GoldenDel,
- *     RedDel,
- *     Winesap,
- *     Cortland
+ * Jonathan,
+ * GoldenDel,
+ * RedDel,
+ * Winesap,
+ * Cortland
  * }
  *
  * Maka:
@@ -52,9 +52,9 @@ package FundamentalJava.Enum;
  * Flow:
  *
  * Enum Declaration
- *      ↓
+ * ↓
  * Java Membuat Object Untuk Setiap Constant
- *      ↓
+ * ↓
  * Program Menggunakan Object Tersebut
  *
  * Karena setiap constant adalah object, maka setiap constant dapat
@@ -69,15 +69,15 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * enum Apple {
- *     Jonathan(10),
- *     GoldenDel(9),
- *     RedDel(12);
+ * Jonathan(10),
+ * GoldenDel(9),
+ * RedDel(12);
  *
- *     private int price;
+ * private int price;
  *
- *     Apple(int p) {
- *         price = p;
- *     }
+ * Apple(int p) {
+ * price = p;
+ * }
  * }
  *
  * Pada contoh di atas:
@@ -107,9 +107,9 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * enum Apple {
- *     Jonathan(10),
- *     GoldenDel(9),
- *     Winesap(15);
+ * Jonathan(10),
+ * GoldenDel(9),
+ * Winesap(15);
  * }
  *
  * Maka:
@@ -125,7 +125,7 @@ package FundamentalJava.Enum;
  * Analogi:
  *
  * enum Apple
- *      ↓
+ * ↓
  * Object Jonathan → price = 10
  * Object GoldenDel → price = 9
  * Object Winesap → price = 15
@@ -141,18 +141,18 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * enum Apple {
- *     Jonathan(10),
- *     GoldenDel(9);
+ * Jonathan(10),
+ * GoldenDel(9);
  *
- *     private int price;
+ * private int price;
  *
- *     Apple(int p) {
- *         price = p;
- *     }
+ * Apple(int p) {
+ * price = p;
+ * }
  *
- *     int getPrice() {
- *         return price;
- *     }
+ * int getPrice() {
+ * return price;
+ * }
  * }
  *
  * Pemakaian:
@@ -177,15 +177,15 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * interface Printable {
- *     void print();
+ * void print();
  * }
  *
  * enum Apple implements Printable {
- *     Jonathan;
+ * Jonathan;
  *
- *     public void print() {
- *         System.out.println("Apple");
- *     }
+ * public void print() {
+ * System.out.println("Apple");
+ * }
  * }
  *
  * Hal ini memungkinkan enum digunakan dalam berbagai desain OOP.
@@ -202,7 +202,7 @@ package FundamentalJava.Enum;
  *
  * Contoh:
  *
- * enum A extends B { }     // ERROR
+ * enum A extends B { } // ERROR
  *
  * class B extends Apple { } // ERROR
  *
@@ -225,9 +225,9 @@ package FundamentalJava.Enum;
  * Hierarki sederhananya:
  *
  * Apple
- *      ↓
+ * ↓
  * Enum<Apple>
- *      ↓
+ * ↓
  * Object
  *
  * Karena itulah semua enum memiliki beberapa method bawaan.
@@ -247,9 +247,9 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * enum Apple {
- *     Jonathan,
- *     GoldenDel,
- *     RedDel
+ * Jonathan,
+ * GoldenDel,
+ * RedDel
  * }
  *
  * Nilai ordinal:
@@ -280,9 +280,9 @@ package FundamentalJava.Enum;
  *
  * Return:
  *
- * - Negatif  → sebelum
- * - Nol      → sama
- * - Positif  → sesudah
+ * - Negatif → sebelum
+ * - Nol → sama
+ * - Positif → sesudah
  *
  * Contoh:
  *
@@ -336,7 +336,7 @@ package FundamentalJava.Enum;
  * Contoh:
  *
  * if (ap == Apple.Winesap) {
- *     ...
+ * ...
  * }
  *
  * Ini aman karena:
@@ -358,12 +358,12 @@ package FundamentalJava.Enum;
  * PERBEDAAN ordinal(), compareTo(), DAN ==
  * ------------------------------------------------------------
  *
- * Method / Operator    Fungsi
+ * Method / Operator Fungsi
  * ------------------------------------------------------------
- * ordinal()            Mengambil posisi enum
- * compareTo()          Membandingkan posisi enum
- * equals()             Membandingkan object enum
- * ==                   Membandingkan reference enum
+ * ordinal() Mengambil posisi enum
+ * compareTo() Membandingkan posisi enum
+ * equals() Membandingkan object enum
+ * == Membandingkan reference enum
  *
  * Pada enum:
  *
@@ -376,25 +376,25 @@ package FundamentalJava.Enum;
  * ------------------------------------------------------------
  *
  * enum Level {
- *     LOW,
- *     MEDIUM,
- *     HIGH
+ * LOW,
+ * MEDIUM,
+ * HIGH
  * }
  *
  * public class Demo {
  *
- *     public static void main(String[] args) {
+ * public static void main(String[] args) {
  *
- *         System.out.println(Level.LOW.ordinal());
+ * System.out.println(Level.LOW.ordinal());
  *
- *         if (Level.HIGH.compareTo(Level.LOW) > 0) {
- *             System.out.println("HIGH lebih tinggi dari LOW");
- *         }
+ * if (Level.HIGH.compareTo(Level.LOW) > 0) {
+ * System.out.println("HIGH lebih tinggi dari LOW");
+ * }
  *
- *         if (Level.HIGH == Level.HIGH) {
- *             System.out.println("Sama");
- *         }
- *     }
+ * if (Level.HIGH == Level.HIGH) {
+ * System.out.println("Sama");
+ * }
+ * }
  * }
  *
  * Output:
@@ -460,11 +460,11 @@ public enum EnumIsClass {
 
 class MainEnum {
     public static void main(String[] args) {
-        
+
         // Ambil harga Winesap
         System.out.println("Winesap costs: " + EnumIsClass.Winesap.getPrice() + " cents.\n");
 
-        // Loop semua enum 
+        // Loop semua enum
         System.out.println("All prices");
         for (EnumIsClass a : EnumIsClass.values()) {
             System.out.println(a + " costs " + a.getPrice() + " cents.");
@@ -513,7 +513,7 @@ class MainEnum {
         // Tampilkan semua enum + posisi
         System.out.println("Here are all enum constants and their ordinal values:");
 
-        for (EnumIsClass  a : EnumIsClass.values()) {
+        for (EnumIsClass a : EnumIsClass.values()) {
             System.out.println(a + " " + a.ordinal());
         }
 
@@ -549,7 +549,7 @@ class MainEnum {
             System.out.println(enum1 + " == " + enum3);
         }
 
-         /**
+        /**
          * ALUR PROGRAM
          *
          * Bagian 1: ordinal()
