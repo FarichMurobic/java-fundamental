@@ -6,7 +6,7 @@ package FundamentalJava.Array;
  * ---------------------------------------------------------------------------
  *
  * Array multidimensi adalah array yang elemen-elemennya juga
- * berupa array.
+ * berupa array..
  *
  * Dengan kata lain:
  *
@@ -140,10 +140,10 @@ package FundamentalJava.Array;
  * Contoh:
  *
  * int[][] matrix = {
- *     {1, 2, 3, 4, 5},
- *     {6, 7, 8, 9, 10},
- *     {11, 12, 13, 14, 15},
- *     {16, 17, 18, 19, 20}
+ * {1, 2, 3, 4, 5},
+ * {6, 7, 8, 9, 10},
+ * {11, 12, 13, 14, 15},
+ * {16, 17, 18, 19, 20}
  * };
  *
  * Java akan secara otomatis:
@@ -161,9 +161,9 @@ package FundamentalJava.Array;
  * Contoh:
  *
  * int[][] table = {
- *     {1 * 1, 1 * 2, 1 * 3},
- *     {2 * 1, 2 * 2, 2 * 3},
- *     {3 * 1, 3 * 2, 3 * 3}
+ * {1 * 1, 1 * 2, 1 * 3},
+ * {2 * 1, 2 * 2, 2 * 3},
+ * {3 * 1, 3 * 2, 3 * 3}
  * };
  *
  * Sebelum program dijalankan, hasil ekspresi akan dihitung dan
@@ -268,25 +268,29 @@ public class ArrayMultidimensional {
         }
 
         /**
-         * Kenapa j < i + 1? Karena jumlah kolom di setiap baris itu nggak sama, dan kebetulan
+         * Kenapa j < i + 1? Karena jumlah kolom di setiap baris itu nggak sama, dan
+         * kebetulan
          * jumlah kolomnya mengikuti pola: Index Baris + 1.
          * 
          * SIMULASI:
-         * - Putaran 1 (i = 0): j < 0 + 1 (j cuma bisa 0). Maka cuma ngisi duaDimensi[0][0].
-         * - Putaran 2 (i = 1): j < 1 + 1 (j bisa 0 dan 1). Maka ngisi duaDimensi[1][0] dan duaDimensi[1][1].
+         * - Putaran 1 (i = 0): j < 0 + 1 (j cuma bisa 0). Maka cuma ngisi
+         * duaDimensi[0][0].
+         * - Putaran 2 (i = 1): j < 1 + 1 (j bisa 0 dan 1). Maka ngisi duaDimensi[1][0]
+         * dan duaDimensi[1][1].
          * - Putaran 3 (i = 2): j < 2 + 1 (j bisa 0, 1, 2). Maka ngisi 3 kolom.
          * ...dan seterusnya.
          *
-         * Variabel k cuma jadi "counter" yang terus nambah tiap kali ada kotak yang diisi.
+         * Variabel k cuma jadi "counter" yang terus nambah tiap kali ada kotak yang
+         * diisi.
          * Kuncinya variabel i untuk baris sedangkan j untuk kolom.
          * 
          * OUTPUT
-         * 0 
-         * 1 2 
-         * 3 4 5 
-         * 6 7 8 9 
-         * 10 11 12 13 14  
-         */ 
+         * 0
+         * 1 2
+         * 3 4 5
+         * 6 7 8 9
+         * 10 11 12 13 14
+         */
 
         System.out.println();
 
@@ -298,7 +302,7 @@ public class ArrayMultidimensional {
             for (num2 = 0; num2 < 5; num2++) {
                 num[num1][num2] = num3;
                 num3++;
-        }
+            }
 
         // Tampilkan
         for (num1 = 0; num1 < 4; num1++) {
@@ -310,8 +314,8 @@ public class ArrayMultidimensional {
 
         /**
          * OUTPUT
-         * 0 1 2 3 4 
-         * 5 6 7 8 9 
+         * 0 1 2 3 4
+         * 5 6 7 8 9
          * 10 11 12 13 14
          */
 
@@ -319,10 +323,10 @@ public class ArrayMultidimensional {
 
         // Matriks Perkalian (Inisialisasi Langsung)
         // Inisialisasi langsung dengan ekspresi matematika
-        double m[][] = {{0*0, 1*0, 2*0, 3*0},
-                        {0*1, 1*1, 2*1, 3*1},
-                        {0*2, 1*2, 2*2, 3*2}, 
-                        {0*3, 1*3, 2*3, 3*3}};
+        double m[][] = { { 0 * 0, 1 * 0, 2 * 0, 3 * 0 },
+                { 0 * 1, 1 * 1, 2 * 1, 3 * 1 },
+                { 0 * 2, 1 * 2, 2 * 2, 3 * 2 },
+                { 0 * 3, 1 * 3, 2 * 3, 3 * 3 } };
 
         int o, p;
 
@@ -395,26 +399,26 @@ public class ArrayMultidimensional {
         // ARRAY 3 DIMENSI
         int[][][] arr = {
 
-            { // layer ke-0 (array 2D)
-                
-                {1, 2, 3}, // baris ke-0 → array 1D (kolom)
-                {4, 5, 6}  // baris ke-1 → array 1D (kolom)
-            },
+                { // layer ke-0 (array 2D)
 
-            { // layer ke-1 (array 2D)
-                
-                {7, 8, 9},     // baris ke-0 → array 1D (kolom)
-                {10, 11, 12},  // baris ke-1 → array 1D (kolom)
-                {13, 14, 15}   // baris ke-2 → array 1D (kolom)
-            },
+                        { 1, 2, 3 }, // baris ke-0 → array 1D (kolom)
+                        { 4, 5, 6 } // baris ke-1 → array 1D (kolom)
+                },
 
-            { // layer ke-2 (array 2D)
-                
-                {0, 0, 0},  // baris ke-0 → array 1D (kolom)
-                {0, 0, 0},  // baris ke-1 → array 1D (kolom)
-                {0, 0, 10}, // baris ke-2 → array 1D (kolom)
-                {0, 0, 10}  // baris ke-3 → array 1D (kolom)
-            }
+                { // layer ke-1 (array 2D)
+
+                        { 7, 8, 9 }, // baris ke-0 → array 1D (kolom)
+                        { 10, 11, 12 }, // baris ke-1 → array 1D (kolom)
+                        { 13, 14, 15 } // baris ke-2 → array 1D (kolom)
+                },
+
+                { // layer ke-2 (array 2D)
+
+                        { 0, 0, 0 }, // baris ke-0 → array 1D (kolom)
+                        { 0, 0, 0 }, // baris ke-1 → array 1D (kolom)
+                        { 0, 0, 10 }, // baris ke-2 → array 1D (kolom)
+                        { 0, 0, 10 } // baris ke-3 → array 1D (kolom)
+                }
         };
 
         for (int ii = 0; ii < arr.length; ii++) {
@@ -432,19 +436,19 @@ public class ArrayMultidimensional {
          * OUTPUT
          * 
          * Layer ke-0
-         * 1 2 3 
-         * 4 5 6 
-
+         * 1 2 3
+         * 4 5 6
+         * 
          * Layer ke-1
-         * 7 8 9 
-         * 10 11 12 
-         * 13 14 15 
-
+         * 7 8 9
+         * 10 11 12
+         * 13 14 15
+         * 
          * Layer ke-2
-         * 0 0 0 
-         * 0 0 0 
-         * 0 0 10 
-         * 0 0 10          
+         * 0 0 0
+         * 0 0 0
+         * 0 0 10
+         * 0 0 10
          */
 
         // AKSES LANGSUNG
