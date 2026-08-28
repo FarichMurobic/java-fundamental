@@ -1,5 +1,7 @@
 package FundamentalJava.ClassAndObject.Latihan;
 
+// Latihan
+
 class Ticket {
 
     public Ticket() {
@@ -20,23 +22,23 @@ class Ticket {
     }
 
     public static int serialNumber;
-    private static int ticketCount; 
+    private static int ticketCount;
 }
 
 public class TestTicket {
     public static void main(String[] args) {
-        
+
         Ticket t1;
         Ticket t2;
 
         System.out.println("Ticket count is " +
-                            Ticket.getTicketCount());
-        
+                Ticket.getTicketCount());
+
         t1 = new Ticket();
         t2 = new Ticket();
 
         System.out.println("Ticket count is " +
-                            Ticket.getTicketCount());
+                Ticket.getTicketCount());
         System.out.println(t1.getSerial());
         System.out.println(t2.getSerial());
     }
