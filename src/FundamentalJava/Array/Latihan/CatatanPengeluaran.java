@@ -1,8 +1,10 @@
 package FundamentalJava.Array.Latihan;
 
+// Latihan
+
 public class CatatanPengeluaran {
     public static void main(String[] args) {
-        
+
         // Deklarasi dan inisialisasi variabel dengan type yg berbeda
         String namaBarang1 = "Susu";
         double hargaBarang1 = 15500.0;
@@ -26,7 +28,7 @@ public class CatatanPengeluaran {
         // Konversi tipe casting
         int totalBelanjaBulat = (int) totalBelanja;
 
-        // Cetak struk 
+        // Cetak struk
         System.out.println("----- Struk Belanja -----");
         System.out.println(namaBarang1 + " (" + jumlahBarang1 + "x): Rp" + totalHargaItem[0]);
         System.out.println(namaBarang2 + " (" + jumlahBarang2 + "x): Rp" + totalHargaItem[1]);
