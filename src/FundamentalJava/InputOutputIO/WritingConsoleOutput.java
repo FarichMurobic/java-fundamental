@@ -24,7 +24,7 @@ package FundamentalJava.InputOutputIO;
  *
  * System.out
  *
- * System.out merupakan standard output pada Java..
+ * System.out merupakan standard output pada Java....
  *
  * Field ini bertipe:
  *
