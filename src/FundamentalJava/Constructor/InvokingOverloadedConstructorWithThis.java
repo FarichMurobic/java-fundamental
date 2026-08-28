@@ -8,7 +8,7 @@ package FundamentalJava.Constructor;
  * Ketika sebuah class memiliki beberapa constructor
  * (Constructor Overloading), Java menyediakan mekanisme
  * untuk memanggil constructor lain yang berada dalam
- * class yang sama.
+ * class yang sama..
  *
  * Mekanisme tersebut menggunakan:
  *
@@ -54,23 +54,23 @@ package FundamentalJava.Constructor;
  *
  * class MyClass {
  *
- *     int a;
- *     int b;
+ * int a;
+ * int b;
  *
- *     MyClass(int i, int j) {
- *         a = i;
- *         b = j;
- *     }
+ * MyClass(int i, int j) {
+ * a = i;
+ * b = j;
+ * }
  *
- *     MyClass(int i) {
- *         a = i;
- *         b = i;
- *     }
+ * MyClass(int i) {
+ * a = i;
+ * b = i;
+ * }
  *
- *     MyClass() {
- *         a = 0;
- *         b = 0;
- *     }
+ * MyClass() {
+ * a = 0;
+ * b = 0;
+ * }
  * }
  *
  * Pada contoh di atas:
@@ -91,21 +91,21 @@ package FundamentalJava.Constructor;
  *
  * class MyClass {
  *
- *     int a;
- *     int b;
+ * int a;
+ * int b;
  *
- *     MyClass(int i, int j) {
- *         a = i;
- *         b = j;
- *     }
+ * MyClass(int i, int j) {
+ * a = i;
+ * b = j;
+ * }
  *
- *     MyClass(int i) {
- *         this(i, i);
- *     }
+ * MyClass(int i) {
+ * this(i, i);
+ * }
  *
- *     MyClass() {
- *         this(0, 0);
- *     }
+ * MyClass() {
+ * this(0, 0);
+ * }
  * }
  *
  * Flow:
@@ -168,19 +168,19 @@ package FundamentalJava.Constructor;
  * ------------------------------------------------------------------------
  *
  * 1. this() HARUS menjadi statement pertama
- *    di dalam constructor.
+ * di dalam constructor.
  *
  * Benar:
  *
  * MyClass(int i) {
- *     this(i, i);
+ * this(i, i);
  * }
  *
  * Salah:
  *
  * MyClass(int i) {
- *     a = 5;
- *     this(i, i); // Compile-Time Error
+ * a = 5;
+ * this(i, i); // Compile-Time Error
  * }
  *
  * ------------------------------------------------------------------------
@@ -197,7 +197,7 @@ package FundamentalJava.Constructor;
  * Salah:
  *
  * MyClass() {
- *     this();
+ * this();
  * }
  *
  * Hal ini menyebabkan:
@@ -209,13 +209,13 @@ package FundamentalJava.Constructor;
  * ------------------------------------------------------------------------
  *
  * 4. this() dan super() tidak dapat digunakan
- *    secara bersamaan dalam constructor yang sama.
+ * secara bersamaan dalam constructor yang sama.
  *
  * Salah:
  *
  * MyClass() {
- *     super();
- *     this(0);
+ * super();
+ * this(0);
  * }
  *
  * Karena:
@@ -285,7 +285,7 @@ package FundamentalJava.Constructor;
  * - Ingin menghindari code duplication.
  *
  * - Ingin menerapkan prinsip DRY
- *   (Don't Repeat Yourself).
+ * (Don't Repeat Yourself).
  *
  * ------------------------------------------------------------------------
  * KESIMPULAN
@@ -304,12 +304,12 @@ package FundamentalJava.Constructor;
  * Rule paling penting:
  *
  * - this() harus menjadi statement pertama
- *   di dalam constructor.
+ * di dalam constructor.
  *
  * - Tidak dapat digunakan bersama super().
  *
  * - Tidak boleh menyebabkan pemanggilan constructor
- *   secara rekursif.
+ * secara rekursif.
  *
  * Dalam praktik OOP modern, this() merupakan teknik
  * yang sangat umum digunakan untuk membuat desain
@@ -377,7 +377,7 @@ public class InvokingOverloadedConstructorWithThis {
          *
          * berantai
          */
-        
+
         // pakai konstruktor (int, int)
         Myclass obj1 = new Myclass(5, 10);
         obj1.show();
