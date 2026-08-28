@@ -5,7 +5,7 @@ package FundamentalJava.Concatenation;
  * ------------------------------------------------------------
  *
  * Concatenation adalah proses menggabungkan dua atau lebih String
- * menjadi satu String baru.
+ * menjadi satu String baru..
  *
  * Di Java, operasi concatenation menggunakan operator:
  *
@@ -211,7 +211,7 @@ package FundamentalJava.Concatenation;
  *
  * Automatic Type Conversion
  * -> Konversi otomatis tipe data menjadi String saat
- *    proses concatenation.
+ * proses concatenation.
  *
  * length()
  * -> Method untuk mendapatkan jumlah karakter dalam String.
@@ -258,16 +258,19 @@ public class Concatenation {
         System.out.println("This " + "line " + "Concatenation " + "4 Strings");
         System.out.println("\n\n\n\tBye Now");
 
-        // Operator penggabungan (+) juga dapat digunakan untuk menggabungkan sebuah String dengan nilai numerik atau karakter.
+        // Operator penggabungan (+) juga dapat digunakan untuk menggabungkan sebuah
+        // String dengan nilai numerik atau karakter.
 
         int umur = 26;
         System.out.println("Umur saya adalah: " + umur + "\n");
 
         System.out.println("--------------------\n");
 
-        // Penjelasan: Java otomatis mengubah 25 menjadi "25" sebelum digabung dengan String lainnya.
+        // Penjelasan: Java otomatis mengubah 25 menjadi "25" sebelum digabung dengan
+        // String lainnya.
 
-        // Operator + dalam Java dapat digunakan bukan hanya untuk penjumlahan angka, tapi juga untuk menggabungkan (concatenate) String.
+        // Operator + dalam Java dapat digunakan bukan hanya untuk penjumlahan angka,
+        // tapi juga untuk menggabungkan (concatenate) String.
 
         // String + Int
         System.out.println("Total = " + 10); // Total = 10
@@ -281,8 +284,10 @@ public class Concatenation {
 
         /**
          * Kesimpulan:
-         * Operator + menggabungkan String, dan angka/karakter otomatis dikonversi ke String jika digunakan bersama String.
-         * Perhatikan urutan evaluasi. Gunakan tanda kurung jika ingin angka dijumlahkan dulu sebelum digabungkan ke String.
+         * Operator + menggabungkan String, dan angka/karakter otomatis dikonversi ke
+         * String jika digunakan bersama String.
+         * Perhatikan urutan evaluasi. Gunakan tanda kurung jika ingin angka dijumlahkan
+         * dulu sebelum digabungkan ke String.
          */
 
         System.out.println("\n-----------------------------\n");
@@ -294,7 +299,7 @@ public class Concatenation {
         System.out.print("(2)\t \"Pensylvania Avenue \" + 1600 is ");
         System.out.println("Pensylvania Avenue " + 1600);
         System.out.print("(3)\t 563 + 34 is ");
-        System.out.println( 563 + 34);
+        System.out.println(563 + 34);
         System.out.print("(4)\t \"Victoria, NE \" + 563 + 34 is ");
         System.out.println("Victoria, NE " + 563 + 34);
         System.out.print("(5)\t 563 + 34 + \" Victoria, NE \" is ");
@@ -304,9 +309,9 @@ public class Concatenation {
         System.out.print("(7)\t \"Victoria, \" + \'N\' + \'E\' + \' \' + 56334 is ");
         System.out.println("Victoria, " + 'N' + 'E' + ' ' + 56334);
         System.out.print("(8)\t 563 * 34 is ");
-        System.out.println( 563 * 34);
+        System.out.println(563 * 34);
         System.out.print("(9)\t \"Victoria, NE \" + 563 * 34 is ");
-        System.out.println("Victoria, NE " + 563 * 34 );
+        System.out.println("Victoria, NE " + 563 * 34);
         System.out.print("(10)\t 563 * 34 + \" Victoria, NE \" is ");
         System.out.println(563 * 34 + " Victoria, NE ");
         System.out.print("(11)\t \"Victoria, NE \" + (563 * 34) is ");
