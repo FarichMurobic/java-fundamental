@@ -8,7 +8,7 @@ package FundamentalJava.Generics;
  * harus berupa reference type (tipe referensi).
  *
  * Primitive type tidak dapat digunakan secara langsung
- * sebagai type argument.
+ * sebagai type argument..
  *
  * Primitive type:
  *
@@ -25,7 +25,6 @@ package FundamentalJava.Generics;
  * parameter generic.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh yang Tidak Valid
  * ------------------------------------------------------------
@@ -38,7 +37,6 @@ package FundamentalJava.Generics;
  * Generic di Java hanya menerima object (reference type),
  * bukan primitive type.
  */
-
 
 /* ------------------------------------------------------------
  * Solusinya: Wrapper Class
@@ -61,7 +59,6 @@ package FundamentalJava.Generics;
  * digunakan sebagai type argument pada generic.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh yang Valid
  * ------------------------------------------------------------
@@ -76,7 +73,6 @@ package FundamentalJava.Generics;
  * Penulisan diamond operator (<>) juga memungkinkan compiler
  * melakukan type inference terhadap type argument.
  */
-
 
 /* ------------------------------------------------------------
  * Autoboxing dan Unboxing
@@ -108,7 +104,6 @@ package FundamentalJava.Generics;
  * programmer tidak perlu melakukan konversi secara manual.
  */
 
-
 /* ------------------------------------------------------------
  * Generic dengan Type Argument Berbeda
  * ------------------------------------------------------------
@@ -133,7 +128,6 @@ package FundamentalJava.Generics;
  * Gen<String>
  */
 
-
 /* ------------------------------------------------------------
  * Contoh yang Tidak Valid
  * ------------------------------------------------------------
@@ -157,7 +151,6 @@ package FundamentalJava.Generics;
  * tidak dapat dipertukarkan secara sembarangan.
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Aturan Ini Penting?
  * ------------------------------------------------------------
@@ -172,7 +165,6 @@ package FundamentalJava.Generics;
  * Hal ini mengurangi kemungkinan terjadinya
  * ClassCastException saat program dijalankan.
  */
-
 
 /* ------------------------------------------------------------
  * Generic Mengubah Runtime Error Menjadi Compile-Time Error
@@ -198,7 +190,6 @@ package FundamentalJava.Generics;
  * dan lebih mudah dipelihara.
  */
 
-
 /* ------------------------------------------------------------
  * Ringkasan
  * ------------------------------------------------------------
@@ -221,7 +212,6 @@ package FundamentalJava.Generics;
  * - Tujuan utama generic adalah menjaga type safety
  *   sekaligus membuat kode lebih fleksibel dan reusable.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -262,7 +252,7 @@ class NonGenerics {
 
 public class GenericReferenceType {
     public static void main(String[] args) {
-        
+
         NonGenerics ob;
 
         // MEMBAUT objek NonGenerics dan menyimpan Integer
@@ -308,7 +298,7 @@ public class GenericReferenceType {
          * Perhatikan ini:
          * iOb = strOb;
          *
-         * Ini BOLEH di Java lama 
+         * Ini BOLEH di Java lama
          *
          * Tapi isinya:
          * strOb → String
