@@ -9,7 +9,7 @@ package FundamentalJava.InstanceofJava;
  * atau interface tertentu pada saat program berjalan (runtime).
  *
  * Pemeriksaan ini sangat berguna ketika tipe asli object tidak
- * diketahui secara pasti hingga runtime.
+ * diketahui secara pasti hingga runtime..
  *
  * ==========================================================
  *                     MENGAPA DIPERLUKAN?
@@ -180,7 +180,7 @@ class D extends A {
 
 public class InstanceofJava {
     public static void main(String[] args) {
-        
+
         A a = new A();
         B b = new B();
         C c = new C();
@@ -292,7 +292,7 @@ public class InstanceofJava {
          *
          * Contoh Aman
          * if(obj instanceof C) {
-         *     C c = (C) obj; // aman
+         * C c = (C) obj; // aman
          * }
          *
          * Tanpa ini:

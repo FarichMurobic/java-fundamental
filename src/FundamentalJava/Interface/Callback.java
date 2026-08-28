@@ -6,7 +6,7 @@ package FundamentalJava.Interface;
  *
  * Interface adalah mekanisme di Java yang digunakan untuk
  * mendefinisikan kontrak (contract) yang harus dipenuhi oleh
- * class yang mengimplementasikannya.
+ * class yang mengimplementasikannya..
  *
  * Dengan menggunakan keyword interface, kita dapat membuat
  * abstraksi penuh terhadap perilaku (behavior) tanpa menentukan
@@ -473,7 +473,7 @@ package FundamentalJava.Interface;
  * mudah dikembangkan.
  *
  * ==========================================================
- */    
+ */
 
 public interface Callback {
     // METHOD di interface

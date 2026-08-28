@@ -4,9 +4,9 @@ import java.io.*;
 
 public class CopyFile {
     public static void main(String[] args) {
-        
+
         int i;
-        
+
         FileInputStream fin = null;
         FileOutputStream fon = null;
 
@@ -27,7 +27,7 @@ public class CopyFile {
                 if (i != -1) {
                     fon.write(i); // TULIS KE FILE TUJUAN
                 }
-            } while (i != -1); 
+            } while (i != -1);
         } catch (IOException e) {
             System.out.println("IO Error: " + e);
         } finally {
@@ -67,7 +67,7 @@ public class CopyFile {
          * Kenapa 2 try saat close?
          *
          * supaya:
-         * kalau satu gagal → yang lain tetap ditutup
+         * kalau satu gagal → yang lain tetap ditutup.
          *
          * ------------------------------
          * 

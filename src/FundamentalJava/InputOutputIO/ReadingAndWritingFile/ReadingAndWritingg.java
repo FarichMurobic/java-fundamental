@@ -10,7 +10,7 @@ package FundamentalJava.InputOutputIO.ReadingAndWritingFile;
  * Topik ini sebenarnya besar banget, dan dibahas lebih dalam di bagian lain buku.
  * Di sini kita fokus ke dasar-dasarnya dulu.
  *
- * Walaupun contoh pakai byte stream, konsepnya bisa dipakai juga ke character stream.
+ * Walaupun contoh pakai byte stream, konsepnya bisa dipakai juga ke character stream..
  *
  * ---------------------------------
  * 
@@ -155,6 +155,6 @@ public class ReadingAndWritingg {
          * bisa error saat dibaca
          * bisa error saat ditutup
          */
-        
+
     }
 }

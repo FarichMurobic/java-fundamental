@@ -4,7 +4,7 @@ import java.io.*;
 
 public class MultipleResource {
     public static void main(String[] args) {
-        
+
         int i;
 
         // CEK argumen
@@ -15,7 +15,7 @@ public class MultipleResource {
 
         // 2 resources sekaligus
         try (FileInputStream fileInputStream = new FileInputStream(args[0]);
-             FileOutputStream fileOutputStream = new FileOutputStream(args[1])) {
+                FileOutputStream fileOutputStream = new FileOutputStream(args[1])) {
             do {
                 i = fileInputStream.read();
                 if (i != -1)
@@ -29,8 +29,8 @@ public class MultipleResource {
          * PENJELASAN
          * 
          * try (
-         *   FileInputStream fin = ...
-         *   FileOutputStream fout = ...
+         * FileInputStream fin = ...
+         * FileOutputStream fout = ...
          * )
          *
          * dua resource
@@ -41,7 +41,7 @@ public class MultipleResource {
          * fin ditutup
          * fout ditutup
          *
-         * otomatis semua
+         * otomatis semua.
          *
          * --------------------------------
          * 

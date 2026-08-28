@@ -1,5 +1,7 @@
 package FundamentalJava.Interface.Latihan;
 
+// Latihan
+
 public class Test {
     public static void main(String[] args) {
 

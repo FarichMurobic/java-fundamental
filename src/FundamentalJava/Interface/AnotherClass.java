@@ -1,5 +1,7 @@
 package FundamentalJava.Interface;
 
+// Farich Murobic
+
 public class AnotherClass implements Callback {
 
     @Override

@@ -82,21 +82,21 @@ package FundamentalJava.InputOutputIO.ReadingAndWritingFile;
  *
  * REKOMENDASI DUNIA NYATA:
  * Pakai try-with-resources untuk code baru
- * Tapi tetap pahami cara lama (legacy code)
+ * Tapi tetap pahami cara lama (legacy code).
  */
 
 import java.io.*;
 
 public class AutomaticClosingFile {
     public static void main(String[] args) {
-        
+
         int i;
-        
+
         // CEK ARGUMEN
         if (args.length != 1) {
             System.out.println("Usage: showfile filename...");
             return;
-        } 
+        }
 
         // CARA MODERN CLOSING AUTOMATIC
         // PAKAI TRY WITH RESOURCES
@@ -140,14 +140,14 @@ public class AutomaticClosingFile {
          * FileInputStream fin = new FileInputStream("test.txt");
          *
          * try {
-         *    // baca file
+         * // baca file
          * } finally {
-         *    fin.close();
+         * fin.close();
          * }
          *
          * Cara baru:
          * try(FileInputStream fin = new FileInputStream("test.txt")) {
-         *    // baca file
+         * // baca file
          * }
          *
          * Lebih:

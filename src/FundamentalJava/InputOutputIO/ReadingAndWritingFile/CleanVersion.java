@@ -8,7 +8,7 @@ import java.io.*;
 
 public class CleanVersion {
     public static void main(String[] args) {
-        
+
         int i;
         FileInputStream fin = null;
 
@@ -38,13 +38,13 @@ public class CleanVersion {
             }
         }
 
-         /**
+        /**
          * VERSI DENGAN finally (LEBIH AMAN)
          *
          * Kenapa pakai finally?
          *
          * supaya:
-         * file tetap ditutup walaupun error
+         * file tetap ditutup walaupun error.
          */
     }
 

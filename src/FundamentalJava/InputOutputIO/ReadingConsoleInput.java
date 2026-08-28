@@ -6,7 +6,7 @@ package FundamentalJava.InputOutputIO;
  * ============================================================
  *
  * Pada Java versi awal, pembacaan input dari console dilakukan
- * menggunakan byte stream melalui System.in.
+ * menggunakan byte stream melalui System.in..
  *
  * Hingga saat ini pendekatan tersebut masih didukung. Namun,
  * untuk membaca data berupa teks, Java menyediakan character
@@ -169,7 +169,7 @@ import java.io.*;
 
 public class ReadingConsoleInput {
     public static void main(String[] args) throws IOException {
-        
+
         char c;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter characters, 'q' to quit!");

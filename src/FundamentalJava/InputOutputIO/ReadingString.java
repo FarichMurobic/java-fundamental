@@ -11,7 +11,7 @@ package FundamentalJava.InputOutputIO;
  *     String readLine() throws IOException
  *
  * Method ini membaca satu baris teks dari input dan
- * mengembalikannya sebagai object String.
+ * mengembalikannya sebagai object String..
  *
  * Pembacaan akan selesai setelah pengguna menekan tombol Enter.
  *
@@ -94,7 +94,7 @@ import java.io.*;
 
 public class ReadingString {
     public static void main(String[] args) throws IOException {
-        
+
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String str;
 
@@ -105,7 +105,6 @@ public class ReadingString {
             str = bufferedReader.readLine(); // baca perbaris
             System.out.println(str);
         } while (!str.equalsIgnoreCase("stop"));
-
 
         System.out.println();
 
@@ -123,8 +122,8 @@ public class ReadingString {
         }
 
         System.out.println("\nHere is your file: ");
-        
-        // CETAK 
+
+        // CETAK
         for (int i = 0; i < 100; i++) {
             if (strings[i].equalsIgnoreCase("STOP"))
                 break; // KELUAR

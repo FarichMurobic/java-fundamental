@@ -2,19 +2,19 @@ package FundamentalJava.InputOutputIO;
 
 /**
  * ============================================================
- *                  Writing Console Output
+ * Writing Console Output
  * ============================================================
  *
  * Java menyediakan beberapa cara untuk menampilkan output ke
  * console. Cara yang paling umum adalah menggunakan method:
  *
- *     print()
- *     println()
+ * print()
+ * println()
  *
  * Kedua method tersebut berasal dari class PrintStream dan
  * digunakan melalui object:
  *
- *     System.out
+ * System.out
  *
  * Sebagai contoh:
  *
@@ -24,11 +24,11 @@ package FundamentalJava.InputOutputIO;
  *
  * System.out
  *
- * System.out merupakan standard output pada Java.
+ * System.out merupakan standard output pada Java..
  *
  * Field ini bertipe:
  *
- *     PrintStream
+ * PrintStream
  *
  * Secara default, output diarahkan ke console, meskipun dapat
  * dialihkan (redirect) ke file, network, atau tujuan output
@@ -62,7 +62,7 @@ package FundamentalJava.InputOutputIO;
  *
  * Bentuk sederhananya adalah:
  *
- *     void write(int b)
+ * void write(int b)
  *
  * Method ini menulis satu byte ke output.
  *
@@ -77,16 +77,16 @@ package FundamentalJava.InputOutputIO;
  * Perbedaan print()/println() dan write()
  *
  * print() / println()
- *     - Digunakan untuk menampilkan teks dan berbagai tipe data.
- *     - Melakukan konversi data secara otomatis.
- *     - Lebih mudah digunakan.
- *     - Cocok untuk sebagian besar aplikasi console.
+ * - Digunakan untuk menampilkan teks dan berbagai tipe data.
+ * - Melakukan konversi data secara otomatis.
+ * - Lebih mudah digunakan.
+ * - Cocok untuk sebagian besar aplikasi console.
  *
  * write()
- *     - Menulis data dalam bentuk byte.
- *     - Bekerja pada level yang lebih rendah.
- *     - Lebih sesuai untuk kebutuhan khusus yang berhubungan
- *       dengan manipulasi byte.
+ * - Menulis data dalam bentuk byte.
+ * - Bekerja pada level yang lebih rendah.
+ * - Lebih sesuai untuk kebutuhan khusus yang berhubungan
+ * dengan manipulasi byte.
  *
  * ------------------------------------------------------------
  *
@@ -95,7 +95,7 @@ package FundamentalJava.InputOutputIO;
  * Hierarki sederhananya adalah:
  *
  * OutputStream
- *      ↑
+ * ↑
  * PrintStream
  *
  * Karena PrintStream merupakan turunan dari OutputStream,
@@ -129,17 +129,17 @@ package FundamentalJava.InputOutputIO;
  * - System.out merupakan standard output pada Java.
  * - System.out bertipe PrintStream.
  * - print() dan println() digunakan untuk menghasilkan output
- *   teks dengan mudah.
+ * teks dengan mudah.
  * - write() menulis data dalam bentuk byte dan bekerja pada
- *   level yang lebih rendah.
+ * level yang lebih rendah.
  * - PrintStream menyediakan abstraksi sehingga penulisan teks
- *   menjadi lebih sederhana dibandingkan menggunakan write()
- *   secara langsung.
+ * menjadi lebih sederhana dibandingkan menggunakan write()
+ * secara langsung.
  */
 
 public class WritingConsoleOutput {
     public static void main(String[] args) {
-        
+
         int b;
         b = 'a'; // karakter 'A' → dikonversi ke ASCII (65)
 

@@ -1,5 +1,7 @@
 package FundamentalJava.Interface.Latihan;
 
+// Latihan
+
 public class DynStack implements InStack {
 
     private int stck[];

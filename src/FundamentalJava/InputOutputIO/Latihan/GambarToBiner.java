@@ -1,11 +1,13 @@
 package FundamentalJava.InputOutputIO.Latihan;
 
+// Latihan
+
 import java.io.FileInputStream;
 import java.io.IOException;
 
 public class GambarToBiner {
     public static void main(String[] args) {
-        
+
         String path = "C:\\Users\\Farich Murobiq\\My Project Repositori\\Java Fundamental\\data\\gambar.jpg";
 
         try (FileInputStream FIS = new FileInputStream(path)) {
@@ -23,8 +25,8 @@ public class GambarToBiner {
                 // System.out.println(data);
 
                 count++; // NAIKAN Count
-            }   
-            
+            }
+
         } catch (IOException e) {
             e.getCause();
         }
