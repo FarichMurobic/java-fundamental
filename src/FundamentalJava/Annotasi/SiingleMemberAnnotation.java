@@ -6,7 +6,7 @@ package FundamentalJava.Annotasi;
  * ---------------------------------------------------------------------------
  *
  * Single-Member Annotation adalah annotation yang hanya memiliki
- * satu member.
+ * satu member..
  *
  * Keunggulan utamanya adalah Java menyediakan penulisan singkat
  * (shorthand syntax) sehingga nilai dapat diberikan tanpa harus
@@ -161,6 +161,7 @@ import java.lang.reflect.*;
 @Retention(RetentionPolicy.RUNTIME)
 @interface Single {
     int value(); // harus bernama value (shorthand)
+
     int val() default 22; // bisa digabung dengan default member
 }
 
@@ -200,11 +201,11 @@ public class SiingleMemberAnnotation {
             }
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
-        }   
+        }
     }
 
     public static void main(String[] args) {
-        
+
         myMeth();
 
     }
