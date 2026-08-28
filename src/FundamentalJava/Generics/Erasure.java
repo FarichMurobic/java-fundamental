@@ -21,7 +21,6 @@ package FundamentalJava.Generics;
  * terutama pada saat compile-time.
  */
 
-
 /* ------------------------------------------------------------
  * Bagaimana Proses Type Erasure Bekerja?
  * ------------------------------------------------------------
@@ -64,7 +63,6 @@ package FundamentalJava.Generics;
  * dihasilkan compiler tidak persis sama dengan contoh tersebut.
  */
 
-
 /* ------------------------------------------------------------
  * Jika Generic Memiliki Bound
  * ------------------------------------------------------------
@@ -90,7 +88,6 @@ package FundamentalJava.Generics;
  * - Dengan bound → Bound tersebut
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Nilainya Tetap Menjadi Integer atau String?
  * ------------------------------------------------------------
@@ -112,7 +109,6 @@ package FundamentalJava.Generics;
  * Programmer tidak perlu menuliskan casting tersebut secara manual.
  */
 
-
 /* ------------------------------------------------------------
  * Peran Compiler
  * ------------------------------------------------------------
@@ -128,7 +124,6 @@ package FundamentalJava.Generics;
  * Setelah proses tersebut selesai, bytecode yang dihasilkan
  * tidak lagi menyimpan sebagian besar informasi generic.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Java Menggunakan Type Erasure?
@@ -151,7 +146,6 @@ package FundamentalJava.Generics;
  * tanpa merusak ekosistem yang sudah ada.
  */
 
-
 /* ------------------------------------------------------------
  * Dampak Type Erasure
  * ------------------------------------------------------------
@@ -171,7 +165,6 @@ package FundamentalJava.Generics;
  * langsung atau melakukan pengecekan instanceof terhadap
  * parameterized type tertentu.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -193,7 +186,6 @@ package FundamentalJava.Generics;
  * - JVM menjalankan bytecode yang sebagian besar sudah tidak
  *   mengandung informasi generic.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -248,7 +240,7 @@ class Kucing extends BapakKucing<String> {
 
 public class Erasure {
     public static void main(String[] args) {
-        
+
         Kucing g2 = new Kucing("Hello");
 
         // panggil langsung
