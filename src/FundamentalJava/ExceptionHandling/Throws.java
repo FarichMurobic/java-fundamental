@@ -6,7 +6,7 @@ package FundamentalJava.ExceptionHandling;
  * ------------------------------------------------------------
  *
  * Dalam Java, tidak semua method menangani exception yang terjadi
- * di dalam dirinya sendiri.
+ * di dalam dirinya sendiri...
  *
  * Kadang sebuah method hanya mengetahui bahwa exception dapat terjadi,
  * tetapi tidak memiliki informasi atau konteks yang cukup untuk
