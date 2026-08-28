@@ -1,5 +1,7 @@
 package FundamentalJava.Generics.Latihan;
 
+// Latihan
+
 class Parent<T, V> {
 
     private T objek1;
@@ -25,7 +27,7 @@ class Parent<T, V> {
 }
 
 class Child1<T, V, J> extends Parent<T, V> {
-    
+
     private J objekChild;
 
     public Child1(T a, V b, J j) {
@@ -40,7 +42,7 @@ class Child1<T, V, J> extends Parent<T, V> {
 
 public class GenericSuperclass {
     public static void main(String[] args) {
-        
+
         Parent<String, Integer> biodata = new Parent<String, Integer>("Farich", 25);
 
         biodata.biodata();
