@@ -10,7 +10,7 @@ package FundamentalJava.ClassAndObject;
  *
  * Banyak programmer pemula mengira bahwa ketika sebuah variable
  * object di-assign ke variable lain, Java akan membuat salinan
- * (copy) object tersebut.
+ * (copy) object tersebut..
  *
  * Padahal yang sebenarnya terjadi tidak demikian.
  *
@@ -78,8 +78,8 @@ package FundamentalJava.ClassAndObject;
  * Memory:
  *
  * b1
- *  |
- *  v
+ * |
+ * v
  * [ Box Object ]
  *
  * Setelah:
@@ -89,11 +89,11 @@ package FundamentalJava.ClassAndObject;
  * Memory:
  *
  * b1 ----+
- *         |
- *         v
- *      [ Box Object ]
- *         ^
- *         |
+ * |
+ * v
+ * [ Box Object ]
+ * ^
+ * |
  * b2 -----+
  *
  * Sekarang:
@@ -153,11 +153,11 @@ package FundamentalJava.ClassAndObject;
  * Contoh:
  *
  * b1 ----+
- *         |
- *         v
- *      [ Box Object ]
- *         ^
- *         |
+ * |
+ * v
+ * [ Box Object ]
+ * ^
+ * |
  * b2 -----+
  *
  * Kedua variable menjadi alias untuk object yang sama.
@@ -245,11 +245,11 @@ package FundamentalJava.ClassAndObject;
  * Sebelum:
  *
  * b1 ----+
- *         |
- *         v
- *      [ Object A ]
- *         ^
- *         |
+ * |
+ * v
+ * [ Object A ]
+ * ^
+ * |
  * b2 -----+
  *
  * Sesudah:
@@ -279,8 +279,8 @@ package FundamentalJava.ClassAndObject;
  * Visualisasi:
  *
  * b1
- *  |
- *  v
+ * |
+ * v
  * null
  *
  * Jika mencoba mengakses member object:
@@ -303,11 +303,11 @@ package FundamentalJava.ClassAndObject;
  * Contoh:
  *
  * b1 ----+
- *         |
- *         v
- *      [ Box Object ]
- *         ^
- *         |
+ * |
+ * v
+ * [ Box Object ]
+ * ^
+ * |
  * b2 -----+
  *
  * Object belum bisa dibersihkan karena masih memiliki
@@ -349,7 +349,7 @@ package FundamentalJava.ClassAndObject;
  *
  * Garbage Collection
  * -> Mekanisme JVM untuk membersihkan object yang
- *    sudah tidak digunakan.
+ * sudah tidak digunakan.
  *
  * ------------------------------------------------------------
  * KESIMPULAN
@@ -460,19 +460,20 @@ public class VariableReferenceObject {
 
         // Ketika Reference Diputus
         object1 = null;
-        // System.out.println(object1.nama); // Exception in thread "main" java.lang.NullPointerException
+        // System.out.println(object1.nama); // Exception in thread "main"
+        // java.lang.NullPointerException
         System.out.println(object2.nama); // object2 Masih aman
 
         // Cek object1
         // Sekarang false
         // Karena null
-        if (object1 instanceof ReferenceObject) { 
+        if (object1 instanceof ReferenceObject) {
             System.out.println(true);
         } else {
             System.out.println(false);
         }
 
-         /**
+        /**
          * Kenapa object2 Masih Bisa Dipakai
          * Karena memory masih seperti ini:
          * 
@@ -508,20 +509,20 @@ public class VariableReferenceObject {
          * NullPointerException
          */
 
-         System.out.println("----------------------------");
+        System.out.println("----------------------------");
 
-         // Perbandingan dengan primitive
-         int a = 10;
-         int b = a;
+        // Perbandingan dengan primitive
+        int a = 10;
+        int b = a;
 
-         System.out.println(a); // 10
-         System.out.println(b); // 10
+        System.out.println(a); // 10
+        System.out.println(b); // 10
 
-         b = 20;
-         System.out.println(a); // 10
-         System.out.println(b); // 20
+        b = 20;
+        System.out.println(a); // 10
+        System.out.println(b); // 20
 
-         /**
+        /**
          * Primitive
          * int a = 10;
          * int b = a;
@@ -540,6 +541,6 @@ public class VariableReferenceObject {
          * Karena primitive benar-benar di-copy.
          * atau membuat object baru
          */
-        
+
     }
 }
