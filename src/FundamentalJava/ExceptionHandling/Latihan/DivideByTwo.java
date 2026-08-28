@@ -1,10 +1,12 @@
 package FundamentalJava.ExceptionHandling.Latihan;
 
+// Latihan
+
 import java.util.Scanner;
 
 public class DivideByTwo {
     public static void main(String[] args) {
-        
+
         Scanner in = new Scanner(System.in);
         int x;
 
