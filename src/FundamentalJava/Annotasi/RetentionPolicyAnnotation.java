@@ -6,7 +6,7 @@ package FundamentalJava.Annotasi;
  * ---------------------------------------------------------------------------
  *
  * Sebelum membahas annotation lebih jauh, penting untuk memahami
- * Retention Policy.
+ * Retention Policy..
  *
  * Retention Policy menentukan sampai kapan sebuah annotation
  * "hidup" dan dapat digunakan oleh compiler, JVM, atau program.
@@ -340,6 +340,7 @@ import java.lang.reflect.*;
 @Retention(RetentionPolicy.RUNTIME)
 @interface Bayar {
     String string();
+
     int val();
 }
 
@@ -373,10 +374,10 @@ public class RetentionPolicyAnnotation {
 
         } catch (Exception e) {
             e.printStackTrace();
-        } 
+        }
 
         try {
-            // 1. Ambil Class object dari object 
+            // 1. Ambil Class object dari object
             Class<?> kelas1 = retention.getClass();
             System.out.println(kelas1.getAnnotation(Bayar.class));
             // @Annotasi.Bayar(string="Farich Murobic", val=22)
@@ -449,7 +450,8 @@ public class RetentionPolicyAnnotation {
         }
 
         /**
-         * Kamu bisa mengambil semua annotation yang punya retention RUNTIME dengan method:
+         * Kamu bisa mengambil semua annotation yang punya retention RUNTIME dengan
+         * method:
          * Annotation[] getAnnotations()
          * Return: array annotation
          *
@@ -493,7 +495,8 @@ public class RetentionPolicyAnnotation {
 
             // Ambil method + parameternya
             Method method = clas.getMethod("myMeth", String.class, int.class);
-            // Karena ada parameter dan ini method Overload! jadi pakai String.class dan int.class
+            // Karena ada parameter dan ini method Overload! jadi pakai String.class dan
+            // int.class
 
             // Ambil anotasi dari method
             Bayar bayar = method.getAnnotation(Bayar.class);
@@ -501,7 +504,7 @@ public class RetentionPolicyAnnotation {
             // Print nilai anotasi
             System.out.println(bayar.string() + " " + bayar.val());
             // Anotasi 2 parameter 2
-        
+
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
@@ -510,10 +513,12 @@ public class RetentionPolicyAnnotation {
          * Pada contoh sebelumnya, myMeth() tidak punya parameter.
          * Jadi saat getMethod() dipanggil, cukup kasih nama method saja.
          *
-         * Tapi kalau method punya parameter, kita HARUS menyertakan tipe parameter tersebut dalam getMethod().
+         * Tapi kalau method punya parameter, kita HARUS menyertakan tipe parameter
+         * tersebut dalam getMethod().
          * Program mirip sebelumnya, tapi sekarang method punya parameter.
          *
-         * Karena method punya parameter String dan int, maka getMethod() harus dipanggil seperti ini:
+         * Karena method punya parameter String dan int, maka getMethod() harus
+         * dipanggil seperti ini:
          * Method m = c.getMethod("myMeth", String.class, int.class);
          *
          * Kita kirim tipe parameter sebagai Class object
@@ -526,7 +531,7 @@ public class RetentionPolicyAnnotation {
          * Ini representasi tipe data
          *
          * Khusus primitive:
-         * int.class    // benar
+         * int.class // benar
          * Integer.class // beda!
          *
          * Hati-hati banget di sini bro
@@ -535,12 +540,12 @@ public class RetentionPolicyAnnotation {
          * 
          * class Test {
          *
-         *     public void demo(String s) {}
+         * public void demo(String s) {}
          *
-         *     public void run() throws Exception {
-         *         Method m = this.getClass().getMethod("demo", String.class);
-         *         System.out.println("Method ketemu!");
-         *     }
+         * public void run() throws Exception {
+         * Method m = this.getClass().getMethod("demo", String.class);
+         * System.out.println("Method ketemu!");
+         * }
          * }
          *
          * INSIGHT LEVEL LANJUT
@@ -560,7 +565,7 @@ public class RetentionPolicyAnnotation {
     }
 
     public static void main(String[] args) {
-        
+
         // Panggil myMeth()
         myMeth();
 
