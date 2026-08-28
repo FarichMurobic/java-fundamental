@@ -7,7 +7,7 @@ package FundamentalJava.ExceptionHandling;
  *
  * Exception Handling adalah mekanisme Java untuk mendeteksi,
  * melaporkan, dan menangani kondisi abnormal (exception)
- * yang terjadi saat program berjalan (runtime).
+ * yang terjadi saat program berjalan (runtime)..
  *
  * Exception bukan selalu berarti program rusak total.
  * Banyak exception masih bisa ditangani sehingga program
@@ -44,18 +44,18 @@ package FundamentalJava.ExceptionHandling;
  * 3. JVM mencari handler yang sesuai.
  * 4. Jika ditemukan, exception ditangani.
  * 5. Jika tidak ditemukan, program berhenti dan
- *    stack trace ditampilkan.
+ * stack trace ditampilkan.
  *
  * Secara sederhana:
  *
  * Error terjadi
- *      ↓
+ * ↓
  * Exception dibuat
- *      ↓
+ * ↓
  * Exception dilempar (throw)
- *      ↓
+ * ↓
  * Exception ditangkap (catch)
- *      ↓
+ * ↓
  * Error ditangani
  *
  * ------------------------------------------------------------
@@ -65,7 +65,7 @@ package FundamentalJava.ExceptionHandling;
  * Exception dapat berasal dari:
  *
  * 1. JVM / Java Runtime
- *    (System-Generated Exceptions)
+ * (System-Generated Exceptions)
  *
  * Contoh:
  * - ArithmeticException
@@ -73,7 +73,7 @@ package FundamentalJava.ExceptionHandling;
  * - ArrayIndexOutOfBoundsException
  *
  * 2. Programmer
- *    (Custom Exceptions)
+ * (Custom Exceptions)
  *
  * Contoh:
  * - InvalidEmailException
@@ -119,13 +119,13 @@ package FundamentalJava.ExceptionHandling;
  * ------------------------------------------------------------
  *
  * try {
- *     // kode yang dipantau
+ * // kode yang dipantau
  * }
  * catch (ExceptionType ex) {
- *     // penanganan error
+ * // penanganan error
  * }
  * finally {
- *     // selalu dieksekusi
+ * // selalu dieksekusi
  * }
  *
  * ------------------------------------------------------------
@@ -143,7 +143,7 @@ package FundamentalJava.ExceptionHandling;
  *
  * Throwable
  * ├── Exception
- * │   └── RuntimeException
+ * │ └── RuntimeException
  * └── Error
  *
  * ------------------------------------------------------------
@@ -279,7 +279,7 @@ package FundamentalJava.ExceptionHandling;
  * catch (Exception e)
  *
  * 4. Jangan menggunakan try-catch untuk
- *    menyembunyikan kesalahan logika.
+ * menyembunyikan kesalahan logika.
  *
  * RuntimeException biasanya harus diperbaiki,
  * bukan ditutup dengan catch.
@@ -312,8 +312,8 @@ package FundamentalJava.ExceptionHandling;
  *
  * Throwable
  * ├── Exception
- * │   ├── Checked Exception
- * │   └── RuntimeException
+ * │ ├── Checked Exception
+ * │ └── RuntimeException
  * └── Error
  *
  * Keyword utama:
@@ -342,7 +342,7 @@ public class ExceptionHandling {
     }
 
     public static void main(String[] args) {
-        
+
         // INI CONTOH RUNTIMEEXCEPTION (UNCHECKED EXCEPTION)
         // BUKAN ERROR COMPILE
         // TAPI ERROR SAAT PROGRAM BERJALAN
@@ -354,7 +354,7 @@ public class ExceptionHandling {
             int hasil = angka / 0; // Error runtime (dibagi dengan nol)
             System.out.println("Hasil: " + hasil);
         } catch (ArithmeticException e) {
-            // Menangkap error pembagian dengan 0 
+            // Menangkap error pembagian dengan 0
             System.out.println("Terjadi error, tidak bisa dibagi dengan nol!");
         } finally {
             // Selalu dijalankan baik error maupun tidak
@@ -375,18 +375,18 @@ public class ExceptionHandling {
 
         /**
          * Jika program ini dijalankan tanpa exception handling
-         *  int angka = 10;
-         *         int hasil = angka / 0;
+         * int angka = 10;
+         * int hasil = angka / 0;
          *
-         *         System.out.println(hasil);
+         * System.out.println(hasil);
          *
          * Akan menghasilkan error:
          * Exception in thread "main" java.lang.ArithmeticException: / by zero
-         * 	at ExceptionHandling.ExceptionHandling.main(ExceptionHandling.java:101)
+         * at ExceptionHandling.ExceptionHandling.main(ExceptionHandling.java:101)
          */
 
         try {
-            int[] data = {1,2,3};
+            int[] data = { 1, 2, 3 };
             System.out.println(data[5]); // Error index tidak sampe 5
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Index tidak tersedia.");
@@ -400,7 +400,8 @@ public class ExceptionHandling {
 
         /**
          * Uncaught Exceptions (Exception yang Tidak Ditangani)
-         * Sebelum belajar cara menangani exception, penting untuk melihat apa yang terjadi 
+         * Sebelum belajar cara menangani exception, penting untuk melihat apa yang
+         * terjadi
          * kalau exception tidak ditangani.
          * 
          * Program berikut sengaja membuat error pembagian dengan nol:
@@ -426,7 +427,7 @@ public class ExceptionHandling {
          *
          * Output Error
          * java.lang.ArithmeticException: / by zero
-         *     at Exc0.main(Exc0.java:4)
+         * at Exc0.main(Exc0.java:4)
          *
          * Informasi yang ditampilkan:
          * Nama class → Exc0
@@ -442,8 +443,8 @@ public class ExceptionHandling {
         /**
          * Output:
          * java.lang.ArithmeticException: / by zero
-         *     at Exc1.subroutine(Exc1.java:4)
-         *     at Exc1.main(Exc1.java:7)
+         * at Exc1.subroutine(Exc1.java:4)
+         * at Exc1.main(Exc1.java:7)
          *
          * Stack Trace
          * Stack trace menunjukkan:
@@ -494,24 +495,24 @@ public class ExceptionHandling {
          *
          * public class Exc0 {
          *
-         *     public static void main(String[] args) {
+         * public static void main(String[] args) {
          *
-         *         int d = 0;
-         *         int a = 42 / d; // ERROR: pembagian nol
-         *         // Program langsung berhenti di sini
-         *     }
+         * int d = 0;
+         * int a = 42 / d; // ERROR: pembagian nol
+         * // Program langsung berhenti di sini
+         * }
          * }
          *
          * Contoh 2 (Dengan Method → Lihat Stack Trace)
          *
          * public class Exc1 {
-         *     static void subroutine() {
-         *         int d = 0;
-         *         int a = 10 / d; // ERROR terjadi di sini
-         *     }
-         *     public static void main(String[] args) {
-         *         subroutine(); // method ini memicu error
-         *     }
+         * static void subroutine() {
+         * int d = 0;
+         * int a = 10 / d; // ERROR terjadi di sini
+         * }
+         * public static void main(String[] args) {
+         * subroutine(); // method ini memicu error
+         * }
          * }
          *
          * Penjelasan Stack Trace
