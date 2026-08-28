@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Generic interface adalah interface yang memiliki satu atau
- * lebih type parameter.
+ * lebih type parameter..
  *
  * Dengan adanya type parameter, method di dalam interface
  * dapat bekerja dengan berbagai tipe data tanpa kehilangan
@@ -14,7 +14,6 @@ package FundamentalJava.Generics;
  * Generic interface membuat kode menjadi lebih fleksibel,
  * reusable, dan tetap diperiksa oleh compiler.
  */
-
 
 /* ------------------------------------------------------------
  * Deklarasi Generic Interface
@@ -41,7 +40,6 @@ package FundamentalJava.Generics;
  * method compareTo().
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Menggunakan Comparable?
  * ------------------------------------------------------------
@@ -62,7 +60,6 @@ package FundamentalJava.Generics;
  * compiler tidak dapat menjamin bahwa compareTo()
  * tersedia sehingga kode tidak dapat dikompilasi.
  */
-
 
 /* ------------------------------------------------------------
  * Implementasi Generic Interface
@@ -86,7 +83,6 @@ package FundamentalJava.Generics;
  * agar seluruh kontrak interface tetap terpenuhi.
  */
 
-
 /* ------------------------------------------------------------
  * Cara Kerja Method min()
  * ------------------------------------------------------------
@@ -105,7 +101,6 @@ package FundamentalJava.Generics;
  * maka vals[i] menjadi nilai minimum yang baru.
  */
 
-
 /* ------------------------------------------------------------
  * Cara Kerja Method max()
  * ------------------------------------------------------------
@@ -123,7 +118,6 @@ package FundamentalJava.Generics;
  * Jika kondisi tersebut terpenuhi,
  * maka vals[i] menjadi nilai maksimum yang baru.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Dapat Digunakan untuk Berbagai Tipe?
@@ -151,7 +145,6 @@ package FundamentalJava.Generics;
  * Sebaliknya, tipe yang tidak mengimplementasikan Comparable
  * tidak dapat digunakan.
  */
-
 
 /* ------------------------------------------------------------
  * Kesalahan yang Sering Terjadi
@@ -193,7 +186,6 @@ package FundamentalJava.Generics;
  * sehingga tidak memenuhi syarat sebagai type argument.
  */
 
-
 /* ------------------------------------------------------------
  * Alternatif: Menggunakan Tipe Konkret
  * ------------------------------------------------------------
@@ -216,7 +208,6 @@ package FundamentalJava.Generics;
  * ditujukan untuk satu tipe data tertentu.
  */
 
-
 /* ------------------------------------------------------------
  * Perbandingan dengan Interface Non-Generic
  * ------------------------------------------------------------
@@ -233,7 +224,6 @@ package FundamentalJava.Generics;
  * - Type safety dijamin oleh compiler.
  * - Kode lebih bersih dan mudah digunakan kembali.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -257,7 +247,6 @@ package FundamentalJava.Generics;
  *   fleksibel, dan tetap type-safe.
  */
 
-
 /* ------------------------------------------------------------
  * Insight
  * ------------------------------------------------------------
@@ -280,6 +269,7 @@ package FundamentalJava.Generics;
 
 interface MinMax<T extends Comparable<T>> {
     T min();
+
     T max();
 }
 
@@ -316,9 +306,9 @@ class MyClass<T extends Comparable<T>> implements MinMax {
 
 public class GenericInterface {
     public static void main(String[] args) {
-        
-        Integer inums[] = {9,6,3,2,5,8,7,1,4};
-        Character chas[] = {'n', 'e', 'j', 'r', 'a'};
+
+        Integer inums[] = { 9, 6, 3, 2, 5, 8, 7, 1, 4 };
+        Character chas[] = { 'n', 'e', 'j', 'r', 'a' };
 
         MyClass<Integer> iob = new MyClass<Integer>(inums);
         MyClass<Character> cob = new MyClass<Character>(chas);
