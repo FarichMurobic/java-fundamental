@@ -1,9 +1,12 @@
 package FundamentalJava.ExceptionHandling.Latihan;
+
+// Latihan
+
 import java.util.Random;
 
 public class Training {
     public static void main(String[] args) {
-        
+
         // Mencoba menangani kondisi yang benar
         try {
             int a = 10;
@@ -35,9 +38,9 @@ public class Training {
             e = d / 42;
 
             // Tidak dicetak
-            System.out.println(e / d);     
+            System.out.println(e / d);
             // Tidak dicetak
-            System.out.println("Try."); 
+            System.out.println("Try.");
         } catch (ArithmeticException ex) {
             System.out.println("Catch.");
         } finally {
@@ -57,12 +60,12 @@ public class Training {
         int a = 0, b = 0, c = 0;
 
         Random random = new Random();
-        
+
         for (int i = 0; i < 32000; i++) {
             try {
                 b = random.nextInt();
                 c = random.nextInt();
-                
+
                 a = 12345 / (b / c);
             } catch (ArithmeticException ee) {
                 System.out.println("Division by zero.");
