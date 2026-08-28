@@ -1,7 +1,9 @@
 package FundamentalJava.ClassAndObject.Latihan;
 
+// Latihan
+
 class IntCell {
-    
+
     public int read() {
         return storedValue;
     }
@@ -22,4 +24,4 @@ public class TestIntCell {
         System.out.println("Cell contens: " + m.read());
 
     }
-} 
+}
