@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Sebuah generic class dapat mewarisi (extends) class biasa
- * yang tidak menggunakan generic.
+ * yang tidak menggunakan generic..
  *
  * Artinya:
  *
@@ -15,7 +15,6 @@ package FundamentalJava.Generics;
  * Seluruh mekanisme inheritance tetap bekerja sebagaimana
  * inheritance pada class biasa.
  */
-
 
 /* ------------------------------------------------------------
  * Struktur Inheritance
@@ -40,7 +39,6 @@ package FundamentalJava.Generics;
  * dan tidak berhubungan dengan superclass.
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Superclass Tidak Memiliki <T>?
  * ------------------------------------------------------------
@@ -61,7 +59,6 @@ package FundamentalJava.Generics;
  * Generic hanya berlaku pada class yang memang
  * mendeklarasikan type parameter.
  */
-
 
 /* ------------------------------------------------------------
  * Alur Type Parameter
@@ -91,7 +88,6 @@ package FundamentalJava.Generics;
  * Superclass tetap tidak mengetahui keberadaan T.
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Hal Ini Valid?
  * ------------------------------------------------------------
@@ -109,7 +105,6 @@ package FundamentalJava.Generics;
  * - Subclass dapat menambahkan kemampuan generic
  *   sesuai kebutuhannya.
  */
-
 
 /* ------------------------------------------------------------
  * Perbedaan dengan Generic Superclass
@@ -138,7 +133,6 @@ package FundamentalJava.Generics;
  * Type parameter hanya berlaku di dalam subclass.
  */
 
-
 /* ------------------------------------------------------------
  * Kapan Pola Ini Digunakan?
  * ------------------------------------------------------------
@@ -154,7 +148,6 @@ package FundamentalJava.Generics;
  * - Subclass menambahkan data dengan tipe yang dapat
  *   ditentukan saat object dibuat.
  */
-
 
 /* ------------------------------------------------------------
  * Contoh di Dunia Nyata
@@ -182,7 +175,6 @@ package FundamentalJava.Generics;
  * framework dan aplikasi enterprise.
  */
 
-
 /* ------------------------------------------------------------
  * Ringkasan
  * ------------------------------------------------------------
@@ -201,7 +193,6 @@ package FundamentalJava.Generics;
  *   data umum pada superclass dan data fleksibel
  *   pada subclass.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -252,7 +243,7 @@ class Son<T> extends Father {
 
 public class GenericSubclass {
     public static void main(String[] args) {
-        
+
         // T STRING
         Son<String> object1 = new Son<String>("Janera Farich M.u", 22);
 
