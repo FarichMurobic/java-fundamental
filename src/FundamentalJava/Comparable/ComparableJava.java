@@ -10,7 +10,7 @@ package FundamentalJava.Comparable;
  *
  * Dengan Comparable, sebuah class dapat menentukan sendiri
  * bagaimana object-objectnya dibandingkan, diurutkan (sorting),
- * atau dievaluasi berdasarkan nilai tertentu.
+ * atau dievaluasi berdasarkan nilai tertentu..
  *
  * Interface Comparable berada dalam package:
  *
@@ -293,18 +293,18 @@ class Mahasiswa implements Comparable<Mahasiswa> {
             return 1;
         } else {
             return 0;
-        }      
+        }
     }
 }
 
 public class ComparableJava {
     public static void main(String[] args) {
-        
+
         // Buat objek array
         Mahasiswa[] data = {
-            new Mahasiswa("Janera", 20),
-            new Mahasiswa("J.E Murobic", 25),
-            new Mahasiswa("Farich M.e.J", 21)
+                new Mahasiswa("Janera", 20),
+                new Mahasiswa("J.E Murobic", 25),
+                new Mahasiswa("Farich M.e.J", 21)
         };
 
         Arrays.sort(data);
