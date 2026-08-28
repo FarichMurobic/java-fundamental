@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="documentation/images/thumbnail/Java.png" alt="Java Fundamental" width="100%" style="border-radius: 20px;">
+  <img src="documentation/images/thumbnail/Java.png" alt="Java Fundamental" width="80%">
 </p>
 
 <p align="center">
