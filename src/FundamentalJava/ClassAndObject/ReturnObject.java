@@ -6,7 +6,7 @@ package FundamentalJava.ClassAndObject;
  * ------------------------------------------------------------
  *
  * Sebuah method di Java dapat mengembalikan berbagai jenis nilai,
- * termasuk object yang dibuat dari class buatan kita sendiri.
+ * termasuk object yang dibuat dari class buatan kita sendiri..
  *
  * Selama sebuah class merupakan tipe data yang valid, object dari
  * class tersebut dapat digunakan sebagai return value dari method.
@@ -14,16 +14,16 @@ package FundamentalJava.ClassAndObject;
  * Contoh sederhana:
  *
  * class Test {
- *     int a;
+ * int a;
  *
- *     Test(int i) {
- *         a = i;
- *     }
+ * Test(int i) {
+ * a = i;
+ * }
  *
- *     Test incrByTen() {
- *         Test temp = new Test(a + 10);
- *         return temp;
- *     }
+ * Test incrByTen() {
+ * Test temp = new Test(a + 10);
+ * return temp;
+ * }
  * }
  *
  * Pada contoh di atas, method incrByTen() tidak mengembalikan
@@ -131,8 +131,8 @@ package FundamentalJava.ClassAndObject;
  * Kondisi Awal:
  *
  * ob1
- *    |
- *    v
+ * |
+ * v
  * [ Test ]
  * a = 2
  *
@@ -141,14 +141,14 @@ package FundamentalJava.ClassAndObject;
  * Test ob2 = ob1.incrByTen();
  *
  * ob1
- *    |
- *    v
+ * |
+ * v
  * [ Test ]
  * a = 2
  *
  * ob2
- *    |
- *    v
+ * |
+ * v
  * [ Test ]
  * a = 12
  *
@@ -331,11 +331,11 @@ package FundamentalJava.ClassAndObject;
  *
  * Garbage Collector (GC)
  * -> Mekanisme otomatis JVM untuk membersihkan object
- *    yang tidak lagi digunakan.
+ * yang tidak lagi digunakan.
  *
  * Eligible For Garbage Collection
  * -> Object sudah tidak memiliki reference dan dapat
- *    dibersihkan oleh JVM.
+ * dibersihkan oleh JVM.
  *
  * ------------------------------------------------------------
  * KESIMPULAN
@@ -387,7 +387,7 @@ public class ReturnObject {
     }
 
     public static void main(String[] args) {
-        
+
         ReturnObject ob1 = new ReturnObject(2);
         ReturnObject ob2;
 
