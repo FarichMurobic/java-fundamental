@@ -1,5 +1,7 @@
 package FundamentalJava.Enum.Latihan;
 
+// Latihan
+
 // impiort untuk angka random
 import java.util.Random;
 
@@ -20,17 +22,17 @@ class Question {
         int probabilitas = (int) (100 * acak.nextDouble());
 
         if (probabilitas < 15)
-            return Answer.MAYBE;        // 15%
-        else if (probabilitas < 30) 
-            return Answer.NO;           // 15%
+            return Answer.MAYBE; // 15%
+        else if (probabilitas < 30)
+            return Answer.NO; // 15%
         else if (probabilitas < 60)
-            return Answer.YES;          // 30%
+            return Answer.YES; // 30%
         else if (probabilitas < 70)
-            return Answer.LATER;        // 15%
+            return Answer.LATER; // 15%
         else if (probabilitas < 95)
-            return Answer.SOON;         // 23%
-        else 
-            return Answer.NEVER;        // 2%
+            return Answer.SOON; // 23%
+        else
+            return Answer.NEVER; // 2%
 
     }
 }
