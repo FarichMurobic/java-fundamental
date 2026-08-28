@@ -6,7 +6,7 @@ package FundamentalJava.ExceptionHandling;
  * ------------------------------------------------------------
  *
  * Setiap exception di Java adalah object yang merupakan
- * turunan dari class Throwable.
+ * turunan dari class Throwable..
  *
  * Karena Throwable meng-override method:
  *
@@ -18,7 +18,7 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * catch (ArithmeticException e) {
- *     System.out.println(e);
+ * System.out.println(e);
  * }
  *
  * Output:
@@ -63,7 +63,7 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * catch (ArithmeticException e) {
- *     ...
+ * ...
  * }
  *
  * e menunjuk object:
@@ -99,12 +99,12 @@ package FundamentalJava.ExceptionHandling;
  * Misalkan:
  *
  * try {
- *     int x = 10 / 0;
+ * int x = 10 / 0;
  * }
  * catch (ArithmeticException e) {
  *
- *     System.out.println(e);
- *     System.out.println(e.getMessage());
+ * System.out.println(e);
+ * System.out.println(e.getMessage());
  *
  * }
  *
@@ -132,7 +132,7 @@ package FundamentalJava.ExceptionHandling;
  * Contoh output:
  *
  * java.lang.ArithmeticException: / by zero
- *     at Demo.main(Demo.java:10)
+ * at Demo.main(Demo.java:10)
  *
  * Stack trace menunjukkan:
  *
@@ -188,13 +188,13 @@ package FundamentalJava.ExceptionHandling;
  * Method penting yang perlu diketahui:
  *
  * - toString()
- *   -> tipe exception + pesan
+ * -> tipe exception + pesan
  *
  * - getMessage()
- *   -> hanya pesan error
+ * -> hanya pesan error
  *
  * - printStackTrace()
- *   -> detail lengkap lokasi error
+ * -> detail lengkap lokasi error
  *
  * Untuk debugging, printStackTrace() biasanya
  * lebih berguna daripada hanya menampilkan pesan error.
@@ -202,7 +202,7 @@ package FundamentalJava.ExceptionHandling;
 
 public class Experiments {
     public static void main(String[] args) {
-        
+
         try {
             int a = 10 / 0; // ERROR
         } catch (ArithmeticException e) {
@@ -220,7 +220,7 @@ public class Experiments {
 
         // Versi Lebih Berguna (Debugging)
         try {
-            int[] data = {1, 2, 3};
+            int[] data = { 1, 2, 3 };
             System.out.println(data[5]); // ERROR
 
         } catch (Exception e) {
@@ -236,14 +236,15 @@ public class Experiments {
         /**
          * Output
          * 
-         * Terjadi error: java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3
+         * Terjadi error: java.lang.ArrayIndexOutOfBoundsException: Index 5 out of
+         * bounds for length 3
          * Index 5 out of bounds for length 3
          * java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3
-         * 	at ExceptionHandling.Eksperimen.main(Eksperimen.java:76)
+         * at ExceptionHandling.Eksperimen.main(Eksperimen.java:76)
          *
          * ----------------------------------------------
          * 
-         * Kesimpulan Penting 
+         * Kesimpulan Penting
          *
          * Intinya:
          *
