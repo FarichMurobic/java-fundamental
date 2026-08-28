@@ -14,7 +14,7 @@ package FundamentalJava.GarbageCollector;
  *
  * Dengan adanya Garbage Collection, programmer dapat lebih fokus
  * pada logika program tanpa harus mengelola alokasi dan pelepasan
- * memori secara manual.
+ * memori secara manual..
  *
  * ------------------------------------------------------------
  *
@@ -33,8 +33,8 @@ package FundamentalJava.GarbageCollector;
  *
  * Ilustrasi:
  *
- * Stack Memory                Heap Memory
- * ----------------------      -----------------
+ * Stack Memory Heap Memory
+ * ---------------------- -----------------
  * box ----------------------> Box Object
  *
  * Selama masih ada reference yang menunjuk ke object,
@@ -229,7 +229,8 @@ package FundamentalJava.GarbageCollector;
  * - Jangan memanggil System.gc() tanpa alasan yang jelas.
  * - Jangan mengandalkan kapan Garbage Collector dijalankan.
  * - Fokuslah menghilangkan reference yang sudah tidak diperlukan.
- * - Gunakan struktur data dan object secara efisien agar beban GC tidak berlebihan.
+ * - Gunakan struktur data dan object secara efisien agar beban GC tidak
+ * berlebihan.
  *
  * ------------------------------------------------------------
  *
