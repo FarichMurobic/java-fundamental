@@ -9,7 +9,7 @@ package FundamentalJava.Generics;
  * <?>
  *
  * Wildcard tanpa batas (unbounded wildcard) dapat merepresentasikan
- * generic dengan tipe apa pun.
+ * generic dengan tipe apa pun..
  *
  * Contoh:
  *
@@ -28,7 +28,6 @@ package FundamentalJava.Generics;
  * Untuk mengatasi kebutuhan tersebut, Java menyediakan
  * bounded wildcard.
  */
-
 
 /* ------------------------------------------------------------
  * Upper Bounded Wildcard
@@ -62,7 +61,6 @@ package FundamentalJava.Generics;
  *
  * karena keduanya bukan turunan dari Number.
  */
-
 
 /* ------------------------------------------------------------
  * Contoh Hierarki Class
@@ -99,7 +97,6 @@ package FundamentalJava.Generics;
  * Compiler dapat memverifikasi hal tersebut pada saat compile-time.
  */
 
-
 /* ------------------------------------------------------------
  * Method showXY()
  * ------------------------------------------------------------
@@ -125,7 +122,6 @@ package FundamentalJava.Generics;
  * dan seluruh field x serta y dapat diakses tanpa casting.
  */
 
-
 /* ------------------------------------------------------------
  * Ketika Upper Bound Terlalu Umum
  * ------------------------------------------------------------
@@ -150,7 +146,6 @@ package FundamentalJava.Generics;
  * Walaupun beberapa subclass memiliki field z,
  * compiler hanya mengetahui batas minimalnya, yaitu TwoD.
  */
-
 
 /* ------------------------------------------------------------
  * Solusi: Upper Bound yang Lebih Spesifik
@@ -184,7 +179,6 @@ package FundamentalJava.Generics;
  * karena TwoD belum memiliki field z.
  */
 
-
 /* ------------------------------------------------------------
  * Method yang Lebih Spesifik
  * ------------------------------------------------------------
@@ -208,7 +202,6 @@ package FundamentalJava.Generics;
  * Coords<FourD>
  */
 
-
 /* ------------------------------------------------------------
  * Tingkat Spesifikasi Upper Bound
  * ------------------------------------------------------------
@@ -224,7 +217,6 @@ package FundamentalJava.Generics;
  * showAll()   <? extends FourD>          FourD
  * ------------------------------------------------------------
  */
-
 
 /* ------------------------------------------------------------
  * Upper Bound Bersifat Producer (Read)
@@ -254,7 +246,6 @@ package FundamentalJava.Generics;
  * Artinya object menghasilkan (produce) data untuk dibaca,
  * bukan untuk diisi.
  */
-
 
 /* ------------------------------------------------------------
  * Lower Bounded Wildcard
@@ -287,7 +278,6 @@ package FundamentalJava.Generics;
  * karena keduanya bukan superclass dari Integer.
  */
 
-
 /* ------------------------------------------------------------
  * Lower Bound Bersifat Consumer (Write)
  * ------------------------------------------------------------
@@ -316,7 +306,6 @@ package FundamentalJava.Generics;
  * Artinya object menerima (consume) data untuk disimpan.
  */
 
-
 /* ------------------------------------------------------------
  * Prinsip PECS
  * ------------------------------------------------------------
@@ -338,7 +327,6 @@ package FundamentalJava.Generics;
  * Prinsip ini merupakan best practice dalam merancang API
  * yang menggunakan generic di Java.
  */
-
 
 /* ------------------------------------------------------------
  * Analogi
@@ -376,7 +364,6 @@ package FundamentalJava.Generics;
  * digunakan secara aman oleh compiler.
  */
 
-
 /* ------------------------------------------------------------
  * Ringkasan
  * ------------------------------------------------------------
@@ -404,7 +391,6 @@ package FundamentalJava.Generics;
  * Prinsip ini merupakan pedoman utama dalam penggunaan bounded
  * wildcard di Java.
  */
-
 
 // CONTOH PENGGUNAAN BOUNDED WILDCARD
 // Koordinat 2 dimensi
@@ -455,7 +441,7 @@ public class BoundedWildcard {
         System.out.println("X Y Coordinates:");
         for (int i = 0; i < c.coords.length; i++) {
             System.out.println(c.coords[i].x + " " +
-                               c.coords[i].y);
+                    c.coords[i].y);
         }
         System.out.println();
     }
@@ -465,8 +451,8 @@ public class BoundedWildcard {
         System.out.println("X Y Z Coordinates:");
         for (int i = 0; i < c.coords.length; i++) {
             System.out.println(c.coords[i].x + " " +
-                               c.coords[i].y + " " +
-                               c.coords[i].z);
+                    c.coords[i].y + " " +
+                    c.coords[i].z);
         }
         System.out.println();
     }
@@ -476,9 +462,9 @@ public class BoundedWildcard {
         System.out.println("X Y Z T Coordinates:");
         for (int i = 0; i < c.coords.length; i++) {
             System.out.println(c.coords[i].x + " " +
-                               c.coords[i].y + " " +
-                               c.coords[i].z + " " +
-                               c.coords[i].t);
+                    c.coords[i].y + " " +
+                    c.coords[i].z + " " +
+                    c.coords[i].t);
         }
         System.out.println();
     }
@@ -487,10 +473,10 @@ public class BoundedWildcard {
 
         // Data TwoD
         TwoD twoD[] = {
-                new TwoD(0,0),
-                new TwoD(7,9),
-                new TwoD(18,4),
-                new TwoD(-1,-23)
+                new TwoD(0, 0),
+                new TwoD(7, 9),
+                new TwoD(18, 4),
+                new TwoD(-1, -23)
         };
 
         Coords<TwoD> tdlocs = new Coords<TwoD>(twoD);
@@ -502,10 +488,10 @@ public class BoundedWildcard {
 
         // Data FourD
         FourD fourD[] = {
-                new FourD(1,2,3,4),
-                new FourD(6,8,14,8),
-                new FourD(22,9,4,9),
-                new FourD(3,-2,-23,17)
+                new FourD(1, 2, 3, 4),
+                new FourD(6, 8, 14, 8),
+                new FourD(22, 9, 4, 9),
+                new FourD(3, -2, -23, 17)
         };
 
         Coords<FourD> fdlocs = new Coords<FourD>(fourD);
