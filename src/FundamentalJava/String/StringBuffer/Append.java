@@ -28,7 +28,7 @@ package FundamentalJava.String.StringBuffer;
  * 
  * Setiap versi secara otomatis mengubah parameter menjadi string
  * menggunakan String.valueOf() di balik layar, lalu menambahkan
- * hasilnya ke akhir buffer.
+ * hasilnya ke akhir buffer..
  * 
  * -----------------------------------------------------------------
  * 2. CONTOH DASAR - PENGGUNAAN SEDERHANA
