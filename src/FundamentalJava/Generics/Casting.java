@@ -13,9 +13,8 @@ package FundamentalJava.Generics;
  * 2. Type argument harus sama.
  *
  * Jika salah satu syarat tersebut tidak terpenuhi,
- * compiler akan menolak proses casting.
+ * compiler akan menolak proses casting..
  */
-
 
 /* ------------------------------------------------------------
  * Syarat 1 : Class Harus Compatible
@@ -31,7 +30,6 @@ package FundamentalJava.Generics;
  * maka casting dari child ke parent diperbolehkan,
  * sama seperti inheritance pada class biasa.
  */
-
 
 /* ------------------------------------------------------------
  * Syarat 2 : Type Argument Harus Sama
@@ -53,7 +51,6 @@ package FundamentalJava.Generics;
  * Gen2<Number>
  * Gen2<Object>
  */
-
 
 /* ------------------------------------------------------------
  * Contoh Casting yang Valid
@@ -77,7 +74,6 @@ package FundamentalJava.Generics;
  * Sama seperti melakukan upcasting pada inheritance biasa.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh Casting yang Tidak Valid
  * ------------------------------------------------------------
@@ -98,7 +94,6 @@ package FundamentalJava.Generics;
  * secara sembarangan.
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Compiler Menolaknya?
  * ------------------------------------------------------------
@@ -116,7 +111,6 @@ package FundamentalJava.Generics;
  * Oleh karena itu compiler menghentikan proses tersebut
  * sejak tahap compile-time.
  */
-
 
 /* ------------------------------------------------------------
  * Hubungan dengan Type Erasure
@@ -143,7 +137,6 @@ package FundamentalJava.Generics;
  * casting yang tidak valid sudah ditolak sejak proses kompilasi.
  */
 
-
 /* ------------------------------------------------------------
  * Analogi
  * ------------------------------------------------------------
@@ -162,7 +155,6 @@ package FundamentalJava.Generics;
  * Generic menjaga agar isi setiap "kotak"
  * tetap sesuai dengan tipe yang telah ditentukan.
  */
-
 
 /* ------------------------------------------------------------
  * Perbedaan dengan Casting Tanpa Generic
@@ -190,7 +182,6 @@ package FundamentalJava.Generics;
  * yaitu mendeteksi kesalahan tipe sejak compile-time.
  */
 
-
 /* ------------------------------------------------------------
  * Aturan Penting
  * ------------------------------------------------------------
@@ -212,7 +203,6 @@ package FundamentalJava.Generics;
  * Type argument harus tetap sama.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh Lain
  * ------------------------------------------------------------
@@ -231,7 +221,6 @@ package FundamentalJava.Generics;
  * merupakan type argument yang berbeda.
  */
 
-
 /* ------------------------------------------------------------
  * Ringkasan
  * ------------------------------------------------------------
@@ -247,7 +236,6 @@ package FundamentalJava.Generics;
  * Aturan ini merupakan bagian dari mekanisme type safety
  * yang menjadi salah satu keunggulan utama generic di Java.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -286,7 +274,7 @@ class Dua<T> extends Satu<T> {
 
 public class Casting {
     public static void main(String[] args) {
-        
+
         Satu<Integer> integerSatu = new Satu<>(20);
         Dua<Integer> integerDua = new Dua<>(22);
 
