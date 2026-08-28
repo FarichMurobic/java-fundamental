@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Generic method adalah method yang memiliki satu atau lebih
- * type parameter sendiri.
+ * type parameter sendiri..
  *
  * Berbeda dengan generic class, type parameter pada generic
  * method hanya berlaku di dalam method tersebut.
@@ -13,7 +13,6 @@ package FundamentalJava.Generics;
  * Dengan demikian, sebuah class tidak harus menjadi generic
  * untuk dapat memiliki generic method.
  */
-
 
 /* ------------------------------------------------------------
  * Perbedaan Generic Class dan Generic Method
@@ -39,7 +38,6 @@ package FundamentalJava.Generics;
  * type parameter tersebut kecuali mendeklarasikannya sendiri.
  */
 
-
 /* ------------------------------------------------------------
  * Bentuk Umum Generic Method
  * ------------------------------------------------------------
@@ -63,7 +61,6 @@ package FundamentalJava.Generics;
  * <T, V> void process(T first, V second)
  */
 
-
 /* ------------------------------------------------------------
  * Mengapa Menggunakan Generic Method?
  * ------------------------------------------------------------
@@ -78,7 +75,6 @@ package FundamentalJava.Generics;
  * sehingga mengurangi kemungkinan terjadinya
  * ClassCastException saat runtime.
  */
-
 
 /* ------------------------------------------------------------
  * Type Inference
@@ -112,7 +108,6 @@ package FundamentalJava.Generics;
  * Programmer tidak perlu menentukan type argument secara manual.
  */
 
-
 /* ------------------------------------------------------------
  * Type Inference Secara Eksplisit
  * ------------------------------------------------------------
@@ -130,7 +125,6 @@ package FundamentalJava.Generics;
  *
  * isIn(2, nums);
  */
-
 
 /* ------------------------------------------------------------
  * Contoh Kesalahan Type
@@ -157,7 +151,6 @@ package FundamentalJava.Generics;
  * yang diberikan oleh generic.
  */
 
-
 /* ------------------------------------------------------------
  * Generic Method dengan Bound
  * ------------------------------------------------------------
@@ -178,7 +171,6 @@ package FundamentalJava.Generics;
  * mengakses operasi yang dimiliki oleh bound tersebut.
  */
 
-
 /* ------------------------------------------------------------
  * Keunggulan Generic Method
  * ------------------------------------------------------------
@@ -196,7 +188,6 @@ package FundamentalJava.Generics;
  * - Dapat dikombinasikan dengan bounded type parameter
  *   untuk membatasi tipe yang diperbolehkan.
  */
-
 
 /* ------------------------------------------------------------
  * Analogi
@@ -217,7 +208,6 @@ package FundamentalJava.Generics;
  * selama seluruh syarat generic yang ditentukan
  * tetap terpenuhi.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -244,7 +234,6 @@ package FundamentalJava.Generics;
  * - Generic method meningkatkan fleksibilitas,
  *   reusability, dan type safety.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -284,8 +273,8 @@ class GenericMethods {
         System.out.println(data);
     }
 
-    // 2 
-    // Buat method:  balikin nilai terbesar dari 2 angka
+    // 2
+    // Buat method: balikin nilai terbesar dari 2 angka
     // pakai comparable
     // method generic untuk mencari nilai terbesar
     static <T extends Comparable<T>> T max(T a, T b) {
@@ -317,7 +306,8 @@ class GenericMethods {
     }
 
     // 5
-    // Buat method: cek apakah value ada di array, tapi array boleh subtype dari value
+    // Buat method: cek apakah value ada di array, tapi array boleh subtype dari
+    // value
     // Method generic dengan hubungan antar tipe
     static <T, V extends T> boolean isIn(T x, V[] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -344,9 +334,9 @@ class GenericMethods {
 
 public class GenericMethod {
     public static void main(String[] args) {
-        
+
         // Menggunakan isIn untuk Integer
-        Integer[] nums = {1,2,3,4,5};
+        Integer[] nums = { 1, 2, 3, 4, 5 };
 
         if (GenericMethods.isIn(2, nums)) {
             System.out.println("2 ada di nums!");
@@ -359,7 +349,7 @@ public class GenericMethod {
         System.out.println();
 
         // Menggunakan isIn() untuk String
-        String strs[] = {"one", "two", "three", "four", "five"};
+        String strs[] = { "one", "two", "three", "four", "five" };
 
         if (GenericMethods.isIn("two", nums)) {
             System.out.println("two ada di strs");
@@ -398,8 +388,8 @@ public class GenericMethod {
          *
          * Contoh:
          * Integer (punya equals & Comparable)
-         * String 
-         * Object biasa 
+         * String
+         * Object biasa
          *
          * 2. <V extends T>
          *
@@ -410,16 +400,16 @@ public class GenericMethod {
          *
          * Jadi:
          * T = String
-         * V = String 
-         * V = Integer 
+         * V = String
+         * V = Integer
          *
          * 3. Parameter method
-         * T x      // nilai yang dicari
-         * V[] y    // array tempat mencari
+         * T x // nilai yang dicari
+         * V[] y // array tempat mencari
          */
 
         System.out.println();
-        
+
         GenericMethods.print("Data");
         GenericMethods.print(22);
         GenericMethods.print("Janera " + 22);
@@ -428,13 +418,13 @@ public class GenericMethod {
 
         int nilaiInteger = GenericMethods.max(10, 20);
         System.out.println(nilaiInteger);
-        double nilaiDouble = GenericMethods.max(3.5,2.1);
+        double nilaiDouble = GenericMethods.max(3.5, 2.1);
         System.out.println(nilaiDouble);
 
         System.out.println();
 
-        Integer dataArray[] = {1,2,3,4,5};
-        String dataString[] = {"apel", "jeruk", "mangga"};
+        Integer dataArray[] = { 1, 2, 3, 4, 5 };
+        String dataString[] = { "apel", "jeruk", "mangga" };
 
         boolean hasil;
         hasil = GenericMethods.contains(3, dataArray);
@@ -454,7 +444,7 @@ public class GenericMethod {
 
         System.out.println();
 
-        Integer angka[] = {25,24,65,74,65};
+        Integer angka[] = { 25, 24, 65, 74, 65 };
         boolean apakahAda;
         apakahAda = GenericMethods.isIn(41, angka);
         System.out.println(apakahAda);
