@@ -13,9 +13,8 @@ package FundamentalJava.IncrementDecrement;
  *
  * Kedua operator ini hanya dapat digunakan pada variabel
  * yang nilainya dapat diubah (mutable variable), seperti
- * tipe data numerik dan char.
+ * tipe data numerik dan char..
  */
-
 
 /* ------------------------------------------------------------
  * Bentuk Penulisan
@@ -35,7 +34,6 @@ package FundamentalJava.IncrementDecrement;
  *
  * Operator ditulis sebelum variabel.
  */
-
 
 /* ------------------------------------------------------------
  * Penggunaan sebagai Statement
@@ -61,7 +59,6 @@ package FundamentalJava.IncrementDecrement;
  * Keduanya sama-sama mengurangi nilai x sebesar satu.
  */
 
-
 /* ------------------------------------------------------------
  * Penggunaan di Dalam Ekspresi
  * ------------------------------------------------------------
@@ -81,7 +78,6 @@ package FundamentalJava.IncrementDecrement;
  * dievaluasi.
  */
 
-
 /* ------------------------------------------------------------
  * Ringkasan
  * ------------------------------------------------------------
@@ -96,7 +92,6 @@ package FundamentalJava.IncrementDecrement;
  * 1. Gunakan nilai saat ini.
  * 2. Ubah nilai variabel setelahnya.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -115,7 +110,7 @@ package FundamentalJava.IncrementDecrement;
 
 public class IncrementDecrement {
     public static void main(String[] args) {
-        
+
         int prefix = 5;
         int hasilPrefix = ++prefix;
         System.out.println(prefix); // 6 variabel diubah dahulu, baru digunakan di ekspresi hasil
