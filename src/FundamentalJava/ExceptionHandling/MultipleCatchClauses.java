@@ -6,7 +6,7 @@ package FundamentalJava.ExceptionHandling;
  * ------------------------------------------------------------
  *
  * Dalam Java, satu blok kode sering kali berpotensi menghasilkan
- * lebih dari satu jenis exception.
+ * lebih dari satu jenis exception..
  *
  * Contoh:
  * - Pembagian dengan nol -> ArithmeticException
@@ -32,13 +32,13 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * try {
- *     int result = 10 / 0;
+ * int result = 10 / 0;
  * }
  * catch (ArithmeticException e) {
- *     System.out.println("Arithmetic Error");
+ * System.out.println("Arithmetic Error");
  * }
  * catch (Exception e) {
- *     System.out.println("General Error");
+ * System.out.println("General Error");
  * }
  *
  * Output:
@@ -91,14 +91,14 @@ package FundamentalJava.ExceptionHandling;
  * Contoh hierarki:
  *
  * Throwable
- *     |
- *     +-- Exception
- *            |
- *            +-- RuntimeException
- *                    |
- *                    +-- ArithmeticException
- *                    +-- NullPointerException
- *                    +-- NumberFormatException
+ * |
+ * +-- Exception
+ * |
+ * +-- RuntimeException
+ * |
+ * +-- ArithmeticException
+ * +-- NullPointerException
+ * +-- NumberFormatException
  *
  * Karena pewarisan (inheritance):
  *
@@ -125,10 +125,10 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * try {
- *     // kode
+ * // kode
  * }
  * catch (ArithmeticException | ArrayIndexOutOfBoundsException e) {
- *     System.out.println("Kesalahan operasi");
+ * System.out.println("Kesalahan operasi");
  * }
  *
  * Keuntungan:
@@ -179,7 +179,7 @@ package FundamentalJava.ExceptionHandling;
  * Hindari pola berikut:
  *
  * catch (Exception e) {
- *     // diam saja
+ * // diam saja
  * }
  *
  * atau
@@ -202,7 +202,7 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * catch (NumberFormatException e) {
- *     System.out.println("Input harus berupa angka.");
+ * System.out.println("Input harus berupa angka.");
  * }
  *
  * ------------------------------------------------------------
@@ -229,14 +229,14 @@ package FundamentalJava.ExceptionHandling;
 
 public class MultipleCatchClauses {
     public static void main(String[] args) {
-        
+
         try {
             int a = args.length;
             System.out.println("a = " + a); // 0
 
             int b = 42 / a; // Program sampai disini
             // Ini gak di excecute
-            int[] c = {1};
+            int[] c = { 1 };
             c[42] = 9;
         } catch (ArithmeticException e) {
             System.out.println("Divide by 0: " + e);
@@ -274,7 +274,7 @@ public class MultipleCatchClauses {
         } catch (Exception e) {
             System.out.println("Generics Exception catch.");
         } // catch (ArithmeticException e) { // ini error
-          //     System.out.println("This is never reached.");
+          // System.out.println("This is never reached.");
           // }
 
         /**
@@ -286,14 +286,14 @@ public class MultipleCatchClauses {
          * Cara Kerja Multiple Catch
          * Bayangin kayak filter:
          * try → error → cek catch 1 → cocok? ya → stop
-         *                           → tidak → cek catch 2
+         * → tidak → cek catch 2
          *
          * Urutan itu KRITIS
          * Contoh:
          * catch(Exception e)
          * catch(ArithmeticException e)
          *
-         * Salah 
+         * Salah
          *
          * Karena:
          * Exception = induk
@@ -311,11 +311,11 @@ public class MultipleCatchClauses {
         // CONTOH MULTIPLE CATCTH
         try {
             int a = args.length;
-            System.out.println(a);  // 0
+            System.out.println(a); // 0
 
             int b = 42 / a; // Error
 
-            int[] c = {1};
+            int[] c = { 1 };
             c[42] = 99; // Error
         } catch (ArithmeticException e) { // Spesifik dulu
             System.out.println("Error pembagian: " + e);
@@ -326,7 +326,7 @@ public class MultipleCatchClauses {
         }
 
         System.out.println("Program lanjut!");
- 
+
         int aa = 0;
         System.out.println(aa);
         // Exception in thread "main" java.lang.ArithmeticException: / by zero
