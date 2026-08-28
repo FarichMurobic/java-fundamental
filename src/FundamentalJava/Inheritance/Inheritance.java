@@ -5,7 +5,7 @@ package FundamentalJava.Inheritance;
  * ============================================================
  *
  * Inheritance merupakan salah satu konsep fundamental dalam
- * Object-Oriented Programming (OOP).
+ * Object-Oriented Programming (OOP)..
  *
  * Konsep ini memungkinkan sebuah class mewarisi atribut
  * (field) dan perilaku (method) dari class lain sehingga
@@ -14,7 +14,6 @@ package FundamentalJava.Inheritance;
  * Dengan inheritance, kode dapat digunakan kembali (code
  * reuse), lebih mudah dikembangkan, dan lebih terstruktur.
  */
-
 
 /* ------------------------------------------------------------
  * Konsep Dasar
@@ -34,7 +33,6 @@ package FundamentalJava.Inheritance;
  * Dengan kata lain, subclass adalah bentuk yang lebih
  * spesifik dari superclass.
  */
-
 
 /* ------------------------------------------------------------
  * Contoh Konsep
@@ -71,7 +69,6 @@ package FundamentalJava.Inheritance;
  * pada subclass.
  */
 
-
 /* ------------------------------------------------------------
  * Mendeklarasikan Inheritance
  * ------------------------------------------------------------
@@ -89,7 +86,6 @@ package FundamentalJava.Inheritance;
  * Keyword extends menyatakan bahwa subclass mewarisi
  * seluruh anggota yang dapat diwariskan dari superclass.
  */
-
 
 /* ------------------------------------------------------------
  * Apa yang Diwarisi?
@@ -110,7 +106,6 @@ package FundamentalJava.Inheritance;
  * yang lebih spesifik dibandingkan superclass.
  */
 
-
 /* ------------------------------------------------------------
  * Superclass Tetap Dapat Digunakan
  * ------------------------------------------------------------
@@ -124,7 +119,6 @@ package FundamentalJava.Inheritance;
  *
  * selama class tersebut memang dapat diinstansiasi.
  */
-
 
 /* ------------------------------------------------------------
  * Single Inheritance
@@ -150,7 +144,6 @@ package FundamentalJava.Inheritance;
  * Java menyediakan interface sebagai alternatif.
  */
 
-
 /* ------------------------------------------------------------
  * Multilevel Inheritance
  * ------------------------------------------------------------
@@ -174,7 +167,6 @@ package FundamentalJava.Inheritance;
  * yang diwariskan dari A.
  */
 
-
 /* ============================================================
  * Access Modifier dan Inheritance
  * ============================================================
@@ -184,7 +176,6 @@ package FundamentalJava.Inheritance;
  *
  * Hak akses tetap ditentukan oleh access modifier.
  */
-
 
 /* ------------------------------------------------------------
  * Private Tidak Dapat Diakses
@@ -201,7 +192,6 @@ package FundamentalJava.Inheritance;
  * aturan access modifier private.
  */
 
-
 /* ------------------------------------------------------------
  * Cara Mengakses Data Private
  * ------------------------------------------------------------
@@ -217,7 +207,6 @@ package FundamentalJava.Inheritance;
  * maupun diubah.
  */
 
-
 /* ------------------------------------------------------------
  * Hak Akses terhadap Member
  * ------------------------------------------------------------
@@ -232,7 +221,6 @@ package FundamentalJava.Inheritance;
  * Access modifier tetap berlaku meskipun terjadi
  * hubungan inheritance.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -260,7 +248,6 @@ package FundamentalJava.Inheritance;
  *   terhadap setiap member.
  */
 
-
 /* ------------------------------------------------------------
  * Insight
  * ------------------------------------------------------------
@@ -283,7 +270,7 @@ package FundamentalJava.Inheritance;
 // SUPERCLASS
 class A {
     int i, j; // variabel milik class A
-    private  int a;
+    private int a;
 
     void showIJ() {
         System.out.println("i dan j: " + i + " " + j);
@@ -319,7 +306,7 @@ class B extends A {
 
 public class Inheritance {
     public static void main(String[] args) {
-        
+
         // MEMBUAT objek dari super class (A)
         A superOb = new A();
 
