@@ -139,7 +139,7 @@ package FundamentalJava.String.StringBuffer;
  * 
  * Untuk lingkungan single-threaded, StringBuilder lebih disarankan.
  * Namun method-method yang dijelaskan di sini berlaku identik
- * untuk kedua kelas.
+ * untuk kedua kelas..
  * 
  * ================================================================
  */
