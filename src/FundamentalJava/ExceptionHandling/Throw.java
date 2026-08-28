@@ -12,7 +12,7 @@ package FundamentalJava.ExceptionHandling;
  * throw
  *
  * Dengan throw, program dapat secara eksplisit memberi tahu
- * bahwa telah terjadi kondisi error atau kondisi yang tidak valid.
+ * bahwa telah terjadi kondisi error atau kondisi yang tidak valid...
  *
  * ------------------------------------------------------------
  * DEFINISI
@@ -87,7 +87,7 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * throw new IllegalArgumentException(
- *     "Umur tidak boleh negatif"
+ * "Umur tidak boleh negatif"
  * );
  *
  * Cara ini adalah yang paling sering digunakan.
@@ -99,7 +99,7 @@ package FundamentalJava.ExceptionHandling;
  * Contoh:
  *
  * catch(Exception e) {
- *     throw e;
+ * throw e;
  * }
  *
  * Teknik ini disebut:
@@ -147,13 +147,13 @@ package FundamentalJava.ExceptionHandling;
  * Urutannya:
  *
  * Current Try
- *      ↓
+ * ↓
  * Outer Try
- *      ↓
+ * ↓
  * Calling Method
- *      ↓
+ * ↓
  * Main Method
- *      ↓
+ * ↓
  * JVM Default Handler
  *
  * Jika handler ditemukan:
@@ -211,13 +211,13 @@ package FundamentalJava.ExceptionHandling;
  *
  * public void setUmur(int umur) {
  *
- *     if (umur < 0) {
- *         throw new IllegalArgumentException(
- *             "Umur tidak boleh negatif"
- *         );
- *     }
+ * if (umur < 0) {
+ * throw new IllegalArgumentException(
+ * "Umur tidak boleh negatif"
+ * );
+ * }
  *
- *     this.umur = umur;
+ * this.umur = umur;
  * }
  *
  * Dengan cara ini:
@@ -237,13 +237,13 @@ package FundamentalJava.ExceptionHandling;
  * Lebih baik:
  *
  * throw new IllegalArgumentException(
- *     "Umur tidak boleh negatif"
+ * "Umur tidak boleh negatif"
  * );
  *
  * atau:
  *
  * throw new IllegalStateException(
- *     "Koneksi belum dibuka"
+ * "Koneksi belum dibuka"
  * );
  *
  * atau:
@@ -285,10 +285,10 @@ package FundamentalJava.ExceptionHandling;
  * - Setelah throw, alur normal program berhenti.
  * - JVM akan mencari catch yang sesuai.
  * - Jika tidak ada handler, JVM menjalankan
- *   Default Exception Handler.
+ * Default Exception Handler.
  * - throw berbeda dengan throws.
  * - throw sering digunakan untuk validasi
- *   dan business rules.
+ * dan business rules.
  *
  * Mindset OOP:
  *
@@ -301,7 +301,7 @@ public class Throw {
 
     // Static Method
     static void demoproc() {
-        
+
         try {
             // Membuat dan melempar exception sendiri
             throw new NullPointerException("Demo");
@@ -316,7 +316,7 @@ public class Throw {
     }
 
     public static void main(String[] args) {
-        
+
         try {
             demoproc();
         } catch (NullPointerException e) {
@@ -330,7 +330,7 @@ public class Throw {
          * Caught inside demoproc.
          * Recaught: java.lang.NullPointerException: demo
          *
-         * Penjelasan Alur 
+         * Penjelasan Alur
          * 
          * Step-by-step
          * main() → panggil demoproc()
@@ -353,7 +353,7 @@ public class Throw {
          *
          * --------------------------------------------------
          * 
-         * Kesimpulan Penting 
+         * Kesimpulan Penting
          *
          * Intinya:
          * throw = lempar exception manual
@@ -375,13 +375,13 @@ public class Throw {
          *
          * Contoh:
          * if (umur < 0) {
-         *     throw new IllegalArgumentException("Umur tidak valid");
+         * throw new IllegalArgumentException("Umur tidak valid");
          * }
          *
          * ini bukan error Java
          * ini error dari logika lu sendiri
          *
-         * -------------------------------------------- 
+         * --------------------------------------------
          *
          * Constructor Exception
          * 
@@ -396,11 +396,11 @@ public class Throw {
          * Setelah:
          * throw ...
          *
-         * jangan harap kode bawahnya jalan 
+         * jangan harap kode bawahnya jalan
          *
          * Contoh salah
          * throw new Exception();
-         * System.out.println("Tidak akan jalan"); // 
+         * System.out.println("Tidak akan jalan"); //
          *
          * Mindset Pro
          * Exception bukan cuma buat nangkep error
