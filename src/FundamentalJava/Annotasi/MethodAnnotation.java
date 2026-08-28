@@ -24,7 +24,7 @@ package FundamentalJava.Annotasi;
  *
  * Karena object-object tersebut mengimplementasikan AnnotatedElement,
  * mereka memiliki kemampuan untuk membaca annotation yang melekat
- * padanya.
+ * padanya..
  *
  * Flow:
  * Class / Method / Field -> AnnotatedElement
@@ -277,6 +277,7 @@ import java.lang.reflect.*;
 @Retention(RetentionPolicy.RUNTIME)
 @interface MyAnno1 {
     String str() default "Testing"; // default string
+
     int val() default 9000; // default int
 }
 
@@ -287,7 +288,7 @@ import java.lang.reflect.*;
 
 @MyAnno("Di kelas")
 public class MethodAnnotation {
-    
+
     @MyAnno("Di method")
     public void demo() throws Exception {
         Method method = this.getClass().getMethod("demo");
@@ -315,7 +316,7 @@ public class MethodAnnotation {
 
         try {
             // Ambil class
-            Class<?> c =  methodAnnotation.getClass();
+            Class<?> c = methodAnnotation.getClass();
             // Ambil method
             Method method = c.getMethod("myMeth");
             // Ambil annotasi
@@ -328,16 +329,17 @@ public class MethodAnnotation {
     }
 
     public static void main(String[] args) throws Exception {
-        
-        new MethodAnnotation().demo(); 
+
+        new MethodAnnotation().demo();
         myMeth();
 
         /**
          * OUTPUT:
          * Ada Annotation
          * Di method
+         * 
          * @Annotasi.MyAnno("Di method")
-         * Testing 9000
+         *                      Testing 9000
          */
     }
 }
