@@ -3,7 +3,7 @@ package FundamentalJava.Generics;
 /**
  * Bounded Types (Bounded Type Parameters)
  *
- * Secara default, parameter generic dapat merepresentasikan tipe apa pun.
+ * Secara default, parameter generic dapat merepresentasikan tipe apa pun..
  *
  * Contoh:
  * class Box<T> { }
@@ -25,7 +25,7 @@ package FundamentalJava.Generics;
  * Misalkan kita membuat class:
  *
  * class Stats<T> {
- *     T[] nums;
+ * T[] nums;
  * }
  *
  * Tujuan class ini adalah menghitung rata-rata angka.
@@ -91,7 +91,7 @@ package FundamentalJava.Generics;
  * Contoh
  *
  * class Stats<T extends Number> {
- *     T[] nums;
+ * T[] nums;
  * }
  *
  * Sekarang compiler mengetahui bahwa:
@@ -240,12 +240,12 @@ package FundamentalJava.Generics;
  * • Secara default, generic dapat menerima tipe apa pun.
  * • Bounded type digunakan untuk membatasi tipe generic.
  * • Bentuk umumnya:
- *      <T extends SuperClass>
+ * <T extends SuperClass>
  * • Compiler menjadi tahu method apa yang tersedia pada T.
  * • Meningkatkan type safety dan mencegah penggunaan tipe yang salah.
  * • Multiple bounds didukung menggunakan operator '&'.
  * • Pada generic selalu menggunakan keyword extends,
- *   baik untuk class maupun interface.
+ * baik untuk class maupun interface.
  */
 
 // KODE SALAH jika belum extends
@@ -317,7 +317,7 @@ class Stats<T extends Number> {
 public class BoundedTypes {
     public static void main(String[] args) {
 
-        Integer integersnums[] = {1,2,3,4,5};
+        Integer integersnums[] = { 1, 2, 3, 4, 5 };
         Stats<Integer> iob = new Stats<Integer>(integersnums);
 
         // double
@@ -327,7 +327,7 @@ public class BoundedTypes {
         int i = iob.averageInteger();
         System.out.println(i);
 
-        Double doublenums[] = {1.1, 2.2, 3.3, 4.4, 5.5};
+        Double doublenums[] = { 1.1, 2.2, 3.3, 4.4, 5.5 };
         Stats<Double> dob = new Stats<Double>(doublenums);
 
         double w = dob.average();
