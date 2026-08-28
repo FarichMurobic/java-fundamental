@@ -5,7 +5,7 @@ package FundamentalJava.EscapeSequence;
  * ------------------------------------------------------------
  *
  * Escape Sequence adalah kombinasi karakter khusus yang diawali
- * dengan tanda backslash (\).
+ * dengan tanda backslash (\)..
  *
  * Escape sequence digunakan untuk menampilkan karakter yang tidak
  * bisa ditulis secara langsung atau memiliki arti khusus di dalam
@@ -57,13 +57,13 @@ package FundamentalJava.EscapeSequence;
  * ------------------------------------------------------------
  *
  * Escape
- * Sequence      Nama
+ * Sequence Nama
  * ------------------------------------------------------------
- * \n            New Line
- * \t            Tab
- * \"            Double Quote
- * \'            Single Quote
- * \\            Backslash
+ * \n New Line
+ * \t Tab
+ * \" Double Quote
+ * \' Single Quote
+ * \\ Backslash
  *
  * Ini adalah escape sequence yang paling sering digunakan dalam
  * program Java sehari-hari.
@@ -88,9 +88,9 @@ package FundamentalJava.EscapeSequence;
  * Flow:
  *
  * Cetak "Java"
- *      ↓
+ * ↓
  * Pindah Baris
- *      ↓
+ * ↓
  * Cetak "Programming"
  *
  * ------------------------------------------------------------
@@ -107,7 +107,7 @@ package FundamentalJava.EscapeSequence;
  *
  * Output:
  *
- * Nama    Umur
+ * Nama Umur
  *
  * Cocok digunakan untuk:
  *
@@ -311,18 +311,18 @@ package FundamentalJava.EscapeSequence;
  * TABEL RINGKAS ESCAPE SEQUENCE
  * ------------------------------------------------------------
  *
- * Escape      Fungsi
+ * Escape Fungsi
  * ------------------------------------------------------------
- * \n          Pindah ke baris baru
- * \t          Tab horizontal
- * \r          Kembali ke awal baris
- * \f          Form feed / halaman baru
- * \b          Backspace
- * \\          Menampilkan backslash
- * \'          Menampilkan kutip tunggal
- * \"          Menampilkan kutip ganda
- * (\)(u)XXXX      Karakter Unicode
- * \XXX        Karakter oktal
+ * \n Pindah ke baris baru
+ * \t Tab horizontal
+ * \r Kembali ke awal baris
+ * \f Form feed / halaman baru
+ * \b Backspace
+ * \\ Menampilkan backslash
+ * \' Menampilkan kutip tunggal
+ * \" Menampilkan kutip ganda
+ * (\)(u)XXXX Karakter Unicode
+ * \XXX Karakter oktal
  *
  * ------------------------------------------------------------
  * CONTOH GABUNGAN
@@ -335,9 +335,9 @@ package FundamentalJava.EscapeSequence;
  *
  * Output:
  *
- * Nama    : Farich
- * Bahasa  : Java
- * Folder  : C:\Project\Java
+ * Nama : Farich
+ * Bahasa : Java
+ * Folder : C:\Project\Java
  * "Belajar Java"
  *
  * ------------------------------------------------------------
@@ -350,11 +350,11 @@ package FundamentalJava.EscapeSequence;
  *
  * Escape sequence yang paling sering digunakan adalah:
  *
- * - \n  (New Line)
- * - \t  (Tab)
- * - \\  (Backslash)
- * - \"  (Double Quote)
- * - \'  (Single Quote)
+ * - \n (New Line)
+ * - \t (Tab)
+ * - \\ (Backslash)
+ * - \" (Double Quote)
+ * - \' (Single Quote)
  *
  * Escape sequence sangat penting untuk:
  *
@@ -366,7 +366,7 @@ package FundamentalJava.EscapeSequence;
 
 public class EscapeSequence {
     public static void main(String[] args) {
-        
+
         System.out.println("-- Escape Sequence ---");
         System.out.println("A return\r<- character");
         System.out.println("A newline\n<- character");
@@ -400,14 +400,16 @@ public class EscapeSequence {
 
         /**
          * \\ (Backslash): Mencetak karakter backslash itu sendiri.
-         * Analoginya: Kamu mau cetak simbol \ , tapi karena \ itu spesial, harus pakai dua kali.
+         * Analoginya: Kamu mau cetak simbol \ , tapi karena \ itu spesial, harus pakai
+         * dua kali.
          */
 
         System.out.println("Dia bilang, \"Halo Dunia!\"");
 
         /**
          * \" (Double Quotation): Mencetak karakter kutip ganda di dalam String.
-         * Analoginya: Kalau kutip ganda itu pembungkus String, kalau mau cetak pembungkusnya, harus "dibungkus lagi".
+         * Analoginya: Kalau kutip ganda itu pembungkus String, kalau mau cetak
+         * pembungkusnya, harus "dibungkus lagi".
          */
 
         System.out.println("Itu adalah karakter tunggal: \'A\'");
@@ -427,8 +429,10 @@ public class EscapeSequence {
         System.out.println("Mulai dari sini, lalu \rKembali ke awal.");
 
         /**
-         * \r (Carriage Return): Memindahkan kursor ke awal baris saat ini, menimpa teks.
-         * Analoginya: Seperti mesin ketik yang head-nya balik ke awal baris tanpa pindah baris.
+         * \r (Carriage Return): Memindahkan kursor ke awal baris saat ini, menimpa
+         * teks.
+         * Analoginya: Seperti mesin ketik yang head-nya balik ke awal baris tanpa
+         * pindah baris.
          */
 
         System.out.println("Simbol Copyright: \u00A9");
@@ -445,7 +449,7 @@ public class EscapeSequence {
          */
 
         System.out.println("Emoji Wajah Senyum: \uD83D\uDE00");
-        
+
         /**
          * Contoh Unicode untuk emoji (beberapa emoji butuh dua kode unicode).
          */
