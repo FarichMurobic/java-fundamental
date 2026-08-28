@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Sebuah generic class tidak terbatas hanya memiliki
- * satu type parameter.
+ * satu type parameter..
  *
  * Java memungkinkan sebuah generic class memiliki
  * dua atau lebih type parameter sesuai kebutuhan.
