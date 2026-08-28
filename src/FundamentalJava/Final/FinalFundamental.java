@@ -6,7 +6,7 @@ package FundamentalJava.Final;
  * ------------------------------------------------------------
  *
  * Keyword final digunakan untuk membatasi perubahan terhadap
- * variabel, parameter, method, maupun class.
+ * variabel, parameter, method, maupun class..
  *
  * Arti keyword final bergantung pada tempat penggunaannya.
  *
@@ -521,21 +521,21 @@ package FundamentalJava.Final;
  *
  * class A {
  *
- *     final void hello() {
- *         System.out.println("Hello");
- *     }
+ * final void hello() {
+ * System.out.println("Hello");
+ * }
  * }
  *
  * A obj = new A();
- * obj.hello();      // BOLEH
+ * obj.hello(); // BOLEH
  *
  * Yang tidak diperbolehkan adalah:
  *
  * class B extends A {
  *
- *     // Compile Error
- *     void hello() {
- *     }
+ * // Compile Error
+ * void hello() {
+ * }
  * }
  *
  * Jadi:
@@ -563,7 +563,7 @@ package FundamentalJava.Final;
  * final class A {
  * }
  *
- * A obj = new A();      // BOLEH
+ * A obj = new A(); // BOLEH
  *
  * Yang tidak diperbolehkan adalah:
  *
@@ -607,16 +607,16 @@ package FundamentalJava.Final;
  *
  * class Pembayaran {
  *
- *     final void validasi() {
- *         System.out.println("Validasi pembayaran");
- *     }
+ * final void validasi() {
+ * System.out.println("Validasi pembayaran");
+ * }
  * }
  *
  * class PembayaranQR extends Pembayaran {
  *
- *     // Compile Error
- *     void validasi() {
- *     }
+ * // Compile Error
+ * void validasi() {
+ * }
  * }
  *
  * Class turunan masih dapat menambahkan method baru,
@@ -660,20 +660,20 @@ package FundamentalJava.Final;
  * ------------------------------------------------------------
  *
  * ✓ final dan abstract tidak bisa digunakan
- *   bersamaan pada class.
+ * bersamaan pada class.
  *
  * ✓ final method tetap bisa dipanggil,
- *   tetapi tidak dapat dioverride.
+ * tetapi tidak dapat dioverride.
  *
  * ✓ final class tetap bisa dibuat object,
- *   tetapi tidak dapat diwariskan.
+ * tetapi tidak dapat diwariskan.
  *
  * ✓ final digunakan untuk menjaga agar
- *   perilaku penting tetap konsisten.
+ * perilaku penting tetap konsisten.
  *
  * ✓ JVM dapat melakukan optimisasi terhadap
- *   method final, tetapi peningkatan performa
- *   bukan alasan utama penggunaan final.
+ * method final, tetapi peningkatan performa
+ * bukan alasan utama penggunaan final.
  */
 
 // class ini tidak bisa diwariskan (tidak bisa di-extends)
@@ -690,7 +690,7 @@ final class Mobil {
 // class MobilBalap extends Mobil {}
 
 public class FinalFundamental {
-    
+
     // Final variable instance
     final int MAX_SPEED = 200;
     // Bisa juga final tapi belum langsung di inisialisasi
@@ -708,7 +708,7 @@ public class FinalFundamental {
     }
 
     public static void main(String[] args) {
-        
+
         // Final object reference
         FinalFundamental finalDemo = new FinalFundamental("Janera F.m.J");
 
@@ -730,6 +730,5 @@ public class FinalFundamental {
 
         // ERROR: tidak bisa assign ulang referensi
         // sb = new StringBuilder("Baru");
-    }   
+    }
 }
- 
