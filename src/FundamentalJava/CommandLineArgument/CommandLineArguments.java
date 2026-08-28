@@ -6,7 +6,7 @@ package FundamentalJava.CommandLineArgument;
  * ------------------------------------------------------------
  *
  * Kadang kita ingin mengirim data ke program saat program
- * dijalankan tanpa harus meminta input melalui keyboard.
+ * dijalankan tanpa harus meminta input melalui keyboard..
  *
  * Java menyediakan mekanisme yang disebut:
  *
@@ -53,7 +53,7 @@ package FundamentalJava.CommandLineArgument;
  *
  * args
  * -> Nama variable array (dapat diganti dengan nama lain,
- *    tetapi "args" merupakan konvensi yang paling umum).
+ * tetapi "args" merupakan konvensi yang paling umum).
  *
  * ------------------------------------------------------------
  * INDEX COMMAND-LINE ARGUMENTS
@@ -79,9 +79,9 @@ package FundamentalJava.CommandLineArgument;
  *
  * Tabel Index:
  *
- * Input Pertama  -> args[0]
- * Input Kedua    -> args[1]
- * Input Ketiga   -> args[2]
+ * Input Pertama -> args[0]
+ * Input Kedua -> args[1]
+ * Input Ketiga -> args[2]
  *
  * Flow:
  *
@@ -96,13 +96,13 @@ package FundamentalJava.CommandLineArgument;
  *
  * public class CommandLineArguments {
  *
- *     public static void main(String[] args) {
+ * public static void main(String[] args) {
  *
- *         System.out.println(args[0]);
- *         System.out.println(args[1]);
- *         System.out.println(args[2]);
+ * System.out.println(args[0]);
+ * System.out.println(args[1]);
+ * System.out.println(args[2]);
  *
- *     }
+ * }
  * }
  *
  * Jika dijalankan:
@@ -121,13 +121,13 @@ package FundamentalJava.CommandLineArgument;
  *
  * public class CommandLineArguments {
  *
- *     public static void main(String[] args) {
+ * public static void main(String[] args) {
  *
- *         System.out.println("args[0] : " + args[0]);
- *         System.out.println("args[1] : " + args[1]);
- *         System.out.println("args[2] : " + args[2]);
+ * System.out.println("args[0] : " + args[0]);
+ * System.out.println("args[1] : " + args[1]);
+ * System.out.println("args[2] : " + args[2]);
  *
- *     }
+ * }
  * }
  *
  * Menjalankan program:
@@ -215,7 +215,7 @@ package FundamentalJava.CommandLineArgument;
  *
  * public static void main(String[] args) {
  *
- *     System.out.println(args.length);
+ * System.out.println(args.length);
  *
  * }
  *
@@ -257,7 +257,7 @@ package FundamentalJava.CommandLineArgument;
  * Contoh:
  *
  * if (args.length > 1) {
- *     System.out.println(args[1]);
+ * System.out.println(args[1]);
  * }
  *
  * ------------------------------------------------------------
@@ -322,7 +322,7 @@ package FundamentalJava.CommandLineArgument;
 
 public class CommandLineArguments {
     public static void main(String[] args) {
-        
+
         for (int i = 0; i < args.length; i++) {
             System.out.println("args[" + i + "]: " + args[i]);
         }
