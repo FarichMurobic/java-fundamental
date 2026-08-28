@@ -1,9 +1,10 @@
 package FundamentalJava.Enum;
+
 public class Enum {
     public static void main(String[] args) {
-        
-        // Deklarasi variabel enum
-        // Inget enum gak bisa pake new
+
+        // Deklarasi variabel enum.
+        // Inget enum gak bisa pake new.
         Enumerations enumerations;
 
         // Assign nilai enum
