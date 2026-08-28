@@ -7,7 +7,7 @@ package FundamentalJava.ClassAndObject;
  *
  * Secara umum, constructor biasanya menerima nilai-nilai sederhana
  * (primitive type) atau data lain yang digunakan untuk
- * menginisialisasi object.
+ * menginisialisasi object..
  *
  * Contoh:
  *
@@ -22,11 +22,11 @@ package FundamentalJava.ClassAndObject;
  *
  * class Mobil {
  *
- *     Engine engine;
+ * Engine engine;
  *
- *     Mobil(Engine engine) {
- *         this.engine = engine;
- *     }
+ * Mobil(Engine engine) {
+ * this.engine = engine;
+ * }
  *
  * }
  *
@@ -189,19 +189,19 @@ package FundamentalJava.ClassAndObject;
  *
  * class Engine {
  *
- *     int tenaga;
- *     String tipe;
- *     boolean turbo;
+ * int tenaga;
+ * String tipe;
+ * boolean turbo;
  *
  * }
  *
  * class Mobil {
  *
- *     Engine engine;
+ * Engine engine;
  *
- *     Mobil(Engine engine) {
- *         this.engine = engine;
- *     }
+ * Mobil(Engine engine) {
+ * this.engine = engine;
+ * }
  *
  * }
  *
@@ -219,7 +219,7 @@ package FundamentalJava.ClassAndObject;
  *
  * class Mobil {
  *
- *     int tenaga;
+ * int tenaga;
  *
  * }
  *
@@ -227,7 +227,7 @@ package FundamentalJava.ClassAndObject;
  *
  * class Mobil {
  *
- *     Engine engine;
+ * Engine engine;
  *
  * }
  *
@@ -239,11 +239,11 @@ package FundamentalJava.ClassAndObject;
  *
  * class Engine {
  *
- *     int tenaga;
- *     String tipe;
- *     boolean turbo;
- *     double kapasitasMesin;
- *     int jumlahSilinder;
+ * int tenaga;
+ * String tipe;
+ * boolean turbo;
+ * double kapasitasMesin;
+ * int jumlahSilinder;
  *
  * }
  *
@@ -370,7 +370,7 @@ class Mobil {
 
 public class ObjectComposition {
     public static void main(String[] args) {
-        
+
         Engine e = new Engine(150); // Buat objek Engine
         Mobil m = new Mobil(e); // Kirim objek ke constructor
 
