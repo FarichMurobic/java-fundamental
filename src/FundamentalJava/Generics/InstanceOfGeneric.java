@@ -5,7 +5,7 @@ package FundamentalJava.Generics;
  * ============================================================
  *
  * Operator instanceof dapat digunakan untuk memeriksa apakah
- * suatu object merupakan instance dari generic class.
+ * suatu object merupakan instance dari generic class..
  *
  * Namun, instanceof tidak dapat memeriksa type argument
  * tertentu, seperti:
@@ -15,7 +15,6 @@ package FundamentalJava.Generics;
  *
  * Hal ini disebabkan oleh mekanisme type erasure pada Java.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Menggunakan Wildcard (<?>)
@@ -41,7 +40,6 @@ package FundamentalJava.Generics;
  * karena yang diperiksa hanyalah class Gen2.
  */
 
-
 /* ------------------------------------------------------------
  * instanceof dengan Inheritance
  * ------------------------------------------------------------
@@ -60,7 +58,6 @@ package FundamentalJava.Generics;
  * apabila object memang berasal dari Gen2 atau subclass lain
  * yang mewarisi Gen.
  */
-
 
 /* ------------------------------------------------------------
  * Mengapa Tidak Bisa Memeriksa Type Argument?
@@ -94,7 +91,6 @@ package FundamentalJava.Generics;
  * Gen
  */
 
-
 /* ------------------------------------------------------------
  * Type Erasure dan instanceof
  * ------------------------------------------------------------
@@ -119,7 +115,6 @@ package FundamentalJava.Generics;
  * memeriksa class, bukan type argument.
  */
 
-
 /* ------------------------------------------------------------
  * Contoh Penggunaan yang Benar
  * ------------------------------------------------------------
@@ -138,7 +133,6 @@ package FundamentalJava.Generics;
  * dilakukan terhadap generic class tanpa
  * memperhatikan type argument-nya.
  */
-
 
 /* ------------------------------------------------------------
  * Contoh Penggunaan yang Tidak Valid
@@ -159,7 +153,6 @@ package FundamentalJava.Generics;
  * pada operator instanceof.
  */
 
-
 /* ------------------------------------------------------------
  * Hubungan dengan Type Safety
  * ------------------------------------------------------------
@@ -174,7 +167,6 @@ package FundamentalJava.Generics;
  * Setelah itu, JVM hanya bekerja dengan class hasil
  * type erasure.
  */
-
 
 /* ------------------------------------------------------------
  * Ringkasan
@@ -195,7 +187,6 @@ package FundamentalJava.Generics;
  * - Aturan ini merupakan konsekuensi langsung dari
  *   mekanisme type erasure pada Java.
  */
-
 
 /* ------------------------------------------------------------
  * Insight
@@ -231,7 +222,7 @@ class One<T> {
 }
 
 class Two<T> extends One<T> {
-    
+
     Two(T ob) {
         super(ob);
     }
@@ -272,7 +263,7 @@ public class InstanceOfGeneric {
 
         // INI AKAN ERROR
         // if (ob2 instanceof Two<String>) KARENA OB2 ADALAH INTEGER
-        //    System.out.println("INI HARUSNYA GAK MASUK!");
+        // System.out.println("INI HARUSNYA GAK MASUK!");
 
     }
 }
