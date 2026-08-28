@@ -1,5 +1,7 @@
 package FundamentalJava.Annotasi.Latihan;
 
+// Latihan brooo
+
 import java.lang.annotation.*;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.*;
@@ -7,6 +9,7 @@ import java.lang.reflect.*;
 @Retention(RetentionPolicy.RUNTIME)
 @interface Anot {
     String name() default "Farich Murobic";
+
     int val() default 22;
 }
 
@@ -23,7 +26,7 @@ public class LatihanAnotasi {
 
         // BAUT OBJEK
         LatihanAnotasi latihan = new LatihanAnotasi();
-        
+
         // Value anotasi di kelas
         Annot1 ano = latihan.getClass().getAnnotation(Annot1.class);
         System.out.println(ano.value());
@@ -67,7 +70,7 @@ public class LatihanAnotasi {
     }
 
     public static void main(String[] args) throws Exception {
-        
+
         new LatihanAnotasi().demo();
         System.out.println();
         myMethod();
