@@ -22,7 +22,7 @@ public class LambdaAndException {
 
         double[] values = { 1.0, 2.0, 3.0, 4.0 };
 
-        // BLOCK LAMBDA: hitung rata-rata
+        // BLOCK LAMBDA: hitung rata-rata.
         DoubleNumericArrayFunc average = (n) -> {
             double sum = 0;
 
