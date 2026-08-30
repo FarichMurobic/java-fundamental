@@ -7,7 +7,7 @@ public class Protection {
     protected int protectedVariabel = 30; // protected
     public int publicVariabel = 40; // public
 
-    public Protection() { // konstraktor public
+    public Protection() { // konstraktor public.
         System.out.println("Akses dikelas yang sama.");
         System.out.println("Default: " + defaultVariabel);
         System.out.println("Private: " + privateVariabel);
