@@ -6,7 +6,7 @@ package FundamentalJava.Methods;
  * ============================================================
  *
  * Method adalah sekumpulan instruksi atau blok kode yang dibuat
- * untuk melakukan tugas tertentu.
+ * untuk melakukan tugas tertentu..
  *
  * Dengan menggunakan method, kode dapat dibuat lebih:
  * - Terstruktur.
@@ -275,7 +275,8 @@ class Box {
     double tinggi; // instance variabel
     String nama; // instance variabel
 
-    // jika ingin mengakses instance variabel dari luar class, harus menggunakan objek
+    // jika ingin mengakses instance variabel dari luar class, harus menggunakan
+    // objek
     // contoh: myBox1.panjang = 10;
 
     // methode menampilkan string
@@ -293,7 +294,7 @@ class Box {
 
 public class Method {
     public static void main(String[] args) {
-        
+
         // membuat objek dari kelas box
         Box myBox1 = new Box(); // membuat object box pertama
         Box myBox2 = new Box(); // membuat object box kedua
