@@ -5,13 +5,13 @@ package FundamentalJava.StructurePerulangann;
  * ITERASI PADA MULTIDIMENSIONAL ARRAY
  * ------------------------------------------------------------------------
  * 
- * Versi enhanced for (for-each) juga bisa digunakan pada array multidimensi.
+ * Versi enhanced for (for-each) juga bisa digunakan pada array multidimensi..
  * 
  * Tapi ingat: di Java, multidimensional array sebenarnya adalah
  * array yang berisi array.
  * 
  * Contoh:
- *     int[][] nums
+ * int[][] nums
  * 
  * Artinya:
  * - nums adalah array
@@ -23,19 +23,19 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Bayangkan array 2D seperti tabel:
  * 
- *     nums =
- *     [
- *         [1, 2, 3, 4, 5],    // nums[0]
- *         [2, 4, 6, 8, 10],   // nums[1]
- *         [3, 6, 9, 12, 15]   // nums[2]
- *     ]
+ * nums =
+ * [
+ * [1, 2, 3, 4, 5], // nums[0]
+ * [2, 4, 6, 8, 10], // nums[1]
+ * [3, 6, 9, 12, 15] // nums[2]
+ * ]
  * 
  * Struktur sebenarnya di Java:
  * 
- *     nums
- *      ├── nums[0] -> [1, 2, 3, 4, 5]
- *      ├── nums[1] -> [2, 4, 6, 8, 10]
- *      └── nums[2] -> [3, 6, 9, 12, 15]
+ * nums
+ * ├── nums[0] -> [1, 2, 3, 4, 5]
+ * ├── nums[1] -> [2, 4, 6, 8, 10]
+ * └── nums[2] -> [3, 6, 9, 12, 15]
  * 
  * Jadi:
  * - nums adalah array yang berisi 3 buah array
@@ -49,16 +49,16 @@ package FundamentalJava.StructurePerulangann;
  * setiap iterasi pertama TIDAK mengambil elemen integer,
  * tapi mengambil ARRAY (baris).
  * 
- *     int[][] nums = {
- *         {1, 2, 3, 4, 5},
- *         {2, 4, 6, 8, 10},
- *         {3, 6, 9, 12, 15}
- *     };
+ * int[][] nums = {
+ * {1, 2, 3, 4, 5},
+ * {2, 4, 6, 8, 10},
+ * {3, 6, 9, 12, 15}
+ * };
  * 
- *     for (int[] baris : nums) {  // ← baris adalah int[]
- *         // baris adalah nums[0], nums[1], nums[2]
- *         // yang merupakan array 1 dimensi
- *     }
+ * for (int[] baris : nums) { // ← baris adalah int[]
+ * // baris adalah nums[0], nums[1], nums[2]
+ * // yang merupakan array 1 dimensi
+ * }
  * 
  * Proses iterasi:
  * 
@@ -73,23 +73,23 @@ package FundamentalJava.StructurePerulangann;
  * Setelah mendapatkan array (baris), kita perlu loop lagi
  * untuk mengambil elemen di dalamnya.
  * 
- *     int[][] nums = {
- *         {1, 2, 3, 4, 5},
- *         {2, 4, 6, 8, 10},
- *         {3, 6, 9, 12, 15}
- *     };
+ * int[][] nums = {
+ * {1, 2, 3, 4, 5},
+ * {2, 4, 6, 8, 10},
+ * {3, 6, 9, 12, 15}
+ * };
  * 
- *     for (int[] baris : nums) {
- *         for (int nilai : baris) {  // ← nilai adalah int
- *             System.out.print(nilai + " ");
- *         }
- *         System.out.println();
- *     }
+ * for (int[] baris : nums) {
+ * for (int nilai : baris) { // ← nilai adalah int
+ * System.out.print(nilai + " ");
+ * }
+ * System.out.println();
+ * }
  * 
- *     // Output:
- *     // 1 2 3 4 5
- *     // 2 4 6 8 10
- *     // 3 6 9 12 15
+ * // Output:
+ * // 1 2 3 4 5
+ * // 2 4 6 8 10
+ * // 3 6 9 12 15
  * 
  * Ini disebut NESTED LOOP (loop di dalam loop).
  * 
@@ -99,12 +99,12 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Orang sering kira:
  * 
- *     int[][] nums = { ... };
+ * int[][] nums = { ... };
  * 
- *     // SALAH! Error: type mismatch
- *     for (int x : nums) {  // ERROR!
- *         System.out.println(x);
- *     }
+ * // SALAH! Error: type mismatch
+ * for (int x : nums) { // ERROR!
+ * System.out.println(x);
+ * }
  * 
  * Kenapa error?
  * Karena:
@@ -114,10 +114,10 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Perbaikan:
  * 
- *     // BENAR
- *     for (int[] x : nums) {  // x adalah int[]
- *         // ...
- *     }
+ * // BENAR
+ * for (int[] x : nums) { // x adalah int[]
+ * // ...
+ * }
  * 
  * ------------------------------------------------------------------------
  * CARA MUDAH MENGINGAT
@@ -125,11 +125,11 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Rule sederhana:
  * 
- * Array          | For-each
+ * Array | For-each
  * ---------------|------------------------------------------
- * int[]          | for (int x : arr)
- * int[][]        | for (int[] x : arr)
- * int[][][]      | for (int[][] x : arr)
+ * int[] | for (int x : arr)
+ * int[][] | for (int[] x : arr)
+ * int[][][] | for (int[][] x : arr)
  * 
  * Dimensi BERKURANG 1 setiap iterasi.
  * 
@@ -137,39 +137,39 @@ package FundamentalJava.StructurePerulangann;
  * CONTOH ARRAY 3 DIMENSI
  * ------------------------------------------------------------------------
  * 
- *     int[][][] data3D = {
- *         {
- *             {1, 2},
- *             {3, 4}
- *         },
- *         {
- *             {5, 6},
- *             {7, 8}
- *         }
- *     };
+ * int[][][] data3D = {
+ * {
+ * {1, 2},
+ * {3, 4}
+ * },
+ * {
+ * {5, 6},
+ * {7, 8}
+ * }
+ * };
  * 
- *     // Loop level 1: ambil array 2D
- *     for (int[][] layer : data3D) {
+ * // Loop level 1: ambil array 2D
+ * for (int[][] layer : data3D) {
  * 
- *         // Loop level 2: ambil array 1D
- *         for (int[] baris : layer) {
+ * // Loop level 2: ambil array 1D
+ * for (int[] baris : layer) {
  * 
- *             // Loop level 3: ambil elemen
- *             for (int nilai : baris) {
- *                 System.out.print(nilai + " ");
- *             }
- *             System.out.println();
- *         }
- *         System.out.println("---");
- *     }
+ * // Loop level 3: ambil elemen
+ * for (int nilai : baris) {
+ * System.out.print(nilai + " ");
+ * }
+ * System.out.println();
+ * }
+ * System.out.println("---");
+ * }
  * 
- *     // Output:
- *     // 1 2
- *     // 3 4
- *     // ---
- *     // 5 6
- *     // 7 8
- *     // ---
+ * // Output:
+ * // 1 2
+ * // 3 4
+ * // ---
+ * // 5 6
+ * // 7 8
+ * // ---
  * 
  * ------------------------------------------------------------------------
  * ISTILAH PENTING
@@ -182,11 +182,11 @@ package FundamentalJava.StructurePerulangann;
  * Nested Loop
  * Loop di dalam loop.
  * 
- *     for () {
- *         for () {
- *             // loop dalam
- *         }
- *     }
+ * for () {
+ * for () {
+ * // loop dalam
+ * }
+ * }
  * 
  * Biasanya dipakai untuk:
  * - Matriks
@@ -266,9 +266,9 @@ public class ForEachMultidimensiArray {
          *
          * Strukturnya di memori kira-kira:
          * nums
-         *  ├── [ ?, ?, ?, ?, ? ]
-         *  ├── [ ?, ?, ?, ?, ? ]
-         *  └── [ ?, ?, ?, ?, ? ]
+         * ├── [ ?, ?, ?, ?, ? ]
+         * ├── [ ?, ?, ?, ?, ? ]
+         * └── [ ?, ?, ?, ?, ? ]
          *
          * 2️. Mengisi array
          * Loop ini:
