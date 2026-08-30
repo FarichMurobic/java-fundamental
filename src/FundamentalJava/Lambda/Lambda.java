@@ -5,7 +5,7 @@ package FundamentalJava.Lambda;
  * ==========================================================
  *
  * Lambda Expression adalah salah satu fitur penting yang
- * diperkenalkan pada Java 8.
+ * diperkenalkan pada Java 8..
  *
  * Fitur ini membawa perubahan besar dalam cara programmer Java
  * menulis kode karena memungkinkan penggunaan konsep
