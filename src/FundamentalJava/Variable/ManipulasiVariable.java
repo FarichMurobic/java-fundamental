@@ -7,10 +7,11 @@ package FundamentalJava.Variable;
  * 1. Pernyataan Penugasan (Assignment Statement)
  * 2. Operator Increment atau Decrement (akan dibahas nanti)
  *
- * Dalam sebuah pernyataan penugasan, ekspresi di sisi kanan dievaluasi terlebih dahulu,
+ * Dalam sebuah pernyataan penugasan, ekspresi di sisi kanan dievaluasi terlebih
+ * dahulu,
  * dan kemudian nilai yang dihitung disimpan di variabel di sisi kiri.
  * Oleh karena itu, dalam pernyataan penugasan, nilai ekspresi di sisi kanan
- * dan tipe data variabel di sisi kiri harus cocok dalam tipe data.
+ * dan tipe data variabel di sisi kiri harus cocok dalam tipe data..
  */
 
 public class ManipulasiVariable {
@@ -81,7 +82,7 @@ public class ManipulasiVariable {
 
         // Contoh 'possible loss of precision' (akan error jika di-uncomment)
         // intVar = 12.5F; // Error: possible loss of precision (float ke int)
-        // intVar = 56.8;  // Error: possible loss of precision (double ke int)
+        // intVar = 56.8; // Error: possible loss of precision (double ke int)
         // Untuk mengatasinya, gunakan casting:
         intVar = (int) 12.5F; // Hasilnya 12 (kehilangan desimal)
         System.out.println("intVar = (int)12.5F -> " + intVar);
@@ -97,7 +98,8 @@ public class ManipulasiVariable {
         int a, b, c, d;
         d = 100;
 
-        // Penugasan berantai: d ditugaskan ke c, hasilnya ditugaskan ke b, hasilnya ditugaskan ke a
+        // Penugasan berantai: d ditugaskan ke c, hasilnya ditugaskan ke b, hasilnya
+        // ditugaskan ke a
         a = b = c = d;
         System.out.println("Setelah a = b = c = d;");
         System.out.println("Nilai a: " + a); // Output: 100
@@ -118,7 +120,8 @@ public class ManipulasiVariable {
         x = 10; // Menginisialisasi ulang x dan y untuk soal ini
         y = 20;
         System.out.println("Self-Check 32 - Awal: x = " + x + ", y = " + y);
-        // Mengubah nilai x menjadi dua kali nilai x saat ini ditambah tiga kali nilai y saat ini
+        // Mengubah nilai x menjadi dua kali nilai x saat ini ditambah tiga kali nilai y
+        // saat ini
         x = 2 * x + 3 * y; // Evaluasi: 2 * 10 + 3 * 20 = 20 + 60 = 80
         System.out.println("Self-Check 32 - Setelah perhitungan: x = " + x + ", y = " + y); // x=80, y=20
 
