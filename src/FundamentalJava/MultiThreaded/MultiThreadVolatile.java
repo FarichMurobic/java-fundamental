@@ -5,7 +5,7 @@ package FundamentalJava.MultiThreaded;
  *
  * Dalam multithreading:
  *
- * Banyak thread bisa mengakses variabel yang sama.
+ * Banyak thread bisa mengakses variabel yang sama..
  *
  * Contoh:
  *
@@ -23,7 +23,6 @@ package FundamentalJava.MultiThreaded;
  *
  * Karena ada optimisasi dari CPU dan JVM.
  */
-
 
 /**
  * KONSEP DASAR: MAIN MEMORY DAN CPU CACHE
@@ -58,7 +57,6 @@ package FundamentalJava.MultiThreaded;
  * Thread B Cache:
  * angka = 0
  */
-
 
 /**
  * MASALAH VISIBILITY
@@ -106,7 +104,6 @@ package FundamentalJava.MultiThreaded;
  * tetapi thread lain belum melihat perubahan tersebut.
  */
 
-
 /**
  * ANALOGI
  *
@@ -137,7 +134,6 @@ package FundamentalJava.MultiThreaded;
  *
  * Karena catatan kalian belum sinkron.
  */
-
 
 /**
  * VOLATILE
@@ -173,7 +169,6 @@ package FundamentalJava.MultiThreaded;
  * Thread B akan melihat perubahan itu.
  */
 
-
 /**
  * CONTOH MASALAH TANPA VOLATILE
  */
@@ -197,7 +192,6 @@ class Worker {
     }
 }
 
-
 /**
  * Masalah:
  *
@@ -219,30 +213,28 @@ class Worker {
  * loop bisa terus berjalan.
  */
 
-
 /**
  * SOLUSI DENGAN VOLATILE
  */
 
 // class Worker {
 
-//     volatile boolean running = true;
+// volatile boolean running = true;
 
-//     void stop() {
-//         running = false;
-//     }
-
-//     void run() {
-
-//         while (running) {
-
-//             // melakukan pekerjaan
-
-//         }
-
-//     }
+// void stop() {
+// running = false;
 // }
 
+// void run() {
+
+// while (running) {
+
+// // melakukan pekerjaan
+
+// }
+
+// }
+// }
 
 /**
  * Sekarang:
@@ -256,7 +248,6 @@ class Worker {
  *
  * loop berhenti.
  */
-
 
 /**
  * VOLATILE VS SYNCHRONIZED
@@ -282,7 +273,6 @@ class Worker {
  * hanya satu thread yang boleh masuk
  * ke bagian kode tertentu.
  */
-
 
 /**
  * Contoh:
@@ -336,7 +326,6 @@ class Worker {
  * synchronized
  */
 
-
 /**
  * PERBANDINGAN
  *
@@ -349,7 +338,6 @@ class Worker {
  *
  * "Cuma satu orang boleh masuk ruangan."
  */
-
 
 /**
  * KAPAN MENGGUNAKAN VOLATILE?
@@ -375,7 +363,6 @@ class Worker {
  * dan thread lain membaca.
  */
 
-
 /**
  * KAPAN JANGAN PAKAI VOLATILE?
  *
@@ -397,20 +384,19 @@ class Worker {
  * Tetap tidak aman.
  */
 
-
 /**
  * HUBUNGAN DENGAN MATERI SEBELUMNYA
  *
  *
  * Race Condition
- *        |
- *        |
+ * |
+ * |
  * Synchronization
  *
  *
  * Visibility Problem
- *        |
- *        |
+ * |
+ * |
  * volatile
  *
  *
@@ -420,7 +406,6 @@ class Worker {
  *
  * volatile = memastikan nilai terlihat antar thread
  */
-
 
 /**
  * KESIMPULAN SUPER PADAT
@@ -486,7 +471,7 @@ public class MultiThreadVolatile {
             System.out.println("Thread 2 ubah running jadi false");
             TanpaVolatile.running = false;
         });
- 
+
         thread1.start();
         thread2.start();
 
@@ -502,7 +487,6 @@ public class MultiThreadVolatile {
          *
          * TIDAK MUNCUL
          */
-
 
     }
 }
