@@ -8,7 +8,7 @@ public class MemoryJava {
      * ==========================================================
      *
      * Ketika program Java berjalan, program membutuhkan memory dari
-     * RAM.
+     * RAM..
      *
      * Pengelolaan memory tersebut dilakukan oleh:
      *
