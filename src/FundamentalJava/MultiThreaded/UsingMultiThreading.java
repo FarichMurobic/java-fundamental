@@ -6,7 +6,7 @@ package FundamentalJava.MultiThreaded;
  * ------------------------------------------------------------------------
  * 
  * Kunci menggunakan multithreading secara efektif adalah:
- * Berpikir secara paralel (concurrent), bukan berurutan (serial).
+ * Berpikir secara paralel (concurrent), bukan berurutan (serial)..
  * 
  * ------------------------------------------------------------------------
  * SERIAL vs CONCURRENT
@@ -14,21 +14,21 @@ package FundamentalJava.MultiThreaded;
  * 
  * Cara SERIAL (biasa):
  * 
- *     task1();
- *     task2();
+ * task1();
+ * task2();
  * 
  * Urutan eksekusi:
- *     task1 → selesai → task2
+ * task1 → selesai → task2
  * 
  * Total waktu = waktu task1 + waktu task2
  * 
  * Cara CONCURRENT:
  * 
- *     new Thread(task1).start();
- *     new Thread(task2).start();
+ * new Thread(task1).start();
+ * new Thread(task2).start();
  * 
  * Urutan eksekusi:
- *     task1 dan task2 berjalan bersamaan
+ * task1 dan task2 berjalan bersamaan
  * 
  * Total waktu ≈ max(waktu task1, waktu task2)
  * 
@@ -37,10 +37,10 @@ package FundamentalJava.MultiThreaded;
  * ------------------------------------------------------------------------
  * 
  * Multithreading BUKAN:
- *     "Membuat semua menjadi lebih cepat"
+ * "Membuat semua menjadi lebih cepat"
  * 
  * TAPI:
- *     "Menjalankan bagian-bagian yang bisa berjalan bersamaan"
+ * "Menjalankan bagian-bagian yang bisa berjalan bersamaan"
  * 
  * ------------------------------------------------------------------------
  * CONTOH NYATA (BIAR KEBAYANG)
@@ -49,11 +49,11 @@ package FundamentalJava.MultiThreaded;
  * Kasus: Download File + Memutar Musik
  * 
  * Tanpa thread:
- *     Download selesai → baru bisa play musik
+ * Download selesai → baru bisa play musik
  * 
  * Dengan thread:
- *     Download berjalan di background
- *     Musik berjalan di foreground
+ * Download berjalan di background
+ * Musik berjalan di foreground
  * 
  * Hasil: Pengalaman pengguna lebih smooth
  * 
@@ -66,7 +66,7 @@ package FundamentalJava.MultiThreaded;
  * CPU hanya bisa fokus pada satu thread per core dalam satu waktu.
  * 
  * Jika terlalu banyak thread:
- *     Thread A → Thread B → Thread C → Thread D → ...
+ * Thread A → Thread B → Thread C → Thread D → ...
  * 
  * CPU harus melakukan:
  * - Menyimpan state thread saat ini
@@ -76,10 +76,10 @@ package FundamentalJava.MultiThreaded;
  * 
  * Hubungan jumlah thread dengan performa:
  * 
- * Jumlah Thread         | Hasil
+ * Jumlah Thread | Hasil
  * ----------------------|-----------------------------------------------
- * Sedikit dan tepat     | Cepat dan efisien
- * Terlalu banyak        | Lambat karena overhead context switching
+ * Sedikit dan tepat | Cepat dan efisien
+ * Terlalu banyak | Lambat karena overhead context switching
  * 
  * ------------------------------------------------------------------------
  * KAPAN HARUS MENGGUNAKAN MULTITHREADING?
@@ -88,23 +88,23 @@ package FundamentalJava.MultiThreaded;
  * COCOK digunakan untuk:
  * 
  * 1. Operasi I/O (menunggu)
- *    - Download file
- *    - Query database
- *    - Baca/tulis file
- *    - Network request
+ * - Download file
+ * - Query database
+ * - Baca/tulis file
+ * - Network request
  * 
- *    Karena:
- *    CPU bisa mengerjakan hal lain sambil menunggu I/O selesai.
+ * Karena:
+ * CPU bisa mengerjakan hal lain sambil menunggu I/O selesai.
  * 
  * 2. Task independen
- *    - Render UI
- *    - Background process
- *    - Logging
- *    - Notifikasi
+ * - Render UI
+ * - Background process
+ * - Logging
+ * - Notifikasi
  * 
  * 3. Multi-core processing
- *    - Memanfaatkan CPU dengan banyak core
- *    - Komputasi berat yang bisa dipecah
+ * - Memanfaatkan CPU dengan banyak core
+ * - Komputasi berat yang bisa dipecah
  * 
  * ------------------------------------------------------------------------
  * INSIGHT DALAM (LEVEL LANJUT)
@@ -112,10 +112,10 @@ package FundamentalJava.MultiThreaded;
  * 
  * Multithreading adalah trade-off:
  * 
- * Keuntungan                     | Kerugian
+ * Keuntungan | Kerugian
  * -------------------------------|-----------------------------------------
- * Eksekusi lebih cepat           | Kode lebih kompleks
- * Aplikasi lebih responsif       | Rawan bug (race condition, deadlock)
+ * Eksekusi lebih cepat | Kode lebih kompleks
+ * Aplikasi lebih responsif | Rawan bug (race condition, deadlock)
  * Memanfaatkan CPU secara maksimal | Overhead manajemen thread
  * 
  * ------------------------------------------------------------------------
@@ -232,7 +232,8 @@ public class UsingMultiThreading {
             System.out.println(name + ": " + i);
             try {
                 Thread.sleep(500);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
     }
 }
