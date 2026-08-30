@@ -8,7 +8,7 @@ package FundamentalJava.TransientAndVolatile;
  * Java memiliki dua modifier yang cukup unik:
  * transient dan volatile
  * 
- * Modifier ini dipakai untuk kondisi khusus.
+ * Modifier ini dipakai untuk kondisi khusus..
  * 
  * PENTING:
  * transient dan volatile
@@ -245,7 +245,8 @@ public class TransientAndVolatile {
         Thread thread2 = new Thread(() -> {
             try {
                 Thread.sleep(2000);
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
             data.running = false;
             System.out.println("Thread 2 menghentikan Thread 1");
         });
@@ -261,7 +262,7 @@ public class TransientAndVolatile {
          * thread 1 langsung lihat perubahan
          *
          * Kalau gak pakai volatile:
-         * thread 1 bisa ngeloop selamanya 
+         * thread 1 bisa ngeloop selamanya
          *
          * Kenapa?
          * Thread 1 baca running dari cache sendiri
