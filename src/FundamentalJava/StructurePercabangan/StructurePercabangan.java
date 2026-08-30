@@ -5,17 +5,18 @@ package FundamentalJava.StructurePercabangan;
  * STRUKTUR SELEKSI DI JAVA
  * ------------------------------------------------------------------------
  * 
- * Di Java ada 3 cara utama untuk mengambil keputusan atau menyeleksi sebuah aksi:
+ * Di Java ada 3 cara utama untuk mengambil keputusan atau menyeleksi sebuah
+ * aksi:
  * 
- * 1. if          → Jalur satu arah
- * 2. if-else     → Jalur dua arah
- * 3. switch      → Banyak jalur
+ * 1. if → Jalur satu arah
+ * 2. if-else → Jalur dua arah
+ * 3. switch → Banyak jalur
  * 
  * ------------------------------------------------------------------------
  * IF STATEMENT
  * ------------------------------------------------------------------------
  * 
- * if adalah pernyataan percabangan kondisional.
+ * if adalah pernyataan percabangan kondisional..
  * 
  * Kamu memberi syarat:
  * - Jika syaratnya tembus (bernilai true) → Java menjalankan perintahnya
@@ -23,11 +24,11 @@ package FundamentalJava.StructurePercabangan;
  * 
  * Bentuk umum:
  * 
- *     if (kondisi) {
- *         // dijalankan jika kondisi true
- *     } else {
- *         // dijalankan jika kondisi false
- *     }
+ * if (kondisi) {
+ * // dijalankan jika kondisi true
+ * } else {
+ * // dijalankan jika kondisi false
+ * }
  * 
  * Penjelasan:
  * - kondisi → ekspresi yang menghasilkan nilai boolean (true/false)
@@ -43,28 +44,28 @@ package FundamentalJava.StructurePercabangan;
  * CONTOH IF STATEMENT
  * ------------------------------------------------------------------------
  * 
- *     int umur = 18;
+ * int umur = 18;
  * 
- *     if (umur >= 17) {
- *         System.out.println("Kamu sudah cukup umur");
- *     } else {
- *         System.out.println("Kamu belum cukup umur");
- *     }
+ * if (umur >= 17) {
+ * System.out.println("Kamu sudah cukup umur");
+ * } else {
+ * System.out.println("Kamu belum cukup umur");
+ * }
  * 
- *     // Output: Kamu sudah cukup umur
+ * // Output: Kamu sudah cukup umur
  * 
  * ------------------------------------------------------------------------
  * IF TANPA ELSE (SATU JALUR)
  * ------------------------------------------------------------------------
  * 
- *     int nilai = 85;
+ * int nilai = 85;
  * 
- *     if (nilai >= 75) {
- *         System.out.println("Lulus");
- *     }
+ * if (nilai >= 75) {
+ * System.out.println("Lulus");
+ * }
  * 
- *     // Jika nilai >= 75, tampilkan "Lulus"
- *     // Jika tidak, tidak ada yang terjadi
+ * // Jika nilai >= 75, tampilkan "Lulus"
+ * // Jika tidak, tidak ada yang terjadi
  * 
  * ------------------------------------------------------------------------
  * KESALAHAN UMUM DALAM IF STATEMENT
@@ -72,52 +73,52 @@ package FundamentalJava.StructurePercabangan;
  * 
  * 1. = vs == (Assignment vs Equality)
  * 
- *     // SALAH
- *     if (x = 5) {     // ERROR! = adalah assignment, bukan perbandingan
- *         // ...
- *     }
+ * // SALAH
+ * if (x = 5) { // ERROR! = adalah assignment, bukan perbandingan
+ * // ...
+ * }
  * 
- *     // BENAR
- *     if (x == 5) {    // == adalah perbandingan
- *         // ...
- *     }
+ * // BENAR
+ * if (x == 5) { // == adalah perbandingan
+ * // ...
+ * }
  * 
  * 2. Tidak Ada Tanda Kurung ()
  * 
- *     // SALAH
- *     if x > 5 {       // ERROR! Kondisi harus dalam ()
- *         // ...
- *     }
+ * // SALAH
+ * if x > 5 { // ERROR! Kondisi harus dalam ()
+ * // ...
+ * }
  * 
- *     // BENAR
- *     if (x > 5) {     // Kondisi dalam ()
- *         // ...
- *     }
+ * // BENAR
+ * if (x > 5) { // Kondisi dalam ()
+ * // ...
+ * }
  * 
  * 3. Semicolon (;) Setelah if
  * 
- *     // SALAH
- *     if (x > 5); {    // ; mengakhiri if, blok di bawah selalu dijalankan
- *         System.out.println("x lebih dari 5"); // SELALU dijalankan!
- *     }
+ * // SALAH
+ * if (x > 5); { // ; mengakhiri if, blok di bawah selalu dijalankan
+ * System.out.println("x lebih dari 5"); // SELALU dijalankan!
+ * }
  * 
- *     // BENAR
- *     if (x > 5) {
- *         System.out.println("x lebih dari 5");
- *     }
+ * // BENAR
+ * if (x > 5) {
+ * System.out.println("x lebih dari 5");
+ * }
  * 
  * 4. Tidak Ada Kurung Kurawal {}
  * 
- *     // HATI-HATI! Tanpa {}, hanya 1 baris yang dianggap bagian dari if
- *     if (x > 5)
- *         System.out.println("x lebih dari 5");
- *         System.out.println("Ini selalu dijalankan!"); // BUKAN bagian dari if!
+ * // HATI-HATI! Tanpa {}, hanya 1 baris yang dianggap bagian dari if
+ * if (x > 5)
+ * System.out.println("x lebih dari 5");
+ * System.out.println("Ini selalu dijalankan!"); // BUKAN bagian dari if!
  * 
- *     // BENAR
- *     if (x > 5) {
- *         System.out.println("x lebih dari 5");
- *         System.out.println("Ini juga bagian dari if");
- *     }
+ * // BENAR
+ * if (x > 5) {
+ * System.out.println("x lebih dari 5");
+ * System.out.println("Ini juga bagian dari if");
+ * }
  * 
  * ------------------------------------------------------------------------
  * TIPS MENGHINDARI KESALAHAN
@@ -133,9 +134,9 @@ package FundamentalJava.StructurePercabangan;
  * RINGKASAN SUPER PADAT
  * ------------------------------------------------------------------------
  * 
- * - if       = jalur satu arah (opsional else)
- * - if-else  = jalur dua arah (pasti salah satu jalan)
- * - switch   = banyak jalur (lebih dari 2 pilihan)
+ * - if = jalur satu arah (opsional else)
+ * - if-else = jalur dua arah (pasti salah satu jalan)
+ * - switch = banyak jalur (lebih dari 2 pilihan)
  * 
  * Kesalahan umum:
  * - = (assignment) vs == (perbandingan)
@@ -197,10 +198,12 @@ public class StructurePercabangan {
             b += 80; // statement 2
         }
 
-        // Semua statement selama dalam block kode akan dieksekusi oleh if ketika pake block kode.
+        // Semua statement selama dalam block kode akan dieksekusi oleh if ketika pake
+        // block kode.
         System.out.println(a); // 100
 
-        // jangan gunakan if statement yang panjang hanya untuk mengsisi variabel boolean
+        // jangan gunakan if statement yang panjang hanya untuk mengsisi variabel
+        // boolean
         char charOne = 'q';
         boolean isLowerCaseLetter;
 
@@ -222,7 +225,8 @@ public class StructurePercabangan {
 
         if (saldo >= ongkir)
             saldo -= ongkir; // Java bilang: "Oke, ini bagian IF."
-            // System.out.println();. Tanpa block kode ini akan error karena ada else, Java bilang: "Ini baris biasa, jalanin aja."
+        // System.out.println();. Tanpa block kode ini akan error karena ada else, Java
+        // bilang: "Ini baris biasa, jalanin aja."
         else // ERROR! Java teriak: "Woi, 'else' ini nggak punya pasangan 'if' di atasnya!"
             System.out.println("Saldo kurang bro!.");
         System.out.println(saldo);
@@ -231,16 +235,22 @@ public class StructurePercabangan {
 
         /**
          * Kenapa Kode Itu Error? (The "Else Without If" Problem)
-         * Di Java, sebuah else WAJIB menempel langsung tepat setelah pernyataan if selesai.
-         * - Kalau lo nggak pake block { }, Java cuma nganggep satu baris pertama setelah if
-         *   sebagai bagian dari kondisi tersebut.
+         * Di Java, sebuah else WAJIB menempel langsung tepat setelah pernyataan if
+         * selesai.
+         * - Kalau lo nggak pake block { }, Java cuma nganggep satu baris pertama
+         * setelah if
+         * sebagai bagian dari kondisi tersebut.
          *
-         * - Baris kedua (System.out.println();) dianggap sebagai baris kode biasa yang mandiri (nggak ikut if).
-         * - Nah, pas Java sampai ke baris else, dia bingung: "Lho, ini 'else' punya siapa? Di atas gue
-         *   ada perintah cetak biasa, bukan akhir dari sebuah 'if'."
+         * - Baris kedua (System.out.println();) dianggap sebagai baris kode biasa yang
+         * mandiri (nggak ikut if).
+         * - Nah, pas Java sampai ke baris else, dia bingung: "Lho, ini 'else' punya
+         * siapa? Di atas gue
+         * ada perintah cetak biasa, bukan akhir dari sebuah 'if'."
          *
-         * Secara teknis, baris System.out.println(); itu memutus hubungan asmara antara if
-         * dan else. Di Java, else itu setia banget, dia nggak mau dipisahin sama baris kode lain dari if-nya.
+         * Secara teknis, baris System.out.println(); itu memutus hubungan asmara antara
+         * if
+         * dan else. Di Java, else itu setia banget, dia nggak mau dipisahin sama baris
+         * kode lain dari if-nya.
          */
 
         // Dengan block kode sang pemersatu hubungan asmara if dan else
