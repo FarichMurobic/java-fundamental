@@ -10,7 +10,7 @@ package FundamentalJava.Lambda;
  * 2. Block Lambda
  *
  * Expression lambda digunakan ketika logic hanya terdiri dari
- * satu ekspresi sederhana.
+ * satu ekspresi sederhana..
  *
  * Sedangkan block lambda digunakan ketika logic membutuhkan
  * beberapa statement atau proses yang lebih kompleks.
@@ -314,7 +314,7 @@ public class BlockLambdaExpression {
          *
          * Block lambda:
          * (n) -> {
-         *     return n * 2;
+         * return n * 2;
          * }
          *
          * HARUS pakai return
@@ -329,7 +329,7 @@ public class BlockLambdaExpression {
             int i;
 
             // loop dari index terakhir ke awal
-            for (i = str.length() - 1; i >= 0; i-- ) {
+            for (i = str.length() - 1; i >= 0; i--) {
                 // ambil karakter per karakter lalu gabungkan
                 result += str.charAt(i);
             }
@@ -421,11 +421,11 @@ public class BlockLambdaExpression {
          * 5. Ini sebenarnya bisa diganti method biasa:
          * // Versi method biasa
          * String reverse(String str) {
-         *     String result = "";
-         *     for (int i = str.length() - 1; i >= 0; i--) {
-         *         result += str.charAt(i);
-         *     }
-         *     return result;
+         * String result = "";
+         * for (int i = str.length() - 1; i >= 0; i--) {
+         * result += str.charAt(i);
+         * }
+         * return result;
          * }
          *
          * Lambda = versi ringkasnya
