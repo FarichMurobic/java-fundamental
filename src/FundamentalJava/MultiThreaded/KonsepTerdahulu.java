@@ -19,7 +19,7 @@ package FundamentalJava.MultiThreaded;
  *
  *
  * Tetapi method tersebut sekarang sudah deprecated karena memiliki
- * masalah desain yang serius.
+ * masalah desain yang serius..
  *
  * ------------------------------------------------------------
  * Masalah Pada suspend()
