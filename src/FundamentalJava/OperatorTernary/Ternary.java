@@ -6,15 +6,17 @@ public class Ternary {
     public static void main(String[] args) {
 
         /**
-         * Operator ternary adalah operator kondisional sederhana yang berfungsi sebagai alternatif dari if-else.
+         * Operator ternary adalah operator kondisional sederhana yang berfungsi sebagai
+         * alternatif dari if-else..
          * 
          * Bentuk umum:
          * variabel = (kondisi) ? nilai_jika_true : nilai_jika_false;
          * 
          * Jika kondisi bernilai true, maka ekspresi akan menghasilkan nilai_jika_true.
-         * Jika kondisi bernilai false, maka ekspresi akan menghasilkan nilai_jika_false.
+         * Jika kondisi bernilai false, maka ekspresi akan menghasilkan
+         * nilai_jika_false.
          *
-         * Ini adalah jalan pintas untuk if else yang sangat sederhana, 
+         * Ini adalah jalan pintas untuk if else yang sangat sederhana,
          * gunakan disaat menetapkan salah satu dari dua nilai ke sebuah variabel.
          * tergantung pada sebuah kondisi.
          */
