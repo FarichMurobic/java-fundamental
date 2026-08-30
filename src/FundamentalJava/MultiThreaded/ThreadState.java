@@ -6,23 +6,23 @@ package FundamentalJava.MultiThreaded;
  * ------------------------------------------------------------------------
  * 
  * Java memiliki method:
- *     Thread.State getState()
+ * Thread.State getState()
  * 
  * Digunakan untuk melihat status thread saat ini.
- * Return value berupa enum Thread.State.
+ * Return value berupa enum Thread.State..
  * 
  * ------------------------------------------------------------------------
  * DAFTAR STATE LENGKAP
  * ------------------------------------------------------------------------
  * 
- * State               | Arti
+ * State | Arti
  * --------------------|---------------------------------------------------
- * NEW                 | Thread belum dimulai
- * RUNNABLE            | Sedang berjalan atau siap berjalan
- * BLOCKED             | Menunggu lock (synchronized)
- * WAITING             | Menunggu tanpa batas waktu
- * TIMED_WAITING       | Menunggu dengan batas waktu
- * TERMINATED          | Sudah selesai dieksekusi
+ * NEW | Thread belum dimulai
+ * RUNNABLE | Sedang berjalan atau siap berjalan
+ * BLOCKED | Menunggu lock (synchronized)
+ * WAITING | Menunggu tanpa batas waktu
+ * TIMED_WAITING | Menunggu dengan batas waktu
+ * TERMINATED | Sudah selesai dieksekusi
  * 
  * ------------------------------------------------------------------------
  * PENJELASAN MENDALAM
@@ -32,8 +32,8 @@ package FundamentalJava.MultiThreaded;
  * 
  * Thread baru saja dibuat, tapi belum dipanggil start().
  * 
- *     Thread t = new Thread(...);
- *     // Statusnya: NEW
+ * Thread t = new Thread(...);
+ * // Statusnya: NEW
  * 
  * Masih "calon thread" atau thread dalam bentuk objek saja.
  * 
@@ -54,9 +54,9 @@ package FundamentalJava.MultiThreaded;
  * oleh thread lain.
  * 
  * Contoh:
- *     synchronized(obj) {
- *         // kode kritis
- *     }
+ * synchronized(obj) {
+ * // kode kritis
+ * }
  * 
  * Jika ada thread lain memegang lock pada obj:
  * thread ini akan masuk ke status BLOCKED.
@@ -96,26 +96,26 @@ package FundamentalJava.MultiThreaded;
  * GAMBARAN ALUR PERUBAHAN STATE
  * ------------------------------------------------------------------------
  * 
- *      NEW
- *       ↓
- *      start()
- *       ↓
- *    RUNNABLE  ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
- *       ↓                                             ↑
- *       | (butuh resource)                            |
- *       | (scheduler memilih)                         |
- *       ↓                                             |
- *     RUNNING (konseptual, tetap RUNNABLE di Java)    |
- *       ↓                                             |
- *       | (thread.sleep / wait / join / lock)         |
- *       ↓                                             |
- *   ┌───┴───────┬────────────┬──────────────┐        |
- *   ↓           ↓            ↓              ↓        |
- * WAITING   TIMED_WAITING  BLOCKED       TERMINATED  |
- *   ↓           ↓            ↓              ↓        |
- *   └───┬───────┴────────────┴──────────────┘        |
- *       | (notify / waktu habis / lock tersedia)      |
- *       └─────────────────────────────────────────────┘
+ * NEW
+ * ↓
+ * start()
+ * ↓
+ * RUNNABLE ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
+ * ↓ ↑
+ * | (butuh resource) |
+ * | (scheduler memilih) |
+ * ↓ |
+ * RUNNING (konseptual, tetap RUNNABLE di Java) |
+ * ↓ |
+ * | (thread.sleep / wait / join / lock) |
+ * ↓ |
+ * ┌───┴───────┬────────────┬──────────────┐ |
+ * ↓ ↓ ↓ ↓ |
+ * WAITING TIMED_WAITING BLOCKED TERMINATED |
+ * ↓ ↓ ↓ ↓ |
+ * └───┬───────┴────────────┴──────────────┘ |
+ * | (notify / waktu habis / lock tersedia) |
+ * └─────────────────────────────────────────────┘
  * 
  * ------------------------------------------------------------------------
  * HAL PENTING (WAJIB PAHAM)
@@ -123,7 +123,7 @@ package FundamentalJava.MultiThreaded;
  * 
  * 1. State bisa berubah sangat cepat
  * 
- *     Thread.State ts = t.getState();
+ * Thread.State ts = t.getState();
  * 
  * Bisa saja:
  * - Saat dicek statusnya RUNNABLE
@@ -153,45 +153,46 @@ package FundamentalJava.MultiThreaded;
  * 
  * Bayangkan thread seperti orang yang sedang bekerja:
  * 
- * State               | Analogi
+ * State | Analogi
  * --------------------|---------------------------------------------------
- * NEW                 | Belum mulai kerja (masih di rumah)
- * RUNNABLE            | Siap kerja / sedang kerja (di kantor)
- * BLOCKED             | Nunggu kunci ruangan (pintu terkunci)
- * WAITING             | Nunggu orang lain (menunggu rekan)
- * TIMED_WAITING       | Lagi tidur siang (istirahat sebentar)
- * TERMINATED          | Pulang kerja (selesai)
+ * NEW | Belum mulai kerja (masih di rumah)
+ * RUNNABLE | Siap kerja / sedang kerja (di kantor)
+ * BLOCKED | Nunggu kunci ruangan (pintu terkunci)
+ * WAITING | Nunggu orang lain (menunggu rekan)
+ * TIMED_WAITING | Lagi tidur siang (istirahat sebentar)
+ * TERMINATED | Pulang kerja (selesai)
  * 
  * ------------------------------------------------------------------------
  * CONTOH IMPLEMENTASI
  * ------------------------------------------------------------------------
  * 
- *     Thread t = new Thread(() -> {
- *         try {
- *             Thread.sleep(1000);
- *         } catch (InterruptedException e) {
- *             Thread.currentThread().interrupt();
- *         }
- *     });
+ * Thread t = new Thread(() -> {
+ * try {
+ * Thread.sleep(1000);
+ * } catch (InterruptedException e) {
+ * Thread.currentThread().interrupt();
+ * }
+ * });
  * 
- *     System.out.println("State: " + t.getState()); // NEW
- *     
- *     t.start();
- *     System.out.println("State: " + t.getState()); // RUNNABLE
- *     
- *     // Tunggu sebentar agar thread masuk ke TIMED_WAITING
- *     Thread.sleep(100);
- *     System.out.println("State: " + t.getState()); // TIMED_WAITING
- *     
- *     t.join();
- *     System.out.println("State: " + t.getState()); // TERMINATED
+ * System.out.println("State: " + t.getState()); // NEW
+ * 
+ * t.start();
+ * System.out.println("State: " + t.getState()); // RUNNABLE
+ * 
+ * // Tunggu sebentar agar thread masuk ke TIMED_WAITING
+ * Thread.sleep(100);
+ * System.out.println("State: " + t.getState()); // TIMED_WAITING
+ * 
+ * t.join();
+ * System.out.println("State: " + t.getState()); // TERMINATED
  * 
  * ------------------------------------------------------------------------
  * RINGKASAN SUPER PADAT
  * ------------------------------------------------------------------------
  * 
  * - getState() → melihat status thread saat ini
- * - Ada 6 state utama: NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED
+ * - Ada 6 state utama: NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING,
+ * TERMINATED
  * - State bisa berubah cepat, gunakan untuk debugging
  * - RUNNABLE ≠ sedang berjalan, hanya siap dijalankan
  * - Jangan gunakan getState() untuk logika kontrol thread
