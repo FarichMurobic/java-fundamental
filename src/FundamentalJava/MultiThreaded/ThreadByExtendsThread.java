@@ -15,20 +15,20 @@ package FundamentalJava.MultiThreaded;
  * 
  * Pada pendekatan ini:
  * NewThread bukan lagi berupa Runnable,
- * tapi langsung menjadi Thread itu sendiri.
+ * tapi langsung menjadi Thread itu sendiri..
  * 
  * ------------------------------------------------------------------------
  * PERBEDAAN KONSEP (INI INTI BANGET)
  * ------------------------------------------------------------------------
  * 
  * Sebelumnya (dengan Runnable):
- *     class NewThread implements Runnable
+ * class NewThread implements Runnable
  * 
  * Kamu membuat tugas (pekerjaan),
  * lalu menyerahkannya ke Thread untuk dijalankan.
  * 
  * Sekarang (dengan Thread):
- *     class NewThread extends Thread
+ * class NewThread extends Thread
  * 
  * Kamu membuat thread itu sendiri secara langsung.
  * 
@@ -36,30 +36,30 @@ package FundamentalJava.MultiThreaded;
  * PERBEDAAN KRITIS (Runnable vs Extends Thread)
  * ------------------------------------------------------------------------
  * 
- * Aspek               | Runnable                     | Extends Thread
+ * Aspek | Runnable | Extends Thread
  * --------------------|------------------------------|-----------------------
- * Desain              | Memisahkan tugas dan thread  | Menyatukan menjadi satu
- * Fleksibilitas       | Tinggi                       | Rendah
- * Inheritance         | Bisa extends class lain      | Tidak bisa (sudah extends Thread)
- * Best Practice       | Disarankan                   | Jarang dipakai
+ * Desain | Memisahkan tugas dan thread | Menyatukan menjadi satu
+ * Fleksibilitas | Tinggi | Rendah
+ * Inheritance | Bisa extends class lain | Tidak bisa (sudah extends Thread)
+ * Best Practice | Disarankan | Jarang dipakai
  * 
  * ------------------------------------------------------------------------
  * KENAPA RUNNABLE LEBIH DISARANKAN?
  * ------------------------------------------------------------------------
  * 
  * 1. Java hanya mendukung single inheritance.
- *    Jika class sudah extends Thread, maka tidak bisa extends class lain.
+ * Jika class sudah extends Thread, maka tidak bisa extends class lain.
  * 
  * 2. Runnable memisahkan tugas (task) dari mekanisme eksekusi (thread).
- *    Ini sesuai dengan prinsip separation of concerns.
+ * Ini sesuai dengan prinsip separation of concerns.
  * 
  * 3. Runnable lebih fleksibel karena bisa digunakan dengan:
- *    - Thread biasa
- *    - ExecutorService
- *    - Thread pool
+ * - Thread biasa
+ * - ExecutorService
+ * - Thread pool
  * 
  * 4. Pendekatan Runnable mendukung pola desain yang lebih baik
- *    untuk aplikasi skala besar.
+ * untuk aplikasi skala besar.
  * 
  * ------------------------------------------------------------------------
  * KAPAN MENGGUNAKAN EXTENDS THREAD?
@@ -74,42 +74,42 @@ package FundamentalJava.MultiThreaded;
  * CONTOH IMPLEMENTASI
  * ------------------------------------------------------------------------
  * 
- *     class NewThread extends Thread {
- *         
- *         NewThread() {
- *             super("Demo Thread");
- *             System.out.println("Child thread: " + this);
- *             start();
- *         }
- *         
- *         public void run() {
- *             try {
- *                 for (int i = 5; i > 0; i--) {
- *                     System.out.println("Child Thread: " + i);
- *                     Thread.sleep(500);
- *                 }
- *             } catch (InterruptedException e) {
- *                 System.out.println("Child interrupted.");
- *             }
- *             System.out.println("Exiting child thread.");
- *         }
- *     }
+ * class NewThread extends Thread {
  * 
- *     public class Main {
- *         public static void main(String[] args) {
- *             new NewThread();
- *             
- *             try {
- *                 for (int i = 5; i > 0; i--) {
- *                     System.out.println("Main Thread: " + i);
- *                     Thread.sleep(1000);
- *                 }
- *             } catch (InterruptedException e) {
- *                 System.out.println("Main thread interrupted.");
- *             }
- *             System.out.println("Main thread exiting.");
- *         }
- *     }
+ * NewThread() {
+ * super("Demo Thread");
+ * System.out.println("Child thread: " + this);
+ * start();
+ * }
+ * 
+ * public void run() {
+ * try {
+ * for (int i = 5; i > 0; i--) {
+ * System.out.println("Child Thread: " + i);
+ * Thread.sleep(500);
+ * }
+ * } catch (InterruptedException e) {
+ * System.out.println("Child interrupted.");
+ * }
+ * System.out.println("Exiting child thread.");
+ * }
+ * }
+ * 
+ * public class Main {
+ * public static void main(String[] args) {
+ * new NewThread();
+ * 
+ * try {
+ * for (int i = 5; i > 0; i--) {
+ * System.out.println("Main Thread: " + i);
+ * Thread.sleep(1000);
+ * }
+ * } catch (InterruptedException e) {
+ * System.out.println("Main thread interrupted.");
+ * }
+ * System.out.println("Main thread exiting.");
+ * }
+ * }
  * 
  * ------------------------------------------------------------------------
  * KESIMPULAN
