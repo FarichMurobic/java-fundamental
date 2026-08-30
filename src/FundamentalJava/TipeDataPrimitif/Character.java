@@ -3,9 +3,12 @@ package FundamentalJava.TipeDataPrimitif;
 /**
  * Characters (Karakter)
  * 
- * Tipe data char di Java adalah tipe 16-bit, berbeda dengan C/C++ yang 8-bit. Ini karena Java
- * menggunakan Unicode untuk merepresentasikan karakter, yang dapat mencakup semua karakter
- * dari bahasa manusia di seluruh dunia. Rentang nilai char adalah 0 hingga 65.536 dan tidak ada nilai negatif.
+ * Tipe data char di Java adalah tipe 16-bit, berbeda dengan C/C++ yang 8-bit.
+ * Ini karena Java
+ * menggunakan Unicode untuk merepresentasikan karakter, yang dapat mencakup
+ * semua karakter
+ * dari bahasa manusia di seluruh dunia. Rentang nilai char adalah 0 hingga
+ * 65.536 dan tidak ada nilai negatif..
  * Meskipun utamanya untuk karakter, char juga bisa digunakan dalam operasi
  * aritmatika, layaknya integer.
  */
@@ -16,11 +19,15 @@ public class Character {
         /**
          * Tipe Data char
          * 
-         * Tipe data char merepresentasikan karakter tunggal. Karakter tunggal bisa berupa huruf (a-z, A-Z),
-         * angka (0-9), dan karakter khusus (!, @, #, $, &, *, {, }, [, ], dan sebagainya). Secara khusus, tipe
-         * data char bisa digunakan untuk merepresentasikan karakter apa pun yang kamu lihat di keyboard.
+         * Tipe data char merepresentasikan karakter tunggal. Karakter tunggal bisa
+         * berupa huruf (a-z, A-Z),
+         * angka (0-9), dan karakter khusus (!, @, #, $, &, *, {, }, [, ], dan
+         * sebagainya). Secara khusus, tipe
+         * data char bisa digunakan untuk merepresentasikan karakter apa pun yang kamu
+         * lihat di keyboard.
          *
-         * Sebuah literal char direpresentasikan menggunakan sepasang kutip tunggal ('').
+         * Sebuah literal char direpresentasikan menggunakan sepasang kutip tunggal
+         * ('').
          * Java menggunakan set karakter Unicode yang berisi 65536 karakter.
          * Oleh karena itu, tipe data char membutuhkan 2 byte (atau 16 bit) memori.
          * Ke-65536 karakter ini direpresentasikan menggunakan nilai 0 hingga 65535.
@@ -50,7 +57,8 @@ public class Character {
          * -32
          *
          * Penjelasan:
-         * 'a' - 'A': Outputnya 32. Ini karena nilai ASCII/Unicode dari 'a' adalah 97, dan 'A' adalah 65. Jadi, 97−65=32.
+         * 'a' - 'A': Outputnya 32. Ini karena nilai ASCII/Unicode dari 'a' adalah 97,
+         * dan 'A' adalah 65. Jadi, 97−65=32.
          * 'A' - 'a': Outputnya -32. Ini karena 65−97=−32.
          */
 
@@ -73,8 +81,10 @@ public class Character {
 
         System.out.println("-------------------------------");
 
-        // Note: jika tanpa String untuk concatenation, Char akan dikonversi ke integer bukan String
-        // Jika Anda terbiasa dengan nilai ASCII, Anda dapat menggunakannya untuk menampilkan karakter tertentu:
+        // Note: jika tanpa String untuk concatenation, Char akan dikonversi ke integer
+        // bukan String
+        // Jika Anda terbiasa dengan nilai ASCII, Anda dapat menggunakannya untuk
+        // menampilkan karakter tertentu:
         char usingChar = 'M';
         System.out.println((int) usingChar); // 77
         System.out.println((int) 'O'); // 79
