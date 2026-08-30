@@ -6,7 +6,7 @@ package FundamentalJava.JumpStatements;
  *
  * continue adalah salah satu jump statement di Java yang
  * digunakan untuk melewati sisa kode pada iterasi saat ini
- * dan langsung melanjutkan ke iterasi berikutnya.
+ * dan langsung melanjutkan ke iterasi berikutnya..
  *
  * Berbeda dengan break yang menghentikan seluruh loop,
  * continue hanya menghentikan eksekusi pada satu putaran loop
