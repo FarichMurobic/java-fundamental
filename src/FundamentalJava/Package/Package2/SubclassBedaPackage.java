@@ -6,7 +6,7 @@ public class SubclassBedaPackage extends Protection {
 
     SubclassBedaPackage() {
 
-        // karena kelas turunan kita gak perlu buat objek
+        // karena kelas turunan kita gak perlu buat objek.
 
         // System.out.println(defaultVariabel); error
         // System.out.println(privateVariabel); error
@@ -31,7 +31,8 @@ public class SubclassBedaPackage extends Protection {
         // Namun jika kita membuat object Protection, protected tidak bisa diakses
         Protection protection = new Protection();
 
-        // System.out.println(protection.protectedVariabel); melalui referensi ini akan error
+        // System.out.println(protection.protectedVariabel); melalui referensi ini akan
+        // error
         System.out.println(protection.publicVariabel);
 
     }
