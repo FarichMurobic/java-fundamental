@@ -5,7 +5,7 @@ package FundamentalJava.Lambda;
  * ==========================================================
  *
  * Lambda Expression tidak hanya dapat digunakan untuk method
- * tanpa parameter.
+ * tanpa parameter..
  *
  * Lambda juga dapat menerima parameter sebagai input untuk
  * menjalankan sebuah logic tertentu.
@@ -498,26 +498,26 @@ public class LambdaWithParameters {
             System.out.println("-1 is negatif"); // false
 
         System.out.println();
-        
+
         // Mehtode dengan 2 parameters
 
         // Lambda cek faktor
         // lambda ini mengecek apakah dia adalah faktor dari n
         NumericTest isFactor = (n, d) -> (n % d) == 0;
 
-        System.out.println(isFactor.test(10,1)); // true
-        System.out.println(isFactor.test(10,2)); // true
-        System.out.println(isFactor.test(10,3)); // false
+        System.out.println(isFactor.test(10, 1)); // true
+        System.out.println(isFactor.test(10, 2)); // true
+        System.out.println(isFactor.test(10, 3)); // false
 
         // cek apakah 2 adalah faktor dari 10
-        if (isFactor.test(10,2))
+        if (isFactor.test(10, 2))
             System.out.println("2 is a factor of 10"); // true
 
         // cek apakah 3 adalah factor dari 10
         if (isFactor.test(10, 3))
             System.out.println("3 is a factor of 10"); // false
 
-        if (!isFactor.test(10,3))
+        if (!isFactor.test(10, 3))
             System.out.println("3 is a not factor of 10");
 
     }
