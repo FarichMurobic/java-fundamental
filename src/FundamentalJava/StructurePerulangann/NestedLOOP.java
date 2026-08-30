@@ -6,7 +6,7 @@ package FundamentalJava.StructurePerulangann;
  * ------------------------------------------------------------------------
  * 
  * Seperti bahasa pemrograman lainnya, Java mengizinkan loop di dalam loop.
- * Ini disebut nested loop.
+ * Ini disebut nested loop..
  * 
  * Artinya:
  * Satu loop berada di dalam loop lain.
@@ -22,12 +22,12 @@ package FundamentalJava.StructurePerulangann;
  * SEMUA LOOP BISA DI-NESTED DI JAVA
  * ------------------------------------------------------------------------
  * 
- * Loop         | Bisa Nested
+ * Loop | Bisa Nested
  * -------------|------------------------------------------
- * for          | YA
- * for-each     | YA
- * while        | YA
- * do-while     | YA
+ * for | YA
+ * for-each | YA
+ * while | YA
+ * do-while | YA
  * 
  * Yang membuat nested loop bukan jenis loop-nya,
  * tapi struktur logikanya:
@@ -45,15 +45,15 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Bentuk umum:
  * 
- *     for (int i = 0; i < 5; i++) {          // Loop LUAR
- *         // ...
+ * for (int i = 0; i < 5; i++) { // Loop LUAR
+ * // ...
  * 
- *         for (int j = 0; j < 3; j++) {      // Loop DALAM
- *             // ...
- *         }
+ * for (int j = 0; j < 3; j++) { // Loop DALAM
+ * // ...
+ * }
  * 
- *         // ...
- *     }
+ * // ...
+ * }
  * 
  * ------------------------------------------------------------------------
  * CARA KERJA NESTED LOOP
@@ -62,11 +62,11 @@ package FundamentalJava.StructurePerulangann;
  * Urutan eksekusi:
  * 
  * 1. Loop luar: i = 0
- * 2.     Loop dalam: j = 0, 1, 2 (sampai selesai)
+ * 2. Loop dalam: j = 0, 1, 2 (sampai selesai)
  * 3. Loop luar: i = 1
- * 4.     Loop dalam: j = 0, 1, 2 (sampai selesai)
+ * 4. Loop dalam: j = 0, 1, 2 (sampai selesai)
  * 5. Loop luar: i = 2
- * 6.     Loop dalam: j = 0, 1, 2 (sampai selesai)
+ * 6. Loop dalam: j = 0, 1, 2 (sampai selesai)
  * 7. Dan seterusnya...
  * 
  * Intinya:
@@ -77,61 +77,61 @@ package FundamentalJava.StructurePerulangann;
  * CONTOH SEDERHANA
  * ------------------------------------------------------------------------
  * 
- *     // Mencetak pola bintang persegi
- *     for (int i = 0; i < 5; i++) {        // Loop luar: baris
+ * // Mencetak pola bintang persegi
+ * for (int i = 0; i < 5; i++) { // Loop luar: baris
  * 
- *         for (int j = 0; j < 5; j++) {    // Loop dalam: kolom
- *             System.out.print("* ");
- *         }
+ * for (int j = 0; j < 5; j++) { // Loop dalam: kolom
+ * System.out.print("* ");
+ * }
  * 
- *         System.out.println();            // Pindah baris
- *     }
+ * System.out.println(); // Pindah baris
+ * }
  * 
- *     // Output:
- *     // * * * * *
- *     // * * * * *
- *     // * * * * *
- *     // * * * * *
- *     // * * * * *
+ * // Output:
+ * // * * * * *
+ * // * * * * *
+ * // * * * * *
+ * // * * * * *
+ * // * * * * *
  * 
  * ------------------------------------------------------------------------
  * CONTOH SEGITIGA BINTANG
  * ------------------------------------------------------------------------
  * 
- *     for (int i = 1; i <= 5; i++) {        // Loop luar: baris
+ * for (int i = 1; i <= 5; i++) { // Loop luar: baris
  * 
- *         for (int j = 1; j <= i; j++) {    // Loop dalam: kolom (sesuai baris)
- *             System.out.print("* ");
- *         }
+ * for (int j = 1; j <= i; j++) { // Loop dalam: kolom (sesuai baris)
+ * System.out.print("* ");
+ * }
  * 
- *         System.out.println();
- *     }
+ * System.out.println();
+ * }
  * 
- *     // Output:
- *     // *
- *     // * *
- *     // * * *
- *     // * * * *
- *     // * * * * *
+ * // Output:
+ * // *
+ * // * *
+ * // * * *
+ * // * * * *
+ * // * * * * *
  * 
  * ------------------------------------------------------------------------
  * CONTOH TABEL PERKALIAN
  * ------------------------------------------------------------------------
  * 
- *     for (int i = 1; i <= 10; i++) {        // Loop luar: baris
+ * for (int i = 1; i <= 10; i++) { // Loop luar: baris
  * 
- *         for (int j = 1; j <= 10; j++) {    // Loop dalam: kolom
- *             System.out.printf("%4d", i * j);
- *         }
+ * for (int j = 1; j <= 10; j++) { // Loop dalam: kolom
+ * System.out.printf("%4d", i * j);
+ * }
  * 
- *         System.out.println();
- *     }
+ * System.out.println();
+ * }
  * 
- *     // Output (sebagian):
- *     //    1   2   3   4   5   6   7   8   9  10
- *     //    2   4   6   8  10  12  14  16  18  20
- *     //    3   6   9  12  15  18  21  24  27  30
- *     // ...
+ * // Output (sebagian):
+ * // 1 2 3 4 5 6 7 8 9 10
+ * // 2 4 6 8 10 12 14 16 18 20
+ * // 3 6 9 12 15 18 21 24 27 30
+ * // ...
  * 
  * ------------------------------------------------------------------------
  * CONTOH DENGAN WHILE DAN DO-WHILE
@@ -139,28 +139,28 @@ package FundamentalJava.StructurePerulangann;
  * 
  * 1. for di dalam while
  * 
- *     int i = 0;
- *     while (i < 3) {
- *         System.out.println("Baris " + (i + 1));
+ * int i = 0;
+ * while (i < 3) {
+ * System.out.println("Baris " + (i + 1));
  * 
- *         for (int j = 0; j < 3; j++) {
- *             System.out.print("  Kolom " + (j + 1));
- *         }
+ * for (int j = 0; j < 3; j++) {
+ * System.out.print(" Kolom " + (j + 1));
+ * }
  * 
- *         System.out.println();
- *         i++;
- *     }
+ * System.out.println();
+ * i++;
+ * }
  * 
  * 2. do-while di dalam for
  * 
- *     for (int i = 0; i < 3; i++) {
- *         int j = 0;
- *         do {
- *             System.out.print(j + " ");
- *             j++;
- *         } while (j < 3);
- *         System.out.println();
- *     }
+ * for (int i = 0; i < 3; i++) {
+ * int j = 0;
+ * do {
+ * System.out.print(j + " ");
+ * j++;
+ * } while (j < 3);
+ * System.out.println();
+ * }
  * 
  * ------------------------------------------------------------------------
  * CONTOH KASUS NYATA
@@ -168,38 +168,38 @@ package FundamentalJava.StructurePerulangann;
  * 
  * 1. Matriks (2D Array)
  * 
- *     int[][] matrix = {
- *         {1, 2, 3},
- *         {4, 5, 6},
- *         {7, 8, 9}
- *     };
+ * int[][] matrix = {
+ * {1, 2, 3},
+ * {4, 5, 6},
+ * {7, 8, 9}
+ * };
  * 
- *     for (int i = 0; i < matrix.length; i++) {        // Baris
- *         for (int j = 0; j < matrix[i].length; j++) { // Kolom
- *             System.out.print(matrix[i][j] + " ");
- *         }
- *         System.out.println();
- *     }
+ * for (int i = 0; i < matrix.length; i++) { // Baris
+ * for (int j = 0; j < matrix[i].length; j++) { // Kolom
+ * System.out.print(matrix[i][j] + " ");
+ * }
+ * System.out.println();
+ * }
  * 
  * 2. Mencari Duplikat di Array
  * 
- *     int[] arr = {1, 2, 3, 2, 4, 5, 1};
+ * int[] arr = {1, 2, 3, 2, 4, 5, 1};
  * 
- *     for (int i = 0; i < arr.length; i++) {
- *         for (int j = i + 1; j < arr.length; j++) {
- *             if (arr[i] == arr[j]) {
- *                 System.out.println("Duplikat: " + arr[i]);
- *             }
- *         }
- *     }
+ * for (int i = 0; i < arr.length; i++) {
+ * for (int j = i + 1; j < arr.length; j++) {
+ * if (arr[i] == arr[j]) {
+ * System.out.println("Duplikat: " + arr[i]);
+ * }
+ * }
+ * }
  * 
  * ------------------------------------------------------------------------
  * ISTILAH PENTING
  * ------------------------------------------------------------------------
  * 
- * Outer Loop      = Loop yang berada di luar (loop utama)
- * Inner Loop      = Loop yang berada di dalam (loop bawahan)
- * Nested Loop     = Loop di dalam loop
+ * Outer Loop = Loop yang berada di luar (loop utama)
+ * Inner Loop = Loop yang berada di dalam (loop bawahan)
+ * Nested Loop = Loop di dalam loop
  * 
  * ------------------------------------------------------------------------
  * KOMPLEKSITAS WAKTU (TIME COMPLEXITY)
@@ -212,10 +212,10 @@ package FundamentalJava.StructurePerulangann;
  * maka total iterasi = n × m
  * 
  * Contoh:
- * for (i = 0; i < 100; i++) {     // 100 kali
- *     for (j = 0; j < 100; j++) { // 100 kali
- *         // total = 100 × 100 = 10.000 iterasi
- *     }
+ * for (i = 0; i < 100; i++) { // 100 kali
+ * for (j = 0; j < 100; j++) { // 100 kali
+ * // total = 100 × 100 = 10.000 iterasi
+ * }
  * }
  * 
  * Waspadai nested loop yang terlalu dalam,
@@ -283,17 +283,17 @@ public class NestedLOOP {
          * jumlah titik berkurang 1
          * Karena nilai awal j mengikuti i.
          *
-         * i	    j mulai	    jumlah titik
-         * 0	    0	        10
-         * 1	    1	        9
-         * 2	    2	        8
-         * 3	    3	        7
-         * 4	    4	        6
-         * 5	    5	        5
-         * 6	    6	        4
-         * 7	    7	        3
-         * 8	    8	        2
-         * 9	    9	        1
+         * i j mulai jumlah titik
+         * 0 0 10
+         * 1 1 9
+         * 2 2 8
+         * 3 3 7
+         * 4 4 6
+         * 5 5 5
+         * 6 6 4
+         * 7 7 3
+         * 8 8 2
+         * 9 9 1
          *
          * Kenapa Pakai println()
          * Baris ini:
@@ -317,14 +317,14 @@ public class NestedLOOP {
         System.out.println();
 
         while (i < 3) {
-             j = 0;
+            j = 0;
 
-             while (j < 5) {
-                 System.out.print("*");
-                 j++;
-             }
+            while (j < 5) {
+                System.out.print("*");
+                j++;
+            }
             System.out.println();
-             i++;
+            i++;
         }
 
         System.out.println(i); // nilai i menjadi 3
