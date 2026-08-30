@@ -5,7 +5,7 @@ package FundamentalJava.JumpStatements;
  * ==========================================================
  *
  * return adalah salah satu jump statement di Java yang digunakan
- * untuk keluar dari sebuah method secara langsung..
+ * untuk keluar dari sebuah method secara langsung...
  *
  * Ketika statement return dijalankan:
  *
@@ -244,12 +244,12 @@ package FundamentalJava.JumpStatements;
 
 public class Return {
     public static void main(String[] args) {
-        
+
         // Contoh program sederhana
         boolean t = true;
         System.out.println("Before the return.");
 
-        if(t)
+        if (t)
             return; // kembali ke pemanggil method
 
         System.out.println("This won't execute.");
