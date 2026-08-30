@@ -7,7 +7,7 @@ package FundamentalJava.Methods;
  *
  * Method return value adalah method yang menghasilkan sebuah nilai
  * dan mengirimkan nilai tersebut kembali kepada kode yang
- * memanggil method tersebut.
+ * memanggil method tersebut..
  *
  * Nilai yang dikembalikan dapat berupa:
  *
@@ -374,7 +374,6 @@ package FundamentalJava.Methods;
  *
  */
 
-
 public class MethodReturnValue {
 
     double width;
@@ -424,19 +423,19 @@ public class MethodReturnValue {
          * Program lama:
          * 
          * void volume() {
-         *     System.out.println(width * height * depth);
+         * System.out.println(width * height * depth);
          * }
          *
          * Program baru:
          * double volume() {
-         *     return width * height * depth;
+         * return width * height * depth;
          * }
          *
          * Perbedaannya:
-         * Program lama	        Program baru
-         * langsung print	    mengembalikan nilai
-         * void	                double
-         * tidak fleksibel	    lebih fleksibel
+         * Program lama Program baru
+         * langsung print mengembalikan nilai
+         * void double
+         * tidak fleksibel lebih fleksibel
          *
          * Kenapa lebih fleksibel?
          * Karena hasilnya bisa dipakai untuk banyak hal:
@@ -462,10 +461,10 @@ public class MethodReturnValue {
          * Contoh:
          *
          * Box
-         *  ├ width
-         *  ├ height
-         *  ├ depth
-         *  └ volume()
+         * ├ width
+         * ├ height
+         * ├ depth
+         * └ volume()
          *
          * Artinya:
          * Box tahu cara menghitung volumenya sendiri.
@@ -474,6 +473,6 @@ public class MethodReturnValue {
          * Encapsulation
          * data + behavior dalam satu class
          */
-    
+
     }
 }
