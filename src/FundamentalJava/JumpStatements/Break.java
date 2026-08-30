@@ -6,7 +6,7 @@ package FundamentalJava.JumpStatements;
  *
  * break adalah salah satu jump statement di Java yang digunakan
  * untuk menghentikan eksekusi suatu blok program secara langsung
- * dan memindahkan alur program ke statement berikutnya.
+ * dan memindahkan alur program ke statement berikutnya..
  *
  * Pada Java modern, statement break memiliki tiga kegunaan utama:
  *
