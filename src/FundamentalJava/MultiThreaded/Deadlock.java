@@ -7,7 +7,7 @@ package FundamentalJava.MultiThreaded;
  *
  * Deadlock adalah kondisi ketika dua atau lebih thread saling
  * menunggu resource yang sedang dikunci oleh thread lain,
- * sehingga semua thread tersebut tidak dapat melanjutkan eksekusi.
+ * sehingga semua thread tersebut tidak dapat melanjutkan eksekusi..
  *
  * Berbeda dengan exception:
  *
