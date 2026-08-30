@@ -12,7 +12,7 @@ package FundamentalJava.Methods.MethodReference.Latihan;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// Entity / Model (mirip di Spring Boot)
+// Entity / Model (mirip di Spring Boot).
 class User {
     private String nama;
     private boolean active;
@@ -39,10 +39,9 @@ public class UserProcesing {
         // data biasanya dari database
         List<User> users = List.of(
                 new User("andi", true),
-                new User("budi",false),
+                new User("budi", false),
                 new User("caca", true),
-                new User("dedi", false)
-        );
+                new User("dedi", false));
 
         // PROCESSING DATA (REAL STYLE)
         List<String> result = users.stream()
