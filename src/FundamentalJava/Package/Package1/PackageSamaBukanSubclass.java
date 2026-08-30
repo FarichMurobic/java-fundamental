@@ -6,7 +6,7 @@ public class PackageSamaBukanSubclass {
         Protection protection = new Protection();
 
         System.out.println(protection.defaultVariabel);
-        // System.out.println(protection.privateVariabel); // private error
+        // System.out.println(protection.privateVariabel); // private error.
         System.out.println(protection.protectedVariabel);
         System.out.println(protection.publicVariabel);
 
