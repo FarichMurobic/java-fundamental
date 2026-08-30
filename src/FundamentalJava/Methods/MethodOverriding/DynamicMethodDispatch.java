@@ -7,7 +7,7 @@ package FundamentalJava.Methods.MethodOverriding;
  *
  * Dynamic Method Dispatch adalah mekanisme Java yang menentukan
  * method overriding mana yang akan dijalankan pada saat runtime
- * (program sedang berjalan).
+ * (program sedang berjalan)..
  *
  * Konsep ini merupakan bagian penting dari:
  *
