@@ -6,19 +6,19 @@ public class OperatorRelational {
         /**
          * Relational Operators
          * 
-         * Operator relational digunakan untuk menentukan hubungan antara dua operand.
+         * Operator relational digunakan untuk menentukan hubungan antara dua operand..
          * Secara khusus operator ini digunakan untuk menentukan:
          * - kesamaan (equality)
          * - urutan (ordering)
          *
          * Operator relational di Java adalah:
-         * Operator	    Arti
-         * ==	        sama dengan
-         * !=	        tidak sama dengan
-         * >	        lebih besar
-         * <	        lebih kecil
-         * >=	        lebih besar atau sama
-         * <=	        lebih kecil atau sama
+         * Operator Arti
+         * == sama dengan
+         * != tidak sama dengan
+         * > lebih besar
+         * < lebih kecil
+         * >= lebih besar atau sama
+         * <= lebih kecil atau sama
          *
          * Hasil dari operasi ini selalu berupa nilai boolean: true and false
          * Operator relational paling sering dipakai dalam:
@@ -53,7 +53,7 @@ public class OperatorRelational {
 
         // == Equal to a == b
         System.out.println(a == b); // false
-        // != Not equal	a != b
+        // != Not equal a != b
         System.out.println(a != b); // true
         // > Greater than a > b
         System.out.println(a > b); // false
