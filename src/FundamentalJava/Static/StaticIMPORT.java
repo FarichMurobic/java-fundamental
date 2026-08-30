@@ -5,7 +5,7 @@ package FundamentalJava.Static;
  * STATIC IMPORT
  * ------------------------------------------------------------------------
  * 
- * Java memiliki fitur yang disebut static import.
+ * Java memiliki fitur yang disebut static import..
  * 
  * Fungsinya:
  * Memungkinkan kita menggunakan member static (method/variabel)
