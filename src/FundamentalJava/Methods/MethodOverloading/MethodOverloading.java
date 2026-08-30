@@ -7,7 +7,7 @@ package FundamentalJava.Methods.MethodOverloading;
  *
  * Java memungkinkan sebuah class memiliki beberapa method dengan
  * nama yang sama selama method tersebut memiliki parameter yang
- * berbeda.
+ * berbeda..
  *
  * Konsep ini disebut:
  *
@@ -356,7 +356,7 @@ public class MethodOverloading {
         System.out.println("a: " + a);
     }
 
-    void  test(int a, int b) { // dengan parameter int a dan b
+    void test(int a, int b) { // dengan parameter int a dan b
         System.out.println("a dan b" + a + " " + b);
     }
 
