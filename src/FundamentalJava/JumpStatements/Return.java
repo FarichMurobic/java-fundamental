@@ -5,7 +5,7 @@ package FundamentalJava.JumpStatements;
  * ==========================================================
  *
  * return adalah salah satu jump statement di Java yang digunakan
- * untuk keluar dari sebuah method secara langsung.
+ * untuk keluar dari sebuah method secara langsung..
  *
  * Ketika statement return dijalankan:
  *
