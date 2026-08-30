@@ -13,7 +13,7 @@ package FundamentalJava.MultiThreaded;
  *
  *
  * Keduanya digunakan untuk membuat dan menjalankan pekerjaan
- * secara concurrent.
+ * secara concurrent..
  *
  * ------------------------------------------------------------
  * Apa Itu Thread?
@@ -424,7 +424,7 @@ class Worker extends Thread {
         }
     }
 }
- 
+
 public class MultiThreaded {
     public static void main(String[] args) throws InterruptedException {
 
@@ -512,7 +512,7 @@ public class MultiThreaded {
         }
 
         /**
-         * PENJELASAN 
+         * PENJELASAN
          * 
          * Thread.currentThread()
          * Thread t = Thread.currentThread();
@@ -619,5 +619,3 @@ public class MultiThreaded {
          */
     }
 }
-
-
