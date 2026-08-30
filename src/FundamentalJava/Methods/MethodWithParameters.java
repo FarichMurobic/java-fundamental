@@ -7,7 +7,7 @@ package FundamentalJava.Methods;
  *
  * Parameter adalah variabel yang didefinisikan di dalam deklarasi
  * sebuah method dan digunakan untuk menerima data dari pemanggil
- * method.
+ * method..
  *
  * Parameter membuat sebuah method menjadi lebih fleksibel karena
  * method tidak hanya bekerja dengan satu nilai tetap, tetapi dapat
