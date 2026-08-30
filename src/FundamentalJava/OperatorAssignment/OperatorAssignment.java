@@ -4,7 +4,7 @@ public class OperatorAssignment {
     public static void main(String[] args) {
 
         /**
-         * Assignment operator adalah operator untuk memberikan nilai ke variabel.
+         * Assignment operator adalah operator untuk memberikan nilai ke variabel..
          * 
          * Operatornya adalah:
          * =
@@ -30,7 +30,6 @@ public class OperatorAssignment {
          * >>= bitwise
          * >>>= bitwise
          */
-
 
         // Contoh Program Assignment Operator
         int a;
@@ -73,7 +72,6 @@ public class OperatorAssignment {
         System.out.println("width = " + width);
         System.out.println("height = " + height);
         System.out.println("depth = " + depth);
-
 
     }
 }
