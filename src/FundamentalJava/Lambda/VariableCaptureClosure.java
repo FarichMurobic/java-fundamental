@@ -5,7 +5,7 @@ package FundamentalJava.Lambda;
  * ==========================================================
  *
  * Lambda Expression dapat mengakses variable yang berada di
- * luar dirinya (enclosing scope).
+ * luar dirinya (enclosing scope)..
  *
  * Konsep ini disebut:
  *
@@ -358,6 +358,7 @@ interface Nomor {
     // methode menerima int
     int nomor(int n);
 }
+
 public class VariableCaptureClosure {
     public static void main(String[] args) {
 
@@ -420,8 +421,8 @@ public class VariableCaptureClosure {
          * int num = 10;
          *
          * (n) -> {
-         *     num++; // ERROR
-         *     return num + n;
+         * num++; // ERROR
+         * return num + n;
          * };
          *
          * 5. Ini juga ERROR
