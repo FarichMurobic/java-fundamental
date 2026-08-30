@@ -12,7 +12,7 @@ package FundamentalJava.MultiThreaded;
  *
  *
  * Tetapi Java sebenarnya memungkinkan sebuah program membuat
- * banyak thread secara bersamaan.
+ * banyak thread secara bersamaan..
  *
  *
  * Contoh:
