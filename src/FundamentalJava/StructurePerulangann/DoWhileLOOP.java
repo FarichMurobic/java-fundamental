@@ -6,7 +6,7 @@ package FundamentalJava.StructurePerulangann;
  * ------------------------------------------------------------------------
  * 
  * Seperti yang sudah kita lihat pada while,
- * jika kondisi awalnya false, maka isi loop TIDAK dijalankan sama sekali.
+ * jika kondisi awalnya false, maka isi loop TIDAK dijalankan sama sekali..
  * 
  * Namun kadang kita ingin loop tetap dijalankan MINIMAL SEKALI,
  * walaupun kondisi awalnya false.
@@ -20,68 +20,68 @@ package FundamentalJava.StructurePerulangann;
  * BENTUK UMUM
  * ------------------------------------------------------------------------
  * 
- *     do {
- *         // isi loop (dijalankan minimal sekali)
- *     } while (kondisi);
+ * do {
+ * // isi loop (dijalankan minimal sekali)
+ * } while (kondisi);
  * 
  * Urutan eksekusi:
  * 
- *     1. Jalankan isi loop dulu
- *     2. Cek kondisi
- *     3. Jika kondisi true → ulangi loop (kembali ke langkah 1)
- *     4. Jika kondisi false → berhenti
+ * 1. Jalankan isi loop dulu
+ * 2. Cek kondisi
+ * 3. Jika kondisi true → ulangi loop (kembali ke langkah 1)
+ * 4. Jika kondisi false → berhenti
  * 
  * ------------------------------------------------------------------------
  * PERBEDAAN WHILE vs DO-WHILE
  * ------------------------------------------------------------------------
  * 
- * while         | do-while
+ * while | do-while
  * --------------|-----------------------------------------------------------
- * Cek kondisi   | Cek kondisi
- * di AWAL       | di AKHIR
- *               |
- * if (kondisi)  | do {
- *     // kode   |     // kode
- * }             | } while (kondisi);
- *               |
- * Bisa 0 kali   | Minimal 1 kali
- * dieksekusi    | dieksekusi
+ * Cek kondisi | Cek kondisi
+ * di AWAL | di AKHIR
+ * |
+ * if (kondisi) | do {
+ * // kode | // kode
+ * } | } while (kondisi);
+ * |
+ * Bisa 0 kali | Minimal 1 kali
+ * dieksekusi | dieksekusi
  * 
  * ------------------------------------------------------------------------
  * CONTOH SEDERHANA
  * ------------------------------------------------------------------------
  * 
- *     // while - jika kondisi false, tidak dijalankan
- *     int x = 10;
- *     while (x < 5) {
- *         System.out.println("While: " + x); // TIDAK dijalankan
- *     }
+ * // while - jika kondisi false, tidak dijalankan
+ * int x = 10;
+ * while (x < 5) {
+ * System.out.println("While: " + x); // TIDAK dijalankan
+ * }
  * 
- *     // do-while - tetap dijalankan minimal sekali
- *     int y = 10;
- *     do {
- *         System.out.println("Do-while: " + y); // DIJALANKAN sekali
- *     } while (y < 5);
+ * // do-while - tetap dijalankan minimal sekali
+ * int y = 10;
+ * do {
+ * System.out.println("Do-while: " + y); // DIJALANKAN sekali
+ * } while (y < 5);
  * 
- *     // Output: Do-while: 10
+ * // Output: Do-while: 10
  * 
  * ------------------------------------------------------------------------
  * CONTOH DO-WHILE YANG BERULANG
  * ------------------------------------------------------------------------
  * 
- *     int i = 1;
+ * int i = 1;
  * 
- *     do {
- *         System.out.println("Perulangan ke-" + i);
- *         i++;
- *     } while (i <= 5);
+ * do {
+ * System.out.println("Perulangan ke-" + i);
+ * i++;
+ * } while (i <= 5);
  * 
- *     // Output:
- *     // Perulangan ke-1
- *     // Perulangan ke-2
- *     // Perulangan ke-3
- *     // Perulangan ke-4
- *     // Perulangan ke-5
+ * // Output:
+ * // Perulangan ke-1
+ * // Perulangan ke-2
+ * // Perulangan ke-3
+ * // Perulangan ke-4
+ * // Perulangan ke-5
  * 
  * ------------------------------------------------------------------------
  * CONTOH KASUS NYATA
@@ -89,66 +89,66 @@ package FundamentalJava.StructurePerulangann;
  * 
  * 1. Menu Program (harus tampil minimal sekali)
  * 
- *     int pilihan;
+ * int pilihan;
  * 
- *     do {
- *         System.out.println("=== MENU ===");
- *         System.out.println("1. Lihat Data");
- *         System.out.println("2. Tambah Data");
- *         System.out.println("3. Keluar");
- *         System.out.print("Pilih: ");
+ * do {
+ * System.out.println("=== MENU ===");
+ * System.out.println("1. Lihat Data");
+ * System.out.println("2. Tambah Data");
+ * System.out.println("3. Keluar");
+ * System.out.print("Pilih: ");
  * 
- *         pilihan = scanner.nextInt();
+ * pilihan = scanner.nextInt();
  * 
- *         switch (pilihan) {
- *             case 1 -> System.out.println("Menampilkan data...");
- *             case 2 -> System.out.println("Menambah data...");
- *             case 3 -> System.out.println("Keluar...");
- *             default -> System.out.println("Pilihan tidak valid!");
- *         }
+ * switch (pilihan) {
+ * case 1 -> System.out.println("Menampilkan data...");
+ * case 2 -> System.out.println("Menambah data...");
+ * case 3 -> System.out.println("Keluar...");
+ * default -> System.out.println("Pilihan tidak valid!");
+ * }
  * 
- *     } while (pilihan != 3);
+ * } while (pilihan != 3);
  * 
  * 2. Validasi Input (pastikan user input yang benar)
  * 
- *     int umur;
+ * int umur;
  * 
- *     do {
- *         System.out.print("Masukkan umur (17-60): ");
- *         umur = scanner.nextInt();
+ * do {
+ * System.out.print("Masukkan umur (17-60): ");
+ * umur = scanner.nextInt();
  * 
- *         if (umur < 17 || umur > 60) {
- *             System.out.println("Umur tidak valid! Ulangi.");
- *         }
+ * if (umur < 17 || umur > 60) {
+ * System.out.println("Umur tidak valid! Ulangi.");
+ * }
  * 
- *     } while (umur < 17 || umur > 60);
+ * } while (umur < 17 || umur > 60);
  * 
- *     System.out.println("Umur valid: " + umur);
+ * System.out.println("Umur valid: " + umur);
  * 
  * 3. Login Attempt (percobaan login)
  * 
- *     int percobaan = 0;
- *     boolean loginSukses = false;
+ * int percobaan = 0;
+ * boolean loginSukses = false;
  * 
- *     do {
- *         percobaan++;
- *         System.out.print("Username: ");
- *         String user = scanner.nextLine();
- *         System.out.print("Password: ");
- *         String pass = scanner.nextLine();
+ * do {
+ * percobaan++;
+ * System.out.print("Username: ");
+ * String user = scanner.nextLine();
+ * System.out.print("Password: ");
+ * String pass = scanner.nextLine();
  * 
- *         if (user.equals("admin") && pass.equals("12345")) {
- *             loginSukses = true;
- *             System.out.println("Login berhasil!");
- *         } else {
- *             System.out.println("Login gagal! Percobaan ke-" + percobaan);
- *         }
+ * if (user.equals("admin") && pass.equals("12345")) {
+ * loginSukses = true;
+ * System.out.println("Login berhasil!");
+ * } else {
+ * System.out.println("Login gagal! Percobaan ke-" + percobaan);
+ * }
  * 
- *     } while (!loginSukses && percobaan < 3);
+ * } while (!loginSukses && percobaan < 3);
  * 
- *     if (!loginSukses) {
- *         System.out.println("Terlalu banyak percobaan. Akun terkunci.");
- *     }
+ * if (!loginSukses) {
+ * System.out.println("Terlalu banyak percobaan. Akun terkunci.");
+ * }
  * 
  * ------------------------------------------------------------------------
  * ATURAN DASAR TRACING LOOP
@@ -162,11 +162,11 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Contoh:
  * 
- *     int i = 1;      // Nilai awal
- *     do {
- *         System.out.println(i);
- *         i++;        // Perubahan
- *     } while (i <= 5); // Kondisi berhenti
+ * int i = 1; // Nilai awal
+ * do {
+ * System.out.println(i);
+ * i++; // Perubahan
+ * } while (i <= 5); // Kondisi berhenti
  * 
  * ------------------------------------------------------------------------
  * JANGAN LUPA ; DI AKHIR!
@@ -174,15 +174,15 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Berbeda dari while, do-while WAJIB diakhiri dengan titik koma.
  * 
- *     // BENAR
- *     do {
- *         // ...
- *     } while (kondisi);   // <- WAJIB ada ;
+ * // BENAR
+ * do {
+ * // ...
+ * } while (kondisi); // <- WAJIB ada ;
  * 
- *     // SALAH (compile error)
- *     do {
- *         // ...
- *     } while (kondisi)    // <- ERROR! Tidak ada ;
+ * // SALAH (compile error)
+ * do {
+ * // ...
+ * } while (kondisi) // <- ERROR! Tidak ada ;
  * 
  * ------------------------------------------------------------------------
  * KAPAN MENGGUNAKAN DO-WHILE?
@@ -247,7 +247,7 @@ public class DoWhileLOOP {
         } while (x < 50);
 
         /**
-         * Walaupun kondisi salah 
+         * Walaupun kondisi salah
          * x < 50 = false karena x 100
          * namun statement tetep dicetak sekali.
          * berbeda dengan while, yang tidak akan di cetak sama sekali
@@ -269,7 +269,7 @@ public class DoWhileLOOP {
 
         System.out.println("\n");
 
-        switch(choice) {
+        switch (choice) {
             case '1':
                 System.out.println("The if:\n");
                 System.out.println("if(condition) statement;");
@@ -310,8 +310,8 @@ public class DoWhileLOOP {
          *
          * Loop ini:
          * do{
-         *    tampilkan menu
-         *    baca input
+         * tampilkan menu
+         * baca input
          * } while(choice < '1' || choice > '5');
          *
          * Artinya:
