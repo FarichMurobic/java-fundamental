@@ -14,7 +14,7 @@ package FundamentalJava.MultiThreaded;
  * "Bagaimana membuat thread saling menunggu dan memberi tahu?"
  *
  *
- * synchronized menyelesaikan masalah akses bersamaan.
+ * synchronized menyelesaikan masalah akses bersamaan..
  *
  * Tetapi synchronized saja belum cukup untuk mengatur urutan
  * kerja antar thread.
@@ -579,7 +579,7 @@ class Consumer implements Runnable {
      * Producer = yang MASAK (buat data)
      * Consumer = yang MAKAN (ambil data)
      *
-     * Dan Q itu kayak piring cuma 1 
+     * Dan Q itu kayak piring cuma 1
      *
      * Gambaran Besar Dulu (WAJIB PAHAM)
      * Di Q ada 2 hal penting:
@@ -589,8 +589,8 @@ class Consumer implements Runnable {
      * Artinya:
      * n → isi data
      * valueSet:
-     * false → piring kosong 
-     * true → ada makanan 
+     * false → piring kosong
+     * true → ada makanan
      *
      * ------------------------------------
      * 
@@ -734,9 +734,9 @@ class Consumer implements Runnable {
      * SEKARANG YANG PALING PENTING (INTUISI)
      * valueSet itu “lampu traffic”
      *
-     * Kondisi	Arti
-     * false	Producer boleh jalan
-     * true	Consumer boleh jalan
+     * Kondisi Arti
+     * false Producer boleh jalan
+     * true Consumer boleh jalan
      *
      * wait() itu:
      * tidur
@@ -771,7 +771,7 @@ class Consumer implements Runnable {
      *
      * Tanpa wait():
      *
-     * Producer spam data 
+     * Producer spam data
      * Consumer baca data lama berkali-kali
      *
      * Kenapa ini keren?
