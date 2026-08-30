@@ -5,7 +5,7 @@ package FundamentalJava.StructurePercabangan;
  * NESTED IF (IF BERSARANG)
  * ------------------------------------------------------------------------
  * 
- * Nested if artinya if di dalam if.
+ * Nested if artinya if di dalam if..
  * 
  * Dalam Java, kita boleh menaruh sebuah if di dalam blok if lain.
  * 
@@ -243,7 +243,8 @@ public class NestedIFELSE {
                 double taxOnExcess = (totalIncome - BRACKET_2) * TAX_RATE_2; // Pajak untuk kelebihan.
                 incomeTax = taxOnBracket2 + taxOnExcess;
             } else {
-                // Ini adalah branch bersarang: penghasilan di atas $25,000 tapi dibawah $100,000
+                // Ini adalah branch bersarang: penghasilan di atas $25,000 tapi dibawah
+                // $100,000
                 System.out.println("\nPenghasilan Anda di antara $" + BRACKET_1 + " dan $" + BRACKET_2);
                 incomeTax = (totalIncome - BRACKET_1) * TAX_RATE_1;
             }
