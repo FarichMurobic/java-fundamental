@@ -7,7 +7,7 @@ package FundamentalJava.Methods.MethodReference;
  *
  * Ketika kita ingin mencari nilai terbesar atau melakukan sorting
  * pada collection yang berisi object, Java membutuhkan aturan
- * bagaimana object tersebut dibandingkan.
+ * bagaimana object tersebut dibandingkan..
  *
  * Untuk tujuan tersebut Java menyediakan interface:
  *
@@ -320,6 +320,7 @@ import java.util.*;
 // Class data (model)
 class MyClass {
     private int val;
+
     public MyClass(int v) {
         this.val = v;
     }
