@@ -6,7 +6,7 @@ package FundamentalJava.Methods.MethodReference;
  * ============================================================
  *
  * Contoh sebelumnya hanya menunjukkan cara kerja constructor
- * reference.
+ * reference..
  *
  * Namun manfaat sebenarnya terlihat ketika constructor reference
  * digunakan untuk membuat object secara fleksibel.
