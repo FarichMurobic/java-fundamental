@@ -3,30 +3,35 @@ package FundamentalJava.OperatorAritmatika;
 /**
  * Operator aritmatika digunakan untuk melakukan operasi matematika umum.
  * Operator ini tidak bisa digunakan pada boolean.
- * Namun boleh digunakan pada char, karena char sebenarnya angka Unicode.
+ * Namun boleh digunakan pada char, karena char sebenarnya angka Unicode..
  *
  * Semua lima operasi (+, -, *, /, %) dapat digunakan pada:
  * Dua bilangan bulat (integer)
  * Dua bilangan floating point
  *
- * Operator modulus jarang digunakan bersama dengan operand floating point dan karena itu dihilangkan
- * !Ini adalah poin yang sangat penting: aritmatika floating point tidak selalu tepat (exact).
+ * Operator modulus jarang digunakan bersama dengan operand floating point dan
+ * karena itu dihilangkan
+ * !Ini adalah poin yang sangat penting: aritmatika floating point tidak selalu
+ * tepat (exact).
  *
  * Aturan Prioritas Operator (Operator Precedence Rules)
  *
  * Operator Unary (+, -): Memiliki prioritas tertinggi.
  * Dievaluasi dari kanan ke kiri (right to left). (Ini disebut asivitas.)
  *
- * Operator Binary (*, /, %): Memiliki prioritas yang lebih rendah dari operator unary,
+ * Operator Binary (*, /, %): Memiliki prioritas yang lebih rendah dari operator
+ * unary,
  * tetapi lebih tinggi dari operator binary + dan -.
  * Memiliki prioritas yang sama di antara mereka.
  * Dievaluasi dari kiri ke kanan (left to right).
  *
- * Operator Binary (+, -): Memiliki prioritas terendah di antara operator aritmatika.
+ * Operator Binary (+, -): Memiliki prioritas terendah di antara operator
+ * aritmatika.
  * Memiliki prioritas yang sama di antara mereka.
  * Dievaluasi dari kiri ke kanan (left to right).
  *
- * Dalam sebuah ekspresi aritmatika, tanda kurung (()) dapat digunakan untuk memodifikasi urutan eksekusi.
+ * Dalam sebuah ekspresi aritmatika, tanda kurung (()) dapat digunakan untuk
+ * memodifikasi urutan eksekusi.
  * Tanda kurung juga bisa digunakan untuk keterbacaan yang lebih baik,
  * bahkan jika tidak mengubah urutan eksekusi berdasarkan aturan prioritas.
  */
@@ -36,24 +41,25 @@ public class AritmaticOperator {
 
         /**
          * Arithmetic Operators
-         * Arithmetic operators are used in mathematical expressions in the same way that they are
+         * Arithmetic operators are used in mathematical expressions in the same way
+         * that they are
          * used in algebra. The following table lists the arithmetic operators:
          */
 
         /**
-         * Operator     -   Result
-         * +                Addition (also unary plus)
-         * –                Subtraction (also unary minus)
-         * *                Multiplication
-         * /                Division
-         * %                Modulus
-         * ++               Increment
-         * +=               Addition assignment
-         * –=               Subtraction assignment
-         * *=               Multiplication assignment
-         * /=               Division assignment
-         * %=               Modulus assignment
-         * ––               Decrement
+         * Operator - Result
+         * + Addition (also unary plus)
+         * – Subtraction (also unary minus)
+         * * Multiplication
+         * / Division
+         * % Modulus
+         * ++ Increment
+         * += Addition assignment
+         * –= Subtraction assignment
+         * *= Multiplication assignment
+         * /= Division assignment
+         * %= Modulus assignment
+         * –– Decrement
          */
 
         // Operasi Aritmatika Basic (Bilangan bulat)
@@ -98,7 +104,8 @@ public class AritmaticOperator {
         // Hal menarik compound assignment
         byte compoundAssignment = 10;
         // compoundAssignment = compoundAssignment + 10; ini akan error
-        compoundAssignment += 10; // ini gak akan error, karena compound assignment akan otomatis menjadikan byte ke int
+        compoundAssignment += 10; // ini gak akan error, karena compound assignment akan otomatis menjadikan byte
+                                  // ke int
 
         /**
          * Unary artinya operator dengan 1 operand.
