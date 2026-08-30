@@ -1,7 +1,7 @@
 package FundamentalJava.Rekursion.Latihan;
 
 public class FaktorialSederhana {
-    // methode rekursif
+    // methode rekursif.
     static int factorial(int n) {
         // base case
         if (n == 0)
@@ -39,10 +39,10 @@ public class FaktorialSederhana {
          * Bayangin seperti tumpukan piring
          *
          * main()
-         *   └ factorial(3)
-         *       └ factorial(2)
-         *           └ factorial(1)
-         *               └ factorial(0)
+         * └ factorial(3)
+         * └ factorial(2)
+         * └ factorial(1)
+         * └ factorial(0)
          *
          * Setelah base case:
          * factorial(0) selesai
