@@ -1,11 +1,13 @@
 package FundamentalJava.Scanner.Latihan;
 
+// LATIHAN
+
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class MaxTest {
     public static void main(String[] args) {
-        
+
         Scanner in = new Scanner(System.in);
 
         System.out.println("Enter 2 ints: ");
