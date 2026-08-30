@@ -6,7 +6,7 @@ package FundamentalJava.StructurePercabangan;
  * ------------------------------------------------------------------------
  * 
  * Switch expression mulai diperkenalkan di Java 12 (sebagai preview)
- * dan resmi stabil di Java 14.
+ * dan resmi stabil di Java 14..
  * 
  * Syntax ini dibuat supaya:
  * - Kode lebih pendek dan bersih
@@ -20,26 +20,26 @@ package FundamentalJava.StructurePercabangan;
  * 
  * Java modern memperkenalkan arrow -> syntax.
  * 
- *     int day = 3;
+ * int day = 3;
  * 
- *     switch (day) {
- *         case 1 -> System.out.println("Monday");
- *         case 2 -> System.out.println("Tuesday");
- *         case 3 -> System.out.println("Wednesday");
- *         case 4 -> System.out.println("Thursday");
- *         case 5 -> System.out.println("Friday");
- *         case 6 -> System.out.println("Saturday");
- *         case 7 -> System.out.println("Sunday");
- *         default -> System.out.println("Unknown");
- *     }
+ * switch (day) {
+ * case 1 -> System.out.println("Monday");
+ * case 2 -> System.out.println("Tuesday");
+ * case 3 -> System.out.println("Wednesday");
+ * case 4 -> System.out.println("Thursday");
+ * case 5 -> System.out.println("Friday");
+ * case 6 -> System.out.println("Saturday");
+ * case 7 -> System.out.println("Sunday");
+ * default -> System.out.println("Unknown");
+ * }
  * 
  * Perubahan penting:
  * 
- * Switch Lama         | Switch Modern
+ * Switch Lama | Switch Modern
  * --------------------|------------------------------------------
- * Menggunakan :       | Menggunakan ->
- * Wajib break         | Tidak perlu break
- * Bisa fall-through   | Tidak bisa fall-through
+ * Menggunakan : | Menggunakan ->
+ * Wajib break | Tidak perlu break
+ * Bisa fall-through | Tidak bisa fall-through
  * 
  * Karena setiap case langsung selesai (tidak jatuh ke case berikutnya).
  * 
@@ -49,15 +49,15 @@ package FundamentalJava.StructurePercabangan;
  * 
  * Sekarang kita bisa menggabungkan beberapa case dalam satu baris.
  * 
- *     int day = 6;
+ * int day = 6;
  * 
- *     switch (day) {
- *         case 1, 2, 3, 4, 5 -> System.out.println("Weekday");
- *         case 6, 7 -> System.out.println("Weekend");
- *         default -> System.out.println("Invalid day");
- *     }
+ * switch (day) {
+ * case 1, 2, 3, 4, 5 -> System.out.println("Weekday");
+ * case 6, 7 -> System.out.println("Weekend");
+ * default -> System.out.println("Invalid day");
+ * }
  * 
- *     // Output: Weekend
+ * // Output: Weekend
  * 
  * ------------------------------------------------------------------------
  * SWITCH SEBAGAI EXPRESSION (MENGHASILKAN NILAI)
@@ -66,20 +66,20 @@ package FundamentalJava.StructurePercabangan;
  * Inilah fitur paling powerful dari switch modern.
  * Switch bisa LANGSUNG menghasilkan nilai.
  * 
- *     int day = 3;
+ * int day = 3;
  * 
- *     String name = switch (day) {
- *         case 1 -> "Monday";
- *         case 2 -> "Tuesday";
- *         case 3 -> "Wednesday";
- *         case 4 -> "Thursday";
- *         case 5 -> "Friday";
- *         case 6 -> "Saturday";
- *         case 7 -> "Sunday";
- *         default -> "Unknown";
- *     };
+ * String name = switch (day) {
+ * case 1 -> "Monday";
+ * case 2 -> "Tuesday";
+ * case 3 -> "Wednesday";
+ * case 4 -> "Thursday";
+ * case 5 -> "Friday";
+ * case 6 -> "Saturday";
+ * case 7 -> "Sunday";
+ * default -> "Unknown";
+ * };
  * 
- *     System.out.println(name); // Output: Wednesday
+ * System.out.println(name); // Output: Wednesday
  * 
  * Perhatikan:
  * String name = switch(...)
@@ -90,15 +90,15 @@ package FundamentalJava.StructurePercabangan;
  * SWITCH EXPRESSION DENGAN MULTIPLE CASE
  * ------------------------------------------------------------------------
  * 
- *     int day = 6;
+ * int day = 6;
  * 
- *     String tipeHari = switch (day) {
- *         case 1, 2, 3, 4, 5 -> "Hari Kerja";
- *         case 6, 7 -> "Akhir Pekan";
- *         default -> "Tidak Valid";
- *     };
+ * String tipeHari = switch (day) {
+ * case 1, 2, 3, 4, 5 -> "Hari Kerja";
+ * case 6, 7 -> "Akhir Pekan";
+ * default -> "Tidak Valid";
+ * };
  * 
- *     System.out.println(tipeHari); // Output: Akhir Pekan
+ * System.out.println(tipeHari); // Output: Akhir Pekan
  * 
  * ------------------------------------------------------------------------
  * MULTI STATEMENT CASE (BLOCK CASE)
@@ -106,33 +106,33 @@ package FundamentalJava.StructurePercabangan;
  * 
  * Jika dalam case ada BANYAK statement, kita pakai block { }.
  * 
- *     int day = 2;
+ * int day = 2;
  * 
- *     String result = switch (day) {
+ * String result = switch (day) {
  * 
- *         case 1 -> {
- *             System.out.println("Processing Monday...");
- *             yield "Monday";
- *         }
+ * case 1 -> {
+ * System.out.println("Processing Monday...");
+ * yield "Monday";
+ * }
  * 
- *         case 2 -> {
- *             System.out.println("Processing Tuesday...");
- *             yield "Tuesday";
- *         }
+ * case 2 -> {
+ * System.out.println("Processing Tuesday...");
+ * yield "Tuesday";
+ * }
  * 
- *         case 3 -> {
- *             System.out.println("Processing Wednesday...");
- *             yield "Wednesday";
- *         }
+ * case 3 -> {
+ * System.out.println("Processing Wednesday...");
+ * yield "Wednesday";
+ * }
  * 
- *         default -> "Unknown";
- *     };
+ * default -> "Unknown";
+ * };
  * 
- *     System.out.println(result);
+ * System.out.println(result);
  * 
- *     // Output:
- *     // Processing Tuesday...
- *     // Tuesday
+ * // Output:
+ * // Processing Tuesday...
+ * // Tuesday
  * 
  * ------------------------------------------------------------------------
  * KEYWORD YIELD
@@ -144,15 +144,15 @@ package FundamentalJava.StructurePercabangan;
  * Fungsi yield:
  * Mengembalikan nilai dari switch expression.
  * 
- *     yield "Monday"
+ * yield "Monday"
  * 
  * Artinya:
  * Nilai switch = "Monday"
  * 
  * Kenapa Tidak Pakai return?
  * 
- *     return value → keluar dari METHOD (seluruh method)
- *     yield value  → keluar dari SWITCH EXPRESSION (hanya switch)
+ * return value → keluar dari METHOD (seluruh method)
+ * yield value → keluar dari SWITCH EXPRESSION (hanya switch)
  * 
  * Jadi fungsi mereka BERBEDA!
  * 
@@ -160,14 +160,14 @@ package FundamentalJava.StructurePercabangan;
  * PERBANDINGAN SWITCH LAMA VS BARU
  * ------------------------------------------------------------------------
  * 
- * Fitur              | Switch Lama           | Switch Baru
+ * Fitur | Switch Lama | Switch Baru
  * -------------------|-----------------------|-------------------------------
- * Syntax             | :                     | ->
- * break              | WAJIB                 | TIDAK perlu
- * fall-through       | BISA                  | TIDAK bisa
- * Return value       | TIDAK bisa            | BISA (switch expression)
- * Multiple case      | SULIT                 | MUDAH (case 1,2,3)
- * Block case         | Bisa tapi berantakan  | Rapi dengan {}
+ * Syntax | : | ->
+ * break | WAJIB | TIDAK perlu
+ * fall-through | BISA | TIDAK bisa
+ * Return value | TIDAK bisa | BISA (switch expression)
+ * Multiple case | SULIT | MUDAH (case 1,2,3)
+ * Block case | Bisa tapi berantakan | Rapi dengan {}
  * 
  * ------------------------------------------------------------------------
  * SWITCH SEBAGAI STATEMENT vs EXPRESSION
@@ -175,57 +175,57 @@ package FundamentalJava.StructurePercabangan;
  * 
  * 1. Switch sebagai Statement (tidak perlu ;)
  * 
- *    switch (day) {
- *        case 1 -> System.out.println("Monday");
- *        default -> System.out.println("Unknown");
- *    }
- *    // Tidak ada ; di akhir (ini statement)
+ * switch (day) {
+ * case 1 -> System.out.println("Monday");
+ * default -> System.out.println("Unknown");
+ * }
+ * // Tidak ada ; di akhir (ini statement)
  * 
- *    Switch hanya dipakai untuk menjalankan aksi,
- *    tidak menghasilkan nilai.
+ * Switch hanya dipakai untuk menjalankan aksi,
+ * tidak menghasilkan nilai.
  * 
  * 2. Switch sebagai Expression (harus ada ;)
  * 
- *    String name = switch (day) {
- *        case 1 -> "Monday";
- *        default -> "Unknown";
- *    };   // <- WAJIB ada ; di sini!
+ * String name = switch (day) {
+ * case 1 -> "Monday";
+ * default -> "Unknown";
+ * }; // <- WAJIB ada ; di sini!
  * 
- *    Switch menghasilkan nilai yang disimpan ke variabel.
- *    Karena expression berada di assignment,
- *    maka harus diakhiri dengan ;.
+ * Switch menghasilkan nilai yang disimpan ke variabel.
+ * Karena expression berada di assignment,
+ * maka harus diakhiri dengan ;.
  * 
- *    Kenapa?
- *    Karena sebenarnya yang terjadi adalah:
- *    String name = (hasil switch);
- *    Dan assignment statement selalu diakhiri ;.
+ * Kenapa?
+ * Karena sebenarnya yang terjadi adalah:
+ * String name = (hasil switch);
+ * Dan assignment statement selalu diakhiri ;.
  * 
  * ------------------------------------------------------------------------
  * CONTOH LENGKAP DENGAN YIELD
  * ------------------------------------------------------------------------
  * 
- *     enum Status {
- *         SUCCESS, ERROR, PENDING
- *     }
+ * enum Status {
+ * SUCCESS, ERROR, PENDING
+ * }
  * 
- *     Status status = Status.PENDING;
+ * Status status = Status.PENDING;
  * 
- *     String pesan = switch (status) {
- *         case SUCCESS -> {
- *             log("Proses berhasil");
- *             yield "Berhasil!";
- *         }
- *         case ERROR -> {
- *             log("Terjadi error");
- *             yield "Gagal!";
- *         }
- *         case PENDING -> {
- *             log("Masih diproses");
- *             yield "Menunggu...";
- *         }
- *     };
+ * String pesan = switch (status) {
+ * case SUCCESS -> {
+ * log("Proses berhasil");
+ * yield "Berhasil!";
+ * }
+ * case ERROR -> {
+ * log("Terjadi error");
+ * yield "Gagal!";
+ * }
+ * case PENDING -> {
+ * log("Masih diproses");
+ * yield "Menunggu...";
+ * }
+ * };
  * 
- *     System.out.println(pesan);
+ * System.out.println(pesan);
  * 
  * ------------------------------------------------------------------------
  * KESIMPULAN SWITCH MODERN
@@ -257,8 +257,8 @@ public class SwitchModern {
         // Multiple Case dalam Modern Switch
         day = 6; // reset nilai
         switch (day) {
-            case 1,2,3 -> System.out.println("Weekday");
-            case 4,5,6 -> System.out.println("Weekend");
+            case 1, 2, 3 -> System.out.println("Weekday");
+            case 4, 5, 6 -> System.out.println("Weekend");
         }
 
         // Switch Sebagai Expression
