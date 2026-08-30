@@ -4,7 +4,8 @@ public class Separators {
 
     /**
      * Separators (Pemisah)
-     * Separators adalah karakter khusus yang digunakan untuk memisahkan dan mengorganisir elemen-elemen dalam kode.
+     * Separators adalah karakter khusus yang digunakan untuk memisahkan dan
+     * mengorganisir elemen-elemen dalam kode..
      */
 
     /**
@@ -34,14 +35,16 @@ public class Separators {
 
     /**
      * , Koma
-     * -Memisahkan beberapa identifier dalam satu deklarasi atau menghubungkan pernyataan
-     *  dalam perulangan for
+     * -Memisahkan beberapa identifier dalam satu deklarasi atau menghubungkan
+     * pernyataan
+     * dalam perulangan for
      */
 
     /**
      * . Titik
-     * -Memisahkan nama paket dari subpaket atau class, atau memisahkan variabel/methode
-     *  dari objek yang merujuknya
+     * -Memisahkan nama paket dari subpaket atau class, atau memisahkan
+     * variabel/methode
+     * dari objek yang merujuknya
      */
 
     /**
