@@ -5,7 +5,7 @@ package FundamentalJava.Rekursion;
  * RECURSION (REKURSI)
  * ------------------------------------------------------------------------
  * 
- * Java mendukung recursion.
+ * Java mendukung recursion..
  * 
  * Recursion adalah proses mendefinisikan sesuatu menggunakan dirinya sendiri.
  * Dalam konteks pemrograman Java, recursion adalah kemampuan sebuah method
@@ -26,26 +26,26 @@ package FundamentalJava.Rekursion;
  * 
  * Implementasi rekursif:
  * 
- *     int factorial(int n) {
- *         if (n == 1) {          // BASE CASE
- *             return 1;
- *         }
- *         return n * factorial(n - 1); // RECURSIVE CASE
- *     }
+ * int factorial(int n) {
+ * if (n == 1) { // BASE CASE
+ * return 1;
+ * }
+ * return n * factorial(n - 1); // RECURSIVE CASE
+ * }
  * 
  * Alur eksekusi factorial(5):
  * 
- *     factorial(5) = 5 * factorial(4)
- *     factorial(4) = 4 * factorial(3)
- *     factorial(3) = 3 * factorial(2)
- *     factorial(2) = 2 * factorial(1)
- *     factorial(1) = 1              // BASE CASE tercapai
+ * factorial(5) = 5 * factorial(4)
+ * factorial(4) = 4 * factorial(3)
+ * factorial(3) = 3 * factorial(2)
+ * factorial(2) = 2 * factorial(1)
+ * factorial(1) = 1 // BASE CASE tercapai
  * 
- *     Kembali ke atas:
- *     factorial(2) = 2 * 1 = 2
- *     factorial(3) = 3 * 2 = 6
- *     factorial(4) = 4 * 6 = 24
- *     factorial(5) = 5 * 24 = 120
+ * Kembali ke atas:
+ * factorial(2) = 2 * 1 = 2
+ * factorial(3) = 3 * 2 = 6
+ * factorial(4) = 4 * 6 = 24
+ * factorial(5) = 5 * 24 = 120
  * 
  * ------------------------------------------------------------------------
  * DUA BAGIAN PENTING RECURSIVE ALGORITHM
@@ -55,20 +55,20 @@ package FundamentalJava.Rekursion;
  * 
  * 1. BASE CASE (Kondisi Berhenti)
  * 
- *     if (n == 1) {
- *         return 1;
- *     }
+ * if (n == 1) {
+ * return 1;
+ * }
  * 
- *    - Kondisi di mana rekursi BERHENTI
- *    - Tidak ada pemanggilan method lagi
- *    - HARUS ADA! Kalau tidak, terjadi infinite recursion (StackOverflowError)
+ * - Kondisi di mana rekursi BERHENTI
+ * - Tidak ada pemanggilan method lagi
+ * - HARUS ADA! Kalau tidak, terjadi infinite recursion (StackOverflowError)
  * 
  * 2. RECURSIVE CASE (Pemanggilan Diri Sendiri)
  * 
- *     return n * factorial(n - 1);
+ * return n * factorial(n - 1);
  * 
- *    - Memanggil method yang sama dengan parameter yang berbeda
- *    - Harus mendekati base case (nilai parameter berubah menuju base case)
+ * - Memanggil method yang sama dengan parameter yang berbeda
+ * - Harus mendekati base case (nilai parameter berubah menuju base case)
  * 
  * ------------------------------------------------------------------------
  * CONTOH LAIN: FIBONACCI
@@ -78,20 +78,20 @@ package FundamentalJava.Rekursion;
  * 
  * Rumus: fib(n) = fib(n-1) + fib(n-2)
  * 
- *     int fibonacci(int n) {
- *         if (n <= 1) {              // BASE CASE
- *             return n;
- *         }
- *         return fibonacci(n - 1) + fibonacci(n - 2); // RECURSIVE CASE
- *     }
+ * int fibonacci(int n) {
+ * if (n <= 1) { // BASE CASE
+ * return n;
+ * }
+ * return fibonacci(n - 1) + fibonacci(n - 2); // RECURSIVE CASE
+ * }
  * 
  * Alur fibonacci(4):
  * 
- *     fibonacci(4) = fibonacci(3) + fibonacci(2)
- *     fibonacci(3) = fibonacci(2) + fibonacci(1)
- *     fibonacci(2) = fibonacci(1) + fibonacci(0)
- *     fibonacci(1) = 1
- *     fibonacci(0) = 0
+ * fibonacci(4) = fibonacci(3) + fibonacci(2)
+ * fibonacci(3) = fibonacci(2) + fibonacci(1)
+ * fibonacci(2) = fibonacci(1) + fibonacci(0)
+ * fibonacci(1) = 1
+ * fibonacci(0) = 0
  * 
  * ------------------------------------------------------------------------
  * KAPAN RECURSION SANAT BERGUNA?
@@ -100,31 +100,31 @@ package FundamentalJava.Rekursion;
  * Recursion sangat cocok untuk:
  * 
  * 1. Tree Traversal
- *    - Binary Tree
- *    - File System
- *    - DOM Tree
+ * - Binary Tree
+ * - File System
+ * - DOM Tree
  * 
  * 2. Graph Algorithm
- *    - DFS (Depth First Search)
- *    - BFS (Breadth First Search)
+ * - DFS (Depth First Search)
+ * - BFS (Breadth First Search)
  * 
  * 3. Sorting Algorithm
- *    - QuickSort
- *    - MergeSort
+ * - QuickSort
+ * - MergeSort
  * 
  * 4. Backtracking
- *    - Maze solving
- *    - N-Queens problem
- *    - Sudoku solver
+ * - Maze solving
+ * - N-Queens problem
+ * - Sudoku solver
  * 
  * 5. AI Algorithms
- *    - Minimax
- *    - Decision Tree
+ * - Minimax
+ * - Decision Tree
  * 
  * 6. Matematika
- *    - Faktorial
- *    - Fibonacci
- *    - Euclidean algorithm (GCD)
+ * - Faktorial
+ * - Fibonacci
+ * - Euclidean algorithm (GCD)
  * 
  * ------------------------------------------------------------------------
  * KELEBIHAN DAN KEKURANGAN RECURSION
@@ -161,9 +161,9 @@ package FundamentalJava.Rekursion;
  * 
  * Jika base case tidak ada atau tidak tercapai:
  * 
- *     int infinite(int n) {
- *         return infinite(n + 1); // TIDAK ADA BASE CASE!
- *     }
+ * int infinite(int n) {
+ * return infinite(n + 1); // TIDAK ADA BASE CASE!
+ * }
  * 
  * Akibat:
  * - Method memanggil dirinya terus-menerus
@@ -213,7 +213,7 @@ public class Rekursi {
      * mengembalikan hasil factorial.
      *
      * if(n == 1)
-     *    return 1;
+     * return 1;
      * Ini disebut base case.
      *
      * Artinya:
@@ -245,7 +245,7 @@ public class Rekursi {
         System.out.println("factorial of 3 is: " + f.fact(3));
         System.out.println("factorial of 4 is: " + f.fact(4));
         System.out.println("factorial of 5 is: " + f.fact(5));
-        
+
         Rekursi demo = new Rekursi();
         demo.hitung(10);
 
@@ -253,11 +253,11 @@ public class Rekursi {
          * Visualisasi Recursion (Stack)
          * Saat program berjalan, method disimpan di stack memory.
          * fact(3)
-         *   |
-         *   v
+         * |
+         * v
          * fact(2)
-         *   |
-         *   v
+         * |
+         * v
          * fact(1)
          *
          * Setelah mencapai fact(1):
@@ -305,19 +305,22 @@ public class Rekursi {
          */
 
         /**
-         * Secara konsep recursion memang mirip loop, karena sama-sama melakukan pengulangan sampai kondisi berhenti terpenuhi.
-         * Bedanya ada pada cara pengulangannya terjadi di memori dan cara program dieksekusi.
-         * Sekarang kita bahas secara teknis dan detail kenapa recursion bisa terus berjalan sampai base case terpenuhi.
+         * Secara konsep recursion memang mirip loop, karena sama-sama melakukan
+         * pengulangan sampai kondisi berhenti terpenuhi.
+         * Bedanya ada pada cara pengulangannya terjadi di memori dan cara program
+         * dieksekusi.
+         * Sekarang kita bahas secara teknis dan detail kenapa recursion bisa terus
+         * berjalan sampai base case terpenuhi.
          * 1. Konsep Dasar Recursion
          * Recursion terjadi karena:
          * method memanggil dirinya sendiri
          * Contoh sederhana:
          *
          * int fact(int n){
-         *     if(n == 1)
-         *         return 1;
+         * if(n == 1)
+         * return 1;
          *
-         *     return fact(n - 1) * n;
+         * return fact(n - 1) * n;
          * }
          *
          * Saat method dipanggil:
@@ -374,7 +377,7 @@ public class Rekursi {
          * Sekarang kondisi terpenuhi:
          *
          * if(n == 1)
-         *     return 1
+         * return 1
          *
          * 5. Sekarang Stack Mulai "Kembali"
          * Stack bekerja LIFO (Last In First Out).
@@ -394,7 +397,7 @@ public class Rekursi {
          * Contoh:
          *
          * if(n == 1)
-         *     return 1;
+         * return 1;
          *
          * Saat kondisi ini terpenuhi:
          * method tidak memanggil dirinya lagi
@@ -405,7 +408,7 @@ public class Rekursi {
          * Contoh:
          *
          * int test(int n){
-         *     return test(n-1);
+         * return test(n-1);
          * }
          *
          * Yang terjadi:
@@ -424,11 +427,11 @@ public class Rekursi {
          * StackOverflowError
          *
          * 8. Perbedaan Recursion vs Loop
-         * Loop	                                    Recursion
-         * Menggunakan for / while	                Method memanggil dirinya sendiri
-         * Tidak membuat stack frame baru	        Setiap call membuat stack baru
-         * Biasanya lebih cepat	                    Sedikit lebih lambat
-         * Lebih hemat memori	                    Bisa stack overflow
+         * Loop Recursion
+         * Menggunakan for / while Method memanggil dirinya sendiri
+         * Tidak membuat stack frame baru Setiap call membuat stack baru
+         * Biasanya lebih cepat Sedikit lebih lambat
+         * Lebih hemat memori Bisa stack overflow
          */
 
     }
