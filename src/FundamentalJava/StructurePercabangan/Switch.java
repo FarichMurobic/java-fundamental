@@ -11,7 +11,7 @@ package FundamentalJava.StructurePercabangan;
  * Program bisa memilih banyak jalur eksekusi berdasarkan nilai suatu ekspresi.
  * 
  * Switch sering kali menjadi alternatif yang LEBIH BAIK dibandingkan
- * banyak if-else-if untuk kasus tertentu.
+ * banyak if-else-if untuk kasus tertentu..
  * 
  * ------------------------------------------------------------------------
  * BATASAN SWITCH
@@ -21,14 +21,14 @@ package FundamentalJava.StructurePercabangan;
  * 
  * 1. Switch hanya bisa digunakan untuk perbandingan KESAMAAN (==)
  * 2. Hanya dengan tipe data:
- *    - byte, short, int, char
- *    - String (Java 7+)
- *    - enum
+ * - byte, short, int, char
+ * - String (Java 7+)
+ * - enum
  * 3. TIDAK BISA digunakan dengan:
- *    - double atau float (angka desimal)
- *    - boolean
- *    - long (versi lama, Java 17+ sudah support)
- *    - Objek selain String
+ * - double atau float (angka desimal)
+ * - boolean
+ * - long (versi lama, Java 17+ sudah support)
+ * - Objek selain String
  * 
  * Karena keterbatasan ini, switch tidak bisa sepenuhnya menggantikan if-else.
  * Namun, untuk kasus membandingkan satu nilai dengan tiga atau lebih nilai
@@ -38,36 +38,36 @@ package FundamentalJava.StructurePercabangan;
  * BENTUK UMUM SWITCH
  * ------------------------------------------------------------------------
  * 
- *     switch (expression) {
+ * switch (expression) {
  * 
- *         case value1:
- *             statement1;
- *             break;
+ * case value1:
+ * statement1;
+ * break;
  * 
- *         case value2:
- *             statement2;
- *             break;
+ * case value2:
+ * statement2;
+ * break;
  * 
- *         // ... banyak case lainnya ...
+ * // ... banyak case lainnya ...
  * 
- *         case valueN:
- *             statementN;
- *             break;
+ * case valueN:
+ * statementN;
+ * break;
  * 
- *         default:
- *             statementDefault;
- *     }
+ * default:
+ * statementDefault;
+ * }
  * 
  * ------------------------------------------------------------------------
  * PENJELASAN BAGIAN-BAGIAN SWITCH
  * ------------------------------------------------------------------------
  * 
- * Bagian        | Fungsi
+ * Bagian | Fungsi
  * --------------|-----------------------------------------------------------
- * expression    | Nilai yang akan diperiksa/dibandingkan
- * case          | Nilai spesifik yang dibandingkan dengan expression
- * break         | Keluar dari switch (menghentikan eksekusi)
- * default       | Dijalankan jika TIDAK ADA case yang cocok (opsional)
+ * expression | Nilai yang akan diperiksa/dibandingkan
+ * case | Nilai spesifik yang dibandingkan dengan expression
+ * break | Keluar dari switch (menghentikan eksekusi)
+ * default | Dijalankan jika TIDAK ADA case yang cocok (opsional)
  * 
  * ------------------------------------------------------------------------
  * CARA KERJA SWITCH
@@ -85,36 +85,36 @@ package FundamentalJava.StructurePercabangan;
  * CONTOH SWITCH SEDERHANA
  * ------------------------------------------------------------------------
  * 
- *     int hari = 3;
- *     String namaHari;
+ * int hari = 3;
+ * String namaHari;
  * 
- *     switch (hari) {
- *         case 1:
- *             namaHari = "Senin";
- *             break;
- *         case 2:
- *             namaHari = "Selasa";
- *             break;
- *         case 3:
- *             namaHari = "Rabu";
- *             break;
- *         case 4:
- *             namaHari = "Kamis";
- *             break;
- *         case 5:
- *             namaHari = "Jumat";
- *             break;
- *         case 6:
- *             namaHari = "Sabtu";
- *             break;
- *         case 7:
- *             namaHari = "Minggu";
- *             break;
- *         default:
- *             namaHari = "Hari tidak valid";
- *     }
+ * switch (hari) {
+ * case 1:
+ * namaHari = "Senin";
+ * break;
+ * case 2:
+ * namaHari = "Selasa";
+ * break;
+ * case 3:
+ * namaHari = "Rabu";
+ * break;
+ * case 4:
+ * namaHari = "Kamis";
+ * break;
+ * case 5:
+ * namaHari = "Jumat";
+ * break;
+ * case 6:
+ * namaHari = "Sabtu";
+ * break;
+ * case 7:
+ * namaHari = "Minggu";
+ * break;
+ * default:
+ * namaHari = "Hari tidak valid";
+ * }
  * 
- *     System.out.println(namaHari); // Output: Rabu
+ * System.out.println(namaHari); // Output: Rabu
  * 
  * ------------------------------------------------------------------------
  * FUNGSI BREAK (PENTING!)
@@ -126,14 +126,14 @@ package FundamentalJava.StructurePercabangan;
  * Jika break dijalankan, program LANGSUNG keluar dari switch,
  * tanpa melanjutkan ke case berikutnya.
  * 
- *     switch (x) {
- *         case 1:
- *             System.out.println("Satu");
- *             break;   // Keluar dari switch
- *         case 2:
- *             System.out.println("Dua");
- *             break;
- *     }
+ * switch (x) {
+ * case 1:
+ * System.out.println("Satu");
+ * break; // Keluar dari switch
+ * case 2:
+ * System.out.println("Dua");
+ * break;
+ * }
  * 
  * ------------------------------------------------------------------------
  * FALL-THROUGH (Jika Break Tidak Ada)
@@ -142,56 +142,56 @@ package FundamentalJava.StructurePercabangan;
  * Jika break TIDAK ditulis, program akan LANJUT ke case berikutnya.
  * Ini disebut fall-through.
  * 
- *     int x = 1;
+ * int x = 1;
  * 
- *     switch (x) {
- *         case 1:
- *             System.out.println("Satu");
- *             // Tidak ada break!
- *         case 2:
- *             System.out.println("Dua");
- *             break;
- *     }
+ * switch (x) {
+ * case 1:
+ * System.out.println("Satu");
+ * // Tidak ada break!
+ * case 2:
+ * System.out.println("Dua");
+ * break;
+ * }
  * 
- *     // Output:
- *     // Satu
- *     // Dua
+ * // Output:
+ * // Satu
+ * // Dua
  * 
- *     // Karena case 1 tidak punya break, program "jatuh" ke case 2
+ * // Karena case 1 tidak punya break, program "jatuh" ke case 2
  * 
  * Fall-through bisa dimanfaatkan untuk menggabungkan beberapa case:
  * 
- *     switch (nilai) {
- *         case 1:
- *         case 2:
- *         case 3:
- *             System.out.println("Nilai rendah");
- *             break;
- *         case 4:
- *         case 5:
- *             System.out.println("Nilai tinggi");
- *             break;
- *     }
+ * switch (nilai) {
+ * case 1:
+ * case 2:
+ * case 3:
+ * System.out.println("Nilai rendah");
+ * break;
+ * case 4:
+ * case 5:
+ * System.out.println("Nilai tinggi");
+ * break;
+ * }
  * 
  * ------------------------------------------------------------------------
  * SWITCH DENGAN STRING (Java 7+)
  * ------------------------------------------------------------------------
  * 
- *     String warna = "merah";
+ * String warna = "merah";
  * 
- *     switch (warna.toLowerCase()) {
- *         case "merah":
- *             System.out.println("Berhenti");
- *             break;
- *         case "kuning":
- *             System.out.println("Hati-hati");
- *             break;
- *         case "hijau":
- *             System.out.println("Jalan");
- *             break;
- *         default:
- *             System.out.println("Warna tidak dikenal");
- *     }
+ * switch (warna.toLowerCase()) {
+ * case "merah":
+ * System.out.println("Berhenti");
+ * break;
+ * case "kuning":
+ * System.out.println("Hati-hati");
+ * break;
+ * case "hijau":
+ * System.out.println("Jalan");
+ * break;
+ * default:
+ * System.out.println("Warna tidak dikenal");
+ * }
  * 
  * ------------------------------------------------------------------------
  * SWITCH EXPRESSION (Java 14+ - MODERN)
@@ -199,23 +199,23 @@ package FundamentalJava.StructurePercabangan;
  * 
  * Java modern (14+) memiliki switch expression yang lebih ringkas:
  * 
- *     // Tanpa break, pakai -> (arrow)
- *     String hasil = switch (hari) {
- *         case 1, 2, 3, 4, 5 -> "Hari kerja";
- *         case 6, 7 -> "Akhir pekan";
- *         default -> "Tidak valid";
- *     };
+ * // Tanpa break, pakai -> (arrow)
+ * String hasil = switch (hari) {
+ * case 1, 2, 3, 4, 5 -> "Hari kerja";
+ * case 6, 7 -> "Akhir pekan";
+ * default -> "Tidak valid";
+ * };
  * 
- *     // Atau pakai yield untuk nilai balik
- *     int poin = switch (peringkat) {
- *         case "A" -> 100;
- *         case "B" -> 80;
- *         case "C" -> 60;
- *         default -> {
- *             System.out.println("Peringkat tidak valid");
- *             yield 0;
- *         }
- *     };
+ * // Atau pakai yield untuk nilai balik
+ * int poin = switch (peringkat) {
+ * case "A" -> 100;
+ * case "B" -> 80;
+ * case "C" -> 60;
+ * default -> {
+ * System.out.println("Peringkat tidak valid");
+ * yield 0;
+ * }
+ * };
  * 
  * ------------------------------------------------------------------------
  * CATATAN PENTING: INTEGER LEBIH CEPAT DARI STRING
@@ -233,13 +233,13 @@ package FundamentalJava.StructurePercabangan;
  * RINGKASAN KONSEP SWITCH
  * ------------------------------------------------------------------------
  * 
- * Konsep          | Arti
+ * Konsep | Arti
  * ----------------|-----------------------------------------------------------
- * switch          | Percabangan banyak arah (multiway branch)
- * case            | Nilai spesifik yang diperiksa
- * break           | Keluar dari switch (menghentikan eksekusi)
- * default         | Kondisi jika tidak ada case yang cocok
- * fall-through    | Lanjut ke case berikutnya jika tidak ada break
+ * switch | Percabangan banyak arah (multiway branch)
+ * case | Nilai spesifik yang diperiksa
+ * break | Keluar dari switch (menghentikan eksekusi)
+ * default | Kondisi jika tidak ada case yang cocok
+ * fall-through | Lanjut ke case berikutnya jika tidak ada break
  * 
  * Kapan pakai switch:
  * - Banyak pilihan (3+ case)
@@ -341,7 +341,8 @@ public class Switch {
          * iterasi ini berhenti karena ada break,
          * hingga kondisi iterasi terakhir dia akan mencetak default.
          *
-         * Intinya kalo gak ada break, setiap iterasi akan mencetak semuanya sampai bawah.
+         * Intinya kalo gak ada break, setiap iterasi akan mencetak semuanya sampai
+         * bawah.
          */
 
         System.out.println("----------");
@@ -390,7 +391,8 @@ public class Switch {
 
         /**
          * BERBAGI KODE DI SWITCH STATEMENT
-         * Salah satu kekuatan terbesar dari switch adalah kemampuannya untuk berbagi kode.
+         * Salah satu kekuatan terbesar dari switch adalah kemampuannya untuk berbagi
+         * kode.
          * ini bisa dilakukan dengan dua cara
          * berbagi aksi untuk banyak case - seperti skenario bulan
          */
@@ -444,8 +446,9 @@ public class Switch {
 
         /**
          * Perbedaan utama
-         *  versi konvensional pakai break untuk keluar dari case.
-         *  versi modern lebih singkat, gak perlu break, langsung return value ke variabel.
+         * versi konvensional pakai break untuk keluar dari case.
+         * versi modern lebih singkat, gak perlu break, langsung return value ke
+         * variabel.
          */
 
     }
