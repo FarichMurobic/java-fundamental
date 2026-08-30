@@ -4,7 +4,7 @@ public class RekursiFundamental {
 
     /**
      * Kenapa rekursi bisa memanggil dirinya terus menerus, bukan hanya sekali?
-     * Jawabannya ada di alur eksekusi method + call stack di JVM.
+     * Jawabannya ada di alur eksekusi method + call stack di JVM..
      * Program Java Selalu Dieksekusi Baris Demi Baris
      */
 
@@ -156,9 +156,9 @@ public class RekursiFundamental {
      * method baru dibuat
      * Jadi sebenarnya seperti ini:
      * test(3)
-     *    └ test(2)
-     *         └ test(1)
-     *              └ test(0)
+     * └ test(2)
+     * └ test(1)
+     * └ test(0)
      *
      * Kesimpulan
      * Rekursi bisa memanggil dirinya berkali-kali karena:
