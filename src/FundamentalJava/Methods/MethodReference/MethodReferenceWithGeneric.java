@@ -13,7 +13,7 @@ package FundamentalJava.Methods.MethodReference;
  *
  * Dengan kombinasi generic dan method reference, kita dapat
  * membuat kode yang lebih reusable tanpa harus membuat banyak
- * versi method untuk tipe data yang berbeda.
+ * versi method untuk tipe data yang berbeda..
  *
  * ------------------------------------------------------------
  * Konsep Dasar Generic Method Reference
@@ -339,7 +339,7 @@ class MyArrayOps {
     static <T> int countMatching(T[] vals, T v) {
         int count = 0;
         // Bandingkan isi array dengan value
-        for (int i =0; i < vals.length; i++) {
+        for (int i = 0; i < vals.length; i++) {
             if (vals[i].equals(v)) // pakai equals biar aman
                 count++;
         }
@@ -365,8 +365,8 @@ public class MethodReferenceWithGeneric {
 
     public static void main(String[] args) {
 
-        Integer[] nums = {1,2,3,2,2,5};
-        String[] words = {"A", "B", "A", "C"};
+        Integer[] nums = { 1, 2, 3, 2, 2, 5 };
+        String[] words = { "A", "B", "A", "C" };
 
         // METHOD REFERENCE + GENERIC
         int count1 = myOp(MyArrayOps::countMatching, nums, 2);
