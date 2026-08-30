@@ -2,7 +2,7 @@ package FundamentalJava.Methods.MethodOverriding.Latihan;
 
 public class Segitiga extends BangunDatar {
 
-    // konstruktor
+    // konstruktor.
     Segitiga(double alas, double tinggi) {
         super(alas, tinggi); // panggil construktor parent
     }
