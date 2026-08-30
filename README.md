@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="documentation/Javaa.png" alt="Java Fundamental" width="80%">
+  <img src="docs/Javaa.png" alt="Java Fundamental" width="80%">
 </p>
 
 # Java Fundamental Learning
