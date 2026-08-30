@@ -6,7 +6,7 @@ package FundamentalJava.Methods.MethodReference;
  * ============================================================
  *
  * Constructor reference adalah fitur Java yang memungkinkan kita
- * membuat referensi terhadap constructor sebuah class.
+ * membuat referensi terhadap constructor sebuah class..
  *
  * Syntax:
  *
@@ -490,7 +490,7 @@ public class MethodReferenceWithConstructor {
          *
          * --------------------------
          * 
-         * Insight DALAM 
+         * Insight DALAM
          * 
          * 1. Ini gabungan 3 konsep besar:
          * Generics
