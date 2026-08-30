@@ -6,7 +6,7 @@ package FundamentalJava.MultiThreaded;
  * ============================================================
  *
  * Java menyediakan dukungan bawaan untuk membuat program
- * multithreaded.
+ * multithreaded..
  *
  * Program multithread adalah program yang memiliki dua atau lebih
  * bagian pekerjaan yang dapat berjalan secara concurrent.
