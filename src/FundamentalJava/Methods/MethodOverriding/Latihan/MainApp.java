@@ -1,12 +1,14 @@
 package FundamentalJava.Methods.MethodOverriding.Latihan;
 
+// Main app
+
 public class MainApp {
     public static void main(String[] args) {
 
         // Membuat objek
-        BangunDatar bd = new BangunDatar(10,10);
-        PersegiPanjang pp = new PersegiPanjang(9,5);
-        Segitiga sg = new Segitiga(10,8);
+        BangunDatar bd = new BangunDatar(10, 10);
+        PersegiPanjang pp = new PersegiPanjang(9, 5);
+        Segitiga sg = new Segitiga(10, 8);
 
         // Reference umum polymorfisme
         BangunDatar referensi;
