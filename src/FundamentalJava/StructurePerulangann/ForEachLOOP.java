@@ -5,7 +5,8 @@ package FundamentalJava.StructurePerulangann;
  * FOR-EACH LOOP (ENHANCED FOR LOOP)
  * ------------------------------------------------------------------------
  * 
- * Mulai dari JDK 5, Java menambahkan bentuk kedua dari for, yaitu for-each loop.
+ * Mulai dari JDK 5, Java menambahkan bentuk kedua dari for, yaitu for-each
+ * loop..
  * 
  * Konsep for-each sebenarnya sudah populer di banyak bahasa pemrograman modern.
  * Tujuan loop ini adalah:
@@ -17,45 +18,45 @@ package FundamentalJava.StructurePerulangann;
  * Tapi Java TIDAK menambah keyword baru.
  * Java hanya memperluas syntax for yang sudah ada.
  * Karena itu for-each sering disebut:
- *     enhanced for loop
+ * enhanced for loop
  * 
  * ------------------------------------------------------------------------
  * BENTUK UMUM FOR-EACH
  * ------------------------------------------------------------------------
  * 
- *     for (tipeData variabel : collection) {
- *         // statement
- *     }
+ * for (tipeData variabel : collection) {
+ * // statement
+ * }
  * 
  * Penjelasan:
  * 
- * Bagian          | Fungsi
+ * Bagian | Fungsi
  * ----------------|-----------------------------------------------------------
- * tipeData        | Tipe data elemen dalam collection
- * variabel        | Variabel sementara untuk menyimpan setiap elemen
- * collection      | Array atau kumpulan data yang akan diiterasi
+ * tipeData | Tipe data elemen dalam collection
+ * variabel | Variabel sementara untuk menyimpan setiap elemen
+ * collection | Array atau kumpulan data yang akan diiterasi
  * 
  * ------------------------------------------------------------------------
  * CARA KERJA FOR-EACH
  * ------------------------------------------------------------------------
  * 
  * Misalnya ada array:
- *     int[] nums = {1, 2, 3, 4, 5};
+ * int[] nums = {1, 2, 3, 4, 5};
  * 
  * Loop for-each:
- *     for (int x : nums) {
- *         System.out.println(x);
- *     }
+ * for (int x : nums) {
+ * System.out.println(x);
+ * }
  * 
  * Prosesnya kira-kira seperti ini:
  * 
- * Iterasi     | x      | Keterangan
+ * Iterasi | x | Keterangan
  * ------------|--------|------------------------------------------
- * 1           | 1      | Ambil elemen ke-0 (nums[0])
- * 2           | 2      | Ambil elemen ke-1 (nums[1])
- * 3           | 3      | Ambil elemen ke-2 (nums[2])
- * 4           | 4      | Ambil elemen ke-3 (nums[3])
- * 5           | 5      | Ambil elemen ke-4 (nums[4])
+ * 1 | 1 | Ambil elemen ke-0 (nums[0])
+ * 2 | 2 | Ambil elemen ke-1 (nums[1])
+ * 3 | 3 | Ambil elemen ke-2 (nums[2])
+ * 4 | 4 | Ambil elemen ke-3 (nums[3])
+ * 5 | 5 | Ambil elemen ke-4 (nums[4])
  * 
  * Jadi Java otomatis mengambil elemen satu per satu dari array.
  * Kita tidak perlu menggunakan index.
@@ -66,12 +67,12 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Cara lama (traditional for):
  * 
- *     int[] nums = {1, 2, 3, 4, 5};
- *     int sum = 0;
+ * int[] nums = {1, 2, 3, 4, 5};
+ * int sum = 0;
  * 
- *     for (int i = 0; i < nums.length; i++) {
- *         sum += nums[i];
- *     }
+ * for (int i = 0; i < nums.length; i++) {
+ * sum += nums[i];
+ * }
  * 
  * Di sini kita harus:
  * 1. Buat counter i
@@ -80,12 +81,12 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Menggunakan for-each:
  * 
- *     int[] nums = {1, 2, 3, 4, 5};
- *     int sum = 0;
+ * int[] nums = {1, 2, 3, 4, 5};
+ * int sum = 0;
  * 
- *     for (int x : nums) {
- *         sum += x;
- *     }
+ * for (int x : nums) {
+ * sum += x;
+ * }
  * 
  * Lebih simpel karena:
  * - Tidak perlu index
@@ -96,17 +97,17 @@ package FundamentalJava.StructurePerulangann;
  * CONTOH FOR-EACH DENGAN ARRAY
  * ------------------------------------------------------------------------
  * 
- *     String[] nama = {"Andi", "Budi", "Citra", "Dewi"};
+ * String[] nama = {"Andi", "Budi", "Citra", "Dewi"};
  * 
- *     for (String n : nama) {
- *         System.out.println("Nama: " + n);
- *     }
+ * for (String n : nama) {
+ * System.out.println("Nama: " + n);
+ * }
  * 
- *     // Output:
- *     // Nama: Andi
- *     // Nama: Budi
- *     // Nama: Citra
- *     // Nama: Dewi
+ * // Output:
+ * // Nama: Andi
+ * // Nama: Budi
+ * // Nama: Citra
+ * // Nama: Dewi
  * 
  * ------------------------------------------------------------------------
  * MENGHENTIKAN FOR-EACH DENGAN break
@@ -115,18 +116,18 @@ package FundamentalJava.StructurePerulangann;
  * Walaupun for-each biasanya membaca semua elemen,
  * kita tetap bisa menghentikannya dengan break.
  * 
- *     int[] nums = {10, 20, 30, 40, 50};
+ * int[] nums = {10, 20, 30, 40, 50};
  * 
- *     for (int x : nums) {
- *         if (x == 30) {
- *             break;
- *         }
- *         System.out.println(x);
- *     }
+ * for (int x : nums) {
+ * if (x == 30) {
+ * break;
+ * }
+ * System.out.println(x);
+ * }
  * 
- *     // Output:
- *     // 10
- *     // 20
+ * // Output:
+ * // 10
+ * // 20
  * 
  * ------------------------------------------------------------------------
  * HAL PENTING: VARIABEL ITERASI BERSIFAT READ-ONLY
@@ -134,14 +135,14 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Perhatikan kode ini:
  * 
- *     int[] nums = {1, 2, 3, 4, 5};
+ * int[] nums = {1, 2, 3, 4, 5};
  * 
- *     for (int x : nums) {
- *         x = x * 10;
- *     }
+ * for (int x : nums) {
+ * x = x * 10;
+ * }
  * 
- *     // Array nums TIDAK berubah!
- *     // Nilai nums tetap {1, 2, 3, 4, 5}
+ * // Array nums TIDAK berubah!
+ * // Nilai nums tetap {1, 2, 3, 4, 5}
  * 
  * Kenapa?
  * Karena:
@@ -172,74 +173,74 @@ package FundamentalJava.StructurePerulangann;
  * Jangan pakai for-each jika:
  * 
  * 1. Perlu INDEX
- *    for (int i = 0; i < arr.length; i++) {
- *        arr[i] = ...
- *    }
+ * for (int i = 0; i < arr.length; i++) {
+ * arr[i] = ...
+ * }
  * 
  * 2. Perlu mengubah ELEMEN ARRAY
- *    for (int i = 0; i < arr.length; i++) {
- *        arr[i] = arr[i] * 2;
- *    }
+ * for (int i = 0; i < arr.length; i++) {
+ * arr[i] = arr[i] * 2;
+ * }
  * 
  * 3. Perlu iterasi SEBAGIAN (start dari index tertentu)
- *    for (int i = 5; i < arr.length; i++) {
- *        // ...
- *    }
+ * for (int i = 5; i < arr.length; i++) {
+ * // ...
+ * }
  * 
  * 4. Perlu iterasi MUNDUR (dari belakang)
- *    for (int i = arr.length - 1; i >= 0; i--) {
- *        // ...
- *    }
+ * for (int i = arr.length - 1; i >= 0; i--) {
+ * // ...
+ * }
  * 
  * ------------------------------------------------------------------------
  * FOR-EACH DENGAN MULTIDIMENSIONAL ARRAY
  * ------------------------------------------------------------------------
  * 
- *     int[][] matrix = {
- *         {1, 2, 3},
- *         {4, 5, 6},
- *         {7, 8, 9}
- *     };
+ * int[][] matrix = {
+ * {1, 2, 3},
+ * {4, 5, 6},
+ * {7, 8, 9}
+ * };
  * 
- *     // Iterasi baris
- *     for (int[] baris : matrix) {
- *         // Iterasi kolom dalam setiap baris
- *         for (int nilai : baris) {
- *             System.out.print(nilai + " ");
- *         }
- *         System.out.println();
- *     }
+ * // Iterasi baris
+ * for (int[] baris : matrix) {
+ * // Iterasi kolom dalam setiap baris
+ * for (int nilai : baris) {
+ * System.out.print(nilai + " ");
+ * }
+ * System.out.println();
+ * }
  * 
- *     // Output:
- *     // 1 2 3
- *     // 4 5 6
- *     // 7 8 9
+ * // Output:
+ * // 1 2 3
+ * // 4 5 6
+ * // 7 8 9
  * 
  * ------------------------------------------------------------------------
  * FOR-EACH DENGAN COLLECTION (LIST, SET)
  * ------------------------------------------------------------------------
  * 
- *     List<String> daftar = Arrays.asList("Apel", "Mangga", "Jeruk");
+ * List<String> daftar = Arrays.asList("Apel", "Mangga", "Jeruk");
  * 
- *     for (String buah : daftar) {
- *         System.out.println("Buah: " + buah);
- *     }
+ * for (String buah : daftar) {
+ * System.out.println("Buah: " + buah);
+ * }
  * 
- *     // Output:
- *     // Buah: Apel
- *     // Buah: Mangga
- *     // Buah: Jeruk
+ * // Output:
+ * // Buah: Apel
+ * // Buah: Mangga
+ * // Buah: Jeruk
  * 
  * ------------------------------------------------------------------------
  * PERBANDINGAN SINGKAT SEMUA LOOP
  * ------------------------------------------------------------------------
  * 
- * Loop        | Digunakan Untuk
+ * Loop | Digunakan Untuk
  * ------------|-----------------------------------------------------------
- * for         | Kontrol penuh (index, batas, step)
- * while       | Kondisi tidak pasti, bisa 0 kali
- * do-while    | Minimal 1 kali eksekusi
- * for-each    | Iterasi collection/array (hanya baca)
+ * for | Kontrol penuh (index, batas, step)
+ * while | Kondisi tidak pasti, bisa 0 kali
+ * do-while | Minimal 1 kali eksekusi
+ * for-each | Iterasi collection/array (hanya baca)
  * 
  * ------------------------------------------------------------------------
  * KESIMPULAN
@@ -261,7 +262,7 @@ public class ForEachLOOP {
     public static void main(String[] args) {
 
         // Contoh program sederhana
-        int nums[] = {1,2,3,4,5,6,7,8,9,10};
+        int nums[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         int sum = 0;
 
         for (int x : nums) {
@@ -343,7 +344,7 @@ public class ForEachLOOP {
          * Kalau pakai ini:
          *
          * for(int x : nums){
-         *     x = x * 10;
+         * x = x * 10;
          * }
          *
          * Yang berubah hanya variabel x, bukan arraynya.
@@ -363,15 +364,18 @@ public class ForEachLOOP {
         /**
          * Menerapkan Enhanced for (for-each)
          * 
-         * Karena for-each hanya bisa berjalan melalui array secara berurutan dari awal sampai akhir,
+         * Karena for-each hanya bisa berjalan melalui array secara berurutan dari awal
+         * sampai akhir,
          * mungkin kamu berpikir penggunaannya terbatas. Tapi sebenarnya tidak.
          * Banyak algoritma justru membutuhkan cara seperti ini.
-         * Salah satu contoh paling umum adalah mencari suatu nilai (searching) di dalam array.
-         * Program berikut menggunakan for-each loop untuk mencari suatu nilai dalam array yang tidak terurut.
+         * Salah satu contoh paling umum adalah mencari suatu nilai (searching) di dalam
+         * array.
+         * Program berikut menggunakan for-each loop untuk mencari suatu nilai dalam
+         * array yang tidak terurut.
          * Loop akan berhenti jika nilai tersebut ditemukan.
          */
 
-        int numbers[] = {6,8,3,7,5,6,1,4};
+        int numbers[] = { 6, 8, 3, 7, 5, 6, 1, 4 };
         int value = 5;
         boolean ditemukan = false;
 
@@ -385,7 +389,6 @@ public class ForEachLOOP {
 
         if (ditemukan)
             System.out.println("\nValue ditemukan!");
-
 
         /**
          * Konsep Utama Program
@@ -409,12 +412,12 @@ public class ForEachLOOP {
          * Array:
          * nums = {6,8,3,7,5,6,1,4}
          * Loop berjalan:
-         * Iterasi	x
-         * 1	    6
-         * 2	    8
-         * 3	    3
-         * 4	    7
-         * 5	    5 ← ketemu
+         * Iterasi x
+         * 1 6
+         * 2 8
+         * 3 3
+         * 4 7
+         * 5 5 ← ketemu
          *
          * Saat x == val:
          * found = true;
@@ -454,7 +457,8 @@ public class ForEachLOOP {
          * mengakses posisi tertentu
          * Jadi for-each lebih sederhana dan aman.
          *
-         * for-each ini jadi sangat penting nanti ketika belajar Java Collections seperti:
+         * for-each ini jadi sangat penting nanti ketika belajar Java Collections
+         * seperti:
          * ArrayList
          * HashSet
          * HashMap
