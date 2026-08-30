@@ -3,7 +3,7 @@ package FundamentalJava.Rekursion;
 public class JenisRekursi {
     public static void main(String[] args) {
 
-        // membuat objek kelas factorial
+        // membuat objek kelas factorial.
         // rekursi linear
         Factorial f = new Factorial();
 
@@ -23,7 +23,7 @@ public class JenisRekursi {
 
         // membuat objek di kelas fibonacci
         Fibonacci fibonaci = new Fibonacci();
-        
+
         // menampilkan beberapa nilai fibonacci
         for (int i = 0; i <= 10; i++) {
             System.out.println("fib(" + i + ") = " + fibonaci.fib(i));
@@ -145,11 +145,11 @@ class Fibonacci {
          * fib(5)
          * Diagram:
          *
-         *           fib(5)
-         *         /       \
-         *      fib(4)     fib(3)
-         *      /   \       /   \
-         *  fib(3) fib(2) fib(2) fib(1)
+         * fib(5)
+         * / \
+         * fib(4) fib(3)
+         * / \ / \
+         * fib(3) fib(2) fib(2) fib(1)
          *
          * Makanya ini disebut tree recursion.
          */
@@ -172,7 +172,7 @@ class ArrayPrinter {
     }
 
     // methode rekursiv untuk print array
-    void printarray(int i ) {
+    void printarray(int i) {
         // base case
         if (i == 0)
             return;
