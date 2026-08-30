@@ -6,7 +6,7 @@ package FundamentalJava.Methods.MethodReference;
  * ============================================================
  *
  * Method reference adalah fitur Java yang memungkinkan kita
- * mereferensikan sebuah method tanpa langsung menjalankannya.
+ * mereferensikan sebuah method tanpa langsung menjalankannya..
  *
  * Method reference diperkenalkan pada Java 8 dan sering digunakan
  * bersama:
@@ -411,7 +411,7 @@ public class InstanceMethodReference {
          * Ini yang lebih advance & sering dipakai di real project
          * Interface
          * interface MyFunc<T> {
-         *     boolean func(T v1, T v2);
+         * boolean func(T v1, T v2);
          * }
          *
          * Method reference:
@@ -421,9 +421,9 @@ public class InstanceMethodReference {
          * v1.sameTemp(v2)
          *
          * Mapping penting:
-         * Functional               Interface	Method
-         * v1 (parameter 1)	        object pemanggil
-         * v2 (parameter 2)	        parameter method
+         * Functional Interface Method
+         * v1 (parameter 1) object pemanggil
+         * v2 (parameter 2) parameter method
          *
          * Cara kerja di balik layar
          * HighTemp::sameTemp
@@ -432,9 +432,9 @@ public class InstanceMethodReference {
          * (v1, v2) -> v1.sameTemp(v2)
          *
          * Perbedaan Dua Jenis Ini (WAJIB NANGKEP)
-         * Jenis	        Bentuk	                Makna
-         * Object	        obj::method	method      milik object itu
-         * Class	        Class::method	        method dipanggil dari object parameter
+         * Jenis Bentuk Makna
+         * Object obj::method method milik object itu
+         * Class Class::method method dipanggil dari object parameter
          *
          * Contoh cepat:
          * Object:
