@@ -1,11 +1,12 @@
 package FundamentalJava.Package.Package1;
+
 import FundamentalJava.Package.Package2.BedaPackage;
 
 public class MainApps {
     public static void main(String[] args) {
 
         System.out.println("--- Test di package yang sama berbeda class dan bukan subclass ---");
-        // DALAM PACKAGE YANG SAMA
+        // DALAM PACKAGE YANG SAMA.
         // buat objek class Protection
         // semuanya bisa dipanggil karena ada di dalam constructor class Protection
         Protection protection = new Protection();
