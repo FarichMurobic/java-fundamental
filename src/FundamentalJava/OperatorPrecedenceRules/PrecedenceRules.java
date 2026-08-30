@@ -4,36 +4,37 @@ public class PrecedenceRules {
     public static void main(String[] args) {
 
         /**
-         * Operator precedence adalah urutan prioritas operator saat Java menghitung sebuah ekspresi.
+         * Operator precedence adalah urutan prioritas operator saat Java menghitung
+         * sebuah ekspresi..
          * 
          * Berikut urutan sederhananya.
          * 
-         * Prioritas	Operator
-         * 1	        ++ -- (postfix)
-         * 2	        ++ -- ~ ! + - (type cast)
-         * 3	        * / %
-         * 4	        + -
-         * 5	        >> << >>>
-         * 6	        > >= < <= instanceof
-         * 7	        == !=
-         * 8	        &
-         * 9	        ^
-         * 10	        |
-         * 11	        &&
-         * 12	        ||
-         * 13	        ?: (ternary)
-         * 14	        -> (lambda)
-         * 15	        = += -= *= /=
+         * Prioritas Operator
+         * 1 ++ -- (postfix)
+         * 2 ++ -- ~ ! + - (type cast)
+         * 3 * / %
+         * 4 + -
+         * 5 >> << >>>
+         * 6 > >= < <= instanceof
+         * 7 == !=
+         * 8 &
+         * 9 ^
+         * 10 |
+         * 11 &&
+         * 12 ||
+         * 13 ?: (ternary)
+         * 14 -> (lambda)
+         * 15 = += -= *= /=
          * 
          * Yang paling rendah adalah assignment (=).
          *
          * Perbandingan Associavity Operator
-         * Operator	                Associativity
-         * Unary (! ~ ++ --)	    kanan → kiri
-         * Arithmetic (+ - * /)	    kiri → kanan
-         * Relational	            kiri → kanan
-         * Logical	                kiri → kanan
-         * Assignment (=)	        kanan → kiri
+         * Operator Associativity
+         * Unary (! ~ ++ --) kanan → kiri
+         * Arithmetic (+ - * /) kiri → kanan
+         * Relational kiri → kanan
+         * Logical kiri → kanan
+         * Assignment (=) kanan → kiri
          * 
          * (Penting)
          * Menggunakan parentheses (tanda kurung) ().
@@ -46,7 +47,8 @@ public class PrecedenceRules {
          * 
          * karena + lebih tinggi dari >>.
          * Tanda kurung tidak memperlambat program
-         * Sederhananya ekspresi yang menggunakan tanda kurung adalah prioritas tertinggi.
+         * Sederhananya ekspresi yang menggunakan tanda kurung adalah prioritas
+         * tertinggi.
          */
 
         // Contoh 1: Perkalian lebih dulu dari penjumlahan
@@ -99,7 +101,7 @@ public class PrecedenceRules {
         char charAngka1 = '6';
         char charAngka2 = '6';
         int hasilCharJumlah = charAngka1 + charAngka2;
-        System.out.println("Nilai '6' (char) = " + (int)charAngka1); // Cast ke int untuk lihat nilai numeriknya
+        System.out.println("Nilai '6' (char) = " + (int) charAngka1); // Cast ke int untuk lihat nilai numeriknya
         System.out.println("Nilai '6' (char) + '6' (char) = " + hasilCharJumlah); // Output: 108
 
         // Contoh 7: Perbedaan antara huruf besar dan kecil
@@ -107,9 +109,10 @@ public class PrecedenceRules {
         System.out.println("'a' - 'A' = " + ('a' - 'A')); // Output: 32
 
         // Contoh 8: Menyimpan hasil operasi char ke tipe data char
-        // Ini akan mengambil karakter yang memiliki nilai ASCII/Unicode 97 + 5 = 102 (yaitu 'f')
+        // Ini akan mengambil karakter yang memiliki nilai ASCII/Unicode 97 + 5 = 102
+        // (yaitu 'f')
         char hurufA = 'a';
-        char hasilHuruf = (char)(hurufA + 5); // Perlu cast eksplisit karena hasil penjumlahan int
+        char hasilHuruf = (char) (hurufA + 5); // Perlu cast eksplisit karena hasil penjumlahan int
         System.out.println("('a' + 5) = " + hasilHuruf); // Output: f
 
     }
