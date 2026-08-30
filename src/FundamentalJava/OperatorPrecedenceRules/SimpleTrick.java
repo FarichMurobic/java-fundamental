@@ -4,7 +4,8 @@ public class SimpleTrick {
     public static void main(String[] args) {
 
         /**
-         * Aturan prioritas adalah aturan yang menentukan urutan pengerjaan operasi dalam sebuah ekspresi.
+         * Aturan prioritas adalah aturan yang menentukan urutan pengerjaan operasi
+         * dalam sebuah ekspresi..
          * 
          * -operator assignment adalah yang paling lemah - paling terakhir dikerjakan
          * -operator logika biner lebih lemah dari relational dan aritmetika
@@ -17,7 +18,8 @@ public class SimpleTrick {
          * logika
          * assignent
          *
-         * Kalo kita pakai tanda kurung (), tanda kurung selalu punya prioritas paling tinggi
+         * Kalo kita pakai tanda kurung (), tanda kurung selalu punya prioritas paling
+         * tinggi
          */
 
         boolean workCompleted = true;
@@ -40,12 +42,15 @@ public class SimpleTrick {
         // sama dengan sebelumnya.
 
         // ini bagian paling penting: perhatikan 2 baris dibawah ini
-        System.out.println("value1 < 7.75 || value2 > 0.25 && value2 < 0.45 is " + (value1 < 7.75 || value2 > 0.25 && value2 < 0.45));
-        System.out.println("(value1 < 7.75 || value2 > 0.25) && value2 < 0.45) is " + ((value1 < 7.75 || value2 > 0.25) && value2 < 0.45));
+        System.out.println("value1 < 7.75 || value2 > 0.25 && value2 < 0.45 is "
+                + (value1 < 7.75 || value2 > 0.25 && value2 < 0.45));
+        System.out.println("(value1 < 7.75 || value2 > 0.25) && value2 < 0.45) is "
+                + ((value1 < 7.75 || value2 > 0.25) && value2 < 0.45));
 
         /**
          * penjelasan
-         * baris pertama tanpa kurung, && punya prioritas lebih tinggi dari ||, jadi (value2 > 0.25 && value2 < 0.45) dikerjakan duluan
+         * baris pertama tanpa kurung, && punya prioritas lebih tinggi dari ||, jadi
+         * (value2 > 0.25 && value2 < 0.45) dikerjakan duluan
          * hasilnya: true || (true && false) -> true || false -> true.
          * baris kedua pakai tanda kurung. tanda kurung memaksa || dikerjakan duluan,
          * hasilnya: (true || true) && false -> true && false -> false
@@ -53,10 +58,13 @@ public class SimpleTrick {
 
         /**
          * SINTAKSIS
-         * lo tau kan kalau ekspresi (letter >= 'a' && letter <= 'z') dan ('a' <= letter && letter <= 'z') ini sama dan benar
-         * tapi lu gak bisa nuis ('a' <= letter <= 'z'), lu butuh operator && buat nentuin nilai ekspresinya
+         * lo tau kan kalau ekspresi (letter >= 'a' && letter <= 'z') dan ('a' <= letter
+         * && letter <= 'z') ini sama dan benar
+         * tapi lu gak bisa nuis ('a' <= letter <= 'z'), lu butuh operator && buat
+         * nentuin nilai ekspresinya
          * intinya operator relational menghasilkan nilai boolean,
-         * lu gak bisa menggunakan nilai boolean itu sebagai input untuk operator relational yang lain.
+         * lu gak bisa menggunakan nilai boolean itu sebagai input untuk operator
+         * relational yang lain.
          */
 
     }
