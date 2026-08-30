@@ -11,7 +11,7 @@ package FundamentalJava.TypeWrappers;
  * 
  * Autoboxing:
  * Proses dimana tipe primitive OTOMATIS dibungkus menjadi Object (wrapper)
- * tanpa perlu new.
+ * tanpa perlu new..
  * 
  * Auto-unboxing:
  * Proses dimana object wrapper OTOMATIS diambil nilainya menjadi primitive
@@ -23,13 +23,13 @@ package FundamentalJava.TypeWrappers;
  * 
  * Zaman dulu (Java lama):
  * 
- *     Integer i = new Integer(10);   // Ribet!
- *     int x = i.intValue();           // Ribet!
+ * Integer i = new Integer(10); // Ribet!
+ * int x = i.intValue(); // Ribet!
  * 
  * Sekarang (Java modern):
  * 
- *     Integer i = 10;                // Autoboxing
- *     int x = i;                     // Auto-unboxing
+ * Integer i = 10; // Autoboxing
+ * int x = i; // Auto-unboxing
  * 
  * Java mengerjakan semuanya di belakang layar!
  * 
@@ -39,18 +39,18 @@ package FundamentalJava.TypeWrappers;
  * 
  * Tidak perlu lagi membuat object pakai new.
  * 
- *     Integer iOb = 100;  // Autoboxing
+ * Integer iOb = 100; // Autoboxing
  * 
  * Sebenarnya di belakang layar, Java melakukan:
  * 
- *     Integer iOb = Integer.valueOf(100);
+ * Integer iOb = Integer.valueOf(100);
  * 
  * Jadi:
- *     Integer iOb = 100;
+ * Integer iOb = 100;
  * 
  * SAMA DENGAN:
- *     Integer iOb = Integer.valueOf(100);  // versi modern
- *     Integer iOb = new Integer(100);      // versi lama (deprecated)
+ * Integer iOb = Integer.valueOf(100); // versi modern
+ * Integer iOb = new Integer(100); // versi lama (deprecated)
  * 
  * ------------------------------------------------------------------------
  * CARA KERJA AUTO-UNBOXING
@@ -58,11 +58,11 @@ package FundamentalJava.TypeWrappers;
  * 
  * Untuk mengambil nilai primitive:
  * 
- *     int i = iOb;  // Auto-unboxing
+ * int i = iOb; // Auto-unboxing
  * 
  * Sebenarnya di belakang layar, Java melakukan:
  * 
- *     int i = iOb.intValue();
+ * int i = iOb.intValue();
  * 
  * ------------------------------------------------------------------------
  * KENAPA AUTOBOXING PENTING?
@@ -75,11 +75,11 @@ package FundamentalJava.TypeWrappers;
  * 
  * Contoh penting dengan Collection:
  * 
- *     ArrayList<Integer> list = new ArrayList<>();
- *     list.add(10);  // Autoboxing! int 10 otomatis jadi Integer
+ * ArrayList<Integer> list = new ArrayList<>();
+ * list.add(10); // Autoboxing! int 10 otomatis jadi Integer
  * 
- *     10 itu int, tapi:
- *     otomatis dibungkus menjadi Integer oleh Java.
+ * 10 itu int, tapi:
+ * otomatis dibungkus menjadi Integer oleh Java.
  * 
  * ------------------------------------------------------------------------
  * CONTOH AUTOBOXING DI BERBAGAI SITUASI
@@ -87,48 +87,48 @@ package FundamentalJava.TypeWrappers;
  * 
  * 1. Assignment
  * 
- *     Integer i = 42;           // Autoboxing
- *     int x = i;                // Auto-unboxing
+ * Integer i = 42; // Autoboxing
+ * int x = i; // Auto-unboxing
  * 
  * 2. Method Parameter
  * 
- *     void print(Integer i) {
- *         System.out.println(i);
- *     }
+ * void print(Integer i) {
+ * System.out.println(i);
+ * }
  * 
- *     print(100);               // Autoboxing! int 100 jadi Integer
+ * print(100); // Autoboxing! int 100 jadi Integer
  * 
  * 3. Return Value
  * 
- *     Integer getNumber() {
- *         return 50;            // Autoboxing!
- *     }
+ * Integer getNumber() {
+ * return 50; // Autoboxing!
+ * }
  * 
  * 4. Operasi Matematika
  * 
- *     Integer a = 10;
- *     Integer b = 20;
- *     Integer c = a + b;        // Auto-unboxing (a,b) + Autoboxing (hasil)
+ * Integer a = 10;
+ * Integer b = 20;
+ * Integer c = a + b; // Auto-unboxing (a,b) + Autoboxing (hasil)
  * 
- *     // Proses:
- *     // a dan b di-unbox menjadi int
- *     // 10 + 20 = 30
- *     // 30 di-box menjadi Integer
+ * // Proses:
+ * // a dan b di-unbox menjadi int
+ * // 10 + 20 = 30
+ * // 30 di-box menjadi Integer
  * 
  * ------------------------------------------------------------------------
  * TABEL WRAPPER DAN PRIMITIVE
  * ------------------------------------------------------------------------
  * 
- * Primitive     | Wrapper Class
+ * Primitive | Wrapper Class
  * --------------|------------------------------------------
- * byte          | Byte
- * short         | Short
- * int           | Integer
- * long          | Long
- * float         | Float
- * double        | Double
- * char          | Character
- * boolean       | Boolean
+ * byte | Byte
+ * short | Short
+ * int | Integer
+ * long | Long
+ * float | Float
+ * double | Double
+ * char | Character
+ * boolean | Boolean
  * 
  * ------------------------------------------------------------------------
  * RISIKO AUTOBOXING (HARUS TAHU!)
@@ -136,50 +136,50 @@ package FundamentalJava.TypeWrappers;
  * 
  * 1. NullPointerException
  * 
- *     Integer i = null;
- *     int x = i;  // NullPointerException!
+ * Integer i = null;
+ * int x = i; // NullPointerException!
  * 
- *    Karena i null, tidak bisa di-unbox.
+ * Karena i null, tidak bisa di-unbox.
  * 
  * 2. Performa (Overhead)
  * 
- *    Autoboxing menciptakan object baru.
- *    Jika terjadi dalam loop besar, bisa boros memory.
+ * Autoboxing menciptakan object baru.
+ * Jika terjadi dalam loop besar, bisa boros memory.
  * 
- *     // Buruk - boxing berulang kali
- *     for (int i = 0; i < 1000000; i++) {
- *         Integer x = i;  // Buat object baru setiap iterasi
- *     }
+ * // Buruk - boxing berulang kali
+ * for (int i = 0; i < 1000000; i++) {
+ * Integer x = i; // Buat object baru setiap iterasi
+ * }
  * 
- *     // Lebih baik - pakai primitive
- *     for (int i = 0; i < 1000000; i++) {
- *         int x = i;      // Tidak buat object
- *     }
+ * // Lebih baik - pakai primitive
+ * for (int i = 0; i < 1000000; i++) {
+ * int x = i; // Tidak buat object
+ * }
  * 
  * 3. Perbandingan dengan == (HATI-HATI!)
  * 
- *     Integer a = 100;
- *     Integer b = 100;
- *     System.out.println(a == b);  // true (karena cache)
+ * Integer a = 100;
+ * Integer b = 100;
+ * System.out.println(a == b); // true (karena cache)
  * 
- *     Integer c = 200;
- *     Integer d = 200;
- *     System.out.println(c == d);  // false! (beda object)
+ * Integer c = 200;
+ * Integer d = 200;
+ * System.out.println(c == d); // false! (beda object)
  * 
- *    Untuk perbandingan, gunakan .equals():
+ * Untuk perbandingan, gunakan .equals():
  * 
- *     System.out.println(c.equals(d));  // true
+ * System.out.println(c.equals(d)); // true
  * 
  * ------------------------------------------------------------------------
  * RINGKASAN SUPER PADAT
  * ------------------------------------------------------------------------
  * 
- * Konsep            | Arti
+ * Konsep | Arti
  * ------------------|-----------------------------------------------------
- * Autoboxing        | Primitive → Object (otomatis)
- * Auto-unboxing     | Object → Primitive (otomatis)
- * Keuntungan        | Kode lebih clean, lebih aman
- * Risiko            | NullPointerException, overhead performa
+ * Autoboxing | Primitive → Object (otomatis)
+ * Auto-unboxing | Object → Primitive (otomatis)
+ * Keuntungan | Kode lebih clean, lebih aman
+ * Risiko | NullPointerException, overhead performa
  * 
  * ------------------------------------------------------------------------
  * KESIMPULAN
@@ -232,7 +232,7 @@ public class AutoBoxingDanAutoUnBoxing {
          * Integer a = 100;
          * Integer b = 100;
          *
-         * System.out.println(a == b); // kadang true, kadang false 
+         * System.out.println(a == b); // kadang true, kadang false
          * Gunakan:
          * a.equals(b); // benar
          *
@@ -240,7 +240,7 @@ public class AutoBoxingDanAutoUnBoxing {
          * Integer sum = 0;
          *
          * for(int i = 0; i < 1000; i++){
-         *     sum += i; // banyak autoboxing terjadi
+         * sum += i; // banyak autoboxing terjadi
          * }
          *
          * Ini bisa lebih lambat dari:
