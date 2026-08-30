@@ -7,7 +7,7 @@ package FundamentalJava.Methods.MethodOverriding;
  *
  * Method overriding adalah konsep ketika sebuah subclass
  * menyediakan implementasi baru untuk method yang sudah dimiliki
- * oleh superclass..
+ * oleh superclass...
  *
  * Method overriding terjadi dalam hubungan inheritance
  * (pewarisan).
