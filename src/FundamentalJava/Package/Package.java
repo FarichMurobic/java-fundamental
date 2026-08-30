@@ -5,7 +5,7 @@ package FundamentalJava.Package;
  * PACKAGES
  * ------------------------------------------------------------------------
  * 
- * Packages adalah wadah untuk class-class di Java.
+ * Packages adalah wadah untuk class-class di Java..
  * 
  * Fungsi utama package:
  * 1. Menjaga agar nama-nama class tidak bertabrakan (namespace management)
@@ -19,16 +19,16 @@ package FundamentalJava.Package;
  * Package = Lemari / Folder
  * 
  * Tanpa folder (package):
- *     List.java
- *     User.java
- *     Order.java
- *     List.java (tabrakan nama!)
+ * List.java
+ * User.java
+ * Order.java
+ * List.java (tabrakan nama!)
  * 
  * Dengan package:
- *     com.app.data.List
- *     com.app.user.User
- *     com.app.order.Order
- *     com.lib.collection.List
+ * com.app.data.List
+ * com.app.user.User
+ * com.app.order.Order
+ * com.lib.collection.List
  * 
  * Jadi aman, tidak tabrakan nama.
  * 
@@ -40,19 +40,19 @@ package FundamentalJava.Package;
  * 
  * Struktur folder di sistem:
  * 
- *     com/
- *     └── app/
- *          ├── user/
- *          │    └── User.java
- *          ├── admin/
- *          │    └── Admin.java
- *          └── util/
- *               └── Helper.java
+ * com/
+ * └── app/
+ * ├── user/
+ * │ └── User.java
+ * ├── admin/
+ * │ └── Admin.java
+ * └── util/
+ * └── Helper.java
  * 
  * Nama package:
- *     com.app.user
- *     com.app.admin
- *     com.app.util
+ * com.app.user
+ * com.app.admin
+ * com.app.util
  * 
  * ------------------------------------------------------------------------
  * MEMBUAT PACKAGE
@@ -60,15 +60,15 @@ package FundamentalJava.Package;
  * 
  * Deklarasi package harus berada di baris PALING ATAS dari file.
  * 
- *     package com.app.user;
+ * package com.app.user;
  * 
- *     public class User {
- *         String nama;
+ * public class User {
+ * String nama;
  * 
- *         void tampilkan() {
- *             System.out.println("Nama: " + nama);
- *         }
- *     }
+ * void tampilkan() {
+ * System.out.println("Nama: " + nama);
+ * }
+ * }
  * 
  * Aturan:
  * - package harus di baris paling atas (sebelum import)
@@ -81,16 +81,16 @@ package FundamentalJava.Package;
  * 
  * Untuk menggunakan class dari package lain, gunakan import.
  * 
- *     import com.app.user.User;     // import satu class
- *     import com.app.user.*;        // import semua class dalam package
+ * import com.app.user.User; // import satu class
+ * import com.app.user.*; // import semua class dalam package
  * 
- *     public class Main {
- *         public static void main(String[] args) {
- *             User u = new User();
- *             u.nama = "Farich";
- *             u.tampilkan();
- *         }
- *     }
+ * public class Main {
+ * public static void main(String[] args) {
+ * User u = new User();
+ * u.nama = "Farich";
+ * u.tampilkan();
+ * }
+ * }
  * 
  * ------------------------------------------------------------------------
  * VISIBILITY DALAM PACKAGE (INI PENTING BANGET)
@@ -98,12 +98,12 @@ package FundamentalJava.Package;
  * 
  * Java memiliki 4 level akses (access modifier):
  * 
- * Modifier     | Akses
+ * Modifier | Akses
  * -------------|-----------------------------------------------------------
- * public       | Bisa diakses dari mana saja (dunia luar)
- * private      | Hanya dalam class itu sendiri
- * (default)    | Hanya dalam package yang sama (tanpa modifier)
- * protected    | Dalam package yang sama + subclass di luar package
+ * public | Bisa diakses dari mana saja (dunia luar)
+ * private | Hanya dalam class itu sendiri
+ * (default) | Hanya dalam package yang sama (tanpa modifier)
+ * protected | Dalam package yang sama + subclass di luar package
  * 
  * ------------------------------------------------------------------------
  * ATURAN KHUSUS UNTUK CLASS
@@ -113,36 +113,36 @@ package FundamentalJava.Package;
  * 
  * 1. public class
  * 
- *     public class Main {
- *         // ...
- *     }
+ * public class Main {
+ * // ...
+ * }
  * 
- *    Bisa diakses dari mana saja.
- *    Nama file HARUS sama dengan nama class.
+ * Bisa diakses dari mana saja.
+ * Nama file HARUS sama dengan nama class.
  * 
  * 2. default class (tanpa modifier)
  * 
- *     class Helper {
- *         // ...
- *     }
+ * class Helper {
+ * // ...
+ * }
  * 
- *    Hanya bisa diakses dalam package yang sama.
+ * Hanya bisa diakses dalam package yang sama.
  * 
  * ------------------------------------------------------------------------
  * ATURAN PENTING
  * ------------------------------------------------------------------------
  * 
  * 1. Jika class public:
- *    Nama file HARUS sama dengan nama class.
+ * Nama file HARUS sama dengan nama class.
  * 
- *    File: Main.java
- *    public class Main { ... }    // BENAR
+ * File: Main.java
+ * public class Main { ... } // BENAR
  * 
- *    File: Test.java
- *    public class Main { ... }    // ERROR! Nama file harus Main.java
+ * File: Test.java
+ * public class Main { ... } // ERROR! Nama file harus Main.java
  * 
  * 2. Satu file bisa memiliki banyak class,
- *    tapi hanya satu yang boleh public.
+ * tapi hanya satu yang boleh public.
  * 
  * 3. Nama package harus menggunakan huruf kecil (konvensi Java).
  * 
@@ -154,9 +154,9 @@ package FundamentalJava.Package;
  * - Gunakan domain perusahaan terbalik (reverse domain)
  * 
  * Contoh:
- *     com.perusahaan.app.module
- *     org.organisasi.proyek.submodul
- *     id.saya.aplikasi.utility
+ * com.perusahaan.app.module
+ * org.organisasi.proyek.submodul
+ * id.saya.aplikasi.utility
  * 
  * ------------------------------------------------------------------------
  * CONTOH LENGKAP
@@ -164,35 +164,35 @@ package FundamentalJava.Package;
  * 
  * File: com/app/user/User.java
  * 
- *     package com.app.user;
+ * package com.app.user;
  * 
- *     public class User {
- *         private String nama;
- *         int umur; // default, hanya bisa diakses dalam package yang sama
+ * public class User {
+ * private String nama;
+ * int umur; // default, hanya bisa diakses dalam package yang sama
  * 
- *         public User(String nama, int umur) {
- *             this.nama = nama;
- *             this.umur = umur;
- *         }
+ * public User(String nama, int umur) {
+ * this.nama = nama;
+ * this.umur = umur;
+ * }
  * 
- *         public void tampilkan() {
- *             System.out.println("Nama: " + nama + ", Umur: " + umur);
- *         }
- *     }
+ * public void tampilkan() {
+ * System.out.println("Nama: " + nama + ", Umur: " + umur);
+ * }
+ * }
  * 
  * File: com/app/admin/Admin.java
  * 
- *     package com.app.admin;
+ * package com.app.admin;
  * 
- *     import com.app.user.User; // import dari package lain
+ * import com.app.user.User; // import dari package lain
  * 
- *     public class Admin {
- *         public void kelolaUser(User u) {
- *             // u.nama = "Budi"; // ERROR! private tidak bisa diakses
- *             u.umur = 30; // BISA! default, tapi beda package? TIDAK BISA!
- *             // Karena default hanya bisa diakses dalam package yang sama
- *         }
- *     }
+ * public class Admin {
+ * public void kelolaUser(User u) {
+ * // u.nama = "Budi"; // ERROR! private tidak bisa diakses
+ * u.umur = 30; // BISA! default, tapi beda package? TIDAK BISA!
+ * // Karena default hanya bisa diakses dalam package yang sama
+ * }
+ * }
  * 
  * ------------------------------------------------------------------------
  * KESIMPULAN WAJIB
@@ -212,7 +212,7 @@ package FundamentalJava.Package;
 
 public class Package {
     public static void main(String[] args) {
-     
+
         System.out.println("Hii Janeraa.");
         System.out.println("Hi Farich");
     }
