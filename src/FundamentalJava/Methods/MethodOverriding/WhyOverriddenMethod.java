@@ -7,7 +7,7 @@ package FundamentalJava.Methods.MethodOverriding;
  * ============================================================
  *
  * Method overriding bukan hanya fitur untuk mengganti isi method
- * dari parent class..
+ * dari parent class...
  *
  * Tujuan utama method overriding adalah memungkinkan Java
  * menerapkan:
