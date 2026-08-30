@@ -7,7 +7,7 @@ package FundamentalJava.Methods.MethodReference;
  *
  * Method reference adalah fitur Java yang memungkinkan kita
  * memberikan referensi terhadap sebuah method tanpa langsung
- * menjalankan method tersebut.
+ * menjalankan method tersebut..
  *
  * Method reference tidak melakukan pemanggilan method saat
  * ditulis.
@@ -425,7 +425,7 @@ public class MethodReference {
          * MyStringOps::strReverse
          *
          * Ini BUKAN:
-         * MyStringOps.strReverse() 
+         * MyStringOps.strReverse()
          *
          * Ini:
          * referensi method, bukan eksekusi
