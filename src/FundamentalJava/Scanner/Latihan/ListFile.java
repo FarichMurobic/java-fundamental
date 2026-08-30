@@ -1,12 +1,14 @@
 package FundamentalJava.Scanner.Latihan;
 
+// LATIHAN
+
 import java.util.Scanner;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class ListFile {
     public static void main(String[] args) {
-        
+
         if (args.length == 0) {
             System.out.println("No file specified");
         }
@@ -28,7 +30,7 @@ public class ListFile {
             System.out.println(e);
         } finally {
             if (fileIn != null)
-                 fileIn.close();
+                fileIn.close();
         }
     }
 }
