@@ -1,5 +1,7 @@
 package FundamentalJava.Scanner.Latihan;
 
+// LATIHAN
+
 import java.util.Scanner;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -9,8 +11,8 @@ import java.io.IOException;
 public class DoubleSpace {
 
     public static void main(String[] args) {
-        
-        for (String fileName : args) 
+
+        for (String fileName : args)
             doubleSpace(fileName);
     }
 
