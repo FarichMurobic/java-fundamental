@@ -6,7 +6,7 @@ package FundamentalJava.Lambda;
  *
  * Setelah memahami Functional Interface dan konsep dasar Lambda,
  * sekarang kita dapat melihat bagaimana Lambda digunakan dalam
- * program nyata.
+ * program nyata..
  *
  * Contoh ini menggabungkan beberapa konsep utama:
  *
