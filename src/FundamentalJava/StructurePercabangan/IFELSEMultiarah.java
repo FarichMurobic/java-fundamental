@@ -6,7 +6,7 @@ package FundamentalJava.StructurePercabangan;
  * ------------------------------------------------------------------------
  * 
  * Salah satu struktur pemrograman yang paling umum digunakan adalah
- * if-else-if ladder (tangga if-else-if).
+ * if-else-if ladder (tangga if-else-if)..
  * 
  * Struktur ini berdasarkan serangkaian if yang bersarang (nested),
  * namun ditulis secara berurutan dan rapi.
@@ -15,15 +15,15 @@ package FundamentalJava.StructurePercabangan;
  * BENTUK UMUM
  * ------------------------------------------------------------------------
  * 
- *     if (kondisi1) {
- *         // statement jika kondisi1 true
- *     } else if (kondisi2) {
- *         // statement jika kondisi2 true
- *     } else if (kondisi3) {
- *         // statement jika kondisi3 true
- *     } else {
- *         // statement default jika semua kondisi false
- *     }
+ * if (kondisi1) {
+ * // statement jika kondisi1 true
+ * } else if (kondisi2) {
+ * // statement jika kondisi2 true
+ * } else if (kondisi3) {
+ * // statement jika kondisi3 true
+ * } else {
+ * // statement default jika semua kondisi false
+ * }
  * 
  * ------------------------------------------------------------------------
  * CARA KERJA
@@ -31,32 +31,32 @@ package FundamentalJava.StructurePercabangan;
  * 
  * 1. Kondisi dievaluasi dari ATAS ke BAWAH (secara berurutan)
  * 2. Begitu ada kondisi yang bernilai TRUE:
- *    - Statement yang terkait akan DIJALANKAN
- *    - Sisa kondisi di bawahnya TIDAK diperiksa lagi
- *    - Program LANGSUNG KELUAR dari struktur if-else-if
+ * - Statement yang terkait akan DIJALANKAN
+ * - Sisa kondisi di bawahnya TIDAK diperiksa lagi
+ * - Program LANGSUNG KELUAR dari struktur if-else-if
  * 3. Jika TIDAK ADA kondisi yang bernilai TRUE:
- *    - Blok else terakhir akan dijalankan (jika ada)
- *    - else berfungsi sebagai DEFAULT condition
+ * - Blok else terakhir akan dijalankan (jika ada)
+ * - else berfungsi sebagai DEFAULT condition
  * 
  * ------------------------------------------------------------------------
  * CONTOH SEDERHANA
  * ------------------------------------------------------------------------
  * 
- *     int nilai = 85;
+ * int nilai = 85;
  * 
- *     if (nilai >= 90) {
- *         System.out.println("Nilai A");
- *     } else if (nilai >= 80) {
- *         System.out.println("Nilai B");
- *     } else if (nilai >= 70) {
- *         System.out.println("Nilai C");
- *     } else {
- *         System.out.println("Nilai D");
- *     }
+ * if (nilai >= 90) {
+ * System.out.println("Nilai A");
+ * } else if (nilai >= 80) {
+ * System.out.println("Nilai B");
+ * } else if (nilai >= 70) {
+ * System.out.println("Nilai C");
+ * } else {
+ * System.out.println("Nilai D");
+ * }
  * 
- *     // Output: Nilai B
- *     // Karena nilai 85 memenuhi kondisi kedua (nilai >= 80)
- *     // Kondisi ketiga (nilai >= 70) TIDAK diperiksa lagi
+ * // Output: Nilai B
+ * // Karena nilai 85 memenuhi kondisi kedua (nilai >= 80)
+ * // Kondisi ketiga (nilai >= 70) TIDAK diperiksa lagi
  * 
  * ------------------------------------------------------------------------
  * PENTING! BEGITU SATU KONDISI BENAR, BERHENTI
@@ -67,17 +67,17 @@ package FundamentalJava.StructurePercabangan;
  * 
  * Ini adalah perilaku yang HARUS dipahami:
  * 
- *     int x = 5;
+ * int x = 5;
  * 
- *     if (x > 0) {
- *         System.out.println("Positif");      // Ini yang dijalankan
- *     } else if (x > 10) {
- *         System.out.println("Lebih dari 10"); // TIDAK diperiksa
- *     }
+ * if (x > 0) {
+ * System.out.println("Positif"); // Ini yang dijalankan
+ * } else if (x > 10) {
+ * System.out.println("Lebih dari 10"); // TIDAK diperiksa
+ * }
  * 
- *     // Output: Positif
- *     // Meskipun x > 10 juga false, tapi karena kondisi pertama sudah true,
- *     // kondisi kedua tidak pernah diperiksa
+ * // Output: Positif
+ * // Meskipun x > 10 juga false, tapi karena kondisi pertama sudah true,
+ * // kondisi kedua tidak pernah diperiksa
  * 
  * ------------------------------------------------------------------------
  * URUTAN LOGIKA SANGAT PENTING
@@ -90,34 +90,34 @@ package FundamentalJava.StructurePercabangan;
  * 
  * Contoh SALAH (urutan salah):
  * 
- *     int nilai = 85;
+ * int nilai = 85;
  * 
- *     if (nilai >= 70) {           // Terlalu umum di posisi pertama
- *         System.out.println("Lulus");
- *     } else if (nilai >= 90) {    // Tidak akan pernah dieksekusi!
- *         System.out.println("Nilai A");
- *     }
+ * if (nilai >= 70) { // Terlalu umum di posisi pertama
+ * System.out.println("Lulus");
+ * } else if (nilai >= 90) { // Tidak akan pernah dieksekusi!
+ * System.out.println("Nilai A");
+ * }
  * 
- *     // Output: Lulus
- *     // Meskipun nilai 85 seharusnya mendapat "Nilai A"
- *     // Tapi karena kondisi "nilai >= 70" lebih dulu true,
- *     // kondisi "nilai >= 90" tidak pernah diperiksa
+ * // Output: Lulus
+ * // Meskipun nilai 85 seharusnya mendapat "Nilai A"
+ * // Tapi karena kondisi "nilai >= 70" lebih dulu true,
+ * // kondisi "nilai >= 90" tidak pernah diperiksa
  * 
  * Contoh BENAR (urutan benar):
  * 
- *     int nilai = 85;
+ * int nilai = 85;
  * 
- *     if (nilai >= 90) {           // Paling spesifik (tertinggi)
- *         System.out.println("Nilai A");
- *     } else if (nilai >= 80) {    // Lebih umum
- *         System.out.println("Nilai B");
- *     } else if (nilai >= 70) {    // Lebih umum lagi
- *         System.out.println("Nilai C");
- *     } else {                     // Paling umum (default)
- *         System.out.println("Nilai D");
- *     }
+ * if (nilai >= 90) { // Paling spesifik (tertinggi)
+ * System.out.println("Nilai A");
+ * } else if (nilai >= 80) { // Lebih umum
+ * System.out.println("Nilai B");
+ * } else if (nilai >= 70) { // Lebih umum lagi
+ * System.out.println("Nilai C");
+ * } else { // Paling umum (default)
+ * System.out.println("Nilai D");
+ * }
  * 
- *     // Output: Nilai B (benar)
+ * // Output: Nilai B (benar)
  * 
  * ------------------------------------------------------------------------
  * ANALOGI URUTAN (BIAR KEBAYANG)
@@ -139,16 +139,16 @@ package FundamentalJava.StructurePercabangan;
  * 
  * Untuk kasus penilaian, urutan harus dari nilai tertinggi ke terendah:
  * 
- *     // BENAR
- *     if (nilai >= 90) { ... }
- *     else if (nilai >= 80) { ... }
- *     else if (nilai >= 70) { ... }
- *     else { ... }
+ * // BENAR
+ * if (nilai >= 90) { ... }
+ * else if (nilai >= 80) { ... }
+ * else if (nilai >= 70) { ... }
+ * else { ... }
  * 
- *     // SALAH
- *     if (nilai >= 70) { ... }
- *     else if (nilai >= 80) { ... }
- *     else if (nilai >= 90) { ... }
+ * // SALAH
+ * if (nilai >= 70) { ... }
+ * else if (nilai >= 80) { ... }
+ * else if (nilai >= 90) { ... }
  * 
  * ------------------------------------------------------------------------
  * IF-ELSE-IF vs SWITCH
@@ -202,11 +202,12 @@ public class IFELSEMultiarah {
 
         System.out.println(gradeAssigned);
 
-        // Efisiensi: Jika wats adalah 95, program akan mengecek if pertama, melihat itu true, lalu langsung memberikan nilai "A", dan berhenti.
+        // Efisiensi: Jika wats adalah 95, program akan mengecek if pertama, melihat itu
+        // true, lalu langsung memberikan nilai "A", dan berhenti.
         // Tidak ada pengecekan yg sia-sia.
 
         // Latihan
-        String[] nameDrink = {"Fanta", "Kopi", "Aqua"};
+        String[] nameDrink = { "Fanta", "Kopi", "Aqua" };
         int number1 = 5;
 
         if (number1 == 1) {
