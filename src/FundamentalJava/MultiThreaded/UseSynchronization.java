@@ -7,7 +7,7 @@ package FundamentalJava.MultiThreaded;
  * 
  * Ketika dua atau lebih thread ingin mengakses resource yang sama,
  * mereka membutuhkan mekanisme agar resource tersebut hanya digunakan
- * oleh satu thread dalam satu waktu. Proses ini disebut synchronization.
+ * oleh satu thread dalam satu waktu. Proses ini disebut synchronization..
  * 
  * ------------------------------------------------------------------------
  * KONSEP DASAR: MONITOR (LOCK)
@@ -36,9 +36,9 @@ package FundamentalJava.MultiThreaded;
  * Jika satu thread sedang menjalankan method tersebut,
  * thread lain harus menunggu.
  * 
- *     synchronized void call(String msg) {
- *         // kode kritis
- *     }
+ * synchronized void call(String msg) {
+ * // kode kritis
+ * }
  * 
  * ------------------------------------------------------------------------
  * MASALAH TANPA SYNCHRONIZATION (RACE CONDITION)
@@ -47,19 +47,19 @@ package FundamentalJava.MultiThreaded;
  * Program contoh:
  * Ada class Callme dengan method call() yang mencetak string dalam bracket.
  * 
- *     void call(String msg) {
- *         System.out.print("[" + msg);
- *         Thread.sleep(1000);
- *         System.out.println("]");
- *     }
+ * void call(String msg) {
+ * System.out.print("[" + msg);
+ * Thread.sleep(1000);
+ * System.out.println("]");
+ * }
  * 
  * Karena ada Thread.sleep(1000) yang membuat thread pause,
  * thread lain bisa masuk di tengah-tengah eksekusi.
  * 
  * Contoh output yang salah:
- *     Hello[Synchronized[World]
- *     ]
- *     ]
+ * Hello[Synchronized[World]
+ * ]
+ * ]
  * 
  * Ini disebut race condition.
  * Terjadi karena thread "balapan" mengakses method yang sama secara bersamaan.
@@ -70,16 +70,16 @@ package FundamentalJava.MultiThreaded;
  * 
  * Tambahkan keyword synchronized:
  * 
- *     synchronized void call(String msg) {
- *         System.out.print("[" + msg);
- *         Thread.sleep(1000);
- *         System.out.println("]");
- *     }
+ * synchronized void call(String msg) {
+ * System.out.print("[" + msg);
+ * Thread.sleep(1000);
+ * System.out.println("]");
+ * }
  * 
  * Hasil output yang benar:
- *     [Hello]
- *     [Synchronized]
- *     [World]
+ * [Hello]
+ * [Synchronized]
+ * [World]
  * 
  * Sekarang:
  * - Thread masuk satu per satu
@@ -99,7 +99,7 @@ package FundamentalJava.MultiThreaded;
  * 
  * Contoh klasik:
  * 
- *     balance = balance - 100;
+ * balance = balance - 100;
  * 
  * Kelihatannya aman, tapi sebenarnya ini bukan 1 langkah.
  * Di dalam CPU, operasi ini terbagi menjadi:
@@ -122,8 +122,8 @@ package FundamentalJava.MultiThreaded;
  * 
  * Jika sebuah class memiliki:
  * 
- *     synchronized void methodA()
- *     synchronized void methodB()
+ * synchronized void methodA()
+ * synchronized void methodB()
  * 
  * Thread yang masuk ke methodA,
  * thread lain TIDAK bisa masuk ke methodB juga.
@@ -131,7 +131,7 @@ package FundamentalJava.MultiThreaded;
  * Karena lock-nya ada di objek yang SAMA.
  * 
  * Method non-synchronized:
- *     void methodBiasa()
+ * void methodBiasa()
  * 
  * Masih bisa dipanggil dengan bebas oleh thread mana pun,
  * meskipun ada thread lain yang sedang memegang lock.
