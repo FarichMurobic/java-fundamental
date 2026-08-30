@@ -5,7 +5,7 @@ package FundamentalJava.JumpStatements;
  * ==========================================================
  *
  * Label adalah sebuah nama yang diberikan kepada suatu statement
- * atau blok kode tertentu.
+ * atau blok kode tertentu..
  *
  * Label digunakan bersama dengan:
  *
