@@ -4,7 +4,7 @@ public class SubclassPackageSama extends Protection {
 
     SubclassPackageSama() {
 
-        // kalo akses langsung
+        // kalo akses langsung.
         System.out.println(this.defaultVariabel);
         // System.out.println(this.privateVariabel); // error
         System.out.println(this.protectedVariabel);
