@@ -2,7 +2,7 @@ package FundamentalJava.Methods.MethodOverriding.Latihan;
 
 public class PersegiPanjang extends BangunDatar {
 
-    // konstruktor
+    // konstruktor.
     PersegiPanjang(double panjang, double lebar) {
         super(panjang, lebar); // panggil construktor parent
     }
