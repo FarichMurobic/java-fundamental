@@ -6,14 +6,14 @@ package FundamentalJava.Static;
  * ------------------------------------------------------------------------
  * 
  * Ada kalanya kamu ingin membuat member class yang dapat digunakan
- * tanpa harus membuat object dari class tersebut.
+ * tanpa harus membuat object dari class tersebut..
  * 
  * Biasanya, member dari class hanya bisa diakses melalui object dari class itu.
  * Namun, Java memungkinkan kita membuat member yang bisa digunakan
  * secara langsung tanpa object.
  * 
  * Untuk membuat member seperti ini, kita menggunakan keyword:
- *     static
+ * static
  * 
  * Jika sebuah member dideklarasikan sebagai static, maka:
  * - Member tersebut bisa diakses sebelum object dibuat
@@ -28,9 +28,9 @@ package FundamentalJava.Static;
  * Method main() dibuat static karena harus dipanggil oleh JVM
  * sebelum ada object yang dibuat.
  * 
- *     public static void main(String[] args) {
- *         // ...
- *     }
+ * public static void main(String[] args) {
+ * // ...
+ * }
  * 
  * ------------------------------------------------------------------------
  * STATIC VARIABLE
@@ -45,21 +45,21 @@ package FundamentalJava.Static;
  * 
  * Contoh:
  * 
- *     class Counter {
- *         static int count = 0;  // static variable
- *         int instanceId;
+ * class Counter {
+ * static int count = 0; // static variable
+ * int instanceId;
  * 
- *         Counter() {
- *             count++;           // semua object berbagi count yang sama
- *             instanceId = count;
- *         }
- *     }
+ * Counter() {
+ * count++; // semua object berbagi count yang sama
+ * instanceId = count;
+ * }
+ * }
  * 
- *     Counter c1 = new Counter(); // count = 1
- *     Counter c2 = new Counter(); // count = 2
- *     Counter c3 = new Counter(); // count = 3
+ * Counter c1 = new Counter(); // count = 1
+ * Counter c2 = new Counter(); // count = 2
+ * Counter c3 = new Counter(); // count = 3
  * 
- *     // count bernilai 3 untuk SEMUA object
+ * // count bernilai 3 untuk SEMUA object
  * 
  * ------------------------------------------------------------------------
  * STATIC METHOD
@@ -67,19 +67,19 @@ package FundamentalJava.Static;
  * 
  * Method static bisa dipanggil tanpa membuat object.
  * 
- *     class MathUtils {
- *         static int tambah(int a, int b) {
- *             return a + b;
- *         }
+ * class MathUtils {
+ * static int tambah(int a, int b) {
+ * return a + b;
+ * }
  * 
- *         static double kuadrat(double x) {
- *             return x * x;
- *         }
- *     }
+ * static double kuadrat(double x) {
+ * return x * x;
+ * }
+ * }
  * 
- *     // Pemanggilan tanpa object
- *     int hasil = MathUtils.tambah(5, 3);
- *     double pangkat = MathUtils.kuadrat(4.0);
+ * // Pemanggilan tanpa object
+ * int hasil = MathUtils.tambah(5, 3);
+ * double pangkat = MathUtils.kuadrat(4.0);
  * 
  * ------------------------------------------------------------------------
  * PEMBATASAN METHOD STATIC
@@ -89,30 +89,30 @@ package FundamentalJava.Static;
  * 
  * 1. Method static hanya bisa langsung memanggil method static lain
  * 
- *     static void methodA() {
- *         methodB();        // BISA (static memanggil static)
- *         methodC();        // ERROR! Tidak bisa memanggil non-static
- *     }
+ * static void methodA() {
+ * methodB(); // BISA (static memanggil static)
+ * methodC(); // ERROR! Tidak bisa memanggil non-static
+ * }
  * 
- *     static void methodB() { }
- *     void methodC() { }
+ * static void methodB() { }
+ * void methodC() { }
  * 
  * 2. Method static hanya bisa langsung mengakses data static
  * 
- *     static int dataStatic = 10;
- *     int dataNonStatic = 20;
+ * static int dataStatic = 10;
+ * int dataNonStatic = 20;
  * 
- *     static void tampilkan() {
- *         System.out.println(dataStatic);   // BISA
- *         System.out.println(dataNonStatic); // ERROR!
- *     }
+ * static void tampilkan() {
+ * System.out.println(dataStatic); // BISA
+ * System.out.println(dataNonStatic); // ERROR!
+ * }
  * 
  * 3. Method static tidak bisa menggunakan this atau super
  * 
- *     static void method() {
- *         this.xxx = 10;   // ERROR! this tidak ada di konteks static
- *         super.xxx();     // ERROR! super tidak ada di konteks static
- *     }
+ * static void method() {
+ * this.xxx = 10; // ERROR! this tidak ada di konteks static
+ * super.xxx(); // ERROR! super tidak ada di konteks static
+ * }
  * 
  * ------------------------------------------------------------------------
  * STATIC BLOCK
@@ -126,54 +126,54 @@ package FundamentalJava.Static;
  * 
  * Contoh:
  * 
- *     class DatabaseConfig {
- *         static String url;
- *         static String username;
- *         static String password;
+ * class DatabaseConfig {
+ * static String url;
+ * static String username;
+ * static String password;
  * 
- *         // Static block untuk inisialisasi
- *         static {
- *             url = "jdbc:mysql://localhost:3306/db";
- *             username = "root";
- *             password = "secret123";
- *             System.out.println("Static block dijalankan!");
- *         }
- *     }
+ * // Static block untuk inisialisasi
+ * static {
+ * url = "jdbc:mysql://localhost:3306/db";
+ * username = "root";
+ * password = "secret123";
+ * System.out.println("Static block dijalankan!");
+ * }
+ * }
  * 
- *     // Saat class DatabaseConfig pertama kali diakses,
- *     // static block akan dijalankan otomatis.
+ * // Saat class DatabaseConfig pertama kali diakses,
+ * // static block akan dijalankan otomatis.
  * 
  * ------------------------------------------------------------------------
  * STATIC BISA DIPANGGIL TANPA OBJECT
  * ------------------------------------------------------------------------
  * 
  * Biasanya method dipanggil seperti ini:
- *     object.method();
+ * object.method();
  * 
  * Tapi kalau static:
- *     ClassName.method();
+ * ClassName.method();
  * 
  * Contoh:
  * 
- *     // Non-static (butuh object)
- *     User user = new User();
- *     user.tampilkan();
+ * // Non-static (butuh object)
+ * User user = new User();
+ * user.tampilkan();
  * 
- *     // Static (tanpa object)
- *     MathUtils.tambah(5, 3);
+ * // Static (tanpa object)
+ * MathUtils.tambah(5, 3);
  * 
  * ------------------------------------------------------------------------
  * PERBEDAAN STATIC vs NON-STATIC
  * ------------------------------------------------------------------------
  * 
- * Fitur                 | Static                    | Non-Static
+ * Fitur | Static | Non-Static
  * ----------------------|---------------------------|-----------------------------
- * Milik                 | Class                     | Object (instance)
- * Butuh object          | Tidak                     | Ya
- * Jumlah di memori      | 1 saja (shared)           | Tiap object punya sendiri
- * Cara akses            | ClassName.member          | object.member
- * Bisa akses non-static | Tidak langsung            | Bisa (via object)
- * Bisa akses static     | Bisa                      | Bisa
+ * Milik | Class | Object (instance)
+ * Butuh object | Tidak | Ya
+ * Jumlah di memori | 1 saja (shared) | Tiap object punya sendiri
+ * Cara akses | ClassName.member | object.member
+ * Bisa akses non-static | Tidak langsung | Bisa (via object)
+ * Bisa akses static | Bisa | Bisa
  * 
  * ------------------------------------------------------------------------
  * KAPAN MENGGUNAKAN STATIC?
@@ -182,16 +182,16 @@ package FundamentalJava.Static;
  * Gunakan static jika:
  * 
  * 1. Data atau behavior bersifat SHARED untuk semua object
- *    - Counter, konfigurasi global
+ * - Counter, konfigurasi global
  * 
  * 2. Method tidak bergantung pada state object
- *    - Utility method (Math, Collections)
+ * - Utility method (Math, Collections)
  * 
  * 3. Factory method (untuk membuat object)
- *    - getInstance(), create()
+ * - getInstance(), create()
  * 
  * 4. Konstantanta yang tidak berubah
- *    - public static final int MAX_SIZE = 100;
+ * - public static final int MAX_SIZE = 100;
  * 
  * ------------------------------------------------------------------------
  * STATIC vs INSTANCE: ANALOGI
@@ -233,7 +233,7 @@ public class Static {
 
     // contoh error karena mengakses c yang bukan static oleh methode static
     static void tampilkan() {
-    //    c = 0; ini akan error, karena c bukan static
+        // c = 0; ini akan error, karena c bukan static
     }
 
     // methode static
@@ -274,8 +274,8 @@ public class Static {
          * Bisa dipanggil tanpa object.
          *
          * static {
-         *    System.out.println("Static block initialized.");
-         *    b = a * 4;
+         * System.out.println("Static block initialized.");
+         * b = a * 4;
          * }
          * 
          * Ini disebut static initialization block.
@@ -323,8 +323,8 @@ public class Static {
          * Misalnya kita punya class Mahasiswa.
          * class Mahasiswa {
          *
-         *     String nama;
-         *     static String kampus = "Universitas Indonesia";
+         * String nama;
+         * static String kampus = "Universitas Indonesia";
          *
          * }
          *
