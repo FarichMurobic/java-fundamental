@@ -5,7 +5,7 @@ package FundamentalJava.Lambda;
  * ==========================================================
  *
  * Lambda expression di Java tidak dapat mendeklarasikan generic
- * type parameter secara langsung.
+ * type parameter secara langsung..
  *
  * Contoh yang TIDAK valid:
  *
