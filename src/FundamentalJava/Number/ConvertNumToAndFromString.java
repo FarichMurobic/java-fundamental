@@ -7,7 +7,7 @@ package FundamentalJava.Number;
  * 
  * Salah satu pekerjaan paling umum dalam pemrograman adalah mengubah
  * representasi angka dalam bentuk string menjadi format biner internal
- * yang bisa diproses oleh program.
+ * yang bisa diproses oleh program..
  * 
  * Untungnya, Java menyediakan cara yang mudah dan terstandarisasi
  * untuk melakukan konversi ini.
@@ -155,8 +155,8 @@ public class ConvertNumToAndFromString {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         String string; // untuk menyimpan input user dalam bentuk string
-        int i;         // untuk menyimpan hasil konversi ke int
-        int sum = 0;   // untuk menyimpan total jumlah
+        int i; // untuk menyimpan hasil konversi ke int
+        int sum = 0; // untuk menyimpan total jumlah
 
         System.out.println("Masukkan angka, 0 untuk keluar...");
 
@@ -207,9 +207,9 @@ public class ConvertNumToAndFromString {
          *
          * Makanya:
          * try {
-         *     i = Integer.parseInt(str);
+         * i = Integer.parseInt(str);
          * } catch (NumberFormatException e) {
-         *     i = 0;
+         * i = 0;
          * }
          *
          * 4. Alur program ini (WAJIB LO PAHAM)
@@ -221,7 +221,8 @@ public class ConvertNumToAndFromString {
          */
 
         /**
-         * Program berikut menunjukkan bagaimana mengonversi sebuah bilangan integer menjadi:
+         * Program berikut menunjukkan bagaimana mengonversi sebuah bilangan integer
+         * menjadi:
          * biner (binary)
          * oktal (octal)
          * heksadesimal (hexadecimal)
