@@ -6,7 +6,7 @@ package FundamentalJava.Methods;
  * ============================================================
  *
  * Method adalah sekumpulan instruksi atau blok kode yang dibuat
- * untuk menjalankan tugas tertentu.
+ * untuk menjalankan tugas tertentu..
  *
  * Sebuah method dapat:
  *
