@@ -5,7 +5,7 @@ package FundamentalJava.StructurePerulangann;
  * TRADITIONAL FOR LOOP
  * ------------------------------------------------------------------------
  * 
- * for adalah loop yang sangat kuat dan fleksibel di Java.
+ * for adalah loop yang sangat kuat dan fleksibel di Java..
  * 
  * Mulai dari JDK 5, Java memiliki dua jenis for loop:
  * 1. Traditional for loop (yang klasik)
@@ -17,9 +17,9 @@ package FundamentalJava.StructurePerulangann;
  * BENTUK UMUM FOR
  * ------------------------------------------------------------------------
  * 
- *     for (initialization; condition; iteration) {
- *         // body loop
- *     }
+ * for (initialization; condition; iteration) {
+ * // body loop
+ * }
  * 
  * Jika hanya 1 statement, kurung kurawal {} TIDAK wajib.
  * 
@@ -29,22 +29,22 @@ package FundamentalJava.StructurePerulangann;
  * 
  * 1. Initialization (Inisialisasi)
  * 
- *    - Dijalankan SEKALI saja di awal loop
- *    - Biasanya untuk menginisialisasi variabel counter
- *    - Contoh: int i = 0
+ * - Dijalankan SEKALI saja di awal loop
+ * - Biasanya untuk menginisialisasi variabel counter
+ * - Contoh: int i = 0
  * 
  * 2. Condition (Kondisi)
  * 
- *    - Ini adalah kondisi boolean
- *    - Selama kondisi true → loop terus berjalan
- *    - Saat kondisi false → loop berhenti
- *    - Contoh: i < 10
+ * - Ini adalah kondisi boolean
+ * - Selama kondisi true → loop terus berjalan
+ * - Saat kondisi false → loop berhenti
+ * - Contoh: i < 10
  * 
  * 3. Iteration (Iterasi)
  * 
- *    - Dijalankan SETELAH setiap body loop selesai
- *    - Biasanya untuk menambah atau mengurangi counter
- *    - Contoh: i++
+ * - Dijalankan SETELAH setiap body loop selesai
+ * - Biasanya untuk menambah atau mengurangi counter
+ * - Contoh: i++
  * 
  * ------------------------------------------------------------------------
  * URUTAN KERJA FOR LOOP
@@ -52,45 +52,45 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Urutan eksekusi:
  * 
- *     1. Initialization (sekali di awal)
- *     2. Cek Condition
- *        ↓
- *     3. Jika true → jalankan Body
- *        ↓
- *     4. Jalankan Iteration
- *        ↓
- *     5. Kembali ke langkah 2 (cek condition lagi)
+ * 1. Initialization (sekali di awal)
+ * 2. Cek Condition
+ * ↓
+ * 3. Jika true → jalankan Body
+ * ↓
+ * 4. Jalankan Iteration
+ * ↓
+ * 5. Kembali ke langkah 2 (cek condition lagi)
  * 
  * Visualisasi:
  * 
- *     initialization
- *         ↓
- *     ┌─ condition? ─┐
- *     │   true        │ false
- *     │   ↓           │   ↓
- *     │  body         │  keluar
- *     │   ↓           │
- *     │  iteration    │
- *     │   ↓           │
- *     └───┘           │
- *                     │
- *     ←───────────────┘
+ * initialization
+ * ↓
+ * ┌─ condition? ─┐
+ * │ true │ false
+ * │ ↓ │ ↓
+ * │ body │ keluar
+ * │ ↓ │
+ * │ iteration │
+ * │ ↓ │
+ * └───┘ │
+ * │
+ * ←───────────────┘
  * 
  * ------------------------------------------------------------------------
  * CONTOH SEDERHANA
  * ------------------------------------------------------------------------
  * 
- *     // Menampilkan angka 1 sampai 5
- *     for (int i = 1; i <= 5; i++) {
- *         System.out.println("Angka: " + i);
- *     }
+ * // Menampilkan angka 1 sampai 5
+ * for (int i = 1; i <= 5; i++) {
+ * System.out.println("Angka: " + i);
+ * }
  * 
- *     // Output:
- *     // Angka: 1
- *     // Angka: 2
- *     // Angka: 3
- *     // Angka: 4
- *     // Angka: 5
+ * // Output:
+ * // Angka: 1
+ * // Angka: 2
+ * // Angka: 3
+ * // Angka: 4
+ * // Angka: 5
  * 
  * ------------------------------------------------------------------------
  * DEKLARASI VARIABEL DI DALAM FOR
@@ -98,9 +98,9 @@ package FundamentalJava.StructurePerulangann;
  * 
  * Variabel loop bisa langsung dibuat di dalam for.
  * 
- *     for (int n = 10; n > 0; n--) {
- *         System.out.println("tick " + n);
- *     }
+ * for (int n = 10; n > 0; n--) {
+ * System.out.println("tick " + n);
+ * }
  * 
  * Kenapa sering dilakukan?
  * Karena variabel itu HANYA dipakai di dalam loop.
@@ -113,12 +113,12 @@ package FundamentalJava.StructurePerulangann;
  * Kalau variabel dibuat di dalam for,
  * maka scope-nya HANYA di dalam loop.
  * 
- *     for (int i = 0; i < 5; i++) {
- *         System.out.println(i);
- *     }
+ * for (int i = 0; i < 5; i++) {
+ * System.out.println(i);
+ * }
  * 
- *     // Di luar loop
- *     System.out.println(i); // ERROR! i tidak dikenali
+ * // Di luar loop
+ * System.out.println(i); // ERROR! i tidak dikenali
  * 
  * Karena:
  * i sudah tidak ada (out of scope)
@@ -130,16 +130,16 @@ package FundamentalJava.StructurePerulangann;
  * Kita bisa menginisialisasi LEBIH DARI SATU variabel
  * di bagian initialization.
  * 
- *     for (int i = 0, j = 10; i < j; i++, j--) {
- *         System.out.println("i = " + i + ", j = " + j);
- *     }
+ * for (int i = 0, j = 10; i < j; i++, j--) {
+ * System.out.println("i = " + i + ", j = " + j);
+ * }
  * 
- *     // Output:
- *     // i = 0, j = 10
- *     // i = 1, j = 9
- *     // i = 2, j = 8
- *     // i = 3, j = 7
- *     // i = 4, j = 6
+ * // Output:
+ * // i = 0, j = 10
+ * // i = 1, j = 9
+ * // i = 2, j = 8
+ * // i = 3, j = 7
+ * // i = 4, j = 6
  * 
  * Dipisahkan dengan tanda koma (,).
  * 
@@ -150,9 +150,9 @@ package FundamentalJava.StructurePerulangann;
  * Kita juga bisa menjalankan lebih dari satu operasi
  * di bagian iteration.
  * 
- *     for (int i = 0, j = 10; i < j; i++, j--) {
- *         // i++ dan j-- dijalankan setiap iterasi
- *     }
+ * for (int i = 0, j = 10; i < j; i++, j--) {
+ * // i++ dan j-- dijalankan setiap iterasi
+ * }
  * 
  * Dipisahkan dengan tanda koma (,).
  * 
@@ -165,12 +165,12 @@ package FundamentalJava.StructurePerulangann;
  * 
  * // BENAR
  * for (int i = 0, j = 10; i < j; i++, j--) {
- *     // i dan j sama-sama int
+ * // i dan j sama-sama int
  * }
  * 
  * // SALAH (compile error)
  * for (int i = 0, double j = 10; i < j; i++, j--) {
- *     // ERROR! Tipe data berbeda (int dan double)
+ * // ERROR! Tipe data berbeda (int dan double)
  * }
  * 
  * ------------------------------------------------------------------------
@@ -179,24 +179,24 @@ package FundamentalJava.StructurePerulangann;
  * 
  * 1. Menghitung mundur
  * 
- *     for (int i = 10; i >= 1; i--) {
- *         System.out.print(i + " ");
- *     }
- *     // Output: 10 9 8 7 6 5 4 3 2 1
+ * for (int i = 10; i >= 1; i--) {
+ * System.out.print(i + " ");
+ * }
+ * // Output: 10 9 8 7 6 5 4 3 2 1
  * 
  * 2. Melompat (step 2)
  * 
- *     for (int i = 0; i <= 10; i += 2) {
- *         System.out.print(i + " ");
- *     }
- *     // Output: 0 2 4 6 8 10
+ * for (int i = 0; i <= 10; i += 2) {
+ * System.out.print(i + " ");
+ * }
+ * // Output: 0 2 4 6 8 10
  * 
  * 3. Dengan kondisi kompleks
  * 
- *     for (int i = 0; i < 10 && i != 5; i++) {
- *         System.out.print(i + " ");
- *     }
- *     // Output: 0 1 2 3 4
+ * for (int i = 0; i < 10 && i != 5; i++) {
+ * System.out.print(i + " ");
+ * }
+ * // Output: 0 1 2 3 4
  * 
  * ------------------------------------------------------------------------
  * CARA PROGRAMMER SENIOR MEMILIH LOOP
@@ -326,9 +326,11 @@ public class ForLOOP {
          * Loop ini dikontrol oleh dua variabel, yaitu:
          * a
          * b
-         * Namun di program itu hanya a yang ada di bagian for, sedangkan b dikurangi secara manual di dalam loop.
+         * Namun di program itu hanya a yang ada di bagian for, sedangkan b dikurangi
+         * secara manual di dalam loop.
          *
-         * Agar lebih rapi, Java memungkinkan kita menulis lebih dari satu statement di bagian:
+         * Agar lebih rapi, Java memungkinkan kita menulis lebih dari satu statement di
+         * bagian:
          * initialization
          * iteration
          * Caranya dengan memisahkan statement menggunakan koma ,.
@@ -337,7 +339,7 @@ public class ForLOOP {
         // Versi yang Lebih Efisien
         a = b = 0; // reset nilai
 
-        for (a = 1, b =4; a < b; a++, b--) {
+        for (a = 1, b = 4; a < b; a++, b--) {
             System.out.println("a = " + a);
             System.out.println("b = " + b);
         }
@@ -446,10 +448,10 @@ public class ForLOOP {
          * boolean done = false;
          * for(int i = 1; !done; i++) {
          *
-         *   // ...
+         * // ...
          *
-         *   if(interrupted())
-         *       done = true;
+         * if(interrupted())
+         * done = true;
          *
          * }
          *
@@ -477,25 +479,25 @@ public class ForLOOP {
          *
          * class ForVar {
          *
-         *   public static void main(String args[]) {
+         * public static void main(String args[]) {
          *
-         *     int i;
-         *     boolean done = false;
+         * int i;
+         * boolean done = false;
          *
-         *     i = 0;
+         * i = 0;
          *
-         *     for( ; !done; ) { // perhatikan inisialisasi ini kosong
+         * for( ; !done; ) { // perhatikan inisialisasi ini kosong
          *
-         *       System.out.println("i is " + i);
+         * System.out.println("i is " + i);
          *
-         *       if(i == 10)
-         *           done = true;
+         * if(i == 10)
+         * done = true;
          *
-         *       i++;
+         * i++;
          *
-         *     }
+         * }
          *
-         *   }
+         * }
          * }
          *
          * Struktur loopnya
@@ -564,7 +566,7 @@ public class ForLOOP {
          *
          * Contoh sederhana
          * for(;;){
-         *     System.out.println("hello");
+         * System.out.println("hello");
          * }
          */
 
@@ -579,10 +581,10 @@ public class ForLOOP {
          *
          * for(;;){
          *
-         *     int x = 5;
+         * int x = 5;
          *
-         *     if(x == 5)
-         *         break;
+         * if(x == 5)
+         * break;
          *
          * }
          *
