@@ -1,7 +1,7 @@
 package FundamentalJava.Rekursion.Latihan;
 
 public class Latihan1 {
-    // faktorial pake rekursi
+    // faktorial pake rekursi.
     static int faktorialRekursive(int n) {
         if (n == 0)
             return 1;
