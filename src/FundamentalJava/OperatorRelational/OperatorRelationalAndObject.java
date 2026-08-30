@@ -3,7 +3,7 @@ package FundamentalJava.OperatorRelational;
 /**
  * Operator perbandingan dan objek
  * saat membandingkan objek, situasinya beda banget dari membandingkan angka dan karakter.
- * gad ada urutab yg pasti, kita harus menentukan sendiri, berdasarkan kebutuhan aplikasi.
+ * gad ada urutab yg pasti, kita harus menentukan sendiri, berdasarkan kebutuhan aplikasi..
  *
  * setiap perbandingan punya tujuannya sendiri
  * kita juga bisa menggunakan operator == dan != pada objek, tapi disini ada jebakan.
@@ -44,7 +44,8 @@ public class OperatorRelationalAndObject {
         String s2 = "Dunia";
         System.out.println(s1 == s2); // hasilnya bisa sesuai dan gak sesuai.
 
-        // Alih-alih menggunakan seperti tadi mending pakai .equals() metode khusus string
+        // Alih-alih menggunakan seperti tadi mending pakai .equals() metode khusus
+        // string
         System.out.println(s1.equals(s2));
 
         String strOne = "America the beautiful";
@@ -64,7 +65,8 @@ public class OperatorRelationalAndObject {
         System.out.println("strThree.equals(strFour) is " + strThree.equals(strFour));
         // false, karena ada perbedaan huruf besar leaf dan Leaf
         System.out.println("strThree.compareTo(strFour) is " + strThree.compareTo(strFour));
-        // 32, karena kode karakter spasi adalah 32, dan kode karakter huruf besar dan kecil juga memiliki selisih 32
+        // 32, karena kode karakter spasi adalah 32, dan kode karakter huruf besar dan
+        // kecil juga memiliki selisih 32
         System.out.println("strThree.equals((\"Maple leaf\") is " + strThree.equals(("Maple leaf")));
         // true, karena isi string nya sama persis
         System.out.println("strFour.compareTo(strFive) is " + strFour.compareTo(strFive));
@@ -73,8 +75,10 @@ public class OperatorRelationalAndObject {
         System.out.println("--------------------\n");
 
         // Point penting
-        // kenapa kita gak bisa pakai == buat string karena operator ini hanya membandingkan alamat referensi objek,
-        // compareTo untuk membandingkan isinya string bukan sekedar alamat referensinya saja.
+        // kenapa kita gak bisa pakai == buat string karena operator ini hanya
+        // membandingkan alamat referensi objek,
+        // compareTo untuk membandingkan isinya string bukan sekedar alamat referensinya
+        // saja.
 
         // LATIHAN - program sederhana untuk mengecek kelayakan penonton film
         Scanner input = new Scanner(System.in);
@@ -100,7 +104,8 @@ public class OperatorRelationalAndObject {
 
         // logic pengambilan keputusan
         // kita gunakan operator relational dan logika untuk membuat keputusan
-        // syaratnya usia penonton >= rating usia dan menyetujui syarat dan judul film sama.
+        // syaratnya usia penonton >= rating usia dan menyetujui syarat dan judul film
+        // sama.
         if (userAge >= movieRatingAge && isAcceptedTerms && selectedMovie.equals(movieTittle)) {
             // blok kode ini dijalankan jika semua kondisi diatas benar
             System.out.println("\n----------------------------------");
