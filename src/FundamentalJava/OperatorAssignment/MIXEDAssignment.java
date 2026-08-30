@@ -8,7 +8,7 @@ public class MIXEDAssignment {
         // --- Contoh 1: Penjumlahan (+=) ---
         int totalScore = 100;
         int bonusPoints = 25;
-        System.out.println("Total Score awal: " + totalScore); // 100
+        System.out.println("Total Score awal: " + totalScore); // 100.
 
         // totalScore = totalScore + bonusPoints; (Versi panjang)
         totalScore += bonusPoints; // Setara dengan totalScore = 100 + 25;
