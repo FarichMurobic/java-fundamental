@@ -6,7 +6,7 @@ package FundamentalJava.MultiThreaded;
  * ------------------------------------------------------------------------
  * 
  * Walaupun membuat method dengan kata kunci synchronized itu mudah dan
- * efektif, tapi tidak selalu bisa diterapkan di semua situasi.
+ * efektif, tapi tidak selalu bisa diterapkan di semua situasi..
  * 
  * Coba bayangkan skenario ini:
  * Kamu ingin mensinkronisasi akses ke sebuah class,
@@ -20,9 +20,9 @@ package FundamentalJava.MultiThreaded;
  * Lalu, apa solusinya?
  * Gunakan synchronized block:
  * 
- *     synchronized(objRef) {
- *         // kode yang ingin disinkronisasi
- *     }
+ * synchronized(objRef) {
+ * // kode yang ingin disinkronisasi
+ * }
  * 
  * Konstruk inilah yang disebut dengan synchronized block.
  * 
@@ -36,16 +36,16 @@ package FundamentalJava.MultiThreaded;
  * ------------------------------------------------------------------------
  * 
  * Synchronized method:
- *     synchronized void call() { ... }
- *     Lock secara otomatis adalah this (instance objek saat ini).
- *     Kamu tidak bisa mengontrol objek mana yang dijadikan lock.
+ * synchronized void call() { ... }
+ * Lock secara otomatis adalah this (instance objek saat ini).
+ * Kamu tidak bisa mengontrol objek mana yang dijadikan lock.
  * 
  * Synchronized block:
- *     synchronized(target) {
- *         target.call(msg);
- *     }
- *     Kamu bebas memilih:
- *     objek mana pun yang ingin dijadikan lock.
+ * synchronized(target) {
+ * target.call(msg);
+ * }
+ * Kamu bebas memilih:
+ * objek mana pun yang ingin dijadikan lock.
  * 
  * Di dunia nyata:
  * Banyak class berasal dari library eksternal,
@@ -63,15 +63,15 @@ package FundamentalJava.MultiThreaded;
  * ------------------------------------------------------------------------
  * 
  * Ketika sebuah thread mencoba masuk ke:
- *     synchronized(target)
+ * synchronized(target)
  * 
  * Java melakukan proses berikut:
  * 1. Mengecek apakah objek target sedang dikunci oleh thread lain
  * 2. Jika tidak dikunci:
- *    - Thread mengambil lock
- *    - Masuk ke dalam blok
+ * - Thread mengambil lock
+ * - Masuk ke dalam blok
  * 3. Jika sedang dikunci:
- *    - Thread akan menunggu (berada dalam status blocked)
+ * - Thread akan menunggu (berada dalam status blocked)
  * 
  * Alur eksekusi:
  * 
@@ -88,13 +88,13 @@ package FundamentalJava.MultiThreaded;
  * PERBANDINGAN: METHOD vs BLOCK
  * ------------------------------------------------------------------------
  * 
- * Fitur                    | Synchronized Method   | Synchronized Block
+ * Fitur | Synchronized Method | Synchronized Block
  * -------------------------|-----------------------|--------------------
- * Objek lock               | Otomatis (this)       | Bisa dipilih sendiri
- * Fleksibilitas            | Tidak                 | Ya
- * Bisa dipakai di class    | Tidak                 | Ya
- * pihak ketiga             |                       |
- * Tingkat kontrol          | Kasar (coarse)        | Halus (fine-grained)
+ * Objek lock | Otomatis (this) | Bisa dipilih sendiri
+ * Fleksibilitas | Tidak | Ya
+ * Bisa dipakai di class | Tidak | Ya
+ * pihak ketiga | |
+ * Tingkat kontrol | Kasar (coarse) | Halus (fine-grained)
  * 
  * ------------------------------------------------------------------------
  * LOCK TIDAK HARUS "this"
@@ -102,25 +102,25 @@ package FundamentalJava.MultiThreaded;
  * 
  * Kamu bisa membuat objek lock khusus:
  * 
- *     Object lock = new Object();
+ * Object lock = new Object();
  * 
- *     synchronized(lock) {
- *         // bagian kritis (critical section)
- *     }
+ * synchronized(lock) {
+ * // bagian kritis (critical section)
+ * }
  * 
  * Pola ini sering digunakan di aplikasi dunia nyata.
  * 
  * Kamu bisa mengunci hanya sebagian kecil dari sebuah method:
  * 
- *     void method() {
- *         // Tidak perlu lock di sini
- *         doSomething();
+ * void method() {
+ * // Tidak perlu lock di sini
+ * doSomething();
  * 
- *         synchronized(this) {
- *             // Hanya bagian penting yang dikunci
- *             criticalSection();
- *         }
- *     }
+ * synchronized(this) {
+ * // Hanya bagian penting yang dikunci
+ * criticalSection();
+ * }
+ * }
  * 
  * Pendekatan ini menghasilkan:
  * - Performa yang lebih baik
