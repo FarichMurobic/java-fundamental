@@ -5,7 +5,7 @@ package FundamentalJava.Varargs;
  * OVERLOADING VARARGS METHOD
  * ------------------------------------------------------------------------
  * 
- * Kita bisa melakukan overload pada method yang menggunakan varargs.
+ * Kita bisa melakukan overload pada method yang menggunakan varargs..
  * 
  * Artinya:
  * - Nama method SAMA
@@ -17,26 +17,26 @@ package FundamentalJava.Varargs;
  * 
  * Cara 1: Beda tipe parameter varargs
  * 
- *     static void test(int ... a) {
- *         System.out.println("int varargs");
- *     }
+ * static void test(int ... a) {
+ * System.out.println("int varargs");
+ * }
  * 
- *     static void test(boolean ... a) {
- *         System.out.println("boolean varargs");
- *     }
+ * static void test(boolean ... a) {
+ * System.out.println("boolean varargs");
+ * }
  * 
- *     // test(1, 2, 3)  → int varargs
- *     // test(true, false) → boolean varargs
+ * // test(1, 2, 3) → int varargs
+ * // test(true, false) → boolean varargs
  * 
  * Cara 2: Tambah parameter biasa
  * 
- *     static void test(String msg, int ... a) {
- *         System.out.println(msg + " - int varargs");
- *     }
+ * static void test(String msg, int ... a) {
+ * System.out.println(msg + " - int varargs");
+ * }
  * 
- *     static void test(int ... a) {
- *         System.out.println("int varargs tanpa msg");
- *     }
+ * static void test(int ... a) {
+ * System.out.println("int varargs tanpa msg");
+ * }
  * 
  * ------------------------------------------------------------------------
  * JEBATAN PALING BERBAHAYA
@@ -44,16 +44,16 @@ package FundamentalJava.Varargs;
  * 
  * AMBIGUOUS CALL (panggilan ambigu)
  * 
- *     static void test(int ... a) {
- *         System.out.println("Varargs 1");
- *     }
+ * static void test(int ... a) {
+ * System.out.println("Varargs 1");
+ * }
  * 
- *     static void test(int x, int ... a) {
- *         System.out.println("Varargs 2");
- *     }
+ * static void test(int x, int ... a) {
+ * System.out.println("Varargs 2");
+ * }
  * 
- *     // Panggilan ini:
- *     test(10);  // ERROR! Ambiguous
+ * // Panggilan ini:
+ * test(10); // ERROR! Ambiguous
  * 
  * Java bingung:
  * - test(10) → masuk ke test(int ... a) ?
@@ -66,26 +66,26 @@ package FundamentalJava.Varargs;
  * CONTOH AMBIGUOUS LAIN
  * ------------------------------------------------------------------------
  * 
- *     static void test(int ... a) { }
- *     static void test(int x, int y, int ... a) { }
+ * static void test(int ... a) { }
+ * static void test(int x, int y, int ... a) { }
  * 
- *     test(1, 2); // Ambiguous! Bisa ke kedua method
+ * test(1, 2); // Ambiguous! Bisa ke kedua method
  * 
  * ------------------------------------------------------------------------
  * VARARGS vs NON-VARARGS
  * ------------------------------------------------------------------------
  * 
- *     static void test(int x) {
- *         System.out.println("Non-varargs");
- *     }
+ * static void test(int x) {
+ * System.out.println("Non-varargs");
+ * }
  * 
- *     static void test(int ... x) {
- *         System.out.println("Varargs");
- *     }
+ * static void test(int ... x) {
+ * System.out.println("Varargs");
+ * }
  * 
- *     // Panggilan:
- *     test(10);      // Non-varargs (lebih spesifik)
- *     test(1, 2, 3); // Varargs
+ * // Panggilan:
+ * test(10); // Non-varargs (lebih spesifik)
+ * test(1, 2, 3); // Varargs
  * 
  * Java akan memilih method yang PALING SPESIFIK.
  * 
@@ -96,77 +96,77 @@ package FundamentalJava.Varargs;
  * Urutan pemilihan method (dari prioritas tertinggi ke terendah):
  * 
  * 1. Exact match (paling spesifik)
- *    test(int x) → test(10) tepat
+ * test(int x) → test(10) tepat
  * 
  * 2. Overload biasa
- *    test(int x, int y) → test(10, 20)
+ * test(int x, int y) → test(10, 20)
  * 
  * 3. Varargs (paling terakhir)
- *    test(int ... x) → test(10, 20, 30)
+ * test(int ... x) → test(10, 20, 30)
  * 
  * ------------------------------------------------------------------------
  * CONTOH LENGKAP
  * ------------------------------------------------------------------------
  * 
- *     public class VarargsOverload {
+ * public class VarargsOverload {
  * 
- *         // Non-varargs
- *         static void show(int x) {
- *             System.out.println("show(int): " + x);
- *         }
+ * // Non-varargs
+ * static void show(int x) {
+ * System.out.println("show(int): " + x);
+ * }
  * 
- *         // Varargs
- *         static void show(int ... x) {
- *             System.out.print("show(int...): ");
- *             for (int n : x) {
- *                 System.out.print(n + " ");
- *             }
- *             System.out.println();
- *         }
+ * // Varargs
+ * static void show(int ... x) {
+ * System.out.print("show(int...): ");
+ * for (int n : x) {
+ * System.out.print(n + " ");
+ * }
+ * System.out.println();
+ * }
  * 
- *         // Varargs dengan tipe beda
- *         static void show(String msg, int ... x) {
- *             System.out.print(msg + ": ");
- *             for (int n : x) {
- *                 System.out.print(n + " ");
- *             }
- *             System.out.println();
- *         }
+ * // Varargs dengan tipe beda
+ * static void show(String msg, int ... x) {
+ * System.out.print(msg + ": ");
+ * for (int n : x) {
+ * System.out.print(n + " ");
+ * }
+ * System.out.println();
+ * }
  * 
- *         // Varargs dengan tipe lain
- *         static void show(String ... x) {
- *             System.out.print("String...: ");
- *             for (String s : x) {
- *                 System.out.print(s + " ");
- *             }
- *             System.out.println();
- *         }
+ * // Varargs dengan tipe lain
+ * static void show(String ... x) {
+ * System.out.print("String...: ");
+ * for (String s : x) {
+ * System.out.print(s + " ");
+ * }
+ * System.out.println();
+ * }
  * 
- *         public static void main(String[] args) {
- *             show(10);              // show(int): 10 (lebih spesifik)
- *             show(1, 2, 3);         // show(int...): 1 2 3
- *             show("Angka", 5, 6);   // Angka: 5 6
- *             show("A", "B", "C");   // String...: A B C
- *         }
- *     }
+ * public static void main(String[] args) {
+ * show(10); // show(int): 10 (lebih spesifik)
+ * show(1, 2, 3); // show(int...): 1 2 3
+ * show("Angka", 5, 6); // Angka: 5 6
+ * show("A", "B", "C"); // String...: A B C
+ * }
+ * }
  * 
  * ------------------------------------------------------------------------
  * ATURAN OVERLOAD VARARGS
  * ------------------------------------------------------------------------
  * 
  * 1. Boleh overload dengan tipe varargs berbeda
- *    void test(int ... a) vs void test(double ... a)
+ * void test(int ... a) vs void test(double ... a)
  * 
  * 2. Boleh overload dengan parameter biasa
- *    void test(int ... a) vs void test(String msg, int ... a)
+ * void test(int ... a) vs void test(String msg, int ... a)
  * 
  * 3. HINDARI overload yang ambigu
- *    void test(int ... a) vs void test(int x, int ... a)
- *    → test(10) ambiguous!
+ * void test(int ... a) vs void test(int x, int ... a)
+ * → test(10) ambiguous!
  * 
  * 4. Prioritaskan method non-varargs jika ada konflik
- *    void test(int x) vs void test(int ... x)
- *    → test(10) pilih non-varargs
+ * void test(int x) vs void test(int ... x)
+ * → test(10) pilih non-varargs
  * 
  * ------------------------------------------------------------------------
  * RINGKASAN SUPER PADAT
@@ -182,11 +182,11 @@ package FundamentalJava.Varargs;
  * 
  * ------------------------------------------------------------------------
  */
-     
+
 public class VarargsOveload {
 
     // versi 1 → int
-    static void vaTest(int ... v) {
+    static void vaTest(int... v) {
         System.out.print("vaTest(int ...): " +
                 "Number of args: " + v.length +
                 " Contents: ");
@@ -197,7 +197,7 @@ public class VarargsOveload {
     }
 
     // versi 2 → boolean
-    static void vaTest(boolean ... v) {
+    static void vaTest(boolean... v) {
         System.out.print("vaTest(boolean ...): " +
                 "Number of args: " + v.length +
                 " Contents: ");
@@ -208,7 +208,7 @@ public class VarargsOveload {
     }
 
     // versi 3 → ada parameter tambahan
-    static void vaTest(String msg, int ... v) {
+    static void vaTest(String msg, int... v) {
         System.out.print("vaTest(String, int ...): " +
                 msg + v.length +
                 " Contents: ");
@@ -220,23 +220,24 @@ public class VarargsOveload {
 
     public static void main(String[] args) {
 
-        vaTest(1,2,3); // int
-        vaTest("Testing", 10,20); // string + int
+        vaTest(1, 2, 3); // int
+        vaTest("Testing", 10, 20); // string + int
         vaTest(true, false, false); // boolean
 
         /**
-         * Kadang overloading + varargs bisa bikin error karena ambiguity (membingungkan compiler).
+         * Kadang overloading + varargs bisa bikin error karena ambiguity (membingungkan
+         * compiler).
          * Java gak bisa menentukan method mana yang harus dipanggil.
          *
          * static void vaTest(int ... v) {
-         *         System.out.println("int version");
-         *     }
+         * System.out.println("int version");
+         * }
          *
-         *     static void vaTest(boolean ... v) {
-         *         System.out.println("boolean version");
-         *     }
+         * static void vaTest(boolean ... v) {
+         * System.out.println("boolean version");
+         * }
          *
-         * vaTest(1, 2, 3);            // jelas int
+         * vaTest(1, 2, 3); // jelas int
          * vaTest(true, false, false); // jelas boolean
          * vaTest(); // ERROR (AMBIGUOUS)
          *
@@ -271,7 +272,7 @@ public class VarargsOveload {
          * bisa jadi:
          * vaTest(new int[]{});
          * vaTest(new boolean[]{});
-         * dua-duanya valid 
+         * dua-duanya valid
          *
          * CONTOH AMBIGUITY KE-2 (LEBIH TRICKY)
          * 
@@ -299,7 +300,7 @@ public class VarargsOveload {
          * 1. Kosong (no argument)
          * test(int...)
          * test(boolean...)
-         * test() 
+         * test()
          *
          * 2. Overlap parameter
          * test(int...)
@@ -338,10 +339,10 @@ public class VarargsOveload {
          * Kalau ada lebih dari satu cara interpretasi → pasti error
          *
          * KESALAHAN UMUM
-         * Kesalahan	                        Kenapa salah
-         * Overload varargs beda tipe	        bisa ambiguous
-         * Varargs + parameter mirip	        overlap
-         * Panggil tanpa argumen	            bisa masuk ke semua method
+         * Kesalahan Kenapa salah
+         * Overload varargs beda tipe bisa ambiguous
+         * Varargs + parameter mirip overlap
+         * Panggil tanpa argumen bisa masuk ke semua method
          *
          * INTI PALING PENTING
          * Varargs fleksibel → tapi berbahaya
