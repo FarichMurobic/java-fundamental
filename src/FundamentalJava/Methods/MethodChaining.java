@@ -9,7 +9,7 @@ package FundamentalJava.Methods;
  * berada dalam class yang sama selama:
  *
  * - Method tersebut memiliki akses yang diperbolehkan.
- * - Tidak melanggar aturan static dan non-static context.
+ * - Tidak melanggar aturan static dan non-static context..
  *
  * Contoh:
  *
@@ -316,13 +316,13 @@ public class MethodChaining {
      *
      * Salah (bakal error)
      * class Test {
-     *     void a() {
-     *         System.out.println("A");
-     *     }
+     * void a() {
+     * System.out.println("A");
+     * }
      *
-     *     static void b() {
-     *         a(); // ERROR
-     *     }
+     * static void b() {
+     * a(); // ERROR
+     * }
      * }
      *
      * Kenapa error?
@@ -334,18 +334,18 @@ public class MethodChaining {
      * Static vs Non-Static (Lebih Dalam)
      * 
      * Rule penting:
-     * Dari	            Bisa panggil
-     * non-static	    non-static + static
-     * static	        hanya static
+     * Dari Bisa panggil
+     * non-static non-static + static
+     * static hanya static
      *
      * Contoh error
      * class Test {
      *
-     *     void a() {}
+     * void a() {}
      *
-     *     static void b() {
-     *         a(); // ERROR
-     *     }
+     * static void b() {
+     * a(); // ERROR
+     * }
      * }
      * 
      * Kenapa?
@@ -388,7 +388,7 @@ public class MethodChaining {
     }
 
     void pertambahan() {
-        this.tambah(2,3); // int version
+        this.tambah(2, 3); // int version
         this.tambah(2.5, 2.6); // double version
     }
 
@@ -404,7 +404,7 @@ public class MethodChaining {
     }
 
     void tampilkanDong() {
-        int hasil = tambahDong(5,3);
+        int hasil = tambahDong(5, 3);
         System.out.println("Hasil: " + hasil);
     }
 
