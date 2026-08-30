@@ -5,7 +5,7 @@ package FundamentalJava.Lambda;
  * ==========================================================
  *
  * Lambda Expression dapat digunakan di berbagai tempat selama
- * terdapat target type yang sesuai.
+ * terdapat target type yang sesuai..
  *
  * Target type tersebut biasanya berupa Functional Interface.
  *
@@ -382,10 +382,11 @@ public class PassingLambdaAsArguments {
 
         System.out.println("here is input string: " + inStr);
 
-        //  1. Lambda langsung (expression lambda)
+        // 1. Lambda langsung (expression lambda)
 
         // mengubah string menjadi uppercase
-        outStr = stringOp((str) -> str.toUpperCase(), inStr); // parameter kedua di methode stringOp(Kata kata, String s)
+        outStr = stringOp((str) -> str.toUpperCase(), inStr); // parameter kedua di methode stringOp(Kata kata, String
+                                                              // s)
         System.out.println("The string in uppercase: " + outStr);
 
         // 2. Block Lambda (hapus spasi)
@@ -413,7 +414,7 @@ public class PassingLambdaAsArguments {
                 result += str.charAt(i);
             }
             return result;
-        }; 
+        };
 
         System.out.println("The string reversed: " + stringOp(reverse, inStr));
     }
