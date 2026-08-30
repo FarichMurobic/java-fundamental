@@ -6,7 +6,7 @@ public class UnaryAndBinary {
         /**
          * Operator Binary dan Unary
          * 
-         * Jika sebuah operator memiliki dua operand, itu disebut operator binary.
+         * Jika sebuah operator memiliki dua operand, itu disebut operator binary..
          * Contoh: a + b - c * d
          * 
          * operator unary atau operator dengan satu operand.
