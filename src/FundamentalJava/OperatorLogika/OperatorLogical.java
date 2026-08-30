@@ -20,15 +20,15 @@ package FundamentalJava.OperatorLogika;
  * Operator NOT (!)
  * 
  * Operator unary (hanya butuh satu input).
- * Fungsinya: membalikkan nilai boolean.
+ * Fungsinya: membalikkan nilai boolean..
  * 
- *     !true  = false
- *     !false = true
+ * !true = false
+ * !false = true
  * 
  * Contoh:
  * 
- *     boolean sedangHujan = true;
- *     boolean tidakHujan = !sedangHujan; // false
+ * boolean sedangHujan = true;
+ * boolean tidakHujan = !sedangHujan; // false
  * 
  * ------------------------------------------------------------------------
  * OPERATOR LOGIKA BINER
@@ -39,10 +39,10 @@ package FundamentalJava.OperatorLogika;
  * Operator biner (butuh dua input).
  * Hasilnya true HANYA JIKA kedua operand bernilai true.
  * 
- *     true  && true  = true
- *     true  && false = false
- *     false && true  = false
- *     false && false = false
+ * true && true = true
+ * true && false = false
+ * false && true = false
+ * false && false = false
  * 
  * Analogi:
  * "Kamu bisa masuk jika kamu punya tiket DAN sudah daftar"
@@ -53,10 +53,10 @@ package FundamentalJava.OperatorLogika;
  * Hasilnya true jika SALAH SATU operand bernilai true.
  * Hasilnya false HANYA JIKA semua input bernilai false.
  * 
- *     true  || true  = true
- *     true  || false = true
- *     false || true  = true
- *     false || false = false
+ * true || true = true
+ * true || false = true
+ * false || true = true
+ * false || false = false
  * 
  * Analogi:
  * "Kamu bisa pesan makan jika kamu bayar CASH ATAU QRIS"
@@ -67,16 +67,16 @@ package FundamentalJava.OperatorLogika;
  * Hasilnya true jika SALAH SATU input true, TAPI BUKAN KEDUANYA.
  * (Exclusive OR - eksklusif)
  * 
- *     true  ^ true  = false
- *     true  ^ false = true
- *     false ^ true  = true
- *     false ^ false = false
+ * true ^ true = false
+ * true ^ false = true
+ * false ^ true = true
+ * false ^ false = false
  * 
  * Catatan: Operator ini jarang digunakan untuk logika boolean,
  * tapi penting untuk diketahui.
  * 
  * ------------------------------------------------------------------------
- * PERBEDAAN PENTING: && vs &  dan  || vs |
+ * PERBEDAAN PENTING: && vs & dan || vs |
  * ------------------------------------------------------------------------
  * 
  * && (Short Circuit AND)
@@ -101,15 +101,15 @@ package FundamentalJava.OperatorLogika;
  * 
  * Contoh Short Circuit:
  * 
- *     // && - Jika false, tidak lanjut
- *     if (umur >= 18 && hitungDataBerat()) {
- *         // Jika umur < 18, hitungDataBerat() TIDAK dipanggil
- *     }
+ * // && - Jika false, tidak lanjut
+ * if (umur >= 18 && hitungDataBerat()) {
+ * // Jika umur < 18, hitungDataBerat() TIDAK dipanggil
+ * }
  * 
- *     // || - Jika true, tidak lanjut
- *     if (sudahBayar || prosesPembayaran()) {
- *         // Jika sudahBayar true, prosesPembayaran() TIDAK dipanggil
- *     }
+ * // || - Jika true, tidak lanjut
+ * if (sudahBayar || prosesPembayaran()) {
+ * // Jika sudahBayar true, prosesPembayaran() TIDAK dipanggil
+ * }
  * 
  * ------------------------------------------------------------------------
  * RULE PENTING DI JAVA
@@ -117,18 +117,18 @@ package FundamentalJava.OperatorLogika;
  * 
  * Biasanya programmer Java menggunakan:
  * - && dan || → untuk logika boolean (kondisi)
- * - & dan |   → untuk bitwise operator (operasi bit)
+ * - & dan | → untuk bitwise operator (operasi bit)
  * 
  * ------------------------------------------------------------------------
  * TABEL KEBENARAN LENGKAP
  * ------------------------------------------------------------------------
  * 
- * A       B       A && B   A || B   A ^ B   !A
- * -----   -----   ------   ------   -----   ---
- * true    true    true     true     false   false
- * true    false   false    true     true    false
- * false   true    false    true     true    true
- * false   false   false    false    false   true
+ * A B A && B A || B A ^ B !A
+ * ----- ----- ------ ------ ----- ---
+ * true true true true false false
+ * true false false true true false
+ * false true false true true true
+ * false false false false false true
  * 
  * ------------------------------------------------------------------------
  * PRECEDENCE (URUTAN PENGERJAAN)
@@ -136,30 +136,30 @@ package FundamentalJava.OperatorLogika;
  * 
  * Urutan pengerjaan operator logika (dari tertinggi ke terendah):
  * 
- * 1. !   (NOT)
- * 2. &&  (AND)
- * 3. ||  (OR)
+ * 1. ! (NOT)
+ * 2. && (AND)
+ * 3. || (OR)
  * 
  * PENTING: Gunakan tanda kurung () untuk memperjelas urutan pengerjaan.
  * 
  * Contoh:
  * 
- *     // Tanpa kurung - ambigu
- *     boolean hasil = a && b || c;
+ * // Tanpa kurung - ambigu
+ * boolean hasil = a && b || c;
  * 
- *     // Dengan kurung - jelas
- *     boolean hasil1 = (a && b) || c;
- *     boolean hasil2 = a && (b || c);
+ * // Dengan kurung - jelas
+ * boolean hasil1 = (a && b) || c;
+ * boolean hasil2 = a && (b || c);
  * 
  * ------------------------------------------------------------------------
  * RINGKASAN SUPER PADAT
  * ------------------------------------------------------------------------
  * 
  * - Ekspresi logika = hasilnya true atau false
- * - !  = NOT  (membalik nilai)
- * - && = AND  (true jika semua true)
- * - || = OR   (true jika salah satu true)
- * - ^  = XOR  (true jika salah satu true, tapi tidak keduanya)
+ * - ! = NOT (membalik nilai)
+ * - && = AND (true jika semua true)
+ * - || = OR (true jika salah satu true)
+ * - ^ = XOR (true jika salah satu true, tapi tidak keduanya)
  * - && dan || adalah Short Circuit (lebih efisien)
  * - & dan | adalah Non Short Circuit (jarang dipakai untuk logika)
  * - Gunakan () untuk memperjelas urutan pengerjaan
