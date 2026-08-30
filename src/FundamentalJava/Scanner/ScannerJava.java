@@ -1,10 +1,12 @@
 package FundamentalJava.Scanner;
 
+// SCANNER
+
 import java.util.Scanner;
 
 public class ScannerJava {
     public static void main(String[] args) {
-        
+
         Scanner in = new Scanner(System.in);
         int x, y;
 
