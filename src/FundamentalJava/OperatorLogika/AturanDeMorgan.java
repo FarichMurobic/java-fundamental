@@ -7,7 +7,7 @@ package FundamentalJava.OperatorLogika;
  * 
  * Untuk ekspresi logika yang lebih kompleks, kita menggunakan Aturan De Morgan.
  * Aturan ini seperti sihir yang memindahkan operator ! (not) dari luar ke
- * dalam kurung, sambil membalikkan operator && (and) dan || (or).
+ * dalam kurung, sambil membalikkan operator && (and) dan || (or)..
  * 
  * Tujuan utama:
  * Mengubah logika negatif menjadi positif agar lebih mudah dibaca dan dipahami.
