@@ -1,6 +1,6 @@
 package FundamentalJava.Methods.MethodOverriding.Latihan;
 
-// SUPERCLASS
+// SUPERCLASS.
 public class BangunDatar {
 
     double dim1; // bisa jadi panjang atau alas
